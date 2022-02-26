@@ -1,0 +1,23 @@
+{
+    "name": "mynaparrot/plugnmeet",
+    "description": "plugNmeet PHP SDK",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mynaparrot\\Plugnmeet\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jibon Costa",
+            "email": "jibon@mynaparrot.com"
+        }
+    ],
+    "require": {
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ramsey/uuid": "^4.2",
+        "firebase/php-jwt": "^6.0"
+    }
+}

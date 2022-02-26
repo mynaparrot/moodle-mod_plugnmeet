@@ -1,0 +1,28 @@
+name: Generate plugin and upload as release asset
+on:
+  release:
+    types: [ published ]
+jobs:
+  build:
+    name: Upload Release Asset
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build project
+        run: |
+          mkdir -p build
+          rsync -ar plugnmeet build/
+          cd build
+          zip -X -r plugnmeet.zip *
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: plugNmeet-sdk-php-release
+          path: build/plugnmeet.zip
+      - name: Upload to release
+        uses: JasonEtco/upload-to-release@master
+        with:
+          args: build/plugnmeet.zip application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
