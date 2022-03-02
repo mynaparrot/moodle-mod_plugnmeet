@@ -12,7 +12,7 @@ jobs:
       - name: Build project
         run: |
           mkdir -p build
-          rsync -ar plugnmeet build/
+          rsync -ar plugnmeet README.md build/
           cd build
           zip -X -r plugnmeet.zip *
       - name: Upload artifact
