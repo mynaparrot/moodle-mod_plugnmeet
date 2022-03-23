@@ -18,7 +18,8 @@
  * Prints an instance of mod_plugnmeet.
  *
  * @package     mod_plugnmeet
- * @copyright   2022 mynaparrot
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2022 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

@@ -1,2 +1,3 @@
 # plugNmeet-sdk-php
-plugNmeet PHP SDK
+
+Download latest version from [release page](https://github.com/mynaparrot/plugNmeet-sdk-php/releases)

@@ -19,7 +19,8 @@
  *
  * @package     mod_plugnmeet
  * @category    backup
- * @copyright   2022 mynaparrot
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2022 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -31,14 +32,16 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Defines the structure step to restore one mod_plugnmeet activity.
  */
-class restore_plugnmeet_activity_structure_step extends restore_activity_structure_step {
+class restore_plugnmeet_activity_structure_step extends restore_activity_structure_step
+{
 
     /**
      * Defines the structure to be restored.
      *
      * @return restore_path_element[].
      */
-    protected function define_structure() {
+    protected function define_structure()
+    {
         $paths = array();
         $userinfo = $this->get_setting_value('userinfo');
 
@@ -52,14 +55,16 @@ class restore_plugnmeet_activity_structure_step extends restore_activity_structu
      *
      * @param array $data Parsed element data.
      */
-    protected function process_elt($data) {
+    protected function process_elt($data)
+    {
         return;
     }
 
     /**
      * Defines post-execution actions.
      */
-    protected function after_execute() {
+    protected function after_execute()
+    {
         return;
     }
 }

@@ -19,7 +19,8 @@
  *
  * @package     mod_plugnmeet
  * @category    backup
- * @copyright   2022 mynaparrot
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2022 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -28,17 +29,19 @@ defined('MOODLE_INTERNAL') || die();
 // More information about the backup process: {@link https://docs.moodle.org/dev/Backup_API}.
 // More information about the restore process: {@link https://docs.moodle.org/dev/Restore_API}.
 
-require_once($CFG->dirroot.'//mod/plugnmeet/backup/moodle2/restore_plugnmeet_stepslib.php');
+require_once($CFG->dirroot . '//mod/plugnmeet/backup/moodle2/restore_plugnmeet_stepslib.php');
 
 /**
  * Restore task for mod_plugnmeet.
  */
-class restore_plugnmeet_activity_task extends restore_activity_task {
+class restore_plugnmeet_activity_task extends restore_activity_task
+{
 
     /**
      * Defines particular settings that this activity can have.
      */
-    protected function define_my_settings() {
+    protected function define_my_settings()
+    {
         return;
     }
 
@@ -47,7 +50,8 @@ class restore_plugnmeet_activity_task extends restore_activity_task {
      *
      * @return base_step.
      */
-    protected function define_my_steps() {
+    protected function define_my_steps()
+    {
         $this->add_step(new restore_plugnmeet_activity_structure_step('plugnmeet_structure', 'plugnmeet.xml'));
     }
 
@@ -56,7 +60,8 @@ class restore_plugnmeet_activity_task extends restore_activity_task {
      *
      * @return array.
      */
-    public static function define_decode_contents() {
+    public static function define_decode_contents()
+    {
         $contents = array();
 
         // Define the contents.
@@ -69,7 +74,8 @@ class restore_plugnmeet_activity_task extends restore_activity_task {
      *
      * @return array.
      */
-    public static function define_decode_rules() {
+    public static function define_decode_rules()
+    {
         $rules = array();
 
         // Define the rules.
@@ -84,7 +90,8 @@ class restore_plugnmeet_activity_task extends restore_activity_task {
      *
      * @return array.
      */
-    public static function define_restore_log_rules() {
+    public static function define_restore_log_rules()
+    {
         $rules = array();
 
         // Define the rules.

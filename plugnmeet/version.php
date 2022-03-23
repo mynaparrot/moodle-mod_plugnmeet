@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin version and other meta-data are defined here.
  *
  * @package     mod_plugnmeet
- * @copyright   2022 mynaparrot
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2022 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_plugnmeet';
-$plugin->release = '1.0.0';
-$plugin->version = 2022020809;
+$plugin->release = '1.0.1';
+$plugin->version = 2022032300;
 $plugin->requires = 2015051100;
 $plugin->maturity = MATURIY_STABLE;

@@ -5,6 +5,9 @@ window.LIVEKIT_SERVER_URL = 'http://localhost:7880';
 // in other place.
 // window.STATIC_ASSETS_PATH = '';
 
+// custom logo. For best, use direct https link
+// window.CUSTOM_LOGO = '';
+
 //With Dynacast dynamically pauses video layers that are not being consumed by any subscribers, significantly reducing publishing CPU and bandwidth usage.
 Window.ENABLE_DYNACAST = true;
 

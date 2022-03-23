@@ -18,7 +18,8 @@
  * The main mod_plugnmeet configuration form.
  *
  * @package     mod_plugnmeet
- * @copyright   2022 mynaparrot
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2022 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -79,7 +80,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod
         $room_metadata = $this->get_current()->room_metadata;
 
         if ($room_metadata) {
-            $room_metadata = json_decode($room_metadata, true);
+            $room_metadata = json_decode($room_metadata);
         } else {
             $room_metadata = array();
         }
@@ -89,6 +90,12 @@ class mod_plugnmeet_mod_form extends moodleform_mod
 
         $mform->addElement('header', 'chatfeatures', get_string('chatfeatures', 'mod_plugnmeet'));
         PlugNmeetHelper::getChatFeatures($room_metadata, $mform);
+
+        $mform->addElement('header', 'shared_note_pad_features', get_string('shared_note_pad_features', 'mod_plugnmeet'));
+        PlugNmeetHelper::getSharedNotePadFeatures($room_metadata, $mform);
+
+        $mform->addElement('header', 'whiteboard_features', get_string('whiteboard_features', 'mod_plugnmeet'));
+        PlugNmeetHelper::getWhiteboardFeatures($room_metadata, $mform);
 
         $mform->addElement('header', 'defaultlock', get_string('defaultlock', 'mod_plugnmeet'));
         PlugNmeetHelper::getDefaultLockSettings($room_metadata, $mform);

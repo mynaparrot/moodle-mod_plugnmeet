@@ -19,7 +19,8 @@
  *
  * @package     mod_plugnmeet
  * @category    string
- * @copyright   2022 mynaparrot
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2022 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -57,6 +58,8 @@ $string['privacy:metadata:db:room:timemodified'] = 'Describe field timemodified 
 $string['privacy:metadata:db:room:welcome_message'] = 'Describe field welcome_message here.';
 $string['privacy:metadata:external:plugnmeet'] = 'Describe external system plugnmeet here.';
 $string['view'] = 'View';
+$string['Yes'] = 'Yes';
+$string['No'] = 'No';
 
 $string['plugnmeetconfig'] = 'plugNmeet config';
 $string['plugnmeet_server_url'] = 'plugnmeet server url';
@@ -99,6 +102,12 @@ $string['admin_only_webcams'] = 'Admin only webcams';
 $string['chatfeatures'] = 'Chat features';
 $string['allow_chat'] = 'Allow chat';
 $string['allow_file_upload'] = 'Allow file upload';
+
+$string['shared_note_pad_features'] = 'Shared notepad features';
+$string['allow_shared_notepad'] = 'Allow Shared notepad';
+
+$string['whiteboard_features'] = 'Whiteboard features';
+$string['allow_whiteboard'] = 'Allow Whiteboard';
 
 $string['defaultlock'] = 'Default lock settings';
 $string['lock_microphone'] = 'Lock microphone';

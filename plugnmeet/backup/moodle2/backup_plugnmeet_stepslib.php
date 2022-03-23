@@ -19,7 +19,8 @@
  *
  * @package     mod_plugnmeet
  * @category    backup
- * @copyright   2022 mynaparrot
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2022 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -31,14 +32,16 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Define the complete structure for backup, with file and id annotations.
  */
-class backup_plugnmeet_activity_structure_step extends backup_activity_structure_step {
+class backup_plugnmeet_activity_structure_step extends backup_activity_structure_step
+{
 
     /**
      * Defines the structure of the resulting xml file.
      *
      * @return backup_nested_element The structure wrapped by the common 'activity' element.
      */
-    protected function define_structure() {
+    protected function define_structure()
+    {
         $userinfo = $this->get_setting_value('userinfo');
 
         // Replace with the attributes and final elements that the element will handle.

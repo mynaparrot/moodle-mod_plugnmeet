@@ -18,7 +18,8 @@
  * Library of interface functions and constants.
  *
  * @package     mod_plugnmeet
- * @copyright   2022 mynaparrot
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2022 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -112,6 +113,12 @@ function plugnmeet_update_instance($moduleinstance, $mform = null)
     }
     if (isset($moduleinstance->chat_features)) {
         $room_metadata['chat_features'] = $moduleinstance->chat_features;
+    }
+    if (isset($moduleinstance->shared_note_pad_features)) {
+        $room_metadata['shared_note_pad_features'] = $moduleinstance->shared_note_pad_features;
+    }
+    if (isset($moduleinstance->whiteboard_features)) {
+        $room_metadata['whiteboard_features'] = $moduleinstance->whiteboard_features;
     }
     if (isset($moduleinstance->default_lock_settings)) {
         $room_metadata['default_lock_settings'] = $moduleinstance->default_lock_settings;

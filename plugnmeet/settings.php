@@ -19,7 +19,8 @@
  *
  * @package     mod_plugnmeet
  * @category    admin
- * @copyright   2022 mynaparrot
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2022 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -29,13 +30,13 @@ if ($hassiteconfig) {
     // phpcs:ignore Generic.CodeAnalysis.EmptyStatement.DetectedIf
     $settings->add(new admin_setting_heading('mod_plugnmeet/plugnmeetconfig', get_string('plugnmeetconfig', 'plugnmeet'), ''));
     $settings->add(new admin_setting_configtext('mod_plugnmeet/plugnmeet_server_url', get_string('plugnmeet_server_url', 'plugnmeet'),
-        get_string('plugnmeet_server_url_des', 'plugnmeet'), "", PARAM_TEXT));
+        get_string('plugnmeet_server_url_des', 'plugnmeet'), "https://demo.plugnmeet.com", PARAM_TEXT));
     $settings->add(new admin_setting_configtext('mod_plugnmeet/plugnmeet_api_key', get_string('plugnmeet_api_key', 'plugnmeet'),
-        get_string('plugnmeet_api_key_des', 'plugnmeet'), "", PARAM_TEXT));
+        get_string('plugnmeet_api_key_des', 'plugnmeet'), "plugnmeet", PARAM_TEXT));
     $settings->add(new admin_setting_configtext('mod_plugnmeet/plugnmeet_secret', get_string('plugnmeet_secret', 'plugnmeet'),
-        get_string('plugnmeet_secret_des', 'plugnmeet'), "", PARAM_TEXT));
+        get_string('plugnmeet_secret_des', 'plugnmeet'), "zumyyYWqv7KR2kUqvYdq4z4sXg7XTBD2ljT6", PARAM_TEXT));
     $settings->add(new admin_setting_configtext('mod_plugnmeet/livekit_server_url', get_string('livekit_server_url', 'plugnmeet'),
-        get_string('livekit_server_url_des', 'plugnmeet'), "", PARAM_TEXT));
+        get_string('livekit_server_url_des', 'plugnmeet'), "https://lk.plugnmeet.com", PARAM_TEXT));
 
     $settings->add(new admin_setting_configstoredfile(
         'mod_plugnmeet/custom_logo', get_string('custom_logo', 'plugnmeet'), get_string('custom_logo_des', 'plugnmeet'), 'custom_logo', 0, array('maxfiles' => 1, 'accepted_types' => array('.png', '.jpg'))));

@@ -15,10 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * ${PLUGINNAME} file description here.
- *
- * @package    ${PLUGINNAME}
- * @copyright  2022 jibon <${USEREMAIL}>
+ * @package    mod_plugnmeet
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2022 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -51,7 +50,7 @@ class mod_plugnmeet_delete_recording extends external_api
 
         $result['status'] = $res->status;
         $result['msg'] = $res->msg;
-        
+
         return $result;
     }
 
