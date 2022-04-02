@@ -57,7 +57,6 @@ class restore_plugnmeet_activity_structure_step extends restore_activity_structu
      */
     protected function process_elt($data)
     {
-        return;
     }
 
     /**
@@ -65,6 +64,5 @@ class restore_plugnmeet_activity_structure_step extends restore_activity_structu
      */
     protected function after_execute()
     {
-        return;
     }
 }

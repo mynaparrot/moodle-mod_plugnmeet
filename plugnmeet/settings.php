@@ -77,6 +77,29 @@ if ($hassiteconfig) {
     $setting = new admin_setting_description('mod_plugnmeet/update_client', "", get_string('update_client_code', 'plugnmeet'));
     $setting->nosave = true;
     $settings->add($setting);
+
+    // design_customization part
+    $settings->add(new admin_setting_heading('mod_plugnmeet/design_customization', get_string('design_customization', 'plugnmeet'), ''));
+
+    $settings->add(new admin_setting_configtext('mod_plugnmeet/custom_css_url', get_string('custom_css_url', 'plugnmeet'),
+        get_string('custom_css_url_des', 'plugnmeet'), "", PARAM_URL));
+
+    $settings->add(new admin_setting_configcolourpicker('mod_plugnmeet/primary_color', get_string('primary_color', 'plugnmeet'),
+        get_string('primary_color_des', 'plugnmeet'), '',));
+    $settings->add(new admin_setting_configcolourpicker('mod_plugnmeet/secondary_color', get_string('secondary_color', 'plugnmeet'),
+        get_string('secondary_color_des', 'plugnmeet'), '',));
+    $settings->add(new admin_setting_configcolourpicker('mod_plugnmeet/background_color', get_string('background_color', 'plugnmeet'),
+        get_string('background_color_des', 'plugnmeet'), '',));
+    $settings->add(new admin_setting_configstoredfile(
+        'mod_plugnmeet/background_image', get_string('background_image', 'plugnmeet'), get_string('background_image_des', 'plugnmeet'), 'background_image', 0, array('maxfiles' => 1, 'accepted_types' => array('.png', '.jpg'))));
+    $settings->add(new admin_setting_configcolourpicker('mod_plugnmeet/header_color', get_string('header_color', 'plugnmeet'),
+        get_string('header_color_des', 'plugnmeet'), '',));
+    $settings->add(new admin_setting_configcolourpicker('mod_plugnmeet/footer_color', get_string('footer_color', 'plugnmeet'),
+        get_string('footer_color_des', 'plugnmeet'), '',));
+    $settings->add(new admin_setting_configcolourpicker('mod_plugnmeet/left_color', get_string('left_color', 'plugnmeet'),
+        get_string('left_color_des', 'plugnmeet'), '',));
+    $settings->add(new admin_setting_configcolourpicker('mod_plugnmeet/right_color', get_string('right_color', 'plugnmeet'),
+        get_string('right_color_des', 'plugnmeet'), '',));
 }
 ?>
     <script type="text/javascript">

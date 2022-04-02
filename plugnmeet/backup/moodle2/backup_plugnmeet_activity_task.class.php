@@ -43,7 +43,6 @@ class backup_plugnmeet_activity_task extends backup_activity_task
      */
     protected function define_my_settings()
     {
-        return;
     }
 
     /**

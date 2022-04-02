@@ -44,6 +44,47 @@ if ($config->custom_logo) {
         $customLogo = 'window.CUSTOM_LOGO = "' . $url->out(false) . '";';
     }
 }
+// custom design
+if (!empty($config->custom_css_url)) {
+    $cssTag .= '<link href="' . $config->custom_css_url . '" rel="stylesheet" />' . "\n\t";
+}
+$css = "";
+if (!empty($config->primary_color)) {
+    $css .= '.brand-color1 { color: ' . $config->primary_color . ';}';
+    $css .= '.text-brandColor1 { color: ' . $config->primary_color . ';}';
+}
+
+if (!empty($config->secondary_color)) {
+    $css .= '.brand-color2 { color: ' . $config->secondary_color . ';}';
+    $css .= '.text-brandColor2 { color: ' . $config->secondary_color . ';}';
+}
+
+if (!empty($config->background_color)) {
+    $css .= '.main-app-bg { 
+            background-image: none !important; 
+            background-color: ' . $config->background_color . ';
+            }';
+}
+
+if (!empty($config->background_image)) {
+    $css .= '.main-app-bg { background-image: url("' . $config->background_image . '") !important; }';
+}
+
+if (!empty($config->header_color)) {
+    $css .= 'header#main-header { background: ' . $config->header_color . '; }';
+}
+
+if (!empty($config->footer_color)) {
+    $css .= 'footer#main-footer { background: ' . $config->footer_color . '; }';
+}
+
+if (!empty($config->left_color)) {
+    $css .= '.participants-wrapper { background: ' . $config->left_color . '; }';
+}
+
+if (!empty($config->right_color)) {
+    $css .= '.MessageModule-wrapper { background: ' . $config->right_color . '; }';
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -66,6 +107,11 @@ if ($config->custom_logo) {
         window.NUMBER_OF_WEBCAMS_PER_PAGE_PC = <?php echo (int)$config->number_of_webcams_per_page_pc; ?>;
         window.NUMBER_OF_WEBCAMS_PER_PAGE_MOBILE = <?php echo (int)$config->number_of_webcams_per_page_mobile; ?>;
     </script>
+    <?php if (!empty($css)): ?>
+        <style>
+            <?php echo $css; ?>
+        </style>
+    <?php endif; ?>
 </head>
 <body>
 <div id="plugNmeet-app"></div>

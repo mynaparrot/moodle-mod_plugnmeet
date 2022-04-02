@@ -42,7 +42,6 @@ class restore_plugnmeet_activity_task extends restore_activity_task
      */
     protected function define_my_settings()
     {
-        return;
     }
 
     /**
