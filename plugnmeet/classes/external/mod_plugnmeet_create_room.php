@@ -49,9 +49,6 @@ class mod_plugnmeet_create_room extends external_api
         $instance = $DB->get_record('plugnmeet', array('id' => $instanceId), '*', MUST_EXIST);
 
         $result = [
-            'status' => false,
-            'msg' => '',
-            'roomInfo' => null,
             'join_token' => ''
         ];
 
@@ -61,16 +58,16 @@ class mod_plugnmeet_create_room extends external_api
         $connect = new PlugNmeetConnect($config);
         $res = $connect->createRoom($instance->room_id, $instance->name, $instance->welcome_message, $instance->max_participants, "", $room_metadata);
 
-        $result['status'] = $res->status;
-        $result['msg'] = $res->msg;
-        $result['roomInfo'] = json_encode($res->roomInfo);
+        $result['status'] = $res->getStatus();
+        $result['msg'] = $res->getResponseMsg();
+        $result['roomInfo'] = json_encode($res->getRawResponse());
 
         if ($join) {
             $name = $USER->firstname . " " . $USER->lastname;
             $res = $connect->getJoinToken($instance->room_id, $name, $USER->id, $isAdmin);
-            $result['status'] = $res->status;
-            $result['msg'] = $res->msg;
-            $result['access_token'] = $res->token;
+            $result['status'] = $res->getStatus();
+            $result['msg'] = $res->getResponseMsg();
+            $result['access_token'] = $res->getToken();
         }
 
         return $result;

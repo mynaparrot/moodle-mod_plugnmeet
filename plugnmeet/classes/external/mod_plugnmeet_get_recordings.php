@@ -52,16 +52,16 @@ class mod_plugnmeet_get_recordings extends external_api
         $room_ids = array($room_id);
         $res = $connect->getRecordings($room_ids, $from, $limit, $order_by);
 
-        $output['status'] = $res->status;
-        $output['msg'] = $res->msg;
+        $output['status'] = $res->getStatus();
+        $output['msg'] = $res->getResponseMsg();
         $output['result'] = array(
-            'total_recordings' => $res->result->total_recordings,
-            'from' => $res->result->from,
-            'limit' => $res->result->limit,
-            'order_by' => $res->result->order_by,
-            'recordings_list' => json_encode($res->result->recordings_list)
+            'total_recordings' => $res->getTotalRecordings(),
+            'from' => $res->getFrom(),
+            'limit' => $res->getLimit(),
+            'order_by' => $res->getOrderBy(),
+            'recordings_list' => json_encode($res->getRawResponse()->result->recordings_list)
         );
-
+        
         return $output;
     }
 

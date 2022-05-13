@@ -88,14 +88,15 @@ class mod_plugnmeet_mod_form extends moodleform_mod
         $mform->addElement('header', 'roomfeatures', get_string('roomfeatures', 'mod_plugnmeet'));
         PlugNmeetHelper::getRoomFeatures($room_metadata, $mform);
 
-        $mform->addElement('header', 'chatfeatures', get_string('chatfeatures', 'mod_plugnmeet'));
+        $mform->addElement('header', 'other_features', get_string('other_features', 'mod_plugnmeet'));
+
         PlugNmeetHelper::getChatFeatures($room_metadata, $mform);
-
-        $mform->addElement('header', 'shared_note_pad_features', get_string('shared_note_pad_features', 'mod_plugnmeet'));
+        $mform->addElement('html', '<hr />');
         PlugNmeetHelper::getSharedNotePadFeatures($room_metadata, $mform);
-
-        $mform->addElement('header', 'whiteboard_features', get_string('whiteboard_features', 'mod_plugnmeet'));
+        $mform->addElement('html', '<hr />');
         PlugNmeetHelper::getWhiteboardFeatures($room_metadata, $mform);
+        $mform->addElement('html', '<hr />');
+        PlugNmeetHelper::getExternalMediaPlayerFeatures($room_metadata, $mform);
 
         $mform->addElement('header', 'defaultlock', get_string('defaultlock', 'mod_plugnmeet'));
         PlugNmeetHelper::getDefaultLockSettings($room_metadata, $mform);

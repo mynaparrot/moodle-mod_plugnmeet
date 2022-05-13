@@ -29,62 +29,7 @@ $cssTag = "";
 foreach ($cssFiles as $file) {
     $cssTag .= '<link href="' . $path . '/css/' . $file . '" rel="stylesheet" />' . "\n\t";
 }
-$customLogo = "";
-if ($config->custom_logo) {
-    $filename = str_replace("/", "", $config->custom_logo);
-    $table_files = "files";
-    $results = $DB->get_record($table_files, array(
-        'filename' => $filename,
-        'component' => 'mod_plugnmeet',
-        'filearea' => 'custom_logo'
-    ));
-
-    if ($results) {
-        $url = moodle_url::make_pluginfile_url($results->contextid, $results->component, $results->filearea, $results->itemid, $results->filepath, $filename, false, true);
-        $customLogo = 'window.CUSTOM_LOGO = "' . $url->out(false) . '";';
-    }
-}
-// custom design
-if (!empty($config->custom_css_url)) {
-    $cssTag .= '<link href="' . $config->custom_css_url . '" rel="stylesheet" />' . "\n\t";
-}
-$css = "";
-if (!empty($config->primary_color)) {
-    $css .= '.brand-color1 { color: ' . $config->primary_color . ';}';
-    $css .= '.text-brandColor1 { color: ' . $config->primary_color . ';}';
-}
-
-if (!empty($config->secondary_color)) {
-    $css .= '.brand-color2 { color: ' . $config->secondary_color . ';}';
-    $css .= '.text-brandColor2 { color: ' . $config->secondary_color . ';}';
-}
-
-if (!empty($config->background_color)) {
-    $css .= '.main-app-bg { 
-            background-image: none !important; 
-            background-color: ' . $config->background_color . ';
-            }';
-}
-
-if (!empty($config->background_image)) {
-    $css .= '.main-app-bg { background-image: url("' . $config->background_image . '") !important; }';
-}
-
-if (!empty($config->header_color)) {
-    $css .= 'header#main-header { background: ' . $config->header_color . '; }';
-}
-
-if (!empty($config->footer_color)) {
-    $css .= 'footer#main-footer { background: ' . $config->footer_color . '; }';
-}
-
-if (!empty($config->left_color)) {
-    $css .= '.participants-wrapper { background: ' . $config->left_color . '; }';
-}
-
-if (!empty($config->right_color)) {
-    $css .= '.MessageModule-wrapper { background: ' . $config->right_color . '; }';
-}
+$script = getGlobalVariables();
 ?>
 <!doctype html>
 <html lang="en">
@@ -93,25 +38,7 @@ if (!empty($config->right_color)) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title><?php echo $_GET['room_title']; ?></title>
-    <?php echo $cssTag . $jsTag; ?>
-
-    <script type="text/javascript">
-        window.PLUG_N_MEET_SERVER_URL = "<?php echo $config->plugnmeet_server_url; ?>";
-        window.LIVEKIT_SERVER_URL = "<?php echo $config->livekit_server_url; ?>";
-        window.STATIC_ASSETS_PATH = "<?php echo $path; ?>";
-        <?php echo $customLogo; ?>
-
-        Window.ENABLE_DYNACAST = <?php echo filter_var($config->enable_dynacast, FILTER_VALIDATE_BOOLEAN); ?>;
-        window.ENABLE_SIMULCAST = <?php echo filter_var($config->enable_simulcast, FILTER_VALIDATE_BOOLEAN); ?>;
-        window.STOP_MIC_TRACK_ON_MUTE = <?php echo filter_var($config->stop_mic_track_on_mute, FILTER_VALIDATE_BOOLEAN); ?>;
-        window.NUMBER_OF_WEBCAMS_PER_PAGE_PC = <?php echo (int)$config->number_of_webcams_per_page_pc; ?>;
-        window.NUMBER_OF_WEBCAMS_PER_PAGE_MOBILE = <?php echo (int)$config->number_of_webcams_per_page_mobile; ?>;
-    </script>
-    <?php if (!empty($css)): ?>
-        <style>
-            <?php echo $css; ?>
-        </style>
-    <?php endif; ?>
+    <?php echo $cssTag . $jsTag . $script; ?>
 </head>
 <body>
 <div id="plugNmeet-app"></div>

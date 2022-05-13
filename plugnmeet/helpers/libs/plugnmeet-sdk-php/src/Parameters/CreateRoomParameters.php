@@ -35,11 +35,11 @@ class CreateRoomParameters
     /**
      * @var int
      */
-    protected $emptyTimeout;
+    protected $emptyTimeout = 0;
     /**
      * @var int
      */
-    protected $maxParticipants;
+    protected $maxParticipants = 0;
     /**
      * @var RoomMetadataParameters
      */
@@ -133,7 +133,7 @@ class CreateRoomParameters
             $body['empty_timeout'] = $this->emptyTimeout;
         }
 
-        if ($this->roomMetadata) {
+        if ($this->roomMetadata !== null) {
             $body['metadata'] = $this->roomMetadata->buildBody();
         }
 

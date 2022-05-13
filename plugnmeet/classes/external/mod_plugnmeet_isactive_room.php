@@ -52,9 +52,9 @@ class mod_plugnmeet_isactive_room extends external_api
         $config = get_config('mod_plugnmeet');
         $connect = new PlugNmeetConnect($config);
         $res = $connect->isRoomActive($room_id);
-        $result['msg'] = $res->msg;
+        $result['msg'] = $res->getResponseMsg();
 
-        if ($res->status) {
+        if ($res->getStatus()) {
             $result['isActive'] = true;
         }
 

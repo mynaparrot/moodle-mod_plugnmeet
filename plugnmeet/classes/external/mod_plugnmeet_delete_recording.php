@@ -48,8 +48,8 @@ class mod_plugnmeet_delete_recording extends external_api
         $connect = new PlugNmeetConnect($config);
         $res = $connect->deleteRecording($recordId);
 
-        $result['status'] = $res->status;
-        $result['msg'] = $res->msg;
+        $result['status'] = $res->getStatus();
+        $result['msg'] = $res->getResponseMsg();
 
         return $result;
     }

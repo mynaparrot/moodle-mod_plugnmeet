@@ -4,12 +4,10 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2ce41cd9c608b5d337d854ec8aee4446
+class ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e
 {
     public static $files = array (
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
     );
 
@@ -17,8 +15,6 @@ class ComposerStaticInit2ce41cd9c608b5d337d854ec8aee4446
         'S' => 
         array (
             'Symfony\\Polyfill\\Php81\\' => 23,
-            'Symfony\\Polyfill\\Php80\\' => 23,
-            'Symfony\\Polyfill\\Ctype\\' => 23,
         ),
         'R' => 
         array (
@@ -44,14 +40,6 @@ class ComposerStaticInit2ce41cd9c608b5d337d854ec8aee4446
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php81',
         ),
-        'Symfony\\Polyfill\\Php80\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
-        ),
-        'Symfony\\Polyfill\\Ctype\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
-        ),
         'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
@@ -75,7 +63,6 @@ class ComposerStaticInit2ce41cd9c608b5d337d854ec8aee4446
     );
 
     public static $classMap = array (
-        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
         'Brick\\Math\\BigNumber' => __DIR__ . '/..' . '/brick/math/src/BigNumber.php',
@@ -102,6 +89,7 @@ class ComposerStaticInit2ce41cd9c608b5d337d854ec8aee4446
         'Mynaparrot\\Plugnmeet\\Parameters\\CreateRoomParameters' => __DIR__ . '/../..' . '/src/Parameters/CreateRoomParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\DeleteRecordingParameters' => __DIR__ . '/../..' . '/src/Parameters/DeleteRecordingParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\EndRoomParameters' => __DIR__ . '/../..' . '/src/Parameters/EndRoomParameters.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\ExternalMediaPlayerFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/ExternalMediaPlayerFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\FetchRecordingsParameters' => __DIR__ . '/../..' . '/src/Parameters/FetchRecordingsParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\GenerateJoinTokenParameters' => __DIR__ . '/../..' . '/src/Parameters/GenerateJoinTokenParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\GetActiveRoomInfoParameters' => __DIR__ . '/../..' . '/src/Parameters/GetActiveRoomInfoParameters.php',
@@ -114,7 +102,19 @@ class ComposerStaticInit2ce41cd9c608b5d337d854ec8aee4446
         'Mynaparrot\\Plugnmeet\\Parameters\\UserMetadataParameters' => __DIR__ . '/../..' . '/src/Parameters/UserMetadataParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\WhiteboardFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/WhiteboardFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\PlugNmeet' => __DIR__ . '/../..' . '/src/PlugNmeet.php',
-        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\BaseResponse' => __DIR__ . '/../..' . '/src/Responses/BaseResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\CreateRoomResponse' => __DIR__ . '/../..' . '/src/Responses/CreateRoomResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\DeleteRecordingResponse' => __DIR__ . '/../..' . '/src/Responses/DeleteRecordingResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\EndRoomResponse' => __DIR__ . '/../..' . '/src/Responses/EndRoomResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\FetchRecordingsResponse' => __DIR__ . '/../..' . '/src/Responses/FetchRecordingsResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\GenerateJoinTokenResponse' => __DIR__ . '/../..' . '/src/Responses/GenerateJoinTokenResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\GetActiveRoomInfoResponse' => __DIR__ . '/../..' . '/src/Responses/GetActiveRoomInfoResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\GetActiveRoomsInfoResponse' => __DIR__ . '/../..' . '/src/Responses/GetActiveRoomsInfoResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\IsRoomActiveResponse' => __DIR__ . '/../..' . '/src/Responses/IsRoomActiveResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\RecordingDownloadTokenResponse' => __DIR__ . '/../..' . '/src/Responses/RecordingDownloadTokenResponse.php',
+        'Mynaparrot\\Plugnmeet\\Utils\\ActiveRoomInfo' => __DIR__ . '/../..' . '/src/Utils/ActiveRoomInfo.php',
+        'Mynaparrot\\Plugnmeet\\Utils\\ParticipantInfo' => __DIR__ . '/../..' . '/src/Utils/ParticipantInfo.php',
+        'Mynaparrot\\Plugnmeet\\Utils\\RecordingInfo' => __DIR__ . '/../..' . '/src/Utils/RecordingInfo.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',
@@ -249,21 +249,15 @@ class ComposerStaticInit2ce41cd9c608b5d337d854ec8aee4446
         'Ramsey\\Uuid\\Validator\\GenericValidator' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/GenericValidator.php',
         'Ramsey\\Uuid\\Validator\\ValidatorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/ValidatorInterface.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
-        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
-        'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
-        'Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
-        'Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
         'Symfony\\Polyfill\\Php81\\Php81' => __DIR__ . '/..' . '/symfony/polyfill-php81/Php81.php',
-        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
-        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2ce41cd9c608b5d337d854ec8aee4446::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2ce41cd9c608b5d337d854ec8aee4446::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2ce41cd9c608b5d337d854ec8aee4446::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e::$classMap;
 
         }, null, ClassLoader::class);
     }

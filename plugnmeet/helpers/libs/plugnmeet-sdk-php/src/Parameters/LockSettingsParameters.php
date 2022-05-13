@@ -44,6 +44,14 @@ class LockSettingsParameters
     /**
      * @var bool
      */
+    protected $lockWhiteboard;
+    /**
+     * @var bool
+     */
+    protected $lockSharedNotepad;
+    /**
+     * @var bool
+     */
     protected $lockChat;
     /**
      * @var bool
@@ -112,6 +120,38 @@ class LockSettingsParameters
     /**
      * @return bool
      */
+    public function isLockWhiteboard(): bool
+    {
+        return $this->lockWhiteboard;
+    }
+
+    /**
+     * @param bool $lockWhiteboard
+     */
+    public function setLockWhiteboard(bool $lockWhiteboard): void
+    {
+        $this->lockWhiteboard = $lockWhiteboard;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLockSharedNotepad(): bool
+    {
+        return $this->lockSharedNotepad;
+    }
+
+    /**
+     * @param bool $lockSharedNotepad
+     */
+    public function setLockSharedNotepad(bool $lockSharedNotepad): void
+    {
+        $this->lockSharedNotepad = $lockSharedNotepad;
+    }
+
+    /**
+     * @return bool
+     */
     public function isLockChat()
     {
         return $this->lockChat;
@@ -162,13 +202,34 @@ class LockSettingsParameters
      */
     public function buildBody()
     {
-        return array(
-            'lock_microphone' => $this->lockMicrophone,
-            'lock_webcam' => $this->lockWebcam,
-            'lock_screen_sharing' => $this->lockScreenSharing,
-            'lock_chat' => $this->lockChat,
-            'lock_chat_send_message' => $this->lockChatSendMessage,
-            'lock_chat_file_share' => $this->lockChatFileShare,
-        );
+
+        $body = array();
+
+        if ($this->lockMicrophone !== null) {
+            $body["lock_microphone"] = $this->lockMicrophone;
+        }
+        if ($this->lockWebcam !== null) {
+            $body["lock_webcam"] = $this->lockWebcam;
+        }
+        if ($this->lockScreenSharing !== null) {
+            $body["lock_screen_sharing"] = $this->lockScreenSharing;
+        }
+        if ($this->lockWhiteboard !== null) {
+            $body["lock_whiteboard"] = $this->lockWhiteboard;
+        }
+        if ($this->lockSharedNotepad !== null) {
+            $body["lock_shared_notepad"] = $this->lockSharedNotepad;
+        }
+        if ($this->lockChat !== null) {
+            $body["lock_chat"] = $this->lockChat;
+        }
+        if ($this->lockChatSendMessage !== null) {
+            $body["lock_chat_send_message"] = $this->lockChatSendMessage;
+        }
+        if ($this->lockChatFileShare !== null) {
+            $body["lock_chat_file_share"] = $this->lockChatFileShare;
+        }
+
+        return $body;
     }
 }

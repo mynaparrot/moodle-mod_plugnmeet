@@ -156,6 +156,25 @@ class PlugNmeetHelper
         self::formatHtml($whiteboardFeatures, "whiteboard_features", $data, $mform);
     }
 
+    public static function getExternalMediaPlayerFeatures($room_metadata, $mform)
+    {
+        $externalMediaPlayerFeatures = array(
+            "allowed_external_media_player" => array(
+                "label" => get_string("allowed_external_media_player", "mod_plugnmeet"),
+                "des" => get_string("allowed_external_media_player_des", "mod_plugnmeet"),
+                "options" => array(1, 0),
+                "selected" => 1
+            )
+        );
+
+        $data = [];
+        if (!empty($room_metadata->external_media_player_features)) {
+            $data = (array)$room_metadata->external_media_player_features;
+        }
+
+        self::formatHtml($externalMediaPlayerFeatures, "external_media_player_features", $data, $mform);
+    }
+
     public static function getDefaultLockSettings($room_metadata, $mform)
     {
         $defaultLockSettings = array(
@@ -174,6 +193,18 @@ class PlugNmeetHelper
             "lock_screen_sharing" => array(
                 "label" => get_string("lock_screen_sharing", "mod_plugnmeet"),
                 "des" => get_string("LOCK_SCREEN_SHARING_DES", "mod_plugnmeet"),
+                "options" => array(1, 0),
+                "selected" => 1
+            ),
+            "lock_whiteboard" => array(
+                "label" => get_string("lock_whiteboard", "mod_plugnmeet"),
+                "des" => get_string("lock_whiteboard_des", "mod_plugnmeet"),
+                "options" => array(1, 0),
+                "selected" => 1
+            ),
+            "lock_shared_notepad" => array(
+                "label" => get_string("lock_shared_notepad", "mod_plugnmeet"),
+                "des" => get_string("lock_shared_notepad_des", "mod_plugnmeet"),
                 "options" => array(1, 0),
                 "selected" => 1
             ),

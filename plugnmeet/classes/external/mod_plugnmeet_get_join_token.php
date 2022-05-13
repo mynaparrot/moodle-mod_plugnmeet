@@ -52,11 +52,14 @@ class mod_plugnmeet_get_join_token extends external_api
 
         $connect = new PlugNmeetConnect($config);
         $name = $USER->firstname . " " . $USER->lastname;
-        $res = $connect->getJoinToken($instance->room_id, $name, $USER->id, $isAdmin, $room_metadata);
+        $res = $connect->getJoinToken($instance->room_id, $name, $USER->id, $isAdmin);
 
-        $result['status'] = $res->status;
-        $result['msg'] = $res->msg;
-        $result['access_token'] = $res->token;
+        $result['status'] = $res->getStatus();
+        $result['msg'] = $res->getResponseMsg();
+        $result['access_token'] = null;
+        if ($res->getStatus()) {
+            $result['access_token'] = $res->getToken();
+        }
 
         return $result;
     }

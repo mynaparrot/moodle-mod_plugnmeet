@@ -358,3 +358,89 @@ function plugnmeet_extend_navigation($plugnmeetnode, $course, $module, $cm)
 function plugnmeet_extend_settings_navigation($settingsnav, $plugnmeetnode = null)
 {
 }
+
+function getGlobalVariables()
+{
+    global $CFG, $DB;
+
+    $config = get_config('mod_plugnmeet');
+    $path = $CFG->wwwroot . "/mod/plugnmeet/pix/client/dist/assets";;
+
+    $js = 'window.PLUG_N_MEET_SERVER_URL = "' . $config->plugnmeet_server_url . '";';
+    $js .= 'window.LIVEKIT_SERVER_URL = "' . $config->livekit_server_url . '";';
+    $js .= 'window.STATIC_ASSETS_PATH = "' . $path . '";';
+
+    $js .= 'Window.ENABLE_DYNACAST = ' . filter_var($config->enable_dynacast, FILTER_VALIDATE_BOOLEAN) . ';';
+    $js .= 'window.ENABLE_SIMULCAST = ' . filter_var($config->enable_simulcast, FILTER_VALIDATE_BOOLEAN) . ';';
+    $js .= 'window.VIDEO_CODEC = "' . $config->video_codec . '";';
+    $js .= 'window.DEFAULT_WEBCAM_RESOLUTION = "' . $config->default_webcam_resolution . '";';
+    $js .= 'window.DEFAULT_SCREEN_SHARE_RESOLUTION = "' . $config->default_screen_share_resolution . '";';
+    $js .= 'window.STOP_MIC_TRACK_ON_MUTE = ' . filter_var($config->stop_mic_track_on_mute, FILTER_VALIDATE_BOOLEAN) . ';';
+
+    if ($config->logo) {
+        $filename = str_replace("/", "", $config->custom_logo);
+        $table_files = "files";
+        $results = $DB->get_record($table_files, array(
+            'filename' => $filename,
+            'component' => 'mod_plugnmeet',
+            'filearea' => 'custom_logo'
+        ));
+
+        if ($results) {
+            $url = moodle_url::make_pluginfile_url($results->contextid, $results->component, $results->filearea, $results->itemid, $results->filepath, $filename, false, true);
+            $js .= 'window.CUSTOM_LOGO = "' . $url->out(false) . '";';
+        }
+    }
+
+    $custom_design_items = [];
+    if (!empty($config->primary_color)) {
+        $custom_design_items['primary_color'] = $config->primary_color;
+    }
+    if (!empty($config->secondary_color)) {
+        $custom_design_items['secondary_color'] = $config->secondary_color;
+    }
+
+    if (!empty($config->background_color)) {
+        $custom_design_items['background_color'] = $config->background_color;
+    }
+
+    if (!empty($config->background_image)) {
+        $filename = str_replace("/", "", $config->background_image);
+        $table_files = "files";
+        $results = $DB->get_record($table_files, array(
+            'filename' => $filename,
+            'component' => 'mod_plugnmeet',
+            'filearea' => 'background_image'
+        ));
+
+        if ($results) {
+            $url = moodle_url::make_pluginfile_url($results->contextid, $results->component, $results->filearea, $results->itemid, $results->filepath, $filename, false, true);
+            $custom_design_items['background_image'] = $url->out(false);
+        }
+    }
+
+    if (!empty($config->header_color)) {
+        $custom_design_items['header_bg_color'] = $config->header_color;
+    }
+    if (!empty($config->footer_color)) {
+        $custom_design_items['footer_bg_color'] = $config->footer_color;
+    }
+    if (!empty($config->left_color)) {
+        $custom_design_items['left_side_bg_color'] = $config->left_color;
+    }
+    if (!empty($config->right_color)) {
+        $custom_design_items['right_side_bg_color'] = $config->right_color;
+    }
+    if (!empty($config->custom_css_url)) {
+        $custom_design_items['custom_css_url'] = $config->custom_css_url;
+    }
+
+    if (count($custom_design_items) > 0) {
+        $js .= 'window.DESIGN_CUSTOMIZATION = `' . json_encode($custom_design_items) . '`;';
+    }
+
+    $js = str_replace(";", ";\n\t", $js);
+    $script = "<script type=\"text/javascript\">\n\t" . $js . "</script>\n";
+
+    return $script;
+}

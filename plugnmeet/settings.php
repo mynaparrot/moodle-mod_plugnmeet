@@ -57,17 +57,45 @@ if ($hassiteconfig) {
         get_string('enable_simulcast', 'mod_plugnmeet'),
         get_string('enable_simulcast_des', 'mod_plugnmeet'), true, $enable_simulcast));
 
+    $video_codec = array();
+    $video_codec['vp8'] = 'vp8';
+    $video_codec['h264'] = 'h264';
+    $video_codec['av1'] = 'av1';
+    $video_codec['vp9'] = 'vp9';
+    $settings->add(new admin_setting_configselect('mod_plugnmeet/video_codec',
+        get_string('video_codec', 'mod_plugnmeet'),
+        get_string('video_codec_des', 'mod_plugnmeet'), 'vp8', $video_codec));
+
+    $default_webcam_resolutionc = array();
+    $default_webcam_resolutionc['h90'] = 'h90';
+    $default_webcam_resolutionc['h180'] = 'h180';
+    $default_webcam_resolutionc['h216'] = 'h216';
+    $default_webcam_resolutionc['h360'] = 'h360';
+    $default_webcam_resolutionc['h540'] = 'h540';
+    $default_webcam_resolutionc['h720'] = 'h720';
+    $default_webcam_resolutionc['h1080'] = 'h1080';
+    $default_webcam_resolutionc['h1440'] = 'h1440';
+    $default_webcam_resolutionc['h2160'] = 'h2160';
+    $settings->add(new admin_setting_configselect('mod_plugnmeet/default_webcam_resolution',
+        get_string('default_webcam_resolution', 'mod_plugnmeet'),
+        get_string('default_webcam_resolution_des', 'mod_plugnmeet'), 'h720', $default_webcam_resolutionc));
+
+    $default_screen_share_resolution = array();
+    $default_screen_share_resolution['h360fps3'] = 'h360fps3';
+    $default_screen_share_resolution['h720fps5'] = 'h720fps5';
+    $default_screen_share_resolution['h720fps15'] = 'h720fps15';
+    $default_screen_share_resolution['h1080fps15'] = 'h1080fps15';
+    $default_screen_share_resolution['h1080fps30'] = 'h1080fps30';
+    $settings->add(new admin_setting_configselect('mod_plugnmeet/default_screen_share_resolution',
+        get_string('default_screen_share_resolution', 'mod_plugnmeet'),
+        get_string('default_screen_share_resolution_des', 'mod_plugnmeet'), 'vp8', $default_screen_share_resolution));
+
     $stop_mic_track_on_mute = array();
     $stop_mic_track_on_mute[1] = 'true';
     $stop_mic_track_on_mute[0] = 'false';
     $settings->add(new admin_setting_configselect('mod_plugnmeet/stop_mic_track_on_mute',
         get_string('stop_mic_track_on_mute', 'mod_plugnmeet'),
         get_string('stop_mic_track_on_mute_des', 'mod_plugnmeet'), true, $stop_mic_track_on_mute));
-
-    $settings->add(new admin_setting_configtext('mod_plugnmeet/number_of_webcams_per_page_pc', get_string('number_of_webcams_per_page_pc', 'plugnmeet'),
-        get_string('number_of_webcams_per_page_pc_des', 'plugnmeet'), 25, PARAM_INT));
-    $settings->add(new admin_setting_configtext('mod_plugnmeet/number_of_webcams_per_page_mobile', get_string('number_of_webcams_per_page_mobile', 'plugnmeet'),
-        get_string('number_of_webcams_per_page_mobile_des', 'plugnmeet'), 6, PARAM_INT));
 
     $settings->add(new admin_setting_heading('mod_plugnmeet/plugnmeetextra', get_string('extraoption', 'plugnmeet'), ''));
 

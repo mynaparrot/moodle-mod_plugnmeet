@@ -33,8 +33,16 @@ use Mynaparrot\Plugnmeet\Parameters\GenerateJoinTokenParameters;
 use Mynaparrot\Plugnmeet\Parameters\RecordingDownloadTokenParameters;
 use Mynaparrot\Plugnmeet\Parameters\GetActiveRoomInfoParameters;
 use Mynaparrot\Plugnmeet\Parameters\IsRoomActiveParameters;
+use Mynaparrot\Plugnmeet\Responses\CreateRoomResponse;
+use Mynaparrot\Plugnmeet\Responses\DeleteRecordingResponse;
+use Mynaparrot\Plugnmeet\Responses\EndRoomResponse;
+use Mynaparrot\Plugnmeet\Responses\FetchRecordingsResponse;
+use Mynaparrot\Plugnmeet\Responses\GenerateJoinTokenResponse;
+use Mynaparrot\Plugnmeet\Responses\GetActiveRoomInfoResponse;
+use Mynaparrot\Plugnmeet\Responses\GetActiveRoomsInfoResponse;
+use Mynaparrot\Plugnmeet\Responses\IsRoomActiveResponse;
+use Mynaparrot\Plugnmeet\Responses\RecordingDownloadTokenResponse;
 use Ramsey\Uuid\Uuid;
-use RuntimeException;
 
 /**
  *
@@ -44,118 +52,136 @@ class PlugNmeet
     /**
      * @var string
      */
-    protected $plugNmeet_URL;
+    protected $serverUrl;
     /**
      * @var string
      */
-    protected $plugNmeet_API_Key;
+    protected $apiKey;
     /**
      * @var string
      */
-    protected $plugNmeet_Secret;
+    protected $apiSecret;
     /**
      * @var string
      */
     protected $defaultPath = "/auth";
 
     /**
-     * @param $plugNmeet_URL
-     * @param $plugNmeet_API_Key
-     * @param $plugNmeet_Secret
+     * @param $serverUrl plugNmeet server URL
+     * @param $apiKey plugNmeet API_Key
+     * @param $apiSecret plugNmeet API_Secret
      */
-    public function __construct($plugNmeet_URL, $plugNmeet_API_Key, $plugNmeet_Secret)
+    public function __construct($serverUrl, $apiKey, $apiSecret)
     {
-        $this->plugNmeet_URL = $plugNmeet_URL;
-        $this->plugNmeet_API_Key = $plugNmeet_API_Key;
-        $this->plugNmeet_Secret = $plugNmeet_Secret;
+        $this->serverUrl = $serverUrl;
+        $this->apiKey = $apiKey;
+        $this->apiSecret = $apiSecret;
     }
 
     /**
+     * Create new room
      * @param CreateRoomParameters $createRoomParameters
-     * @return mixed
+     * @return CreateRoomResponse
      */
-    public function createRoom(CreateRoomParameters $createRoomParameters)
+    public function createRoom(CreateRoomParameters $createRoomParameters): CreateRoomResponse
     {
         $body = $createRoomParameters->buildBody();
-        return $this->sendRequest("/room/create", $body);
+        $output = $this->sendRequest("/room/create", $body);
+        return new CreateRoomResponse($output);
     }
 
     /**
+     * Generate join token
      * @param GenerateJoinTokenParameters $generateJoinTokenParameters
-     * @return mixed
+     * @return GenerateJoinTokenResponse
      */
-    public function getJoinToken(GenerateJoinTokenParameters $generateJoinTokenParameters)
+    public function getJoinToken(GenerateJoinTokenParameters $generateJoinTokenParameters): GenerateJoinTokenResponse
     {
         $body = $generateJoinTokenParameters->buildBody();
-        return $this->sendRequest("/room/getJoinToken", $body);
+        $output = $this->sendRequest("/room/getJoinToken", $body);
+        return new GenerateJoinTokenResponse($output);
     }
 
     /**
+     * To check if room is active or not
      * @param IsRoomActiveParameters $isRoomActiveParameters
-     * @return mixed
+     * @return IsRoomActiveResponse
      */
-    public function isRoomActive(IsRoomActiveParameters $isRoomActiveParameters)
+    public function isRoomActive(IsRoomActiveParameters $isRoomActiveParameters): IsRoomActiveResponse
     {
         $body = $isRoomActiveParameters->buildBody();
-        return $this->sendRequest("/room/isRoomActive", $body);
+        $output = $this->sendRequest("/room/isRoomActive", $body);
+        return new IsRoomActiveResponse($output);
     }
 
     /**
+     * Get active room information
      * @param GetActiveRoomInfoParameters $getActiveRoomInfoParameters
-     * @return mixed
+     * @return GetActiveRoomInfoResponse
      */
-    public function getActiveRoomInfo(GetActiveRoomInfoParameters $getActiveRoomInfoParameters)
+    public function getActiveRoomInfo(GetActiveRoomInfoParameters $getActiveRoomInfoParameters): GetActiveRoomInfoResponse
     {
         $body = $getActiveRoomInfoParameters->buildBody();
-        return $this->sendRequest("/room/getActiveRoomInfo", $body);
+        $output = $this->sendRequest("/room/getActiveRoomInfo", $body);
+        return new GetActiveRoomInfoResponse($output);
     }
 
     /**
-     * @return mixed
+     * Get all active rooms
+     * @return GetActiveRoomsInfoResponse
      */
-    public function getActiveRoomsInfo()
+    public function getActiveRoomsInfo(): GetActiveRoomsInfoResponse
     {
-        return $this->sendRequest("/room/getActiveRoomsInfo", []);
+        $output = $this->sendRequest("/room/getActiveRoomsInfo", []);
+        return new GetActiveRoomsInfoResponse($output);
     }
 
     /**
+     * End active room
      * @param EndRoomParameters $endRoomParameters
-     * @return mixed
+     * @return EndRoomResponse
      */
     public function endRoom(EndRoomParameters $endRoomParameters)
     {
         $body = $endRoomParameters->buildBody();
-        return $this->sendRequest("/room/endRoom", $body);
+        $output = $this->sendRequest("/room/endRoom", $body);
+        return new EndRoomResponse($output);
     }
 
     /**
+     * To fetch recordings
      * @param FetchRecordingsParameters $fetchRecordingsParameters
-     * @return mixed
+     * @return FetchRecordingsResponse
      */
-    public function fetchRecordings(FetchRecordingsParameters $fetchRecordingsParameters)
+    public function fetchRecordings(FetchRecordingsParameters $fetchRecordingsParameters): FetchRecordingsResponse
     {
         $body = $fetchRecordingsParameters->buildBody();
-        return $this->sendRequest("/recording/fetch", $body);
+        $output = $this->sendRequest("/recording/fetch", $body);
+        return new FetchRecordingsResponse($output);
     }
 
     /**
+     * To delete recording
      * @param DeleteRecordingParameters $deleteRecordingParameters
-     * @return mixed
+     * @return DeleteRecordingResponse
      */
-    public function deleteRecordings(DeleteRecordingParameters $deleteRecordingParameters)
+    public function deleteRecordings(DeleteRecordingParameters $deleteRecordingParameters): DeleteRecordingResponse
     {
         $body = $deleteRecordingParameters->buildBody();
-        return $this->sendRequest("/recording/delete", $body);
+        $output = $this->sendRequest("/recording/delete", $body);
+        return new DeleteRecordingResponse($output);
     }
 
     /**
+     * Generate token to download recording
      * @param RecordingDownloadTokenParameters $recordingDownloadTokenParameters
-     * @return mixed
+     * @return RecordingDownloadTokenResponse
      */
-    public function getRecordingDownloadToken(RecordingDownloadTokenParameters $recordingDownloadTokenParameters)
+    public function getRecordingDownloadToken(RecordingDownloadTokenParameters $recordingDownloadTokenParameters): RecordingDownloadTokenResponse
     {
         $body = $recordingDownloadTokenParameters->buildBody();
-        return $this->sendRequest("/recording/getDownloadToken", $body);
+        $output = $this->sendRequest("/recording/getDownloadToken", $body);
+        return new RecordingDownloadTokenResponse($output);
     }
 
 
@@ -168,11 +194,11 @@ class PlugNmeet
      */
     public function getJWTencodedData(array $payload, int $validity, $algo = "HS256", array $head = [])
     {
-        $payload['iss'] = $this->plugNmeet_API_Key;
+        $payload['iss'] = $this->apiKey;
         $payload['nbf'] = time();
         $payload['exp'] = time() + $validity;
 
-        return JWT::encode($payload, $this->plugNmeet_Secret, 'HS256', null, $head);
+        return JWT::encode($payload, $this->apiSecret, 'HS256', null, $head);
     }
 
     /**
@@ -182,10 +208,11 @@ class PlugNmeet
      */
     public function decodeJWTData(string $raw, $algo = "HS256")
     {
-        return JWT::decode($raw, new Key($this->plugNmeet_Secret, $algo));
+        return JWT::decode($raw, new Key($this->apiSecret, $algo));
     }
 
     /**
+     * Generate UUID random string
      * @return string
      */
     public function getUUID()
@@ -197,16 +224,19 @@ class PlugNmeet
     /**
      * @param $path
      * @param array $body
-     * @return mixed
+     * @return object
      */
     protected function sendRequest($path, array $body)
     {
+        $output = new \stdClass();
+        $output->status = false;
+
         $header = array(
             "Content-type: application/json",
-            "API-KEY: " . $this->plugNmeet_API_Key,
-            "API-SECRET: " . $this->plugNmeet_Secret
+            "API-KEY: " . $this->apiKey,
+            "API-SECRET: " . $this->apiSecret
         );
-        $url = $this->plugNmeet_URL . $this->defaultPath . $path;
+        $url = $this->serverUrl . $this->defaultPath . $path;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -223,9 +253,12 @@ class PlugNmeet
         curl_close($ch);
 
         if (0 !== $errno) {
-            throw new RuntimeException($error, $errno);
+            $output->response = "Error: " . $error;
+            return $output;
         }
 
-        return json_decode($result);
+        $output->status = true;
+        $output->response = json_decode($result);
+        return $output;
     }
 }

@@ -80,10 +80,12 @@ $string['enable_simulcast'] = 'Enable simulcast';
 $string['enable_simulcast_des'] = 'Enable simulcast';
 $string['stop_mic_track_on_mute'] = 'Stop mic track on mute';
 $string['stop_mic_track_on_mute_des'] = 'Stop mic track on mute';
-$string['number_of_webcams_per_page_pc'] = 'Webcams per page (PC)';
-$string['number_of_webcams_per_page_pc_des'] = 'Webcams per page (PC)';
-$string['number_of_webcams_per_page_mobile'] = 'Webcams per page (mobile)';
-$string['number_of_webcams_per_page_mobile_des'] = 'Webcams per page (mobile)';
+$string['video_codec'] = 'Video codec';
+$string['video_codec_des'] = 'Video codec';
+$string['default_webcam_resolution'] = 'Default webcam resolution';
+$string['default_webcam_resolution_des'] = 'Default webcam resolution';
+$string['default_screen_share_resolution'] = 'Default screen share resolution';
+$string['default_screen_share_resolution_des'] = 'Default screen share resolution';
 
 $string['roomtitle'] = 'Room title';
 $string['welcome_message'] = 'Welcome message';
@@ -99,6 +101,8 @@ $string['allow_view_other_webcams'] = 'Allow view other webcams';
 $string['allow_view_other_users_list'] = 'Allow view other users';
 $string['admin_only_webcams'] = 'Admin only webcams';
 
+$string['other_features'] = 'Other features';
+
 $string['chatfeatures'] = 'Chat features';
 $string['allow_chat'] = 'Allow chat';
 $string['allow_file_upload'] = 'Allow file upload';
@@ -109,10 +113,15 @@ $string['allow_shared_notepad'] = 'Allow Shared notepad';
 $string['whiteboard_features'] = 'Whiteboard features';
 $string['allow_whiteboard'] = 'Allow Whiteboard';
 
+$string['external_media_player_features'] = 'External media player features';
+$string['allowed_external_media_player'] = 'Allow external media player';
+
 $string['defaultlock'] = 'Default lock settings';
 $string['lock_microphone'] = 'Lock microphone';
 $string['lock_webcam'] = 'Lock webcam';
 $string['lock_screen_sharing'] = 'Lock screen sharing';
+$string['lock_whiteboard'] = 'Lock whiteboard';
+$string['lock_shared_notepad'] = 'Lock shared notepad';
 $string['lock_chat'] = 'Lock chat';
 $string['lock_chat_send_message'] = 'Lock send message';
 $string['lock_chat_file_share'] = 'Lock file share';

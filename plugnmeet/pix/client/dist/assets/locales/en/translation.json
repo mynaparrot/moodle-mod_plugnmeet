@@ -2,8 +2,11 @@
   "ok": "Ok",
   "close": "Close",
   "cancel": "Cancel",
+  "yes": "Yes",
+  "no": "No",
   "join": "Join",
   "share": "Share",
+  "version": "Version: {{pnm_version}}; Build: {{build}}",
   "notifications": {
     "room-not-active": "Room isn't active.",
     "recording-already-running": "recording already running",
@@ -16,7 +19,9 @@
     "rtmp-ended": "RTMP broadcasting ended",
     "rtmp-ended-with-error": "RTMP broadcasting ended with error",
     "file-type-not-allow": "{{filetype}} file type isn't allow",
-    "max-file-size-exceeds": "The maximum allowed file size exceeds"
+    "max-file-size-exceeds": "The maximum allowed file size exceeds",
+    "you-have-removed": "You've been removed from this conference.",
+    "you-are-blocked": "You aren't allow to access this conference."
   },
   "room-metadata": {
     "session-recording": "This session is being recording",
@@ -27,6 +32,7 @@
   "header": {
     "menus": {
       "settings": "Settings",
+      "keyboard-shortcuts": "Keyboard Shortcuts",
       "logout": "Logout",
       "end": "End",
       "alert": {
@@ -43,7 +49,27 @@
       "show-screen-share": "Show Screen share",
       "allow-audio-notification": "Allow audio notification",
       "application": "Application settings",
-      "language": "Language"
+      "language": "Language",
+      "video-quality": "Video Quality",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "keyboard-shortcuts": {
+      "title": "Keyboard shortcuts",
+      "key-comb": "Keys Combination",
+      "actions": "Actions",
+      "mute-unmute": "Mute/Unmute",
+      "start-audio": "Start Microphone (Audio call)",
+      "leave-audio": "Leave Microphone",
+      "start-webcam": "Start Webcam",
+      "leave-webcam": "Leave Webcam",
+      "show-hide-user-list": "Hide/Show Users' List",
+      "show-hide-chat": "Hide/Show Chat",
+      "show-hide-lock-settings": "Hide/Show Lock Settings",
+      "show-hide-settings": "Hide/Show Settings",
+      "show-hide-whiteboard": "Hide/Show Whiteboard",
+      "show-hide-hand": "Raise/Down hand"
     }
   },
   "app": {
@@ -59,7 +85,8 @@
     "checking": "checking...",
     "loading": "loading...",
     "connected": "connected",
-    "ready": "ready"
+    "ready": "ready",
+    "webcams-per-page": "Display per page:"
   },
   "left-panel": {
     "participants": "Participants ({{total}})",
@@ -80,6 +107,10 @@
         "lock-webcam": "Lock webcam",
         "unlock-screen-sharing": "Unlock screen sharing",
         "lock-screen-sharing": "Lock screen sharing",
+        "unlock-whiteboard": "Unlock whiteboard",
+        "lock-whiteboard": "Lock whiteboard",
+        "unlock-shared-notepad": "Unlock shared notepad",
+        "lock-shared-notepad": "Lock shared notepad",
         "unlock-chat": "Unlock chat",
         "lock-chat": "Lock chat",
         "unlock-send-chat-message": "Unlock send chat message",
@@ -95,7 +126,10 @@
         "asked-you-to": "{{name}} asked you to ",
         "you-have-asked": "You've asked {{name}} to ",
         "you-have-muted-to": "You've muted microphone for {{name}}",
-        "applied-new-setting": "Applied new lock setting"
+        "applied-new-setting": "Applied new lock setting",
+        "presenter-changed": "Presenter has been changed successfully",
+        "you-are-presenter": "You are the presenter",
+        "want-to-block": "Do you want to block this user?"
       }
     }
   },
@@ -103,6 +137,7 @@
     "you": "You",
     "uploading-file": "Uploading {{fileName}}",
     "file-upload-success": "File uploaded successfully",
+    "file-upload-default-error": "There was error during upload file",
     "chat-box-placeholder": "Write message (new line: Shift + enter)"
   },
   "footer": {
@@ -129,7 +164,9 @@
       "show-shared-notepad": "Show shared notepad",
       "hide-shared-notepad": "Hide shared notepad",
       "show-whiteboard": "Show whiteboard",
-      "hide-whiteboard": "Hide whiteboard"
+      "hide-whiteboard": "Hide whiteboard",
+      "promote-presenter": "Promote as presenter",
+      "demote-presenter": "Demote from presenter"
     },
     "menus": {
       "mute-all-users": "Mute all users",
@@ -139,7 +176,9 @@
       "mute-microphone": "Mute Microphone",
       "unmute-microphone": "Unmute Microphone",
       "leave-microphone": "Leave Microphone",
-      "leave-webcam": "Leave webcam"
+      "leave-webcam": "Leave webcam",
+      "start-external-media-player": "Start external Media Player",
+      "stop-external-media-player": "Stop external Media Player"
     },
     "notice": {
       "already-active-screen-sharing": "Session already has an active screen sharing",
@@ -152,13 +191,19 @@
       "muted-all-microphone": "Muted all microphone",
       "applied-settings": "Applied new lock setting",
       "rtmp-starting": "RTMP broadcasting is starting. Please wait",
-      "rtmp-ending": "RTMP broadcasting is starting. Please wait"
+      "rtmp-ending": "RTMP broadcasting is starting. Please wait",
+      "external-media-player-url-required": "Valid URL required",
+      "external-media-player-url-invalid": "URL not valid or supported",
+      "external-media-player-starting": "Please wait preparing playback",
+      "external-media-player-stopping": "Please wait stopping playback"
     },
     "modal": {
       "lock-settings-title": "Room Lock Settings",
       "lock-microphone": "Lock Microphone",
       "lock-webcams": "Lock Webcams",
       "lock-screen-sharing": "Lock Screen sharing",
+      "lock-whiteboard": "Lock Whiteboard",
+      "lock-shared-notepad": "Lock Shared Notepad",
       "lock-chat": "Lock Chat",
       "lock-send-message": "Lock send message",
       "lock-chat-file-share": "Lock chat file share",
@@ -170,7 +215,18 @@
       "rtmp-close-confirm": "Are you sure to end broadcasting?",
       "rtmp-close-msg": "You are about to close RTMP broadcasting",
       "select-microphone": "Select one microphone",
-      "select-webcam": "Select one webcam"
+      "select-webcam": "Select one webcam",
+      "external-media-player-title": "External Media Player",
+      "external-media-player-url": "Playback URL",
+      "external-media-player-play": "Play",
+      "external-media-player-close-confirm": "Are you sure to stop playback?",
+      "external-media-player-close-msg": "You are about to close playback",
+      "upload-background-image": "Upload background image"
     }
+  },
+  "whiteboard": {
+    "page": "Page {{count}}",
+    "converting": "Please wait file conversion in progress",
+    "file-ready": "File is ready"
   }
 }
