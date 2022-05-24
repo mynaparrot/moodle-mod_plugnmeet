@@ -56,17 +56,25 @@ class mod_plugnmeet_get_join_token extends external_api {
 
         $instance = $DB->get_record('plugnmeet', array('id' => $instanceid), '*', MUST_EXIST);
 
-        $config = get_config('mod_plugnmeet');
+        $result = array(
+            "status" => false,
+            "access_token" => null
+        );
 
+        $config = get_config('mod_plugnmeet');
         $connect = new PlugNmeetConnect($config);
         $name = $USER->firstname . " " . $USER->lastname;
-        $res = $connect->getJoinToken($instance->roomid, $name, $USER->id, $isadmin);
+        try {
+            $res = $connect->getJoinToken($instance->roomid, $name, $USER->id, $isadmin);
 
-        $result['status'] = $res->getStatus();
-        $result['msg'] = $res->getResponseMsg();
-        $result['access_token'] = null;
-        if ($res->getStatus()) {
-            $result['access_token'] = $res->getToken();
+            $result['status'] = $res->getStatus();
+            $result['msg'] = $res->getResponseMsg();
+            $result['access_token'] = null;
+            if ($res->getStatus()) {
+                $result['access_token'] = $res->getToken();
+            }
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
         }
 
         return $result;

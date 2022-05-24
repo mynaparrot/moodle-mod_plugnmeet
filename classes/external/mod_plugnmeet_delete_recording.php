@@ -51,13 +51,18 @@ class mod_plugnmeet_delete_recording extends external_api {
      */
     public static function delete_recording($recordid) {
         $config = get_config('mod_plugnmeet');
-        $result = array();
+        $result = array(
+            "status" => false,
+        );
 
         $connect = new PlugNmeetConnect($config);
-        $res = $connect->deleteRecording($recordid);
-
-        $result['status'] = $res->getStatus();
-        $result['msg'] = $res->getResponseMsg();
+        try {
+            $res = $connect->deleteRecording($recordid);
+            $result['status'] = $res->getStatus();
+            $result['msg'] = $res->getResponseMsg();
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
+        }
 
         return $result;
     }

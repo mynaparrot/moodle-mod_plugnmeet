@@ -17,16 +17,19 @@ jobs:
         uses: actions/checkout@v2
       - name: Build project
         run: |
-          zip -X -r plugnmeet.zip *
+          mkdir -p build/plugnmeet
+          rsync -ar --exclude=".*" ./ build/plugnmeet/
+          cd build
+          zip -X -r mod_plugnmeet.zip *
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: plugNmeet-sdk-php-release
-          path: plugnmeet.zip
+          path: build/mod_plugnmeet.zip
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
-          args: plugnmeet.zip application/zip
+          args: build/mod_plugnmeet.zip application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Call the service for moodle.org
@@ -41,7 +44,7 @@ jobs:
             echo "No tag name has been provided!"
             exit 1
           fi
-          ZIPURL="https://github.com/mynaparrot/plugNmeet-Moodle/releases/latest/download/plugnmeet.zip"
+          ZIPURL="https://github.com/mynaparrot/plugNmeet-Moodle/releases/latest/download/mod_plugnmeet.zip"
           RESPONSE=$(${CURL} ${ENDPOINT} --data-urlencode "wstoken=${TOKEN}" \
                                          --data-urlencode "wsfunction=${FUNCTION}" \
                                          --data-urlencode "moodlewsrestformat=json" \

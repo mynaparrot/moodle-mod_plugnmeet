@@ -1,8 +1,10 @@
 # plugNmeet-Moodle
 
-Plug-N-Meet conference integration with Moodle. You can download latest version from [release page](https://github.com/mynaparrot/plugNmeet-Moodle/releases). This plugin was built using [moodle-tool_pluginskel](https://github.com/mudrd8mz/moodle-tool_pluginskel).
+Plug-N-Meet conference integration with Moodle. You can download latest version
+from [release page](https://github.com/mynaparrot/plugNmeet-Moodle/releases). This plugin was built
+using [moodle-tool_pluginskel](https://github.com/mudrd8mz/moodle-tool_pluginskel).
 
-## Installing & configuration
+## Installation & configuration
 
 Please follow this article: https://www.plugnmeet.org/docs/user-guide/moodle-integration
 
@@ -17,7 +19,7 @@ version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY
 WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
-this program.  If not, see <https://www.gnu.org/licenses/>.
+this program. If not, see <https://www.gnu.org/licenses/>.

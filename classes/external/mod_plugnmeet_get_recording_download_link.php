@@ -51,17 +51,23 @@ class mod_plugnmeet_get_recording_download_link extends external_api {
      */
     public static function get_download_link($recordid) {
         $config = get_config('mod_plugnmeet');
-        $result = array();
+        $result = array(
+            "status" => false,
+            "url" => ""
+        );
 
         $connect = new PlugNmeetConnect($config);
-        $res = $connect->getRecordingDownloadLink($recordid);
+        try {
+            $res = $connect->getRecordingDownloadLink($recordid);
 
-        $result['status'] = $res->getStatus();
-        $result['msg'] = $res->getResponseMsg();
-        $result['url'] = "";
+            $result['status'] = $res->getStatus();
+            $result['msg'] = $res->getResponseMsg();
 
-        if ($res->getStatus()) {
-            $result['url'] = $config->plugnmeet_server_url . "/download/recording/" . $res->getToken();
+            if ($res->getStatus()) {
+                $result['url'] = $config->plugnmeet_server_url . "/download/recording/" . $res->getToken();
+            }
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
         }
 
         return $result;

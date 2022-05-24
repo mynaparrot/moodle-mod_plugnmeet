@@ -56,24 +56,32 @@ class mod_plugnmeet_get_recordings extends external_api {
      * @throws dml_exception
      */
     public static function get_recordings($roomid, $from, $limit, $orderby) {
-
-        $output = array();
-        $config = get_config('mod_plugnmeet');
-        $connect = new PlugNmeetConnect($config);
-        $roomids = array($roomid);
-        $res = $connect->getRecordings($roomids, $from, $limit, $orderby);
-
-        $output['status'] = $res->getStatus();
-        $output['msg'] = $res->getResponseMsg();
-        $output['result'] = array(
-            'total_recordings' => $res->getTotalRecordings(),
-            'from' => $res->getFrom(),
-            'limit' => $res->getLimit(),
-            'order_by' => $res->getOrderBy(),
-            'recordings_list' => json_encode($res->getRawResponse()->result->recordings_list)
+        $result = array(
+            "status" => false,
+            "result" => null
         );
 
-        return $output;
+        $config = get_config('mod_plugnmeet');
+        $connect = new PlugNmeetConnect($config);
+
+        try {
+            $roomids = array($roomid);
+            $res = $connect->getRecordings($roomids, $from, $limit, $orderby);
+
+            $result['status'] = $res->getStatus();
+            $result['msg'] = $res->getResponseMsg();
+            $result['result'] = array(
+                'total_recordings' => $res->getTotalRecordings(),
+                'from' => $res->getFrom(),
+                'limit' => $res->getLimit(),
+                'order_by' => $res->getOrderBy(),
+                'recordings_list' => json_encode($res->getRawResponse()->result->recordings_list)
+            );
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
+        }
+
+        return $result;
     }
 
     /**

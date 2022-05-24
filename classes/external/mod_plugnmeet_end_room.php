@@ -51,13 +51,20 @@ class mod_plugnmeet_end_room extends external_api {
      */
     public static function end_room($roomid) {
         $config = get_config('mod_plugnmeet');
-        $connect = new PlugNmeetConnect($config);
-        $res = $connect->endRoom($roomid);
-
-        return array(
-            "status" => $res->getStatus(),
-            "msg" => $res->getResponseMsg()
+        $result = array(
+            "status" => false,
         );
+
+        $connect = new PlugNmeetConnect($config);
+        try {
+            $res = $connect->endRoom($roomid);
+            $result['status'] = $res->getStatus();
+            $result['msg'] = $res->getResponseMsg();
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
+        }
+
+        return $result;
     }
 
     /**

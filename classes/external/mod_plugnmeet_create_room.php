@@ -60,6 +60,7 @@ class mod_plugnmeet_create_room extends external_api {
         $instance = $DB->get_record('plugnmeet', array('id' => $instanceid), '*', MUST_EXIST);
 
         $result = [
+            'status' => false,
             'join_token' => ''
         ];
 
@@ -67,23 +68,31 @@ class mod_plugnmeet_create_room extends external_api {
         $roommetadata = json_decode($instance->roommetadata, true);
 
         $connect = new PlugNmeetConnect($config);
-        $res = $connect->createRoom($instance->roomid,
-            $instance->name,
-            $instance->welcomemessage,
-            $instance->maxparticipants,
-            "",
-            $roommetadata);
+        try {
+            $res = $connect->createRoom($instance->roomid,
+                $instance->name,
+                $instance->welcomemessage,
+                $instance->maxparticipants,
+                "",
+                $roommetadata);
 
-        $result['status'] = $res->getStatus();
-        $result['msg'] = $res->getResponseMsg();
-        $result['roomInfo'] = json_encode($res->getRawResponse());
+            $result['status'] = $res->getStatus();
+            $result['msg'] = $res->getResponseMsg();
+            $result['roomInfo'] = json_encode($res->getRawResponse());
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
+        }
 
         if ($join) {
             $name = $USER->firstname . " " . $USER->lastname;
-            $res = $connect->getJoinToken($instance->roomid, $name, $USER->id, $isadmin);
-            $result['status'] = $res->getStatus();
-            $result['msg'] = $res->getResponseMsg();
-            $result['access_token'] = $res->getToken();
+            try {
+                $res = $connect->getJoinToken($instance->roomid, $name, $USER->id, $isadmin);
+                $result['status'] = $res->getStatus();
+                $result['msg'] = $res->getResponseMsg();
+                $result['access_token'] = $res->getToken();
+            } catch (Exception $e) {
+                $result['msg'] = $e->getMessage();
+            }
         }
 
         return $result;
