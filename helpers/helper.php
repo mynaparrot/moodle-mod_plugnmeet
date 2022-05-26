@@ -60,7 +60,7 @@ class PlugNmeetHelper {
 
                 if ($item["type"] === "text") {
                     $mform->setType("{$fieldname}[{$key}]", PARAM_NOTAGS);
-                } elseif ($item["type"] === "number") {
+                } else if ($item["type"] === "number") {
                     $mform->setType("{$fieldname}[{$key}]", PARAM_INT);
                 }
             } else if ($item["type"] === "textarea") {
