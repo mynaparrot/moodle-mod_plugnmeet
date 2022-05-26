@@ -83,12 +83,9 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('text', 'maxparticipants', get_string("max_participants", "mod_plugnmeet"));
         $mform->setType('maxparticipants', PARAM_INT);
 
-        $roommetadata = $this->get_current()->roommetadata;
-
-        if ($roommetadata) {
-            $roommetadata = json_decode($roommetadata);
-        } else {
-            $roommetadata = array();
+        $roommetadata = array();
+        if (isset($this->get_current()->roommetadata)) {
+            $roommetadata = json_decode($this->get_current()->roommetadata);
         }
 
         $mform->addElement('header', 'roomfeatures', get_string('room_features', 'mod_plugnmeet'));

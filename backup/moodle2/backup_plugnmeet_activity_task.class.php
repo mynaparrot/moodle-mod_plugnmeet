@@ -61,11 +61,11 @@ class backup_plugnmeet_activity_task extends backup_activity_task {
         $base = preg_quote($CFG->wwwroot, '/');
 
         // Link to the list of choices.
-        $search = "/(" . $base . "\//mod\/plugnmeet\/index.php\?id\=)([0-9]+)/";
+        $search = "/(" . $base . "\/mod\/plugnmeet\/index.php\?id\=)([0-9]+)/";
         $content = preg_replace($search, '$@PLUGNMEETINDEX*$2@$', $content);
 
         // Link to choice view by moduleid.
-        $search = "/(" . $base . "\//mod\/plugnmeet\/view.php\?id\=)([0-9]+)/";
+        $search = "/(" . $base . "\/mod\/plugnmeet\/view.php\?id\=)([0-9]+)/";
         $content = preg_replace($search, '$@PLUGNMEETVIEWBYID*$2@$', $content);
 
         return $content;
