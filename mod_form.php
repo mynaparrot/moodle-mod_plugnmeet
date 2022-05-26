@@ -63,7 +63,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
 
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-        $mform->addHelpButton('name', 'plugnmeetname', 'mod_plugnmeet');
+//        $mform->addHelpButton('name', 'plugnmeetname', 'mod_plugnmeet');
 
         // Adding the standard "intro" and "introformat" fields.
         if ($CFG->branch >= 29) {
@@ -80,6 +80,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             'wrap="virtual" rows="5" cols="50"'
         );
         $mform->addElement('text', 'maxparticipants', get_string("max_participants", "mod_plugnmeet"));
+        $mform->setType('maxparticipants', PARAM_INT);
 
         $roommetadata = $this->get_current()->roommetadata;
 
@@ -97,10 +98,15 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         PlugNmeetHelper::get_chat_features($roommetadata, $mform);
         $mform->addElement('html', '<hr />');
         PlugNmeetHelper::get_shared_note_pad_features($roommetadata, $mform);
+
         $mform->addElement('html', '<hr />');
         PlugNmeetHelper::get_whiteboard_features($roommetadata, $mform);
+
         $mform->addElement('html', '<hr />');
         PlugNmeetHelper::get_external_media_player_features($roommetadata, $mform);
+
+        $mform->addElement('html', '<hr />');
+        PlugNmeetHelper::get_waiting_room_features($roommetadata, $mform);
 
         $mform->addElement('header', 'defaultlock', get_string('defaultlock', 'mod_plugnmeet'));
         PlugNmeetHelper::get_default_lock_settings($roommetadata, $mform);

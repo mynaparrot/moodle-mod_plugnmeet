@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e
+class ComposerStaticInitccba094c0e2d91ef1c96be041076be8f
 {
     public static $files = array (
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
@@ -80,6 +80,7 @@ class ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e
         'Brick\\Math\\RoundingMode' => __DIR__ . '/..' . '/brick/math/src/RoundingMode.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Firebase\\JWT\\BeforeValidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/BeforeValidException.php',
+        'Firebase\\JWT\\CachedKeySet' => __DIR__ . '/..' . '/firebase/php-jwt/src/CachedKeySet.php',
         'Firebase\\JWT\\ExpiredException' => __DIR__ . '/..' . '/firebase/php-jwt/src/ExpiredException.php',
         'Firebase\\JWT\\JWK' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWK.php',
         'Firebase\\JWT\\JWT' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWT.php',
@@ -100,6 +101,7 @@ class ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e
         'Mynaparrot\\Plugnmeet\\Parameters\\RoomMetadataParameters' => __DIR__ . '/../..' . '/src/Parameters/RoomMetadataParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\SharedNotePadFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/SharedNotePadFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\UserMetadataParameters' => __DIR__ . '/../..' . '/src/Parameters/UserMetadataParameters.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\WaitingRoomFeatures' => __DIR__ . '/../..' . '/src/Parameters/WaitingRoomFeatures.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\WhiteboardFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/WhiteboardFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\PlugNmeet' => __DIR__ . '/../..' . '/src/PlugNmeet.php',
         'Mynaparrot\\Plugnmeet\\Responses\\BaseResponse' => __DIR__ . '/../..' . '/src/Responses/BaseResponse.php',
@@ -255,9 +257,9 @@ class ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc4fbec8c94c0b65c4fabc9fd93863b6e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitccba094c0e2d91ef1c96be041076be8f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitccba094c0e2d91ef1c96be041076be8f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitccba094c0e2d91ef1c96be041076be8f::$classMap;
 
         }, null, ClassLoader::class);
     }

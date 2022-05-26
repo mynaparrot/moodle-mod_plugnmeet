@@ -69,6 +69,18 @@ function plugnmeet_add_instance($moduleinstance, $mform = null) {
     if (isset($moduleinstance->chat_features)) {
         $roommetadata['chat_features'] = $moduleinstance->chat_features;
     }
+    if (isset($moduleinstance->shared_note_pad_features)) {
+        $roommetadata['shared_note_pad_features'] = $moduleinstance->shared_note_pad_features;
+    }
+    if (isset($moduleinstance->whiteboard_features)) {
+        $roommetadata['whiteboard_features'] = $moduleinstance->whiteboard_features;
+    }
+    if (isset($moduleinstance->external_media_player_features)) {
+        $roommetadata['external_media_player_features'] = $moduleinstance->external_media_player_features;
+    }
+    if (isset($moduleinstance->waiting_room_features)) {
+        $roommetadata['waiting_room_features'] = $moduleinstance->waiting_room_features;
+    }
     if (isset($moduleinstance->default_lock_settings)) {
         $roommetadata['default_lock_settings'] = $moduleinstance->default_lock_settings;
     }
@@ -116,6 +128,12 @@ function plugnmeet_update_instance($moduleinstance, $mform = null) {
     }
     if (isset($moduleinstance->whiteboard_features)) {
         $roommetadata['whiteboard_features'] = $moduleinstance->whiteboard_features;
+    }
+    if (isset($moduleinstance->external_media_player_features)) {
+        $roommetadata['external_media_player_features'] = $moduleinstance->external_media_player_features;
+    }
+    if (isset($moduleinstance->waiting_room_features)) {
+        $roommetadata['waiting_room_features'] = $moduleinstance->waiting_room_features;
     }
     if (isset($moduleinstance->default_lock_settings)) {
         $roommetadata['default_lock_settings'] = $moduleinstance->default_lock_settings;

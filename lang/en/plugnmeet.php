@@ -59,8 +59,11 @@ $string['privacy:metadata:db:room:timemodified'] = 'Describe field timemodified 
 $string['privacy:metadata:db:room:welcome_message'] = 'Describe field welcome_message here.';
 $string['privacy:metadata:external:plugnmeet'] = 'Describe external system plugnmeet here.';
 $string['view'] = 'View';
-$string['Yes'] = 'Yes';
-$string['No'] = 'No';
+$string['yes'] = 'Yes';
+$string['no'] = 'No';
+$string['join'] = 'Join';
+$string['plugnmeetname'] = 'plugNmeet';
+$string['plugnmeetname_help'] = 'Help';
 
 $string['plugnmeetconfig'] = 'plugNmeet config';
 $string['plugnmeet_server_url'] = 'plugnmeet server url';
@@ -92,6 +95,7 @@ $string['roomtitle'] = 'Room title';
 $string['welcome_message'] = 'Welcome message';
 $string['max_participants'] = 'Maximum participants (0 = unlimited)';
 
+$string['room_features'] = 'Room features';
 $string['roomfeatures'] = 'Room features';
 $string['allow_webcams'] = 'Allow webcams';
 $string['mute_on_start'] = 'Mute on start';
@@ -101,6 +105,8 @@ $string['allow_rtmp'] = 'Allow RTMP';
 $string['allow_view_other_webcams'] = 'Allow view other webcams';
 $string['allow_view_other_users_list'] = 'Allow view other users';
 $string['admin_only_webcams'] = 'Admin only webcams';
+$string['allow_polls'] = 'Allow polls';
+$string['room_duration'] = 'Room duration (In minutes, 0 = unlimited)';
 
 $string['other_features'] = 'Other features';
 
@@ -116,6 +122,10 @@ $string['allow_whiteboard'] = 'Allow Whiteboard';
 
 $string['external_media_player_features'] = 'External media player features';
 $string['allowed_external_media_player'] = 'Allow external media player';
+
+$string['waiting_room_features'] = 'Waiting room features';
+$string['activate_waiting_room'] = 'Activate waiting room';
+$string['waiting_room_msg'] = 'Waiting room message';
 
 $string['defaultlock'] = 'Default lock settings';
 $string['lock_microphone'] = 'Lock microphone';

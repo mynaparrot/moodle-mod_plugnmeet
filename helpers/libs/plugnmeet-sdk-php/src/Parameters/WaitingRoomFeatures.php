@@ -21,63 +21,69 @@
  * SOFTWARE.
  */
 
-namespace Mynaparrot\Plugnmeet\Responses;
+namespace Mynaparrot\Plugnmeet\Parameters;
 
 /**
  *
  */
-abstract class BaseResponse
+class WaitingRoomFeatures
 {
     /**
-     * @var object
+     * @var bool
      */
-    protected $rawResponse;
-
+    protected $isActive = false;
     /**
-     * @param object $rawResponse
+     * @var string
      */
-    public function __construct($rawResponse)
-    {
-        $this->rawResponse = $rawResponse;
-        if ($rawResponse->status) {
-            $this->rawResponse = $rawResponse->response;
-        } else {
-            $this->rawResponse->msg = $rawResponse->response;
-        }
-    }
-
-    /**
-     * @return object
-     */
-    public function getRawResponse()
-    {
-        return $this->rawResponse;
-    }
+    protected $waitingRoomMsg;
 
     /**
      * @return bool
      */
-    public function getStatus(): bool
+    public function isActive(): bool
     {
-        return $this->rawResponse->status;
+        return $this->isActive;
     }
 
+    /**
+     * @param bool $isActive
+     */
+    public function setIsActive(bool $isActive): void
+    {
+        $this->isActive = $this->allowPolls = filter_var($isActive, FILTER_VALIDATE_BOOLEAN);
+    }
 
     /**
      * @return string
      */
-    public function getResponseMsg(): string
+    public function getWaitingRoomMsg(): string
     {
-        if ($this->rawResponse->msg === null) {
-            return "something went wrong";
+        return $this->waitingRoomMsg;
+    }
+
+    /**
+     * @param string $waitingRoomMsg
+     */
+    public function setWaitingRoomMsg(string $waitingRoomMsg): void
+    {
+        if (!empty($waitingRoomMsg)) {
+            $this->waitingRoomMsg = $waitingRoomMsg;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function buildBody()
+    {
+        $body = array(
+            "is_active" => $this->isActive,
+        );
+
+        if (!empty($this->waitingRoomMsg)) {
+            $body["waiting_room_msg"] = $this->waitingRoomMsg;
         }
 
-        $msg = $this->rawResponse->msg;
-
-        if (is_array($msg)) {
-            return json_encode($msg);
-        }
-
-        return $msg;
+        return $body;
     }
 }
