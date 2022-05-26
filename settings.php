@@ -44,7 +44,6 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext(
         'mod_plugnmeet/plugnmeet_secret',
         get_string('plugnmeet_secret', 'plugnmeet'),
-
         get_string('plugnmeet_secret_des', 'plugnmeet'),
         "zumyyYWqv7KR2kUqvYdq4z4sXg7XTBD2ljT6", PARAM_TEXT));
 
@@ -148,7 +147,7 @@ if ($hassiteconfig) {
         get_string('client_download_url', 'plugnmeet'),
         get_string('client_download_url_des', 'plugnmeet'),
         "https://github.com/mynaparrot/plugNmeet-client/releases/latest/download/client.zip",
-        PARAM_TEXT));
+        PARAM_URL));
 
     $setting = new admin_setting_description(
         'mod_plugnmeet/update_client', "",

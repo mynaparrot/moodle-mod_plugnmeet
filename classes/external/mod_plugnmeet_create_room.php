@@ -78,18 +78,22 @@ class mod_plugnmeet_create_room extends external_api {
 
             $result['status'] = $res->getStatus();
             $result['msg'] = $res->getResponseMsg();
-            $result['roomInfo'] = json_encode($res->getRawResponse());
+            if ($result['status']) {
+                $result['roomInfo'] = json_encode($res->getRawResponse());
+            }
         } catch (Exception $e) {
             $result['msg'] = $e->getMessage();
         }
 
-        if ($join) {
+        if ($join && $result['status']) {
             $name = $USER->firstname . " " . $USER->lastname;
             try {
                 $res = $connect->getJoinToken($instance->roomid, $name, $USER->id, $isadmin);
                 $result['status'] = $res->getStatus();
                 $result['msg'] = $res->getResponseMsg();
-                $result['access_token'] = $res->getToken();
+                if ($result['status']) {
+                    $result['access_token'] = $res->getToken();
+                }
             } catch (Exception $e) {
                 $result['msg'] = $e->getMessage();
             }

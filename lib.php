@@ -373,14 +373,14 @@ function get_plugnmeet_config() {
     $js .= 'window.LIVEKIT_SERVER_URL = "' . $config->livekit_server_url . '";';
     $js .= 'window.STATIC_ASSETS_PATH = "' . $path . '";';
 
-    $js .= 'Window.ENABLE_DYNACAST = ' . filter_var($config->enable_dynacast, FILTER_VALIDATE_BOOLEAN) . ';';
-    $js .= 'window.ENABLE_SIMULCAST = ' . filter_var($config->enable_simulcast, FILTER_VALIDATE_BOOLEAN) . ';';
+    $js .= 'Window.ENABLE_DYNACAST = ' . $config->enable_dynacast . ';';
+    $js .= 'window.ENABLE_SIMULCAST = ' . $config->enable_simulcast . ';';
     $js .= 'window.VIDEO_CODEC = "' . $config->video_codec . '";';
     $js .= 'window.DEFAULT_WEBCAM_RESOLUTION = "' . $config->default_webcam_resolution . '";';
     $js .= 'window.DEFAULT_SCREEN_SHARE_RESOLUTION = "' . $config->default_screen_share_resolution . '";';
-    $js .= 'window.STOP_MIC_TRACK_ON_MUTE = ' . filter_var($config->stop_mic_track_on_mute, FILTER_VALIDATE_BOOLEAN) . ';';
+    $js .= 'window.STOP_MIC_TRACK_ON_MUTE = ' . $config->stop_mic_track_on_mute . ';';
 
-    if ($config->logo) {
+    if ($config->custom_logo) {
         $filename = str_replace("/", "", $config->custom_logo);
         $tablefiles = "files";
         $results = $DB->get_record($tablefiles, array(
@@ -460,7 +460,6 @@ function get_plugnmeet_config() {
         $js .= 'window.DESIGN_CUSTOMIZATION = `' . json_encode($customdesignitems) . '`;';
     }
 
-    $js = str_replace(";", ";", $js);
     $script = "<script type=\"text/javascript\">" . $js . "</script>\n";
 
     return $script;

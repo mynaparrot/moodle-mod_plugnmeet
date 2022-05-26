@@ -74,8 +74,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement(
             'textarea',
             'welcomemessage',
-            get_string("welcome_message",
-                "mod_plugnmeet"),
+            get_string("welcome_message", "mod_plugnmeet"),
             'wrap="virtual" rows="5" cols="50"'
         );
         $mform->setType('welcomemessage', PARAM_CLEANHTML);

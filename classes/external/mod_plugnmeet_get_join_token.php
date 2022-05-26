@@ -69,8 +69,7 @@ class mod_plugnmeet_get_join_token extends external_api {
 
             $result['status'] = $res->getStatus();
             $result['msg'] = $res->getResponseMsg();
-            $result['access_token'] = null;
-            if ($res->getStatus()) {
+            if ($result['status']) {
                 $result['access_token'] = $res->getToken();
             }
         } catch (Exception $e) {

@@ -70,13 +70,15 @@ class mod_plugnmeet_get_recordings extends external_api {
 
             $result['status'] = $res->getStatus();
             $result['msg'] = $res->getResponseMsg();
-            $result['result'] = array(
-                'total_recordings' => $res->getTotalRecordings(),
-                'from' => $res->getFrom(),
-                'limit' => $res->getLimit(),
-                'order_by' => $res->getOrderBy(),
-                'recordings_list' => json_encode($res->getRawResponse()->result->recordings_list)
-            );
+            if ($result['status']) {
+                $result['result'] = array(
+                    'total_recordings' => $res->getTotalRecordings(),
+                    'from' => $res->getFrom(),
+                    'limit' => $res->getLimit(),
+                    'order_by' => $res->getOrderBy(),
+                    'recordings_list' => json_encode($res->getRawResponse()->result->recordings_list)
+                );
+            }
         } catch (Exception $e) {
             $result['msg'] = $e->getMessage();
         }

@@ -146,7 +146,13 @@ defined('MOODLE_INTERNAL') || die();
                                 '/mod/plugnmeet/conference.php?access_token=' +
                                 res.access_token +
                                 '&id=<?php echo optional_param("id", 0, PARAM_INT); ?>';
-                            window.open(url, '_blank');
+
+                            const windowOpen = window.open(url, "_blank");
+                            if (!windowOpen) {
+                                setTimeout(() => {
+                                    window.location.href = url
+                                }, 2000);
+                            }
                         } else {
                             alert(res.msg);
                         }
@@ -179,7 +185,13 @@ defined('MOODLE_INTERNAL') || die();
                                 '/mod/plugnmeet/conference.php?access_token=' +
                                 res.access_token +
                                 '&id=<?php echo optional_param("id", 0, PARAM_INT); ?>';
-                            window.open(url, '_blank');
+
+                            const windowOpen = window.open(url, "_blank");
+                            if (!windowOpen) {
+                                setTimeout(() => {
+                                    window.location.href = url
+                                }, 2000);
+                            }
                         } else {
                             alert(res.msg);
                         }
