@@ -78,6 +78,8 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
                 "mod_plugnmeet"),
             'wrap="virtual" rows="5" cols="50"'
         );
+        $mform->setType('welcomemessage', PARAM_CLEANHTML);
+
         $mform->addElement('text', 'maxparticipants', get_string("max_participants", "mod_plugnmeet"));
         $mform->setType('maxparticipants', PARAM_INT);
 

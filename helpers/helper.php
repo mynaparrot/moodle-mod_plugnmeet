@@ -75,6 +75,7 @@ class PlugNmeetHelper {
                     'wrap="virtual" rows="5" cols="50"'
                 );
                 $mform->setDefault("{$fieldname}[{$key}]", $value);
+                $mform->setType("{$fieldname}[{$key}]", PARAM_CLEANHTML);
             }
         }
     }

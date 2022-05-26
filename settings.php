@@ -33,7 +33,7 @@ if ($hassiteconfig) {
         'mod_plugnmeet/plugnmeet_server_url',
         get_string('plugnmeet_server_url', 'plugnmeet'),
         get_string('plugnmeet_server_url_des', 'plugnmeet'),
-        "https://demo.plugnmeet.com", PARAM_TEXT));
+        "https://demo.plugnmeet.com", PARAM_URL));
 
     $settings->add(new admin_setting_configtext(
         'mod_plugnmeet/plugnmeet_api_key',
@@ -52,7 +52,7 @@ if ($hassiteconfig) {
         'mod_plugnmeet/livekit_server_url',
         get_string('livekit_server_url', 'plugnmeet'),
         get_string('livekit_server_url_des', 'plugnmeet'),
-        "https://lk.plugnmeet.com", PARAM_TEXT));
+        "https://lk.plugnmeet.com", PARAM_URL));
 
     $settings->add(new admin_setting_configstoredfile(
         'mod_plugnmeet/custom_logo',
