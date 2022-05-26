@@ -34,8 +34,13 @@ class PlugNmeetHelper {
     private static function format_html($items, $fieldname, $data, $mform) {
         foreach ($items as $key => $item) {
             if ($item["type"] === "select") {
-                $select = $mform->addElement('select', "{$fieldname}[{$key}]", $item['label'], $item["options"]);
-                
+                $select = $mform->addElement(
+                    'select',
+                    "{$fieldname}[{$key}]",
+                    $item['label'],
+                    $item["options"]
+                );
+
                 $value = $item["selected"];
                 if (isset($data[$key])) {
                     $value = $data[$key];
