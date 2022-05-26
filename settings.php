@@ -66,23 +66,25 @@ if ($hassiteconfig) {
         get_string('plugnmeetoptions', 'plugnmeet'),
         ''));
 
-    $dynacast = array();
-    $dynacast[1] = 'true';
-    $dynacast[0] = 'false';
+    $dynacast = array(
+        1 => get_string('yes', 'plugnmeet'),
+        0 => get_string('no', 'plugnmeet')
+    );
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/enable_dynacast',
         get_string('enable_dynacast', 'mod_plugnmeet'),
         get_string('enable_dynacast_des', 'mod_plugnmeet'),
-        true, $dynacast));
+        1, $dynacast));
 
-    $simulcast = array();
-    $simulcast[1] = 'true';
-    $simulcast[0] = 'false';
+    $simulcast = array(
+        1 => get_string('yes', 'plugnmeet'),
+        0 => get_string('no', 'plugnmeet')
+    );
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/enable_simulcast',
         get_string('enable_simulcast', 'mod_plugnmeet'),
         get_string('enable_simulcast_des', 'mod_plugnmeet'),
-        true, $simulcast));
+        1, $simulcast));
 
     $videocodec = array(
         "vp8" => "vp8",
@@ -127,14 +129,15 @@ if ($hassiteconfig) {
         get_string('default_screen_share_resolution_des',
             'mod_plugnmeet'), 'vp8', $screenshareresolution));
 
-    $stopmictrackonmute = array();
-    $stopmictrackonmute[1] = 'true';
-    $stopmictrackonmute[0] = 'false';
+    $stopmictrackonmute = array(
+        1 => get_string('yes', 'plugnmeet'),
+        0 => get_string('no', 'plugnmeet')
+    );
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/stop_mic_track_on_mute',
         get_string('stop_mic_track_on_mute', 'mod_plugnmeet'),
         get_string('stop_mic_track_on_mute_des', 'mod_plugnmeet'),
-        true, $stopmictrackonmute));
+        1, $stopmictrackonmute));
 
     $settings->add(new admin_setting_heading(
         'mod_plugnmeet/plugnmeetextra',
