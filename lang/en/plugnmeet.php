@@ -57,6 +57,8 @@ $string['no'] = 'No';
 $string['join'] = 'Join';
 $string['plugnmeetname'] = 'plugNmeet';
 $string['plugnmeetname_help'] = 'Help';
+$string['plugnmeet_viewed'] = 'plugNmeet activity viewed';
+$string['joined_session'] = 'Joined session';
 
 $string['plugnmeetconfig'] = 'plugNmeet config';
 $string['plugnmeet_server_url'] = 'plugnmeet server url';

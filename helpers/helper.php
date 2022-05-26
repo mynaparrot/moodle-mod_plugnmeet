@@ -34,12 +34,8 @@ class PlugNmeetHelper {
     private static function format_html($items, $fieldname, $data, $mform) {
         foreach ($items as $key => $item) {
             if ($item["type"] === "select") {
-                $opt = array(
-                    0 => get_string("no", "mod_plugnmeet"),
-                    1 => get_string("yes", "mod_plugnmeet")
-                );
-
-                $select = $mform->addElement('select', "{$fieldname}[{$key}]", $item['label'], $opt);
+                $select = $mform->addElement('select', "{$fieldname}[{$key}]", $item['label'], $item["options"]);
+                
                 $value = $item["selected"];
                 if (isset($data[$key])) {
                     $value = $data[$key];
@@ -90,55 +86,82 @@ class PlugNmeetHelper {
         $roomfeatures = array(
             "allow_webcams" => array(
                 "label" => get_string("allow_webcams", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
             "mute_on_start" => array(
                 "label" => get_string("mute_on_start", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 0,
                 "type" => "select"
             ),
             "allow_screen_share" => array(
                 "label" => get_string("allow_screen_share", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
             "allow_recording" => array(
                 "label" => get_string("allow_recording", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
             "allow_rtmp" => array(
                 "label" => get_string("allow_rtmp", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
             "allow_view_other_webcams" => array(
                 "label" => get_string("allow_view_other_webcams", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
             "allow_view_other_users_list" => array(
                 "label" => get_string("allow_view_other_users_list", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
             "admin_only_webcams" => array(
                 "label" => get_string("admin_only_webcams", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 0,
                 "type" => "select"
             ),
             "allow_polls" => array(
                 "label" => get_string("allow_polls", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
@@ -150,8 +173,8 @@ class PlugNmeetHelper {
         );
 
         $data = [];
-        if (isset($roommetadata->room_features)) {
-            $data = (array)$roommetadata->room_features;
+        if (isset($roommetadata['room_features'])) {
+            $data = $roommetadata['room_features'];
         }
 
         self::format_html($roomfeatures, "room_features", $data, $mform);
@@ -167,21 +190,27 @@ class PlugNmeetHelper {
         $chatfeatures = array(
             "allow_chat" => array(
                 "label" => get_string("allow_chat", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
             "allow_file_upload" => array(
                 "label" => get_string("allow_file_upload", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
         );
 
         $data = [];
-        if (isset($roommetadata->chat_features)) {
-            $data = (array)$roommetadata->chat_features;
+        if (isset($roommetadata["chat_features"])) {
+            $data = $roommetadata["chat_features"];
         }
 
         self::format_html($chatfeatures, "chat_features", $data, $mform);
@@ -197,15 +226,18 @@ class PlugNmeetHelper {
         $sharednotepadfeatures = array(
             "allowed_shared_note_pad" => array(
                 "label" => get_string("allow_shared_notepad", "plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             )
         );
 
         $data = [];
-        if (isset($roommetadata->shared_note_pad_features)) {
-            $data = (array)$roommetadata->shared_note_pad_features;
+        if (isset($roommetadata["shared_note_pad_features"])) {
+            $data = $roommetadata["shared_note_pad_features"];
         }
 
         self::format_html($sharednotepadfeatures, "shared_note_pad_features", $data, $mform);
@@ -221,15 +253,18 @@ class PlugNmeetHelper {
         $whiteboardfeatures = array(
             "allowed_whiteboard" => array(
                 "label" => get_string("allow_whiteboard", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             )
         );
 
         $data = [];
-        if (isset($roommetadata->whiteboard_features)) {
-            $data = (array)$roommetadata->whiteboard_features;
+        if (isset($roommetadata["whiteboard_features"])) {
+            $data = $roommetadata["whiteboard_features"];
         }
 
         self::format_html($whiteboardfeatures, "whiteboard_features", $data, $mform);
@@ -245,15 +280,18 @@ class PlugNmeetHelper {
         $externalmediaplayerfeatures = array(
             "allowed_external_media_player" => array(
                 "label" => get_string("allowed_external_media_player", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             )
         );
 
         $data = [];
-        if (isset($roommetadata->external_media_player_features)) {
-            $data = (array)$roommetadata->external_media_player_features;
+        if (isset($roommetadata["external_media_player_features"])) {
+            $data = $roommetadata["external_media_player_features"];
         }
 
         self::format_html($externalmediaplayerfeatures, "external_media_player_features", $data, $mform);
@@ -269,7 +307,10 @@ class PlugNmeetHelper {
         $waitingroomfeatures = array(
             "is_active" => array(
                 "label" => get_string("activate_waiting_room", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 0,
                 "type" => "select"
             ),
@@ -281,8 +322,8 @@ class PlugNmeetHelper {
         );
 
         $data = [];
-        if (isset($roommetadata->waiting_room_features)) {
-            $data = (array)$roommetadata->waiting_room_features;
+        if (isset($roommetadata["waiting_room_features"])) {
+            $data = $roommetadata["waiting_room_features"];
         }
 
         self::format_html($waitingroomfeatures, "waiting_room_features", $data, $mform);
@@ -298,57 +339,81 @@ class PlugNmeetHelper {
         $defaultlocksettings = array(
             "lock_microphone" => array(
                 "label" => get_string("lock_microphone", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 0,
                 "type" => "select"
             ),
             "lock_webcam" => array(
                 "label" => get_string("lock_webcam", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 0,
                 "type" => "select"
             ),
             "lock_screen_sharing" => array(
                 "label" => get_string("lock_screen_sharing", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
             "lock_whiteboard" => array(
                 "label" => get_string("lock_whiteboard", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
             "lock_shared_notepad" => array(
                 "label" => get_string("lock_shared_notepad", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 1,
                 "type" => "select"
             ),
             "lock_chat" => array(
                 "label" => get_string("lock_chat", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 0,
                 "type" => "select"
             ),
             "lock_chat_send_message" => array(
                 "label" => get_string("lock_chat_send_message", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 0,
                 "type" => "select"
             ),
             "lock_chat_file_share" => array(
                 "label" => get_string("lock_chat_file_share", "mod_plugnmeet"),
-                "options" => array(1, 0),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
                 "selected" => 0,
                 "type" => "select"
             ),
         );
 
         $data = [];
-        if (isset($roommetadata->default_lock_settings)) {
-            $data = (array)$roommetadata->default_lock_settings;
+        if (isset($roommetadata["default_lock_settings"])) {
+            $data = $roommetadata["default_lock_settings"];
         }
 
         self::format_html($defaultlocksettings, "default_lock_settings", $data, $mform);

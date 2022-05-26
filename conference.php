@@ -31,7 +31,17 @@ $id = optional_param('id', 0, PARAM_INT);
 $cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 $moduleinstance = $DB->get_record('plugnmeet', array('id' => $cm->instance), '*', MUST_EXIST);
+$context = context_module::instance($cm->id);
+
 require_login($course, true, $cm);
+require_capability('mod/plugnmeet:view', $context);
+
+$event = \mod_plugnmeet\event\joined_plugnmeet_session::create(array(
+    'objectid' => $moduleinstance->id,
+    'context' => $context
+));
+$event->add_record_snapshot('plugnmeet', $moduleinstance);
+$event->trigger();
 
 $config = get_config('mod_plugnmeet');
 

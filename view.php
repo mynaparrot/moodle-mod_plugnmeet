@@ -42,9 +42,10 @@ if ($id) {
     $cm = get_coursemodule_from_instance('plugnmeet', $moduleinstance->id, $course->id, false, MUST_EXIST);
 }
 
-require_login($course, true, $cm);
-
 $context = context_module::instance($cm->id);
+require_login($course, true, $cm);
+require_capability('mod/plugnmeet:view', $context);
+
 $isadmin = has_capability('moodle/course:update', $context) ? 1 : 0;
 
 $event = \mod_plugnmeet\event\course_module_viewed::create(array(

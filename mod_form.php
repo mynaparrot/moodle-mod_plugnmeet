@@ -84,7 +84,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
 
         $roommetadata = array();
         if (isset($this->get_current()->roommetadata)) {
-            $roommetadata = json_decode($this->get_current()->roommetadata);
+            $roommetadata = json_decode($this->get_current()->roommetadata, true);
         }
 
         $mform->addElement('header', 'roomfeatures', get_string('room_features', 'mod_plugnmeet'));

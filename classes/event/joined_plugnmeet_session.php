@@ -25,10 +25,9 @@ namespace mod_plugnmeet\event;
  * @copyright  2022 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class course_module_viewed extends \core\event\course_module_viewed {
-
+class joined_plugnmeet_session extends \core\event\base {
     /**
-     * @return void
+     * Init method.
      */
     protected function init() {
         $this->data['crud'] = 'r';
@@ -42,7 +41,8 @@ class course_module_viewed extends \core\event\course_module_viewed {
      * @return string
      */
     public function get_description() {
-        return 'User with id ' . $this->userid . ' viewed plugnmeet activity with instanceid ' . $this->objectid;
+        return 'User with id ' . $this->userid . ' joined session with instanceid ' .
+            $this->objectid;
     }
 
     /**
@@ -51,7 +51,7 @@ class course_module_viewed extends \core\event\course_module_viewed {
      * @return string
      */
     public static function get_name() {
-        return get_string('plugnmeet_viewed', 'mod_plugnmeet');
+        return get_string('joined_session', 'mod_plugnmeet');
     }
 
     /**
@@ -60,31 +60,15 @@ class course_module_viewed extends \core\event\course_module_viewed {
      * @return \moodle_url
      */
     public function get_url() {
-        return new \moodle_url('/mod/plugnmeet/view.php',
-            array(
-                'id' => $this->contextinstanceid
-            )
-        );
+        return new \moodle_url('/mod/plugnmeet/conference.php', array('id' => $this->contextinstanceid));
     }
 
     /**
-     * @return string[]
+     * Get objectid mapping
+     *
+     * @return array of parameters for object mapping.
      */
     public static function get_objectid_mapping() {
         return array('db' => 'plugnmeet', 'restore' => 'plugnmeet');
-    }
-
-    /**
-     * Custom validation.
-     *
-     * @return void
-     * @throws \coding_exception
-     */
-    protected function validate_data() {
-        parent::validate_data();
-
-        if ($this->contextlevel != CONTEXT_MODULE) {
-            throw new \coding_exception('Context level must be CONTEXT_MODULE.');
-        }
     }
 }
