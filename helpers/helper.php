@@ -46,9 +46,9 @@ class PlugNmeetHelper {
                     $value = $data[$key];
                 }
 
-                foreach ($item["options"] as $option) {
-                    if ($option == $value) {
-                        $select->setSelected($option);
+                foreach (array_keys($item["options"]) as $k) {
+                    if ($k == $value) {
+                        $select->setSelected($k);
                     }
                 }
             } else if ($item["type"] === "text" || $item["type"] === "number") {
