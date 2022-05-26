@@ -50,7 +50,7 @@ class PlugNmeetHelper {
                         $select->setSelected($option);
                     }
                 }
-            } elseif ($item["type"] === "text" || $item["type"] === "number") {
+            } else if ($item["type"] === "text" || $item["type"] === "number") {
                 $value = $item["default"];
                 if (isset($data[$key])) {
                     $value = $data[$key];
@@ -63,7 +63,7 @@ class PlugNmeetHelper {
                 } elseif ($item["type"] === "number") {
                     $mform->setType("{$fieldname}[{$key}]", PARAM_INT);
                 }
-            } elseif ($item["type"] === "textarea") {
+            } else if ($item["type"] === "textarea") {
                 $value = $item["default"];
                 if (isset($data[$key])) {
                     $value = $data[$key];
