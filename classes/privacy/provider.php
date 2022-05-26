@@ -16,12 +16,7 @@
 
 namespace mod_plugnmeet\privacy;
 
-use core_privacy\local\metadata\collection;
-use core_privacy\local\request\approved_contextlist;
-use core_privacy\local\request\contextlist;
-use core_privacy\local\request\helper;
-use core_privacy\local\request\transform;
-use core_privacy\local\request\writer;
+use core_privacy\local\metadata\null_provider;
 
 /**
  * Privacy API implementation for the plugNmeet plugin.
@@ -31,101 +26,15 @@ use core_privacy\local\request\writer;
  * @copyright   2022 mynaparrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements
-        \core_privacy\local\metadata\provider,
-        \core_privacy\local\request\plugin\provider {
+class provider implements null_provider {
 
     /**
-     * Describe all the places where the plugNmeet plugin stores some personal data.
+     * Get the language string identifier with the component's language
+     * file to explain why this plugin stores no data.
      *
-     * @param collection $collection Collection of items to add metadata to.
-     * @return collection Collection with our added items.
+     * @return  string
      */
-    public static function get_metadata(collection $collection) : collection {
-
-        $collection->add_database_table('mod_plugnmeet_room', [
-           'room_id' => 'privacy:metadata:db:room:room_id',
-           'room_title' => 'privacy:metadata:db:room:room_title',
-           'welcome_message' => 'privacy:metadata:db:room:welcome_message',
-           'room_metadata' => 'privacy:metadata:db:room:room_metadata',
-           'timecreated' => 'privacy:metadata:db:room:timecreated',
-           'timemodified' => 'privacy:metadata:db:room:timemodified',
-        ], 'privacy:metadata:db:room');
-
-        $collection->add_external_location_link('plugnmeet', [], 'privacy:metadata:external:plugnmeet');
-
-        return $collection;
-    }
-
-    /**
-     * Get the list of contexts that contain personal data for the specified user.
-     *
-     * @param int $userid ID of the user.
-     * @return contextlist List of contexts containing the user's personal data.
-     */
-    public static function get_contexts_for_userid(int $userid) : contextlist {
-
-        $contextlist = new contextlist();
-
-        // You will probably implement something using `$contextlist->add_from_sql()` here. See examples in other plugins.
-
-        return $contextlist;
-    }
-
-    /**
-     * Export personal data stored in the given contexts.
-     *
-     * @param approved_contextlist $contextlist List of contexts approved for export.
-     */
-    public static function export_user_data(approved_contextlist $contextlist) {
-        global $DB;
-
-        if (!count($contextlist)) {
-            return;
-        }
-
-        $user = $contextlist->get_user();
-
-        // You will probably implement something using writer's methods `export_data()`, `export_area_files()` etc.
-        // The following code is just a dummy example.
-
-        foreach ($contextlist->get_contexts() as $context) {
-            $data = helper::get_context_data($context, $user);
-            $data->implemented = transform::yesno(false);
-            $data->todo = 'Not implemented yet.';
-            writer::with_context($context)->export_data([], $data);
-        }
-    }
-
-    /**
-     * Delete personal data for all users in the context.
-     *
-     * @param context $context Context to delete personal data from.
-     */
-    public static function delete_data_for_all_users_in_context(\context $context) {
-        global $DB;
-
-        // You will probably use some variant of `$DB->delete_records()` here to remove user data from your tables.
-        // If you have plugin files, do not forget to clean the relevant files areas too.
-    }
-
-    /**
-     * Delete personal data for the user in a list of contexts.
-     *
-     * @param approved_contextlist $contextlist List of contexts to delete data from.
-     */
-    public static function delete_data_for_user(approved_contextlist $contextlist) {
-        global $DB;
-
-        if (!count($contextlist)) {
-            return;
-        }
-
-        list($contextsql, $contextparams) = $DB->get_in_or_equal($contextlist->get_contextids(), SQL_PARAMS_NAMED);
-        $user = $contextlist->get_user();
-        $fs = get_file_storage();
-
-        // You will probably use some variant of `$DB->delete_records()` here to remove user data from your tables.
-        // If you have plugin files, do not forget to clean the relevant files areas too.
+    public static function get_reason(): string {
+        return 'privacy:metadata';
     }
 }
