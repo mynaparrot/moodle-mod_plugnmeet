@@ -340,6 +340,38 @@ class PlugNmeetHelper {
      * @return void
      * @throws coding_exception
      */
+    public static function get_breakout_room_features($roommetadata, $mform) {
+        $breakoutroomfeatures = array(
+            "is_allow" => array(
+                "label" => get_string("allow_breakout_rooms", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+            "allowed_number_rooms" => array(
+                "label" => get_string("allowed_number_rooms", "mod_plugnmeet"),
+                "default" => 6,
+                "type" => "number"
+            )
+        );
+
+        $data = [];
+        if (isset($roommetadata["breakout_room_features"])) {
+            $data = $roommetadata["breakout_room_features"];
+        }
+
+        self::format_html($breakoutroomfeatures, "breakout_room_features", $data, $mform);
+    }
+
+    /**
+     * @param $roommetadata
+     * @param $mform
+     * @return void
+     * @throws coding_exception
+     */
     public static function get_default_lock_settings($roommetadata, $mform) {
         $defaultlocksettings = array(
             "lock_microphone" => array(

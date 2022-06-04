@@ -122,6 +122,10 @@ $string['waiting_room_features'] = 'Waiting room features';
 $string['activate_waiting_room'] = 'Activate waiting room';
 $string['waiting_room_msg'] = 'Waiting room message';
 
+$string['breakout_room_features'] = 'Breakout room features';
+$string['allow_breakout_rooms'] = 'Allow breakout rooms';
+$string['allowed_number_rooms'] = 'Number of rooms';
+
 $string['defaultlock'] = 'Default lock settings';
 $string['lock_microphone'] = 'Lock microphone';
 $string['lock_webcam'] = 'Lock webcam';

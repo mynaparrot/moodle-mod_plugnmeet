@@ -81,6 +81,9 @@ function plugnmeet_add_instance($moduleinstance, $mform = null) {
     if (isset($moduleinstance->waiting_room_features)) {
         $roommetadata['waiting_room_features'] = $moduleinstance->waiting_room_features;
     }
+    if (isset($moduleinstance->breakout_room_features)) {
+        $roommetadata['breakout_room_features'] = $moduleinstance->breakout_room_features;
+    }
     if (isset($moduleinstance->default_lock_settings)) {
         $roommetadata['default_lock_settings'] = $moduleinstance->default_lock_settings;
     }
@@ -134,6 +137,9 @@ function plugnmeet_update_instance($moduleinstance, $mform = null) {
     }
     if (isset($moduleinstance->waiting_room_features)) {
         $roommetadata['waiting_room_features'] = $moduleinstance->waiting_room_features;
+    }
+    if (isset($moduleinstance->breakout_room_features)) {
+        $roommetadata['breakout_room_features'] = $moduleinstance->breakout_room_features;
     }
     if (isset($moduleinstance->default_lock_settings)) {
         $roommetadata['default_lock_settings'] = $moduleinstance->default_lock_settings;
