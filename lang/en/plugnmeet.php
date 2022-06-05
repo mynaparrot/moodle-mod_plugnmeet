@@ -135,6 +135,7 @@ $string['lock_shared_notepad'] = 'Lock shared notepad';
 $string['lock_chat'] = 'Lock chat';
 $string['lock_chat_send_message'] = 'Lock send message';
 $string['lock_chat_file_share'] = 'Lock file share';
+$string['lock_private_chat'] = 'Lock private chat';
 
 $string['extraoption'] = 'Extra options';
 $string['client_download_url'] = 'Client download url';

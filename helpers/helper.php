@@ -446,6 +446,15 @@ class PlugNmeetHelper {
                 "selected" => 0,
                 "type" => "select"
             ),
+            "lock_private_chat" => array(
+                "label" => get_string("lock_private_chat", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select"
+            ),
         );
 
         $data = [];
