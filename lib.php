@@ -376,7 +376,6 @@ function get_plugnmeet_config() {
     $path = $CFG->wwwroot . "/mod/plugnmeet/pix/client/dist/assets";;
 
     $js = 'window.PLUG_N_MEET_SERVER_URL = "' . $config->plugnmeet_server_url . '";';
-    $js .= 'window.LIVEKIT_SERVER_URL = "' . $config->livekit_server_url . '";';
     $js .= 'window.STATIC_ASSETS_PATH = "' . $path . '";';
 
     $js .= 'Window.ENABLE_DYNACAST = ' . $config->enable_dynacast . ';';

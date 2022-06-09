@@ -46,13 +46,7 @@ if ($hassiteconfig) {
         get_string('plugnmeet_secret', 'plugnmeet'),
         get_string('plugnmeet_secret_des', 'plugnmeet'),
         "zumyyYWqv7KR2kUqvYdq4z4sXg7XTBD2ljT6", PARAM_TEXT));
-
-    $settings->add(new admin_setting_configtext(
-        'mod_plugnmeet/livekit_server_url',
-        get_string('livekit_server_url', 'plugnmeet'),
-        get_string('livekit_server_url_des', 'plugnmeet'),
-        "https://lk.plugnmeet.com", PARAM_URL));
-
+    
     $settings->add(new admin_setting_configstoredfile(
         'mod_plugnmeet/custom_logo',
         get_string('custom_logo', 'plugnmeet'),
