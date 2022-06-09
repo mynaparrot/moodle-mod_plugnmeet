@@ -46,7 +46,7 @@ if ($hassiteconfig) {
         get_string('plugnmeet_secret', 'plugnmeet'),
         get_string('plugnmeet_secret_des', 'plugnmeet'),
         "zumyyYWqv7KR2kUqvYdq4z4sXg7XTBD2ljT6", PARAM_TEXT));
-    
+
     $settings->add(new admin_setting_configstoredfile(
         'mod_plugnmeet/custom_logo',
         get_string('custom_logo', 'plugnmeet'),
