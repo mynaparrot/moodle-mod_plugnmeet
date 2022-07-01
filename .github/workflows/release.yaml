@@ -18,7 +18,7 @@ jobs:
       - name: Build project
         run: |
           mkdir -p build/plugnmeet
-          rsync -ar --exclude=".*" ./ build/plugnmeet/
+          rsync -ar --exclude=".*" --exclude=build ./ build/plugnmeet/
           cd build
           zip -X -r mod_plugnmeet.zip *
       - name: Upload artifact
