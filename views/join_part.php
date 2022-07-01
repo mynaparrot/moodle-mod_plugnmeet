@@ -31,7 +31,7 @@ defined('MOODLE_INTERNAL') || die();
                 class='btn btn-success btn-lg'><?php echo get_string('join', 'plugnmeet'); ?>
         </button>
     </div>
-    <?php if ($canEdit): ?>
+    <?php if ($canedit): ?>
         <div class="end col" style="display: none">
             <button onclick="endRoom(event)" id="endBtn"
                     class='btn btn-danger btn-lg'><?php echo get_string('end', 'plugnmeet'); ?></button>

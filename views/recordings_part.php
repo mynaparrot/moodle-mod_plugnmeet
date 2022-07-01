@@ -41,7 +41,7 @@ defined('MOODLE_INTERNAL') || die();
 </div>
 
 <script type="text/javascript">
-    const canEdit = <?php echo $canEdit; ?>;
+    const canEdit = <?php echo $canedit; ?>;
     let isShowingPagination = false;
     let roomId = '<?php echo $moduleinstance->roomid; ?>',
         totalRecordings = 0,
