@@ -66,6 +66,7 @@ class mod_plugnmeet_create_room extends external_api {
         $context = context_module::instance($cm->id);
 
         try {
+            require_login();
             require_capability('mod/plugnmeet:view', $context);
         } catch (Exception $e) {
             $result['msg'] = $e->getMessage();
