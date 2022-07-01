@@ -16,7 +16,7 @@
 
 namespace mod_plugnmeet\privacy;
 
-use core_privacy\local\metadata\null_provider;
+use core_privacy\local\metadata\collection;
 
 /**
  * Privacy API implementation for the plugNmeet plugin.
@@ -26,15 +26,21 @@ use core_privacy\local\metadata\null_provider;
  * @copyright   2022 mynaparrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements null_provider {
+class provider implements \core_privacy\local\metadata\provider {
 
     /**
-     * Get the language string identifier with the component's language
-     * file to explain why this plugin stores no data.
+     * Returns metadata.
      *
-     * @return  string
+     * @param collection $collection The initialised collection to add items to.
+     * @return collection A listing of user data stored through this system.
      */
-    public static function get_reason(): string {
-        return 'privacy:metadata';
+    public static function get_metadata(collection $collection): collection {
+
+        $collection->add_external_location_link('plugnmeet', [
+            'userid' => 'privacy:metadata:plugnmeet:userid',
+            'fullname' => 'privacy:metadata:plugnmeet:fullname',
+        ], 'privacy:metadata:plugnmeet');
+
+        return $collection;
     }
 }

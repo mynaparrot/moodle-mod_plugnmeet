@@ -50,7 +50,10 @@ $string['plugnmeet:unenrol'] = 'Unenrol users';
 $string['plugnmeet:upload'] = 'Upload content';
 $string['plugnmeet:useeditor'] = 'Edit content';
 $string['plugnmeet:view'] = 'View plugNmeet';
-$string['privacy:metadata'] = 'This plugin does not store any user data.';
+$string['privacy:metadata:plugnmeet'] = 'In order to integrate with a remote plugnmeet server, user data needs to be exchanged with that server.';
+$string['privacy:metadata:plugnmeet:userid'] = 'The userid is sent from Moodle to allow you to access your data on the remote system.';
+$string['privacy:metadata:plugnmeet:fullname'] = 'Your full name is sent to the remote system to allow a better user experience.';
+
 $string['view'] = 'View';
 $string['yes'] = 'Yes';
 $string['no'] = 'No';
