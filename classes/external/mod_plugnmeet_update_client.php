@@ -65,29 +65,19 @@ class mod_plugnmeet_update_client extends external_api {
         }
 
         $config = get_config('mod_plugnmeet');
-        
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $config->client_download_url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        $data = curl_exec($ch);
-        $error = curl_error($ch);
-        $errno = curl_errno($ch);
-        curl_close($ch);
-
-        if (0 !== $errno) {
-            $output->msg = $errno . ": " . $error;
-            return $output;
-        }
-
         $clientzipfile = $CFG->dataroot . "/temp/client.zip";
-        $file = fopen($clientzipfile, "w+");
-        if (!$file) {
-            $output->msg = get_string('error_file_open', 'plugnmeet');
+
+        require_once($CFG->libdir . '/filelib.php');
+        $curl = new curl();
+        $result = $curl->download_one($config->client_download_url, null, array(
+            'filepath' => $clientzipfile,
+            'timeout' => 60
+        ));
+
+        if ($result !== true) {
+            $output->msg = $result;
             return $output;
         }
-        fputs($file, $data);
-        fclose($file);
 
         $zip = new ZipArchive;
         $res = $zip->open($clientzipfile);
