@@ -54,12 +54,22 @@ class mod_plugnmeet_get_join_token extends external_api {
     public static function get_join_token($instanceid, $isadmin) {
         global $DB, $USER;
 
-        $instance = $DB->get_record('plugnmeet', array('id' => $instanceid), '*', MUST_EXIST);
-
         $result = array(
             "status" => false,
             "access_token" => null
         );
+        $cm = get_coursemodule_from_instance('plugnmeet', $instanceid, 0, false, MUST_EXIST);
+        $context = context_module::instance($cm->id);
+
+        try {
+            require_login();
+            require_capability('mod/plugnmeet:view', $context);
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
+            return $result;
+        }
+
+        $instance = $DB->get_record('plugnmeet', array('id' => $instanceid), '*', MUST_EXIST);
 
         $config = get_config('mod_plugnmeet');
         $connect = new PlugNmeetConnect($config);

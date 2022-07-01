@@ -40,6 +40,7 @@ class mod_plugnmeet_end_room extends external_api {
      */
     public static function end_room_parameters() {
         return new external_function_parameters([
+            'instanceId' => new external_value(PARAM_INT, 'course module id', VALUE_REQUIRED),
             'room_id' => new external_value(PARAM_TEXT, 'room internal id', VALUE_REQUIRED),
         ]);
     }
@@ -49,12 +50,22 @@ class mod_plugnmeet_end_room extends external_api {
      * @return array
      * @throws dml_exception
      */
-    public static function end_room($roomid) {
-        $config = get_config('mod_plugnmeet');
+    public static function end_room($instanceid, $roomid) {
         $result = array(
             "status" => false,
         );
+        $cm = get_coursemodule_from_instance('plugnmeet', $instanceid, 0, false, MUST_EXIST);
+        $context = context_module::instance($cm->id);
 
+        try {
+            require_login();
+            require_capability('mod/plugnmeet:edit', $context);
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
+            return $result;
+        }
+
+        $config = get_config('mod_plugnmeet');
         $connect = new PlugNmeetConnect($config);
         try {
             $res = $connect->endRoom($roomid);

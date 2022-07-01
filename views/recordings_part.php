@@ -41,6 +41,7 @@ defined('MOODLE_INTERNAL') || die();
 </div>
 
 <script type="text/javascript">
+    const canEdit = <?php echo $canEdit; ?>;
     let isShowingPagination = false;
     let roomId = '<?php echo $moduleinstance->roomid; ?>',
         totalRecordings = 0,
@@ -49,6 +50,7 @@ defined('MOODLE_INTERNAL') || die();
 
     window.addEventListener('load', () => {
         const data = {
+            instanceId: <?php echo $cm->instance; ?>,
             from: 0,
             limit: limitPerPage,
             order_by: 'DESC',
@@ -101,9 +103,11 @@ defined('MOODLE_INTERNAL') || die();
                                 recording.record_id +
                                 '"><?php echo get_string('download', 'plugnmeet'); ?></button></td>';
 
-                            html += '<td class="center"><button onclick="deleteRecording(event)" class="btn btn-danger btn-sm deleteRecording" id="' +
-                                recording.record_id +
-                                '"><?php echo get_string('delete', 'plugnmeet'); ?></button></td>';
+                            if (canEdit) {
+                                html += '<td class="center"><button onclick="deleteRecording(event)" class="btn btn-danger btn-sm deleteRecording" id="' +
+                                    recording.record_id +
+                                    '"><?php echo get_string('delete', 'plugnmeet'); ?></button></td>';
+                            }
 
                             html += '</tr>';
                         }
@@ -208,6 +212,7 @@ defined('MOODLE_INTERNAL') || die();
                 {
                     methodname: 'mod_plugnmeet_get_recording_download_link',
                     args: {
+                        instanceId: <?php echo $cm->instance; ?>,
                         recordId,
                     },
                     done: (res) => {
@@ -239,6 +244,7 @@ defined('MOODLE_INTERNAL') || die();
                 {
                     methodname: 'mod_plugnmeet_delete_recording',
                     args: {
+                        instanceId: <?php echo $cm->instance; ?>,
                         recordId,
                     },
                     done: (res) => {

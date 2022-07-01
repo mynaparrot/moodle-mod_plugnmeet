@@ -57,6 +57,16 @@ class mod_plugnmeet_isactive_room extends external_api {
             'instanceId' => $instanceid,
             'room_id' => $roomid
         ];
+        $cm = get_coursemodule_from_instance('plugnmeet', $instanceid, 0, false, MUST_EXIST);
+        $context = context_module::instance($cm->id);
+
+        try {
+            require_login();
+            require_capability('mod/plugnmeet:view', $context);
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
+            return $result;
+        }
 
         $config = get_config('mod_plugnmeet');
         $connect = new PlugNmeetConnect($config);

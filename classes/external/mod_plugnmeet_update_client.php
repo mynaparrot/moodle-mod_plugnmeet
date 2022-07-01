@@ -51,11 +51,21 @@ class mod_plugnmeet_update_client extends external_api {
      * @throws dml_exception
      */
     public static function update_client() {
-        global $CFG;
+        global $CFG, $USER;
         $output = new stdClass();
         $output->status = false;
-        $config = get_config('mod_plugnmeet');
 
+        try {
+            $usercontext = context_user::instance($USER->id);
+            require_login();
+            require_capability('moodle/course:update', $usercontext);
+        } catch (Exception $e) {
+            $output->msg = $e->getMessage();
+            return $output;
+        }
+
+        $config = get_config('mod_plugnmeet');
+        
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $config->client_download_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

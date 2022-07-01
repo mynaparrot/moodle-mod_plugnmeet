@@ -57,13 +57,22 @@ class mod_plugnmeet_create_room extends external_api {
     public static function create_room($instanceid, $join, $isadmin) {
         global $DB, $USER;
 
-        $instance = $DB->get_record('plugnmeet', array('id' => $instanceid), '*', MUST_EXIST);
-
         $result = [
             'status' => false,
             'join_token' => ''
         ];
 
+        $cm = get_coursemodule_from_instance('plugnmeet', $instanceid, 0, false, MUST_EXIST);
+        $context = context_module::instance($cm->id);
+
+        try {
+            require_capability('mod/plugnmeet:view', $context);
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
+            return $result;
+        }
+
+        $instance = $DB->get_record('plugnmeet', array('id' => $instanceid), '*', MUST_EXIST);
         $config = get_config('mod_plugnmeet');
         $roommetadata = json_decode($instance->roommetadata, true);
 

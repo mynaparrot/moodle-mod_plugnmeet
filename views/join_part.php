@@ -31,10 +31,12 @@ defined('MOODLE_INTERNAL') || die();
                 class='btn btn-success btn-lg'><?php echo get_string('join', 'plugnmeet'); ?>
         </button>
     </div>
-    <div class="end col" style="display: none">
-        <button onclick="endRoom(event)" id="endBtn"
-                class='btn btn-danger btn-lg'><?php echo get_string('end', 'plugnmeet'); ?></button>
-    </div>
+    <?php if ($canEdit): ?>
+        <div class="end col" style="display: none">
+            <button onclick="endRoom(event)" id="endBtn"
+                    class='btn btn-danger btn-lg'><?php echo get_string('end', 'plugnmeet'); ?></button>
+        </div>
+    <?php endif; ?>
 </div>
 
 <script type="text/javascript">
@@ -94,6 +96,7 @@ defined('MOODLE_INTERNAL') || die();
                 {
                     methodname: 'mod_plugnmeet_end_room',
                     args: {
+                        instanceId: <?php echo $cm->instance; ?>,
                         room_id: '<?php echo $moduleinstance->roomid; ?>',
                     },
                     done: (res) => {

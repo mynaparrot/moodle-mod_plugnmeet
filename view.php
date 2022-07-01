@@ -47,6 +47,7 @@ require_login($course, true, $cm);
 require_capability('mod/plugnmeet:view', $context);
 
 $isadmin = has_capability('moodle/course:update', $context) ? 1 : 0;
+$canEdit = has_capability('mod/plugnmeet:edit', $context) ? 1 : 0;
 
 $event = \mod_plugnmeet\event\course_module_viewed::create(array(
     'objectid' => $moduleinstance->id,

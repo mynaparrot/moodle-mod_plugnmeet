@@ -40,6 +40,7 @@ class mod_plugnmeet_get_recordings extends external_api {
      */
     public static function get_recordings_parameters() {
         return new external_function_parameters([
+            'instanceId' => new external_value(PARAM_INT, 'course module id', VALUE_REQUIRED),
             'room_id' => new external_value(PARAM_RAW, 'room id', VALUE_REQUIRED),
             'from' => new external_value(PARAM_INT, 'from row', VALUE_REQUIRED),
             'limit' => new external_value(PARAM_INT, 'limit of records', VALUE_REQUIRED),
@@ -55,11 +56,21 @@ class mod_plugnmeet_get_recordings extends external_api {
      * @return array
      * @throws dml_exception
      */
-    public static function get_recordings($roomid, $from, $limit, $orderby) {
+    public static function get_recordings($instanceid, $roomid, $from, $limit, $orderby) {
         $result = array(
             "status" => false,
             "result" => null
         );
+        $cm = get_coursemodule_from_instance('plugnmeet', $instanceid, 0, false, MUST_EXIST);
+        $context = context_module::instance($cm->id);
+
+        try {
+            require_login();
+            require_capability('mod/plugnmeet:view', $context);
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
+            return $result;
+        }
 
         $config = get_config('mod_plugnmeet');
         $connect = new PlugNmeetConnect($config);

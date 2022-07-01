@@ -40,6 +40,7 @@ class mod_plugnmeet_get_recording_download_link extends external_api {
      */
     public static function get_download_link_parameters() {
         return new external_function_parameters([
+            'instanceId' => new external_value(PARAM_INT, 'course module id', VALUE_REQUIRED),
             'recordId' => new external_value(PARAM_RAW, 'record id', VALUE_REQUIRED),
         ]);
     }
@@ -49,13 +50,23 @@ class mod_plugnmeet_get_recording_download_link extends external_api {
      * @return array
      * @throws dml_exception
      */
-    public static function get_download_link($recordid) {
-        $config = get_config('mod_plugnmeet');
+    public static function get_download_link($instanceid, $recordid) {
         $result = array(
             "status" => false,
             "url" => ""
         );
+        $cm = get_coursemodule_from_instance('plugnmeet', $instanceid, 0, false, MUST_EXIST);
+        $context = context_module::instance($cm->id);
 
+        try {
+            require_login();
+            require_capability('mod/plugnmeet:view', $context);
+        } catch (Exception $e) {
+            $result['msg'] = $e->getMessage();
+            return $result;
+        }
+
+        $config = get_config('mod_plugnmeet');
         $connect = new PlugNmeetConnect($config);
         try {
             $res = $connect->getRecordingDownloadLink($recordid);
