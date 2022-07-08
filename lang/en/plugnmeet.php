@@ -129,6 +129,9 @@ $string['breakout_room_features'] = 'Breakout room features';
 $string['allow_breakout_rooms'] = 'Allow breakout rooms';
 $string['allowed_number_rooms'] = 'Number of rooms';
 
+$string['display_external_link_features'] = 'Display external link features';
+$string['allow_display_external_link_features'] = 'Allow display external link features';
+
 $string['defaultlock'] = 'Default lock settings';
 $string['lock_microphone'] = 'Lock microphone';
 $string['lock_webcam'] = 'Lock webcam';

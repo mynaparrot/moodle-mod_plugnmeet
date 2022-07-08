@@ -372,6 +372,33 @@ class PlugNmeetHelper {
      * @return void
      * @throws coding_exception
      */
+    public static function get_display_external_link_features($roommetadata, $mform) {
+        $displayexternallinkfeatures = array(
+            "is_allow" => array(
+                "label" => get_string("allow_display_external_link_features", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+        );
+
+        $data = [];
+        if (isset($roommetadata["display_external_link_features"])) {
+            $data = $roommetadata["display_external_link_features"];
+        }
+
+        self::format_html($displayexternallinkfeatures, "display_external_link_features", $data, $mform);
+    }
+
+    /**
+     * @param $roommetadata
+     * @param $mform
+     * @return void
+     * @throws coding_exception
+     */
     public static function get_default_lock_settings($roommetadata, $mform) {
         $defaultlocksettings = array(
             "lock_microphone" => array(

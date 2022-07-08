@@ -183,8 +183,7 @@ class PlugNmeet
         $output = $this->sendRequest("/recording/getDownloadToken", $body);
         return new RecordingDownloadTokenResponse($output);
     }
-
-
+    
     /**
      * @param array $payload
      * @param int $validity in seconds
@@ -198,7 +197,7 @@ class PlugNmeet
         $payload['nbf'] = time();
         $payload['exp'] = time() + $validity;
 
-        return JWT::encode($payload, $this->apiSecret, 'HS256', null, $head);
+        return JWT::encode($payload, $this->apiSecret, $algo, null, $head);
     }
 
     /**

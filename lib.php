@@ -60,36 +60,21 @@ function plugnmeet_supports($feature) {
 function plugnmeet_add_instance($moduleinstance, $mform = null) {
     global $DB, $CFG;
 
-    $moduleinstance->timecreated = time();
+    $roommetadataitems = ['room_features', 'chat_features', 'shared_note_pad_features', 'whiteboard_features', 'external_media_player_features', 'waiting_room_features', 'breakout_room_features', 'display_external_link_features', 'default_lock_settings', 'custom_design'];
 
     $roommetadata = [];
-    if (isset($moduleinstance->room_features)) {
-        $roommetadata['room_features'] = $moduleinstance->room_features;
+
+    foreach ($roommetadataitems as $item) {
+        if (isset($moduleinstance->{$item})) {
+            $roommetadata[$item] = $moduleinstance->{$item};
+        } else {
+            $roommetadata[$item] = [];
+        }
     }
-    if (isset($moduleinstance->chat_features)) {
-        $roommetadata['chat_features'] = $moduleinstance->chat_features;
-    }
-    if (isset($moduleinstance->shared_note_pad_features)) {
-        $roommetadata['shared_note_pad_features'] = $moduleinstance->shared_note_pad_features;
-    }
-    if (isset($moduleinstance->whiteboard_features)) {
-        $roommetadata['whiteboard_features'] = $moduleinstance->whiteboard_features;
-    }
-    if (isset($moduleinstance->external_media_player_features)) {
-        $roommetadata['external_media_player_features'] = $moduleinstance->external_media_player_features;
-    }
-    if (isset($moduleinstance->waiting_room_features)) {
-        $roommetadata['waiting_room_features'] = $moduleinstance->waiting_room_features;
-    }
-    if (isset($moduleinstance->breakout_room_features)) {
-        $roommetadata['breakout_room_features'] = $moduleinstance->breakout_room_features;
-    }
-    if (isset($moduleinstance->default_lock_settings)) {
-        $roommetadata['default_lock_settings'] = $moduleinstance->default_lock_settings;
-    }
-    if (!empty($roommetadata)) {
-        $moduleinstance->roommetadata = json_encode($roommetadata);
-    }
+
+    $moduleinstance->roommetadata = json_encode($roommetadata);
+    $moduleinstance->timecreated = time();
+
     if (!class_exists("plugNmeetConnect")) {
         require($CFG->dirroot . '/mod/plugnmeet/helpers/plugNmeetConnect.php');
     }
@@ -119,31 +104,18 @@ function plugnmeet_update_instance($moduleinstance, $mform = null) {
     $moduleinstance->timemodified = time();
     $moduleinstance->id = $moduleinstance->instance;
 
+    $roommetadataitems = ['room_features', 'chat_features', 'shared_note_pad_features', 'whiteboard_features', 'external_media_player_features', 'waiting_room_features', 'breakout_room_features', 'display_external_link_features', 'default_lock_settings', 'custom_design'];
+
     $roommetadata = [];
-    if (isset($moduleinstance->room_features)) {
-        $roommetadata['room_features'] = $moduleinstance->room_features;
+
+    foreach ($roommetadataitems as $item) {
+        if (isset($moduleinstance->{$item})) {
+            $roommetadata[$item] = $moduleinstance->{$item};
+        } else {
+            $roommetadata[$item] = [];
+        }
     }
-    if (isset($moduleinstance->chat_features)) {
-        $roommetadata['chat_features'] = $moduleinstance->chat_features;
-    }
-    if (isset($moduleinstance->shared_note_pad_features)) {
-        $roommetadata['shared_note_pad_features'] = $moduleinstance->shared_note_pad_features;
-    }
-    if (isset($moduleinstance->whiteboard_features)) {
-        $roommetadata['whiteboard_features'] = $moduleinstance->whiteboard_features;
-    }
-    if (isset($moduleinstance->external_media_player_features)) {
-        $roommetadata['external_media_player_features'] = $moduleinstance->external_media_player_features;
-    }
-    if (isset($moduleinstance->waiting_room_features)) {
-        $roommetadata['waiting_room_features'] = $moduleinstance->waiting_room_features;
-    }
-    if (isset($moduleinstance->breakout_room_features)) {
-        $roommetadata['breakout_room_features'] = $moduleinstance->breakout_room_features;
-    }
-    if (isset($moduleinstance->default_lock_settings)) {
-        $roommetadata['default_lock_settings'] = $moduleinstance->default_lock_settings;
-    }
+
     if (!empty($roommetadata)) {
         $moduleinstance->roommetadata = json_encode($roommetadata);
     }

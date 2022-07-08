@@ -26,7 +26,8 @@ namespace Mynaparrot\Plugnmeet\Parameters;
 /**
  *
  */
-class LockSettingsParameters {
+class LockSettingsParameters
+{
 
     /**
      * @var bool
@@ -68,139 +69,159 @@ class LockSettingsParameters {
     /**
      *
      */
-    public function __construct() {
+    public function __construct()
+    {
     }
 
     /**
      * @return bool
      */
-    public function isLockMicrophone() {
+    public function isLockMicrophone()
+    {
         return $this->lockMicrophone;
     }
 
     /**
      * @param bool $lockMicrophone
      */
-    public function setLockMicrophone($lockMicrophone) {
+    public function setLockMicrophone($lockMicrophone)
+    {
         $this->lockMicrophone = filter_var($lockMicrophone, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
      * @return bool
      */
-    public function isLockWebcam() {
+    public function isLockWebcam()
+    {
         return $this->lockWebcam;
     }
 
     /**
      * @param bool $lockWebcam
      */
-    public function setLockWebcam($lockWebcam) {
+    public function setLockWebcam($lockWebcam)
+    {
         $this->lockWebcam = filter_var($lockWebcam, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
      * @return bool
      */
-    public function isLockScreenSharing() {
+    public function isLockScreenSharing()
+    {
         return $this->lockScreenSharing;
     }
 
     /**
      * @param bool $lockScreenSharing
      */
-    public function setLockScreenSharing($lockScreenSharing) {
+    public function setLockScreenSharing($lockScreenSharing)
+    {
         $this->lockScreenSharing = filter_var($lockScreenSharing, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
      * @return bool
      */
-    public function isLockWhiteboard(): bool {
+    public function isLockWhiteboard(): bool
+    {
         return $this->lockWhiteboard;
     }
 
     /**
      * @param bool $lockWhiteboard
      */
-    public function setLockWhiteboard(bool $lockWhiteboard): void {
+    public function setLockWhiteboard(bool $lockWhiteboard): void
+    {
         $this->lockWhiteboard = $lockWhiteboard;
     }
 
     /**
      * @return bool
      */
-    public function isLockSharedNotepad(): bool {
+    public function isLockSharedNotepad(): bool
+    {
         return $this->lockSharedNotepad;
     }
 
     /**
      * @param bool $lockSharedNotepad
      */
-    public function setLockSharedNotepad(bool $lockSharedNotepad): void {
+    public function setLockSharedNotepad(bool $lockSharedNotepad): void
+    {
         $this->lockSharedNotepad = $lockSharedNotepad;
     }
 
     /**
      * @return bool
      */
-    public function isLockChat() {
+    public function isLockChat()
+    {
         return $this->lockChat;
     }
 
     /**
      * @param bool $lockChat
      */
-    public function setLockChat($lockChat) {
+    public function setLockChat($lockChat)
+    {
         $this->lockChat = filter_var($lockChat, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
      * @return bool
      */
-    public function isLockChatSendMessage() {
+    public function isLockChatSendMessage()
+    {
         return $this->lockChatSendMessage;
     }
 
     /**
      * @param bool $lockChatSendMessage
      */
-    public function setLockChatSendMessage($lockChatSendMessage) {
+    public function setLockChatSendMessage($lockChatSendMessage)
+    {
         $this->lockChatSendMessage = filter_var($lockChatSendMessage, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
      * @return bool
      */
-    public function isLockChatFileShare() {
+    public function isLockChatFileShare()
+    {
         return $this->lockChatFileShare;
     }
 
     /**
      * @param bool $lockChatFileShare
      */
-    public function setLockChatFileShare($lockChatFileShare) {
+    public function setLockChatFileShare($lockChatFileShare)
+    {
         $this->lockChatFileShare = filter_var($lockChatFileShare, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
      * @return bool
      */
-    public function isLockPrivateChat(): bool {
+    public function isLockPrivateChat(): bool
+    {
         return $this->lockPrivateChat;
     }
 
     /**
      * @param bool $lockPrivateChat
      */
-    public function setLockPrivateChat(bool $lockPrivateChat): void {
+    public function setLockPrivateChat(bool $lockPrivateChat): void
+    {
         $this->lockPrivateChat = filter_var($lockPrivateChat, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
      * @return array
      */
-    public function buildBody() {
+    public function buildBody()
+    {
 
         $body = array();
 
