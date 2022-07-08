@@ -60,7 +60,13 @@ function plugnmeet_supports($feature) {
 function plugnmeet_add_instance($moduleinstance, $mform = null) {
     global $DB, $CFG;
 
-    $roommetadataitems = ['room_features', 'chat_features', 'shared_note_pad_features', 'whiteboard_features', 'external_media_player_features', 'waiting_room_features', 'breakout_room_features', 'display_external_link_features', 'default_lock_settings', 'custom_design'];
+    $roommetadataitems = array(
+        'room_features', 'chat_features', 'shared_note_pad_features',
+        'whiteboard_features', 'external_media_player_features',
+        'waiting_room_features', 'breakout_room_features',
+        'display_external_link_features', 'default_lock_settings',
+        'custom_design'
+    );
 
     $roommetadata = [];
 
@@ -104,7 +110,13 @@ function plugnmeet_update_instance($moduleinstance, $mform = null) {
     $moduleinstance->timemodified = time();
     $moduleinstance->id = $moduleinstance->instance;
 
-    $roommetadataitems = ['room_features', 'chat_features', 'shared_note_pad_features', 'whiteboard_features', 'external_media_player_features', 'waiting_room_features', 'breakout_room_features', 'display_external_link_features', 'default_lock_settings', 'custom_design'];
+    $roommetadataitems = array(
+        'room_features', 'chat_features', 'shared_note_pad_features',
+        'whiteboard_features', 'external_media_player_features',
+        'waiting_room_features', 'breakout_room_features',
+        'display_external_link_features', 'default_lock_settings',
+        'custom_design'
+    );
 
     $roommetadata = [];
 
