@@ -2,12 +2,15 @@
   "ok": "是",
   "close": "关闭",
   "cancel": "取消",
-  "yes": "Yes",
-  "no": "No",
+  "yes": "是",
+  "no": "否",
   "join": "加入",
   "share": "分享",
-  "version": "Version: {{pnm_version}}; Build: {{build}}",
-  "open": "Open",
+  "version": "版本: {{pnm_version}}; 构建: {{build}}",
+  "open": "开启",
+  "please-wait": "Please wait...",
+  "are-you-sure-to-close": "Are you sure to close?",
+  "you-are-about-to-close": "You are about to close",
   "notifications": {
     "room-not-active": "房间没有激活",
     "recording-already-running": "录制程序已经在运行",
@@ -19,12 +22,20 @@
     "rtmp-started": "RTMP 直播开始",
     "rtmp-ended": "RTMP 直播结束",
     "rtmp-ended-with-error": "直播结束错误",
-    "file-type-not-allow": "{{filetype}} file type isn't allow",
-    "max-file-size-exceeds": "The maximum allowed file size exceeds",
-    "you-have-removed": "You've been removed from this conference.",
-    "you-are-blocked": "You aren't allow to access this conference.",
-    "you-have-reject": "You've been rejected to join this conference",
-    "waiting-for-approval": "Please wait until a moderator will approve you."
+    "file-type-not-allow": "{{filetype}} 文件类型不允许",
+    "max-file-size-exceeds": "超过了最大允许的文件大小",
+    "you-have-removed": "你已经从会议中被删除",
+    "you-are-blocked": "您不允许访问此会议。",
+    "you-have-reject": "您已被拒绝加入此会议",
+    "waiting-for-approval": "请稍候，直到会议主持人接您进入。",
+    "room-disconnected-title": "会议室连接已断开",
+    "room-disconnected-unknown": "The room has been disconnected. Code: {{code}}",
+    "room-disconnected-client-initiated": "Client has been initiated. Code: {{code}}",
+    "room-disconnected-duplicate-entry": "Other user with same userId has been joined. Code: {{code}}",
+    "room-disconnected-server-shutdown": "Server shutdown. Code: {{code}}",
+    "room-disconnected-participant-removed": "You have been removed from this conference. Code: {{code}}",
+    "room-disconnected-room-ended": "The room has been closed. Code: {{code}}",
+    "room-disconnected-state-mismatch": "State mismatch. Code: {{code}}"
   },
   "room-metadata": {
     "session-recording": "此会议正在被录制",
@@ -35,7 +46,7 @@
   "header": {
     "menus": {
       "settings": "设置",
-      "keyboard-shortcuts": "Keyboard Shortcuts",
+      "keyboard-shortcuts": "快捷键",
       "logout": "登出",
       "end": "结束",
       "alert": {
@@ -51,22 +62,22 @@
       "show-webcams": "显示摄像头",
       "show-screen-share": "显示屏幕分享",
       "allow-audio-notification": "允许声音提醒",
-      "application": "Application settings",
-      "language": "Language",
-      "video-quality": "Video Quality",
-      "high": "High",
-      "medium": "Medium",
-      "low": "Low"
+      "application": "应用程序设置",
+      "language": "语言",
+      "video-quality": "视频质量",
+      "high": "高",
+      "medium": "中等",
+      "low": "低"
     },
     "keyboard-shortcuts": {
-      "title": "Keyboard shortcuts",
-      "key-comb": "Keys Combination",
-      "actions": "Actions",
-      "mute-unmute": "Mute/Unmute",
-      "start-audio": "Start Microphone (Audio call)",
-      "leave-audio": "Leave Microphone",
-      "start-webcam": "Start Webcam",
-      "leave-webcam": "Leave Webcam",
+      "title": "键盘快捷键",
+      "key-comb": "按键组合",
+      "actions": "指令",
+      "mute-unmute": "静音/取消静音",
+      "start-audio": "启动麦克风(音频通话)",
+      "leave-audio": "关闭麦克风",
+      "start-webcam": "启用摄像头",
+      "leave-webcam": "关闭摄像头",
       "show-hide-user-list": "Hide/Show Users' List",
       "show-hide-chat": "Hide/Show Chat",
       "show-hide-lock-settings": "Hide/Show Lock Settings",
@@ -191,7 +202,9 @@
       "start-external-media-player": "Start external Media Player",
       "stop-external-media-player": "Stop external Media Player",
       "manage-waiting-room": "Manage waiting room",
-      "manage-breakout-room": "Manage breakout room"
+      "manage-breakout-room": "Manage breakout room",
+      "start-display-external-link": "Display external link",
+      "stop-display-external-link": "Stop display external link"
     },
     "notice": {
       "already-active-screen-sharing": "已经有一个屏幕在分享",
@@ -207,8 +220,7 @@
       "rtmp-ending": "RTMP 直播关闭中. 请等待",
       "external-media-player-url-required": "Valid URL required",
       "external-media-player-url-invalid": "URL not valid or supported",
-      "external-media-player-starting": "Please wait preparing playback",
-      "external-media-player-stopping": "Please wait stopping playback"
+      "external-media-player-starting": "Please wait preparing playback"
     },
     "modal": {
       "lock-settings-title": "会议室禁用功能设置",
@@ -233,8 +245,10 @@
       "external-media-player-title": "External Media Player",
       "external-media-player-url": "Playback URL",
       "external-media-player-play": "Play",
-      "external-media-player-close-confirm": "Are you sure to stop playback?",
-      "external-media-player-close-msg": "You are about to close playback",
+      "external-media-player-direct-link": "Direct link",
+      "external-media-player-upload-file": "Upload",
+      "external-media-player-upload-file-play": "Upload and play",
+      "external-media-player-upload-supported-files": "Supported files: {{files}}",
       "upload-background-image": "Upload background image"
     }
   },
@@ -242,7 +256,9 @@
     "page": "Page {{count}}",
     "converting": "Please wait file conversion in progress",
     "file-ready": "File is ready",
-    "upload-file": "Upload file"
+    "upload-file": "Upload file",
+    "manage-files": "Files",
+    "upload-image": "Image"
   },
   "waiting-room": {
     "modal-title": "Manage waiting room",
@@ -313,5 +329,21 @@
     "not-started": "Not started",
     "user-joined": "Joined",
     "not-joined": "Not joined"
+  },
+  "external-display-link-display": {
+    "modal-title": "Display external link (iframe)",
+    "url": "Url",
+    "display": "Display",
+    "link-invalid": "Link not valid",
+    "note": "Note: Make sure the URL has permission to open inside an iframe. Example: https://www.gameflare.com/embed/mini-survival",
+    "send-extra-values": "Send Extra values",
+    "name": "Name",
+    "name-des": "User's full name",
+    "user-id": "User Id",
+    "user-id-des": "User's unique Id",
+    "meeting-id": "Meeting Id",
+    "meeting-id-des": "Meeting's origin ID",
+    "user-role": "User role",
+    "user-role-des": "User's current role. Either admin or participant"
   }
 }

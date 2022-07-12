@@ -15,6 +15,8 @@ window.addEventListener('load', async () => {
 
   // initial call
   fetchRecordings();
+  // design customization
+  designCustomization();
 
   document.querySelector('.join').addEventListener('click', (e) => {
     e.preventDefault();
@@ -50,7 +52,11 @@ window.addEventListener('load', async () => {
 async function joinSession() {
   const res = await sendAPIRequest('/room/join', {});
   if (res.status) {
-    const url = window.PLUG_N_MEET_SERVER_URL + '/?access_token=' + res.token;
+    let url = window.PLUG_N_MEET_SERVER_URL + '/?access_token=' + res.token;
+    if (typeof window.DESIGN_CUSTOMIZATION !== 'undefined') {
+      url +=
+        '&custom_design=' + encodeURIComponent(window.DESIGN_CUSTOMIZATION);
+    }
     window.open(url, '_blank');
 
     if (IS_ADMIN) {
@@ -229,4 +235,55 @@ function paginate(currentPage) {
 
 function showMessage(msg) {
   document.getElementById('recordingListsBody').innerHTML = msg;
+}
+
+function designCustomization() {
+  if (typeof window.DESIGN_CUSTOMIZATION === 'undefined') {
+    return;
+  }
+
+  let designCustomParams = {};
+  try {
+    designCustomParams = JSON.parse(window.DESIGN_CUSTOMIZATION);
+  } catch (e) {
+    console.log("can't parse custom design params");
+    return;
+  }
+
+  let css = '';
+  if (designCustomParams.primary_color) {
+    css +=
+      '.join-area a.join{ background-color: ' +
+      designCustomParams.primary_color +
+      '}';
+    css +=
+      '.table-item .action a.download{ background-color: ' +
+      designCustomParams.primary_color +
+      '}';
+    css +=
+      'ul.pagination li, ul.pagination button { border-color: ' +
+      designCustomParams.primary_color +
+      '}';
+  }
+
+  if (designCustomParams.secondary_color) {
+    css +=
+      '.join-area a.join:hover{ background-color: ' +
+      designCustomParams.secondary_color +
+      '}';
+    css +=
+      '.table-item .action a.download:hover{ background-color: ' +
+      designCustomParams.secondary_color +
+      '}';
+    css +=
+      'ul.pagination li:hover, ul.pagination button:hover, ul.pagination li.active { background-color: ' +
+      designCustomParams.secondary_color +
+      '}';
+  }
+
+  if (css !== '') {
+    const style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
 }
