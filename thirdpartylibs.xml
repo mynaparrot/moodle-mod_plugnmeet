@@ -14,11 +14,4 @@
         <license>MIT</license>
         <licenseversion></licenseversion>
     </library>
-    <library>
-        <location>pix/client/</location>
-        <name>plugnmeet-client</name>
-        <version>1.0.3</version>
-        <license>MIT</license>
-        <licenseversion></licenseversion>
-    </library>
 </libraries>
