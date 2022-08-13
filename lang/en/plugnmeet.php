@@ -144,8 +144,14 @@ $string['lock_chat_file_share'] = 'Lock file share';
 $string['lock_private_chat'] = 'Lock private chat';
 
 $string['extraoption'] = 'Extra options';
-$string['client_download_url'] = 'Client download url';
-$string['client_download_url_des'] = 'Client download url. Default github';
+
+$string['client_load'] = 'Client load from';
+$string['client_load_des'] = 'default: remote';
+$string['remote'] = 'Remote';
+$string['local'] = 'Local';
+
+$string['client_download_url'] = 'Local client download url';
+$string['client_download_url_des'] = 'Local clientlient download url. Default github';
 $string['update_client_code'] = '<button class="btn btn-sm btn-secondary mb-6" id="updateClient">Download latest client</button>';
 $string['error_file_open'] = 'Error in zip file open';
 $string['client_updated_success'] = 'Client updated successfully';

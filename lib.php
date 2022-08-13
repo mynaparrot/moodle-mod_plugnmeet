@@ -357,7 +357,11 @@ function get_plugnmeet_config() {
     global $CFG, $DB;
 
     $config = get_config('mod_plugnmeet');
-    $path = $CFG->wwwroot . "/mod/plugnmeet/pix/client/dist/assets";;
+    if ($config->client_load === "1") {
+        $path = $config->plugnmeet_server_url . "/assets";
+    } else {
+        $path = $CFG->wwwroot . "/mod/plugnmeet/pix/client/dist/assets";
+    }
 
     $js = 'window.PLUG_N_MEET_SERVER_URL = "' . $config->plugnmeet_server_url . '";';
     $js .= 'window.STATIC_ASSETS_PATH = "' . $path . '";';

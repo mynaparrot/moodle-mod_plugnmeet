@@ -123,8 +123,8 @@ if ($hassiteconfig) {
             'mod_plugnmeet'), 'vp8', $screenshareresolution));
 
     $stopmictrackonmute = array(
-        1 => get_string('yes', 'plugnmeet'),
-        0 => get_string('no', 'plugnmeet')
+        1 => get_string('yes', 'mod_plugnmeet'),
+        0 => get_string('no', 'mod_plugnmeet')
     );
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/stop_mic_track_on_mute',
@@ -135,6 +135,16 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_heading(
         'mod_plugnmeet/plugnmeetextra',
         get_string('extraoption', 'plugnmeet'), ''));
+
+    $loadclient = array(
+        1 => get_string('remote', 'mod_plugnmeet'),
+        2 => get_string('local', 'mod_plugnmeet')
+    );
+    $settings->add(new admin_setting_configselect(
+        'mod_plugnmeet/client_load',
+        get_string('client_load', 'mod_plugnmeet'),
+        get_string('client_load_des', 'mod_plugnmeet'),
+        1, $loadclient));
 
     $settings->add(new admin_setting_configtext(
         'mod_plugnmeet/client_download_url',

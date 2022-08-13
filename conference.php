@@ -44,12 +44,22 @@ $event->add_record_snapshot('plugnmeet', $moduleinstance);
 $event->trigger();
 
 $config = get_config('mod_plugnmeet');
+if ($config->client_load === "1") {
+    if (!class_exists("plugNmeetConnect")) {
+        require($CFG->dirroot . '/mod/plugnmeet/helpers/plugNmeetConnect.php');
+    }
+    $connect = new plugNmeetConnect($config);
+    $files = $connect->getClientFiles();
+    $jsfiles = $files->getJSFiles() ?? [];
+    $cssfiles = $files->getCSSFiles() ?? [];
+    $path = $config->plugnmeet_server_url . "/assets";
+} else {
+    $clientpath = $CFG->dirroot . "/mod/plugnmeet/pix/client/dist/assets";
+    $jsfiles = preg_grep('~\.(js)$~', scandir($clientpath . "/js", SCANDIR_SORT_DESCENDING));
+    $cssfiles = preg_grep('~\.(css)$~', scandir($clientpath . "/css", SCANDIR_SORT_DESCENDING));
+    $path = $CFG->wwwroot . "/mod/plugnmeet/pix/client/dist/assets";
+}
 
-$clientpath = $CFG->dirroot . "/mod/plugnmeet/pix/client/dist/assets";
-$jsfiles = preg_grep('~\.(js)$~', scandir($clientpath . "/js", SCANDIR_SORT_DESCENDING));
-$cssfiles = preg_grep('~\.(css)$~', scandir($clientpath . "/css", SCANDIR_SORT_DESCENDING));
-
-$path = $CFG->wwwroot . "/mod/plugnmeet/pix/client/dist/assets";
 $jstag = "";
 foreach ($jsfiles as $file) {
     $jstag .= '<script src="' . $path . '/js/' . $file . '" defer="defer"></script>' . "\n\t";
