@@ -244,6 +244,21 @@ if ($hassiteconfig) {
                     ]);
                 });
             });
+
+            const client_load = document.getElementById('id_s_mod_plugnmeet_client_load');
+            if (client_load.value === '1') {
+                document.getElementById('admin-client_download_url').style.display = 'none';
+                document.getElementById('updateClient').parentElement.style.display = 'none';
+            }
+            client_load.addEventListener('change', function () {
+                if (this.value === "2") {
+                    document.getElementById('admin-client_download_url').style.display = '';
+                    document.getElementById('updateClient').parentElement.style.display = ''
+                } else {
+                    document.getElementById('admin-client_download_url').style.display = 'none';
+                    document.getElementById('updateClient').parentElement.style.display = 'none';
+                }
+            });
         });
     </script>
 <?php
