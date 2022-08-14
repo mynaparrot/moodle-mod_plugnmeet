@@ -151,7 +151,7 @@ $string['remote'] = 'Remote';
 $string['local'] = 'Local';
 
 $string['client_download_url'] = 'Local client download url';
-$string['client_download_url_des'] = 'Local clientlient download url. Default github';
+$string['client_download_url_des'] = 'Local client download url. Default github';
 $string['update_client_code'] = '<button class="btn btn-sm btn-secondary mb-6" id="updateClient">Download latest client</button>';
 $string['error_file_open'] = 'Error in zip file open';
 $string['client_updated_success'] = 'Client updated successfully';
