@@ -42,6 +42,7 @@ defined('MOODLE_INTERNAL') || die();
 <script type="text/javascript">
     let isActiveRoom = false;
     const isAdmin = <?php echo $isadmin; ?>;
+    const moodleRoot = '<?php echo $CFG->wwwroot; ?>';
 
     window.addEventListener('load', () => {
         checkIfRoomActive(false);
@@ -145,9 +146,7 @@ defined('MOODLE_INTERNAL') || die();
                             isActiveRoom = true;
                             toggleEndBtn();
 
-                            const url =
-                                '/mod/plugnmeet/conference.php?access_token=' +
-                                res.access_token +
+                            const url = moodleRoot + '/mod/plugnmeet/conference.php?access_token=' + res.access_token +
                                 '&id=<?php echo optional_param("id", 0, PARAM_INT); ?>';
 
                             const windowOpen = window.open(url, "_blank");
@@ -184,8 +183,7 @@ defined('MOODLE_INTERNAL') || die();
                             isActiveRoom = true;
                             toggleEndBtn();
 
-                            const url =
-                                '/mod/plugnmeet/conference.php?access_token=' +
+                            const url = moodleRoot + '/mod/plugnmeet/conference.php?access_token=' +
                                 res.access_token +
                                 '&id=<?php echo optional_param("id", 0, PARAM_INT); ?>';
 
