@@ -46,8 +46,20 @@ $context = context_module::instance($cm->id);
 require_login($course, true, $cm);
 require_capability('mod/plugnmeet:view', $context);
 
+$PAGE->set_url('/mod/plugnmeet/view.php', array('id' => $cm->id));
+$PAGE->set_title(format_string($moduleinstance->name));
+$PAGE->set_heading(format_string($course->fullname));
+$PAGE->set_context($context);
+
 $isadmin = has_capability('moodle/course:update', $context) ? 1 : 0;
 $canedit = has_capability('mod/plugnmeet:edit', $context) ? 1 : 0;
+
+if (!time_restriction_check_pass($moduleinstance) && !$isadmin) {
+    echo $OUTPUT->header();
+    echo get_string('notavailable');
+    echo $OUTPUT->footer();
+    exit();
+}
 
 $event = \mod_plugnmeet\event\course_module_viewed::create(array(
     'objectid' => $moduleinstance->id,
@@ -56,11 +68,6 @@ $event = \mod_plugnmeet\event\course_module_viewed::create(array(
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('plugnmeet', $moduleinstance);
 $event->trigger();
-
-$PAGE->set_url('/mod/plugnmeet/view.php', array('id' => $cm->id));
-$PAGE->set_title(format_string($moduleinstance->name));
-$PAGE->set_heading(format_string($course->fullname));
-$PAGE->set_context($context);
 
 echo $OUTPUT->header();
 

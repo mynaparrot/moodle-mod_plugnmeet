@@ -457,3 +457,9 @@ function get_plugnmeet_config() {
 
     return $script;
 }
+
+function time_restriction_check_pass($moduleinstance) {
+    $available = $moduleinstance->available;
+    $deadline = $moduleinstance->deadline;
+    return (($available == 0 || time() >= $available) && ($deadline == 0 || time() < $deadline));
+}

@@ -143,6 +143,9 @@ $string['lock_chat_send_message'] = 'Lock send message';
 $string['lock_chat_file_share'] = 'Lock file share';
 $string['lock_private_chat'] = 'Lock private chat';
 
+$string['available'] = 'Available from';
+$string['deadline'] = 'Deadline';
+
 $string['extraoption'] = 'Extra options';
 
 $string['client_load'] = 'Client load from';

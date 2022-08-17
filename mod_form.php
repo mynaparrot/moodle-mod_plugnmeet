@@ -114,6 +114,15 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('header', 'defaultlock', get_string('defaultlock', 'mod_plugnmeet'));
         PlugNmeetHelper::get_default_lock_settings($roommetadata, $mform);
 
+        // Availability.
+        $mform->addElement('header', 'availabilityhdr', get_string('availability'));
+
+        $mform->addElement('date_time_selector', 'available', get_string('available', 'plugnmeet'), array('optional' => true));
+        $mform->setDefault('available', 0);
+
+        $mform->addElement('date_time_selector', 'deadline', get_string('deadline', 'plugnmeet'), array('optional' => true));
+        $mform->setDefault('deadline', 0);
+
         // Add standard grading elements.
         $this->standard_grading_coursemodule_elements();
 

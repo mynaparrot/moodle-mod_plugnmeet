@@ -41,7 +41,7 @@ class backup_plugnmeet_activity_structure_step extends backup_activity_structure
      */
     protected function define_structure() {
         $plugnmeet = new backup_nested_element('plugnmeet', array('id'), array(
-            'course', 'name', 'roomid', 'welcomemessage', 'maxparticipants', 'roommetadata', 'intro', 'introformat'));
+            'course', 'name', 'roomid', 'welcomemessage', 'maxparticipants', 'roommetadata', 'intro', 'introformat', 'available', 'deadline'));
 
         // Define sources.
         $plugnmeet->set_source_table('plugnmeet', ['id' => backup::VAR_ACTIVITYID]);

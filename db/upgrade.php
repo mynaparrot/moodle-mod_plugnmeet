@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__.'/upgradelib.php');
+require_once(__DIR__ . '/upgradelib.php');
 
 /**
  * Execute mod_plugnmeet upgrade from the given old version.
@@ -42,6 +42,18 @@ function xmldb_plugnmeet_upgrade($oldversion) {
     //
     // You will also have to create the db/install.xml file by using the XMLDB Editor.
     // Documentation for the XMLDB Editor can be found at {@link https://docs.moodle.org/dev/XMLDB_editor}.
+
+    $table = new xmldb_table('plugnmeet');
+    $available = new xmldb_field('available', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0);
+    $deadline = new xmldb_field('deadline', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0);
+
+    // Conditionally launch add field newfield.
+    if (!$dbman->field_exists($table, $available)) {
+        $dbman->add_field($table, $available);
+    }
+    if (!$dbman->field_exists($table, $deadline)) {
+        $dbman->add_field($table, $deadline);
+    }
 
     return true;
 }
