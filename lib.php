@@ -205,6 +205,7 @@ function plugnmeet_grade_item_update($moduleinstance, $grades = null) {
 
     $item = array();
     $item['itemname'] = clean_param($moduleinstance->name, PARAM_NOTAGS);
+    $item['gradetype'] = GRADE_TYPE_NONE;
 
     if ($moduleinstance->grade > 0) {
         $item['gradetype'] = GRADE_TYPE_VALUE;
@@ -213,8 +214,6 @@ function plugnmeet_grade_item_update($moduleinstance, $grades = null) {
     } else if ($moduleinstance->grade < 0) {
         $item['gradetype'] = GRADE_TYPE_SCALE;
         $item['scaleid'] = -$moduleinstance->grade;
-    } else {
-        $item['gradetype'] = GRADE_TYPE_NONE;
     }
 
     if ($grades === 'reset') {
@@ -229,7 +228,7 @@ function plugnmeet_grade_item_update($moduleinstance, $grades = null) {
  * Delete grade item for given mod_plugnmeet instance.
  *
  * @param stdClass $moduleinstance Instance object.
- * @return grade_item.
+ * @return int.
  */
 function plugnmeet_grade_item_delete($moduleinstance) {
     global $CFG;
