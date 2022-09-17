@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitccba094c0e2d91ef1c96be041076be8f
+class ComposerStaticInitdb58d5b0f2a0a372523d2811c8ae1b5d
 {
     public static $files = array (
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
@@ -86,9 +86,11 @@ class ComposerStaticInitccba094c0e2d91ef1c96be041076be8f
         'Firebase\\JWT\\JWT' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWT.php',
         'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
         'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\BreakoutRoomFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/BreakoutRoomFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\ChatFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/ChatFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\CreateRoomParameters' => __DIR__ . '/../..' . '/src/Parameters/CreateRoomParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\DeleteRecordingParameters' => __DIR__ . '/../..' . '/src/Parameters/DeleteRecordingParameters.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\DisplayExternalLinkFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/DisplayExternalLinkFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\EndRoomParameters' => __DIR__ . '/../..' . '/src/Parameters/EndRoomParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\ExternalMediaPlayerFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/ExternalMediaPlayerFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\FetchRecordingsParameters' => __DIR__ . '/../..' . '/src/Parameters/FetchRecordingsParameters.php',
@@ -101,10 +103,11 @@ class ComposerStaticInitccba094c0e2d91ef1c96be041076be8f
         'Mynaparrot\\Plugnmeet\\Parameters\\RoomMetadataParameters' => __DIR__ . '/../..' . '/src/Parameters/RoomMetadataParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\SharedNotePadFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/SharedNotePadFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\UserMetadataParameters' => __DIR__ . '/../..' . '/src/Parameters/UserMetadataParameters.php',
-        'Mynaparrot\\Plugnmeet\\Parameters\\WaitingRoomFeatures' => __DIR__ . '/../..' . '/src/Parameters/WaitingRoomFeatures.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\WaitingRoomFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/WaitingRoomFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\WhiteboardFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/WhiteboardFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\PlugNmeet' => __DIR__ . '/../..' . '/src/PlugNmeet.php',
         'Mynaparrot\\Plugnmeet\\Responses\\BaseResponse' => __DIR__ . '/../..' . '/src/Responses/BaseResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\ClientFilesResponses' => __DIR__ . '/../..' . '/src/Responses/ClientFilesResponses.php',
         'Mynaparrot\\Plugnmeet\\Responses\\CreateRoomResponse' => __DIR__ . '/../..' . '/src/Responses/CreateRoomResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\DeleteRecordingResponse' => __DIR__ . '/../..' . '/src/Responses/DeleteRecordingResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\EndRoomResponse' => __DIR__ . '/../..' . '/src/Responses/EndRoomResponse.php',
@@ -167,6 +170,7 @@ class ComposerStaticInitccba094c0e2d91ef1c96be041076be8f
         'Ramsey\\Uuid\\Converter\\Time\\DegradedTimeConverter' => __DIR__ . '/..' . '/ramsey/uuid/src/Converter/Time/DegradedTimeConverter.php',
         'Ramsey\\Uuid\\Converter\\Time\\GenericTimeConverter' => __DIR__ . '/..' . '/ramsey/uuid/src/Converter/Time/GenericTimeConverter.php',
         'Ramsey\\Uuid\\Converter\\Time\\PhpTimeConverter' => __DIR__ . '/..' . '/ramsey/uuid/src/Converter/Time/PhpTimeConverter.php',
+        'Ramsey\\Uuid\\Converter\\Time\\UnixTimeConverter' => __DIR__ . '/..' . '/ramsey/uuid/src/Converter/Time/UnixTimeConverter.php',
         'Ramsey\\Uuid\\DegradedUuid' => __DIR__ . '/..' . '/ramsey/uuid/src/DegradedUuid.php',
         'Ramsey\\Uuid\\DeprecatedUuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/DeprecatedUuidInterface.php',
         'Ramsey\\Uuid\\DeprecatedUuidMethodsTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/DeprecatedUuidMethodsTrait.php',
@@ -202,6 +206,7 @@ class ComposerStaticInitccba094c0e2d91ef1c96be041076be8f
         'Ramsey\\Uuid\\Generator\\RandomLibAdapter' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/RandomLibAdapter.php',
         'Ramsey\\Uuid\\Generator\\TimeGeneratorFactory' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/TimeGeneratorFactory.php',
         'Ramsey\\Uuid\\Generator\\TimeGeneratorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/TimeGeneratorInterface.php',
+        'Ramsey\\Uuid\\Generator\\UnixTimeGenerator' => __DIR__ . '/..' . '/ramsey/uuid/src/Generator/UnixTimeGenerator.php',
         'Ramsey\\Uuid\\Guid\\Fields' => __DIR__ . '/..' . '/ramsey/uuid/src/Guid/Fields.php',
         'Ramsey\\Uuid\\Guid\\Guid' => __DIR__ . '/..' . '/ramsey/uuid/src/Guid/Guid.php',
         'Ramsey\\Uuid\\Guid\\GuidBuilder' => __DIR__ . '/..' . '/ramsey/uuid/src/Guid/GuidBuilder.php',
@@ -226,8 +231,11 @@ class ComposerStaticInitccba094c0e2d91ef1c96be041076be8f
         'Ramsey\\Uuid\\Provider\\Time\\SystemTimeProvider' => __DIR__ . '/..' . '/ramsey/uuid/src/Provider/Time/SystemTimeProvider.php',
         'Ramsey\\Uuid\\Rfc4122\\Fields' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/Fields.php',
         'Ramsey\\Uuid\\Rfc4122\\FieldsInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/FieldsInterface.php',
+        'Ramsey\\Uuid\\Rfc4122\\MaxTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/MaxTrait.php',
+        'Ramsey\\Uuid\\Rfc4122\\MaxUuid' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/MaxUuid.php',
         'Ramsey\\Uuid\\Rfc4122\\NilTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/NilTrait.php',
         'Ramsey\\Uuid\\Rfc4122\\NilUuid' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/NilUuid.php',
+        'Ramsey\\Uuid\\Rfc4122\\TimeTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/TimeTrait.php',
         'Ramsey\\Uuid\\Rfc4122\\UuidBuilder' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidBuilder.php',
         'Ramsey\\Uuid\\Rfc4122\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidInterface.php',
         'Ramsey\\Uuid\\Rfc4122\\UuidV1' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV1.php',
@@ -235,6 +243,8 @@ class ComposerStaticInitccba094c0e2d91ef1c96be041076be8f
         'Ramsey\\Uuid\\Rfc4122\\UuidV3' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV3.php',
         'Ramsey\\Uuid\\Rfc4122\\UuidV4' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV4.php',
         'Ramsey\\Uuid\\Rfc4122\\UuidV5' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV5.php',
+        'Ramsey\\Uuid\\Rfc4122\\UuidV6' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV6.php',
+        'Ramsey\\Uuid\\Rfc4122\\UuidV7' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/UuidV7.php',
         'Ramsey\\Uuid\\Rfc4122\\Validator' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/Validator.php',
         'Ramsey\\Uuid\\Rfc4122\\VariantTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/VariantTrait.php',
         'Ramsey\\Uuid\\Rfc4122\\VersionTrait' => __DIR__ . '/..' . '/ramsey/uuid/src/Rfc4122/VersionTrait.php',
@@ -257,9 +267,9 @@ class ComposerStaticInitccba094c0e2d91ef1c96be041076be8f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitccba094c0e2d91ef1c96be041076be8f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitccba094c0e2d91ef1c96be041076be8f::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitccba094c0e2d91ef1c96be041076be8f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdb58d5b0f2a0a372523d2811c8ae1b5d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdb58d5b0f2a0a372523d2811c8ae1b5d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitdb58d5b0f2a0a372523d2811c8ae1b5d::$classMap;
 
         }, null, ClassLoader::class);
     }
