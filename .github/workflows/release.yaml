@@ -24,7 +24,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: plugNmeet-sdk-php-release
+          name: mod_plugnmeet
           path: build/mod_plugnmeet.zip
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
