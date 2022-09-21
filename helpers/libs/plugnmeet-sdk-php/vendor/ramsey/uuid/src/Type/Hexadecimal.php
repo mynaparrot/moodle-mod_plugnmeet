@@ -15,11 +15,9 @@ declare(strict_types=1);
 namespace Ramsey\Uuid\Type;
 
 use Ramsey\Uuid\Exception\InvalidArgumentException;
-use ValueError;
 
 use function ctype_xdigit;
-use function sprintf;
-use function str_starts_with;
+use function strpos;
 use function strtolower;
 use function substr;
 
@@ -34,7 +32,10 @@ use function substr;
  */
 final class Hexadecimal implements TypeInterface
 {
-    private string $value;
+    /**
+     * @var string
+     */
+    private $value;
 
     /**
      * @param string $value The hexadecimal value to store
@@ -43,7 +44,7 @@ final class Hexadecimal implements TypeInterface
     {
         $value = strtolower($value);
 
-        if (str_starts_with($value, '0x')) {
+        if (strpos($value, '0x') === 0) {
             $value = substr($value, 2);
         }
 
@@ -77,36 +78,15 @@ final class Hexadecimal implements TypeInterface
     }
 
     /**
-     * @return array{string: string}
-     */
-    public function __serialize(): array
-    {
-        return ['string' => $this->toString()];
-    }
-
-    /**
      * Constructs the object from a serialized string representation
      *
-     * @param string $data The serialized string representation of the object
+     * @param string $serialized The serialized string representation of the object
      *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      * @psalm-suppress UnusedMethodCall
      */
-    public function unserialize(string $data): void
+    public function unserialize($serialized): void
     {
-        $this->__construct($data);
-    }
-
-    /**
-     * @param array{string?: string} $data
-     */
-    public function __unserialize(array $data): void
-    {
-        // @codeCoverageIgnoreStart
-        if (!isset($data['string'])) {
-            throw new ValueError(sprintf('%s(): Argument #1 ($data) is invalid', __METHOD__));
-        }
-        // @codeCoverageIgnoreEnd
-
-        $this->unserialize($data['string']);
+        $this->__construct($serialized);
     }
 }

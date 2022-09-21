@@ -18,19 +18,14 @@ use DateTimeInterface;
 use Ramsey\Uuid\Codec\CodecInterface;
 use Ramsey\Uuid\Converter\NumberConverterInterface;
 use Ramsey\Uuid\Converter\TimeConverterInterface;
-use Ramsey\Uuid\Exception\UnsupportedOperationException;
 use Ramsey\Uuid\Fields\FieldsInterface;
 use Ramsey\Uuid\Lazy\LazyUuidFromString;
 use Ramsey\Uuid\Rfc4122\FieldsInterface as Rfc4122FieldsInterface;
 use Ramsey\Uuid\Type\Hexadecimal;
 use Ramsey\Uuid\Type\Integer as IntegerObject;
-use ValueError;
 
-use function assert;
 use function bin2hex;
-use function method_exists;
 use function preg_match;
-use function sprintf;
 use function str_replace;
 use function strcmp;
 use function strlen;
@@ -85,14 +80,6 @@ class Uuid implements UuidInterface
     public const NIL = '00000000-0000-0000-0000-000000000000';
 
     /**
-     * The max UUID is a special form of UUID that is specified to have all 128
-     * bits set to one
-     *
-     * @link https://datatracker.ietf.org/doc/html/draft-peabody-dispatch-new-uuid-format-04#section-5.4 Max UUID
-     */
-    public const MAX = 'ffffffff-ffff-ffff-ffff-ffffffffffff';
-
-    /**
      * Variant: reserved, NCS backward compatibility
      *
      * @link http://tools.ietf.org/html/rfc4122#section-4.1.1 RFC 4122, § 4.1.1: Variant
@@ -126,7 +113,7 @@ class Uuid implements UuidInterface
     public const VALID_PATTERN = '^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$';
 
     /**
-     * Version 1 (Gregorian time) UUID
+     * Version 1 (time-based) UUID
      *
      * @link https://tools.ietf.org/html/rfc4122#section-4.1.3 RFC 4122, § 4.1.3: Version
      */
@@ -166,23 +153,15 @@ class Uuid implements UuidInterface
     public const UUID_TYPE_HASH_SHA1 = 5;
 
     /**
-     * @deprecated Use {@see Uuid::UUID_TYPE_REORDERED_TIME} instead.
+     * Version 6 (ordered-time) UUID
+     *
+     * This is named `UUID_TYPE_PEABODY`, since the specification is still in
+     * draft form, and the primary author/editor's name is Brad Peabody.
+     *
+     * @link https://github.com/uuid6/uuid6-ietf-draft UUID version 6 IETF draft
+     * @link http://gh.peabody.io/uuidv6/ "Version 6" UUIDs
      */
     public const UUID_TYPE_PEABODY = 6;
-
-    /**
-     * Version 6 (reordered time) UUID
-     *
-     * @link https://datatracker.ietf.org/doc/html/draft-peabody-dispatch-new-uuid-format-04#section-5.1 UUID Version 6
-     */
-    public const UUID_TYPE_REORDERED_TIME = 6;
-
-    /**
-     * Version 7 (Unix Epoch time) UUID
-     *
-     * @link https://datatracker.ietf.org/doc/html/draft-peabody-dispatch-new-uuid-format-04#section-5.2 UUID Version 7
-     */
-    public const UUID_TYPE_UNIX_TIME = 7;
 
     /**
      * DCE Security principal domain
@@ -216,19 +195,38 @@ class Uuid implements UuidInterface
         self::DCE_DOMAIN_ORG => 'org',
     ];
 
-    private static ?UuidFactoryInterface $factory = null;
+    /**
+     * @var UuidFactoryInterface|null
+     */
+    private static $factory = null;
 
     /**
-     * @var bool flag to detect if the UUID factory was replaced internally,
-     *     which disables all optimizations for the default/happy path internal
-     *     scenarios
+     * @var bool flag to detect if the UUID factory was replaced internally, which disables all optimizations
+     *           for the default/happy path internal scenarios
      */
-    private static bool $factoryReplaced = false;
+    private static $factoryReplaced = false;
 
-    protected CodecInterface $codec;
-    protected NumberConverterInterface $numberConverter;
-    protected Rfc4122FieldsInterface $fields;
-    protected TimeConverterInterface $timeConverter;
+    /**
+     * @var CodecInterface
+     */
+    protected $codec;
+
+    /**
+     * The fields that make up this UUID
+     *
+     * @var Rfc4122FieldsInterface
+     */
+    protected $fields;
+
+    /**
+     * @var NumberConverterInterface
+     */
+    protected $numberConverter;
+
+    /**
+     * @var TimeConverterInterface
+     */
+    protected $timeConverter;
 
     /**
      * Creates a universally unique identifier (UUID) from an array of fields
@@ -291,47 +289,27 @@ class Uuid implements UuidInterface
     }
 
     /**
-     * @return array{bytes: string}
-     */
-    public function __serialize(): array
-    {
-        return ['bytes' => $this->serialize()];
-    }
-
-    /**
      * Re-constructs the object from its serialized form
      *
-     * @param string $data The serialized PHP string to unserialize into
+     * @param string $serialized The serialized PHP string to unserialize into
      *     a UuidInterface instance
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function unserialize(string $data): void
+    public function unserialize($serialized): void
     {
-        if (strlen($data) === 16) {
+        if (strlen($serialized) === 16) {
             /** @var Uuid $uuid */
-            $uuid = self::getFactory()->fromBytes($data);
+            $uuid = self::getFactory()->fromBytes($serialized);
         } else {
             /** @var Uuid $uuid */
-            $uuid = self::getFactory()->fromString($data);
+            $uuid = self::getFactory()->fromString($serialized);
         }
 
         $this->codec = $uuid->codec;
         $this->numberConverter = $uuid->numberConverter;
         $this->fields = $uuid->fields;
         $this->timeConverter = $uuid->timeConverter;
-    }
-
-    /**
-     * @param array{bytes?: string} $data
-     */
-    public function __unserialize(array $data): void
-    {
-        // @codeCoverageIgnoreStart
-        if (!isset($data['bytes'])) {
-            throw new ValueError(sprintf('%s(): Argument #1 ($data) is invalid', __METHOD__));
-        }
-        // @codeCoverageIgnoreEnd
-
-        $this->unserialize($data['bytes']);
     }
 
     public function compareTo(UuidInterface $other): int
@@ -379,11 +357,6 @@ class Uuid implements UuidInterface
     public function getInteger(): IntegerObject
     {
         return new IntegerObject($this->numberConverter->fromHex($this->getHex()->toString()));
-    }
-
-    public function getUrn(): string
-    {
-        return 'urn:uuid:' . $this->toString();
     }
 
     /**
@@ -463,7 +436,7 @@ class Uuid implements UuidInterface
     /**
      * Creates a UUID from the string standard representation
      *
-     * @param string $uuid A hexadecimal string
+     * @param non-empty-string $uuid A hexadecimal string
      *
      * @return UuidInterface A UuidInterface instance created from a hexadecimal
      *     string representation
@@ -478,11 +451,8 @@ class Uuid implements UuidInterface
      */
     public static function fromString(string $uuid): UuidInterface
     {
-        $uuid = strtolower($uuid);
         if (! self::$factoryReplaced && preg_match(LazyUuidFromString::VALID_REGEX, $uuid) === 1) {
-            assert($uuid !== '');
-
-            return new LazyUuidFromString($uuid);
+            return new LazyUuidFromString(strtolower($uuid));
         }
 
         return self::getFactory()->fromString($uuid);
@@ -534,8 +504,6 @@ class Uuid implements UuidInterface
      *
      * @psalm-pure note: changing the internal factory is an edge case not covered by purity invariants,
      *             but under constant factory setups, this method operates in functionally pure manners
-     *
-     * @psalm-assert-if-true non-empty-string $uuid
      */
     public static function isValid(string $uuid): bool
     {
@@ -543,7 +511,7 @@ class Uuid implements UuidInterface
     }
 
     /**
-     * Returns a version 1 (Gregorian time) UUID from a host ID, sequence number,
+     * Returns a version 1 (time-based) UUID from a host ID, sequence number,
      * and the current time
      *
      * @param Hexadecimal|int|string|null $node A 48-bit number representing the
@@ -648,7 +616,7 @@ class Uuid implements UuidInterface
     }
 
     /**
-     * Returns a version 6 (reordered time) UUID from a host ID, sequence number,
+     * Returns a version 6 (ordered-time) UUID from a host ID, sequence number,
      * and the current time
      *
      * @param Hexadecimal|null $node A 48-bit number representing the hardware
@@ -665,29 +633,5 @@ class Uuid implements UuidInterface
         ?int $clockSeq = null
     ): UuidInterface {
         return self::getFactory()->uuid6($node, $clockSeq);
-    }
-
-    /**
-     * Returns a version 7 (Unix Epoch time) UUID
-     *
-     * @param DateTimeInterface|null $dateTime An optional date/time from which
-     *     to create the version 7 UUID. If not provided, the UUID is generated
-     *     using the current date/time.
-     *
-     * @return UuidInterface A UuidInterface instance that represents a
-     *     version 7 UUID
-     */
-    public static function uuid7(?DateTimeInterface $dateTime = null): UuidInterface
-    {
-        $factory = self::getFactory();
-
-        if (method_exists($factory, 'uuid7')) {
-            /** @var UuidInterface */
-            return $factory->uuid7($dateTime);
-        }
-
-        throw new UnsupportedOperationException(
-            'The provided factory does not support the uuid7() method',
-        );
     }
 }
