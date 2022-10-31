@@ -111,12 +111,12 @@ class mod_plugnmeet_get_recordings extends external_api {
             'status' => new external_value(PARAM_BOOL, 'status of request'),
             'msg' => new external_value(PARAM_TEXT, 'status message', VALUE_REQUIRED),
             'result' => new external_single_structure([
-                'total_recordings' => new external_value(PARAM_INT, 'status of request'),
-                'from' => new external_value(PARAM_INT, 'status of request'),
-                'limit' => new external_value(PARAM_INT, 'status of request'),
-                'order_by' => new external_value(PARAM_TEXT, 'status of request'),
-                'recordings_list' => new external_value(PARAM_RAW, 'recordings_list')
-            ]),
+                'total_recordings' => new external_value(PARAM_INT, 'status of request', VALUE_OPTIONAL, 0),
+                'from' => new external_value(PARAM_INT, 'status of request', VALUE_OPTIONAL, 0),
+                'limit' => new external_value(PARAM_INT, 'status of request', VALUE_OPTIONAL, 20),
+                'order_by' => new external_value(PARAM_TEXT, 'status of request', VALUE_OPTIONAL, 'DESC'),
+                'recordings_list' => new external_value(PARAM_RAW, 'recordings_list', VALUE_OPTIONAL, null)
+            ], 'recording result', VALUE_OPTIONAL, null),
         ]);
     }
 }

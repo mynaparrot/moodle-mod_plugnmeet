@@ -59,7 +59,8 @@ class mod_plugnmeet_create_room extends external_api {
 
         $result = [
             'status' => false,
-            'join_token' => ''
+            'roomInfo' => null,
+            'join_token' => null
         ];
 
         $cm = get_coursemodule_from_instance('plugnmeet', $instanceid, 0, false, MUST_EXIST);
@@ -117,10 +118,10 @@ class mod_plugnmeet_create_room extends external_api {
      */
     public static function create_room_returns() {
         return new external_single_structure([
-            'status' => new external_value(PARAM_BOOL, 'status of request'),
+            'status' => new external_value(PARAM_BOOL, 'status of request', VALUE_REQUIRED),
             'msg' => new external_value(PARAM_TEXT, 'status message', VALUE_REQUIRED),
-            'roomInfo' => new external_value(PARAM_RAW, 'room info'),
-            'access_token' => new external_value(PARAM_RAW, 'join token'),
+            'roomInfo' => new external_value(PARAM_RAW, 'room info', VALUE_OPTIONAL, null),
+            'access_token' => new external_value(PARAM_RAW, 'join token', VALUE_OPTIONAL, null),
         ]);
     }
 }

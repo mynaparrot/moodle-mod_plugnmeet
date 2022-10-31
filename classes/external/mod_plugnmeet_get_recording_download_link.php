@@ -91,7 +91,7 @@ class mod_plugnmeet_get_recording_download_link extends external_api {
         return new external_single_structure([
             'status' => new external_value(PARAM_BOOL, 'status of request'),
             'msg' => new external_value(PARAM_TEXT, 'status message', VALUE_REQUIRED),
-            'url' => new external_value(PARAM_RAW, 'download url'),
+            'url' => new external_value(PARAM_RAW, 'download url', VALUE_OPTIONAL, null),
         ]);
     }
 }

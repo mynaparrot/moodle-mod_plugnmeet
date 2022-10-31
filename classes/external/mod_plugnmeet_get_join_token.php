@@ -96,7 +96,7 @@ class mod_plugnmeet_get_join_token extends external_api {
         return new external_single_structure([
             'status' => new external_value(PARAM_BOOL, 'status of request'),
             'msg' => new external_value(PARAM_TEXT, 'status message', VALUE_REQUIRED),
-            'access_token' => new external_value(PARAM_RAW, 'join token'),
+            'access_token' => new external_value(PARAM_RAW, 'join token', VALUE_OPTIONAL, null),
         ]);
     }
 }
