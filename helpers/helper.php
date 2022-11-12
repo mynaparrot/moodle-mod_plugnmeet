@@ -182,7 +182,7 @@ class PlugNmeetHelper {
      * @return void
      * @throws coding_exception
      */
-    public static function get_recording_features($roommetadata, $mform){
+    public static function get_recording_features($roommetadata, $mform) {
         $recordingfeatures = array(
             "is_allow" => array(
                 "label" => get_string("allow_recording", "mod_plugnmeet"),

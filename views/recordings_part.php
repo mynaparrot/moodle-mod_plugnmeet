@@ -275,8 +275,7 @@ defined('MOODLE_INTERNAL') || die();
         });
     }
 
-    function deleteRecording(e, i) {
-        console.log(i);
+    function deleteRecording(e) {
         e.preventDefault();
         const recordId = e.target.attributes.getNamedItem('id').value;
         if (
