@@ -98,7 +98,6 @@ $string['roomfeatures'] = 'Room features';
 $string['allow_webcams'] = 'Allow webcams';
 $string['mute_on_start'] = 'Mute on start';
 $string['allow_screen_share'] = 'Allow screen sharing';
-$string['allow_recording'] = 'Allow recording';
 $string['allow_rtmp'] = 'Allow RTMP';
 $string['allow_view_other_webcams'] = 'Allow view other webcams';
 $string['allow_view_other_users_list'] = 'Allow view other users';
@@ -107,6 +106,14 @@ $string['allow_polls'] = 'Allow polls';
 $string['room_duration'] = 'Room duration (In minutes, 0 = unlimited)';
 
 $string['other_features'] = 'Other features';
+
+$string['recordingfeatures'] = 'Recording features';
+$string['allow_recording'] = 'Allow recording';
+$string['allow_cloud_recording'] = 'Allow cloud recording';
+$string['enable_auto_cloud_recording'] = 'Enable auto start cloud recording';
+$string['allow_local_recording'] = 'Allow local recording';
+$string['is_allow_view_recording'] = 'Allow students to view recording';
+$string['is_allow_download_recording'] = 'Allow students to download recording';
 
 $string['chatfeatures'] = 'Chat features';
 $string['allow_chat'] = 'Allow chat';
@@ -166,6 +173,7 @@ $string['recordings'] = 'Recordings';
 $string['recording_date'] = 'Recording date';
 $string['meeting_date'] = 'Meeting date';
 $string['file_size'] = 'File size (MB)';
+$string['play'] = 'Play';
 $string['download'] = 'Download';
 $string['delete'] = 'Delete';
 $string['sure_to_delete'] = 'Are you sure to delete?';
