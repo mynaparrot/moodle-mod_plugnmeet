@@ -258,7 +258,13 @@ defined('MOODLE_INTERNAL') || die();
                             ModalFactory.create({
                                 title: title,
                                 large: true,
-                                body: '<video width="100%" height="400" controls controlsList="nodownload" src="' + res.url.replace("host.docker.internal", "localhost") + '"></video>',
+                                body: '<video ' +
+                                    'width="100%" ' +
+                                    'height="400" ' +
+                                    'controls ' +
+                                    'controlsList="nodownload" ' +
+                                    'src="' + res.url + '">' +
+                                    '</video>',
                             }, trigger)
                                 .done(function (modal) {
                                     modal.show();
