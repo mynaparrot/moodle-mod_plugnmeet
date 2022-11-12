@@ -264,7 +264,7 @@ defined('MOODLE_INTERNAL') || die();
                                     modal.show();
                                     setTimeout(() => {
                                         $('.modal.show').bind('contextmenu',function() { return false; });
-                                    }, 1000);
+                                    }, 100);
                                 });
                         } else {
                             alert(res.msg);
