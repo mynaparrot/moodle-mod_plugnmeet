@@ -34,11 +34,14 @@ use Mynaparrot\Plugnmeet\Parameters\GetActiveRoomInfoParameters;
 use Mynaparrot\Plugnmeet\Parameters\IsRoomActiveParameters;
 use Mynaparrot\Plugnmeet\Parameters\LockSettingsParameters;
 use Mynaparrot\Plugnmeet\Parameters\RecordingDownloadTokenParameters;
+use Mynaparrot\Plugnmeet\Parameters\RecordingFeaturesParameters;
 use Mynaparrot\Plugnmeet\Parameters\RoomFeaturesParameters;
 use Mynaparrot\Plugnmeet\Parameters\RoomMetadataParameters;
 use Mynaparrot\Plugnmeet\Parameters\SharedNotePadFeaturesParameters;
+use Mynaparrot\Plugnmeet\Parameters\UserMetadataParameters;
 use Mynaparrot\Plugnmeet\Parameters\WaitingRoomFeaturesParameters;
 use Mynaparrot\Plugnmeet\Parameters\WhiteboardFeaturesParameters;
+use Mynaparrot\Plugnmeet\PlugNmeet;
 use Mynaparrot\Plugnmeet\Responses\ClientFilesResponses;
 use Mynaparrot\Plugnmeet\Responses\CreateRoomResponse;
 use Mynaparrot\Plugnmeet\Responses\DeleteRecordingResponse;
@@ -49,7 +52,6 @@ use Mynaparrot\Plugnmeet\Responses\GetActiveRoomInfoResponse;
 use Mynaparrot\Plugnmeet\Responses\GetActiveRoomsInfoResponse;
 use Mynaparrot\Plugnmeet\Responses\IsRoomActiveResponse;
 use Mynaparrot\Plugnmeet\Responses\RecordingDownloadTokenResponse;
-use Mynaparrot\Plugnmeet\PlugNmeet;
 
 require __DIR__ . "/libs/plugnmeet-sdk-php/vendor/autoload.php";
 
@@ -71,9 +73,18 @@ class plugNmeetConnect {
     }
 
     /**
+     * @return PlugNmeet
+     */
+    public function getPlugnmeet(): PlugNmeet
+    {
+        return $this->plugnmeet;
+    }
+
+    /**
      * @return string
      */
-    public function getUUID() {
+    public function getUUID()
+    {
         return $this->plugnmeet->getUUID();
     }
 
@@ -81,7 +92,8 @@ class plugNmeetConnect {
      * @param string $roomId
      * @return IsRoomActiveResponse
      */
-    public function isRoomActive(string $roomId): IsRoomActiveResponse {
+    public function isRoomActive(string $roomId): IsRoomActiveResponse
+    {
         $isRoomActiveParameters = new IsRoomActiveParameters();
         $isRoomActiveParameters->setRoomId($roomId);
 
@@ -92,11 +104,14 @@ class plugNmeetConnect {
      * @param string $roomId
      * @param string $roomTitle
      * @param string $welcomeMessage
+     * @param int $max_participants
      * @param string $webHookUrl
      * @param array $roomMetadata
+     * @param int $empty_timeout
      * @return CreateRoomResponse
      */
-    public function createRoom(string $roomId, string $roomTitle, string $welcomeMessage, int $max_participants, string $webHookUrl, array $roomMetadata): CreateRoomResponse {
+    public function createRoom(string $roomId, string $roomTitle, string $welcomeMessage, int $max_participants, string $webHookUrl, array $roomMetadata, int $empty_timeout = 0): CreateRoomResponse
+    {
         $roomFeatures = $roomMetadata['room_features'];
         $features = new RoomFeaturesParameters();
 
@@ -108,9 +123,6 @@ class plugNmeetConnect {
         }
         if (isset($roomFeatures['allow_screen_share'])) {
             $features->setAllowScreenShare($roomFeatures['allow_screen_share']);
-        }
-        if (isset($roomFeatures['allow_recording'])) {
-            $features->setAllowRecording($roomFeatures['allow_recording']);
         }
         if (isset($roomFeatures['allow_rtmp'])) {
             $features->setAllowRTMP($roomFeatures['allow_rtmp']);
@@ -131,6 +143,24 @@ class plugNmeetConnect {
             if ($roomFeatures['room_duration'] > 0) {
                 $features->setRoomDuration($roomFeatures['room_duration']);
             }
+        }
+
+        if (isset($roomMetadata['recording_features'])) {
+            $roomRecordingFeatures = $roomMetadata['recording_features'];
+            $recordingFeatures = new RecordingFeaturesParameters();
+            if (isset($roomRecordingFeatures['is_allow'])) {
+                $recordingFeatures->setIsAllow($roomRecordingFeatures['is_allow']);
+            }
+            if (isset($roomRecordingFeatures['is_allow_cloud'])) {
+                $recordingFeatures->setIsAllowCloud($roomRecordingFeatures['is_allow_cloud']);
+            }
+            if (isset($roomRecordingFeatures['is_allow_local'])) {
+                $recordingFeatures->setIsAllowLocal($roomRecordingFeatures['is_allow_local']);
+            }
+            if (isset($roomRecordingFeatures['enable_auto_cloud_recording'])) {
+                $recordingFeatures->setEnableAutoCloudRecording($roomRecordingFeatures['enable_auto_cloud_recording']);
+            }
+            $features->setRecordingFeatures($recordingFeatures);
         }
 
         if (isset($roomMetadata['chat_features'])) {
@@ -255,6 +285,9 @@ class plugNmeetConnect {
         if ($max_participants > 0) {
             $roomCreateParams->setMaxParticipants($max_participants);
         }
+        if ($empty_timeout > 0) {
+            $roomCreateParams->setEmptyTimeout($empty_timeout);
+        }
         $roomCreateParams->setRoomMetadata($metadata);
 
         return $this->plugnmeet->createRoom($roomCreateParams);
@@ -265,15 +298,21 @@ class plugNmeetConnect {
      * @param string $name
      * @param string $userId
      * @param bool $isAdmin
+     * @param bool $isHidden
+     * @param UserMetadataParameters|null $userMetadata
      * @return GenerateJoinTokenResponse
      */
-    public function getJoinToken(string $roomId, string $name, string $userId, bool $isAdmin, bool $isHidden = false): GenerateJoinTokenResponse {
+    public function getJoinToken(string $roomId, string $name, string $userId, bool $isAdmin, bool $isHidden = false, UserMetadataParameters $userMetadata = null): GenerateJoinTokenResponse
+    {
         $generateJoinTokenParameters = new GenerateJoinTokenParameters();
         $generateJoinTokenParameters->setRoomId($roomId);
         $generateJoinTokenParameters->setName($name);
         $generateJoinTokenParameters->setUserId($userId);
         $generateJoinTokenParameters->setIsAdmin($isAdmin);
         $generateJoinTokenParameters->setIsHidden($isHidden);
+        if ($userMetadata !== null) {
+            $generateJoinTokenParameters->setUserMetadata($userMetadata);
+        }
 
         return $this->plugnmeet->getJoinToken($generateJoinTokenParameters);
     }
@@ -282,7 +321,8 @@ class plugNmeetConnect {
      * @param string $roomId
      * @return EndRoomResponse
      */
-    public function endRoom(string $roomId) {
+    public function endRoom(string $roomId)
+    {
         $endRoomParameters = new EndRoomParameters();
         $endRoomParameters->setRoomId($roomId);
 
@@ -293,7 +333,8 @@ class plugNmeetConnect {
      * @param string $roomId
      * @return GetActiveRoomInfoResponse
      */
-    public function getActiveRoomInfo(string $roomId) {
+    public function getActiveRoomInfo(string $roomId): GetActiveRoomInfoResponse
+    {
         $getActiveRoomInfoParameters = new GetActiveRoomInfoParameters();
         $getActiveRoomInfoParameters->setRoomId($roomId);
 
@@ -303,7 +344,8 @@ class plugNmeetConnect {
     /**
      * @return GetActiveRoomsInfoResponse
      */
-    public function getActiveRoomsInfo() {
+    public function getActiveRoomsInfo(): GetActiveRoomsInfoResponse
+    {
         return $this->plugnmeet->getActiveRoomsInfo();
     }
 
@@ -314,7 +356,8 @@ class plugNmeetConnect {
      * @param string $orderBy
      * @return FetchRecordingsResponse
      */
-    public function getRecordings(array $roomIds, int $from = 0, int $limit = 20, string $orderBy = "DESC") {
+    public function getRecordings(array $roomIds, int $from = 0, int $limit = 20, string $orderBy = "DESC"): FetchRecordingsResponse
+    {
         $fetchRecordingsParameters = new FetchRecordingsParameters();
         $fetchRecordingsParameters->setRoomIds($roomIds);
         $fetchRecordingsParameters->setFrom($from);
@@ -325,10 +368,11 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param $recordingId
-     * @return mixed|RecordingDownloadTokenResponse
+     * @param  $recordingId
+     * @return RecordingDownloadTokenResponse
      */
-    public function getRecordingDownloadLink($recordingId) {
+    public function getRecordingDownloadLink($recordingId): RecordingDownloadTokenResponse
+    {
         $recordingDownloadTokenParameters = new RecordingDownloadTokenParameters();
         $recordingDownloadTokenParameters->setRecordId($recordingId);
 
@@ -336,10 +380,11 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param $recordingId
+     * @param  $recordingId
      * @return DeleteRecordingResponse
      */
-    public function deleteRecording($recordingId) {
+    public function deleteRecording($recordingId): DeleteRecordingResponse
+    {
         $deleteRecordingParameters = new DeleteRecordingParameters();
         $deleteRecordingParameters->setRecordId($recordingId);
 
@@ -349,7 +394,8 @@ class plugNmeetConnect {
     /**
      * @return ClientFilesResponses
      */
-    public function getClientFiles() {
+    public function getClientFiles(): ClientFilesResponses
+    {
         return $this->plugnmeet->getClientFiles();
     }
 }
