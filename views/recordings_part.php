@@ -42,6 +42,7 @@ defined('MOODLE_INTERNAL') || die();
 
 <script type="text/javascript">
     const canEdit = <?php echo $canedit; ?>;
+    const canDownload = <?php echo $roommetadata->recording_features->is_allow_download_recording; ?>;
     let isShowingPagination = false;
     let roomId = '<?php echo $moduleinstance->roomid; ?>',
         totalRecordings = 0,
@@ -90,7 +91,7 @@ defined('MOODLE_INTERNAL') || die();
                             const recording = recordings[i];
                             html += '<tr>';
                             html +=
-                                '<td class="center">' +
+                                '<td class="center" id="r_creation_' + i + '">' +
                                 new Date(recording.creation_time * 1e3).toLocaleString() +
                                 '</td>';
                             html +=
@@ -99,9 +100,17 @@ defined('MOODLE_INTERNAL') || die();
                                 '</td>';
                             html += '<td class="center">' + recording.file_size + '</td>';
 
-                            html += '<td class="center"><button onclick="downloadRecording(event)" class="btn btn-success btn-sm downloadRecording" id="' +
+                            html += '<td class="center"><button onclick="playRecording(event, ' + i + ')" class="btn btn-success btn-sm playRecording" id="' +
                                 recording.record_id +
-                                '"><?php echo get_string('download', 'plugnmeet'); ?></button></td>';
+                                '"><?php echo get_string('play', 'plugnmeet'); ?></button></td>';
+
+                            if (!canDownload && !canEdit) {
+                                // don't show
+                            } else {
+                                html += '<td class="center"><button onclick="downloadRecording(event)" class="btn btn-success btn-sm downloadRecording" id="' +
+                                    recording.record_id +
+                                    '"><?php echo get_string('download', 'plugnmeet'); ?></button></td>';
+                            }
 
                             if (canEdit) {
                                 html += '<td class="center"><button onclick="deleteRecording(event)" class="btn btn-danger btn-sm deleteRecording" id="' +
@@ -218,6 +227,51 @@ defined('MOODLE_INTERNAL') || die();
                     done: (res) => {
                         if (res.status) {
                             window.open(res.url, '_blank');
+                        } else {
+                            alert(res.msg);
+                        }
+                    },
+                    fail: (ex) => {
+                        console.log(ex);
+                    },
+                },
+            ]);
+        });
+    }
+
+    function playRecording(e, i) {
+        e.preventDefault();
+        const recordId = e.target.attributes.getNamedItem('id').value;
+        const title = document.getElementById("r_creation_" + i).innerHTML;
+
+        require(['jquery', 'core/ajax', 'core/modal_factory'], function ($, ajax, ModalFactory) {
+            ajax.call([
+                {
+                    methodname: 'mod_plugnmeet_get_recording_download_link',
+                    args: {
+                        instanceId: <?php echo $cm->instance; ?>,
+                        recordId,
+                    },
+                    done: (res) => {
+                        if (res.status) {
+                            const trigger = $('#create-modal');
+                            ModalFactory.create({
+                                title: title,
+                                large: true,
+                                body: '<video ' +
+                                    'width="100%" ' +
+                                    'height="400" ' +
+                                    'controls ' +
+                                    'controlsList="nodownload" ' +
+                                    'src="' + res.url + '">' +
+                                    '</video>',
+                            }, trigger)
+                                .done(function (modal) {
+                                    modal.show();
+                                    setTimeout(() => {
+                                        $('.modal.show').bind('contextmenu',function() { return false; });
+                                    }, 100);
+                                });
                         } else {
                             alert(res.msg);
                         }

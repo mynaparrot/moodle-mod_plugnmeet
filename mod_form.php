@@ -92,6 +92,9 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
 
         $mform->addElement('header', 'other_features', get_string('other_features', 'mod_plugnmeet'));
 
+        PlugNmeetHelper::get_recording_features($roommetadata, $mform);
+        $mform->addElement('html', '<hr />');
+
         PlugNmeetHelper::get_chat_features($roommetadata, $mform);
         $mform->addElement('html', '<hr />');
         PlugNmeetHelper::get_shared_note_pad_features($roommetadata, $mform);

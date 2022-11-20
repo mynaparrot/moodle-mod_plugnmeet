@@ -70,7 +70,7 @@ $event->add_record_snapshot('plugnmeet', $moduleinstance);
 $event->trigger();
 
 echo $OUTPUT->header();
-
+$roommetadata = json_decode($moduleinstance->roommetadata);
 ?>
     <div class="container mt-5 mb-5">
         <?php if (!empty($moduleinstance->intro)) : ?>
@@ -79,9 +79,13 @@ echo $OUTPUT->header();
         <div class="row">
             <?php require(__DIR__ . "/views/join_part.php") ?>
         </div>
+        <?php if (!$roommetadata->recording_features->is_allow_view_recording && (!$isadmin || !$canedit)): ?>
+        <!---Don't have permission to view recording-->
+        <?php else: ?>
         <div class="row">
             <?php require(__DIR__ . "/views/recordings_part.php") ?>
         </div>
+        <?php endif; ?>
     </div>
 
 <?php

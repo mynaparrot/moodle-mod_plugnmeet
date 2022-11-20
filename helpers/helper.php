@@ -116,15 +116,6 @@ class PlugNmeetHelper {
                 "selected" => 1,
                 "type" => "select"
             ),
-            "allow_recording" => array(
-                "label" => get_string("allow_recording", "mod_plugnmeet"),
-                "options" => array(
-                    0 => get_string("no", "mod_plugnmeet"),
-                    1 => get_string("yes", "mod_plugnmeet")
-                ),
-                "selected" => 1,
-                "type" => "select"
-            ),
             "allow_rtmp" => array(
                 "label" => get_string("allow_rtmp", "mod_plugnmeet"),
                 "options" => array(
@@ -183,6 +174,78 @@ class PlugNmeetHelper {
         }
 
         self::format_html($roomfeatures, "room_features", $data, $mform);
+    }
+
+    /**
+     * @param $roommetadata
+     * @param $mform
+     * @return void
+     * @throws coding_exception
+     */
+    public static function get_recording_features($roommetadata, $mform) {
+        $recordingfeatures = array(
+            "is_allow" => array(
+                "label" => get_string("allow_recording", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+            "is_allow_cloud" => array(
+                "label" => get_string("allow_cloud_recording", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+            "enable_auto_cloud_recording" => array(
+                "label" => get_string("enable_auto_cloud_recording", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select"
+            ),
+            "is_allow_local" => array(
+                "label" => get_string("allow_local_recording", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+            "is_allow_view_recording" => array(
+                "label" => get_string("is_allow_view_recording", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+            "is_allow_download_recording" => array(
+                "label" => get_string("is_allow_download_recording", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+        );
+
+        $data = [];
+        if (isset($roommetadata["recording_features"])) {
+            $data = $roommetadata["recording_features"];
+        }
+
+        self::format_html($recordingfeatures, "recording_features", $data, $mform);
     }
 
     /**
