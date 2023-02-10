@@ -176,7 +176,7 @@ function plugnmeet_scale_used($moduleinstanceid, $scaleid) {
             return true;
         }
     } catch (\Exception $e) {
-        // we can avoid
+        return false;
     }
 
     return false;
@@ -198,7 +198,7 @@ function plugnmeet_scale_used_anywhere($scaleid) {
             return true;
         }
     } catch (\Exception $e) {
-        // we can avoid
+        return false;
     }
 
     return false;
@@ -337,7 +337,7 @@ function plugnmeet_pluginfile($course, $cm, $context, $filearea, $args, $forcedo
         return false; // The file does not exist.
     }
 
-    send_stored_file($file, 86400, 0, $forcedownload, $options);
+    return send_stored_file($file, 86400, 0, $forcedownload, $options);
 }
 
 /**
