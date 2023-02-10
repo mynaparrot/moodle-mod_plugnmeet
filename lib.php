@@ -172,11 +172,11 @@ function plugnmeet_scale_used($moduleinstanceid, $scaleid) {
     global $DB;
 
     try {
-        if ($scaleid and $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
+        if ($scaleid && $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
             return true;
         }
-    }catch (\Exception $e){
-    }
+    } catch (\Exception $e) {}
+
     return false;
 }
 
@@ -192,11 +192,11 @@ function plugnmeet_scale_used_anywhere($scaleid) {
     global $DB;
 
     try {
-        if ($scaleid and $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
+        if ($scaleid && $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
             return true;
         }
-    }catch (\Exception $e){
-    }
+    } catch (\Exception $e) {}
+
     return false;
 }
 
