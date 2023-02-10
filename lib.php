@@ -133,7 +133,7 @@ function plugnmeet_update_instance($moduleinstance, $mform = null) {
         $moduleinstance->roommetadata = json_encode($roommetadata);
     }
 
-    if(!$DB->update_record('plugnmeet', $moduleinstance)){
+    if (!$DB->update_record('plugnmeet', $moduleinstance)) {
         return false;
     }
 
@@ -175,7 +175,9 @@ function plugnmeet_scale_used($moduleinstanceid, $scaleid) {
         if ($scaleid && $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
             return true;
         }
-    } catch (\Exception $e) {}
+    } catch (\Exception $e) {
+        // we can avoid
+    }
 
     return false;
 }
@@ -195,7 +197,9 @@ function plugnmeet_scale_used_anywhere($scaleid) {
         if ($scaleid && $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
             return true;
         }
-    } catch (\Exception $e) {}
+    } catch (\Exception $e) {
+        // we can avoid
+    }
 
     return false;
 }
