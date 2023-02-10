@@ -89,9 +89,10 @@ function plugnmeet_add_instance($moduleinstance, $mform = null) {
     $connect = new PlugNmeetConnect($config);
     $moduleinstance->roomid = $connect->getUUID();
 
-    $id = $DB->insert_record('plugnmeet', $moduleinstance);
+    $moduleinstance->id = $DB->insert_record('plugnmeet', $moduleinstance);
+    plugnmeet_grade_item_update($moduleinstance);
 
-    return $id;
+    return $moduleinstance->id;
 }
 
 /**
@@ -132,7 +133,12 @@ function plugnmeet_update_instance($moduleinstance, $mform = null) {
         $moduleinstance->roommetadata = json_encode($roommetadata);
     }
 
-    return $DB->update_record('plugnmeet', $moduleinstance);
+    if (!$DB->update_record('plugnmeet', $moduleinstance)) {
+        return false;
+    }
+
+    plugnmeet_grade_item_update($moduleinstance);
+    return true;
 }
 
 /**
@@ -165,11 +171,15 @@ function plugnmeet_delete_instance($id) {
 function plugnmeet_scale_used($moduleinstanceid, $scaleid) {
     global $DB;
 
-    if ($scaleid && $DB->record_exists('plugnmeet', array('id' => $moduleinstanceid, 'grade' => -$scaleid))) {
-        return true;
-    } else {
+    try {
+        if ($scaleid && $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
+            return true;
+        }
+    } catch (\Exception $e) {
         return false;
     }
+
+    return false;
 }
 
 /**
@@ -183,11 +193,15 @@ function plugnmeet_scale_used($moduleinstanceid, $scaleid) {
 function plugnmeet_scale_used_anywhere($scaleid) {
     global $DB;
 
-    if ($scaleid and $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
-        return true;
-    } else {
+    try {
+        if ($scaleid && $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
+            return true;
+        }
+    } catch (\Exception $e) {
         return false;
     }
+
+    return false;
 }
 
 /**
@@ -323,7 +337,7 @@ function plugnmeet_pluginfile($course, $cm, $context, $filearea, $args, $forcedo
         return false; // The file does not exist.
     }
 
-    send_stored_file($file, 86400, 0, $forcedownload, $options);
+    return send_stored_file($file, 86400, 0, $forcedownload, $options);
 }
 
 /**

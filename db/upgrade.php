@@ -46,6 +46,7 @@ function xmldb_plugnmeet_upgrade($oldversion) {
     $table = new xmldb_table('plugnmeet');
     $available = new xmldb_field('available', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0);
     $deadline = new xmldb_field('deadline', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0);
+    $grade = new xmldb_field('grade', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 100);
 
     // Conditionally launch add field newfield.
     if (!$dbman->field_exists($table, $available)) {
@@ -53,6 +54,9 @@ function xmldb_plugnmeet_upgrade($oldversion) {
     }
     if (!$dbman->field_exists($table, $deadline)) {
         $dbman->add_field($table, $deadline);
+    }
+    if (!$dbman->field_exists($table, $grade)) {
+        $dbman->add_field($table, $grade);
     }
 
     return true;
