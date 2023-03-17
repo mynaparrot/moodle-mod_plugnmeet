@@ -219,6 +219,28 @@ if ($hassiteconfig) {
         get_string('right_color', 'plugnmeet'),
         get_string('right_color_des', 'plugnmeet'),
         ''));
+
+    $columncameraposition = array(
+        "left" => "left",
+        "top" => "top",
+        "bottom" => "bottom"
+    );
+    $settings->add(new admin_setting_configselect(
+        'mod_plugnmeet/column_camera_position',
+        get_string('column_camera_position', 'mod_plugnmeet'),
+        get_string('column_camera_position_des',
+            'mod_plugnmeet'), 'left', $columncameraposition));
+
+    $columncamerawidth = array(
+        "full" => "default",
+        "medium" => "medium",
+        "small" => "small"
+    );
+    $settings->add(new admin_setting_configselect(
+        'mod_plugnmeet/column_camera_width',
+        get_string('column_camera_width', 'mod_plugnmeet'),
+        get_string('column_camera_width_des',
+            'mod_plugnmeet'), 'full', $columncamerawidth));
 }
 ?>
     <script type="text/javascript">

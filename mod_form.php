@@ -114,6 +114,9 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('html', '<hr />');
         PlugNmeetHelper::get_display_external_link_features($roommetadata, $mform);
 
+        $mform->addElement('html', '<hr />');
+        PlugNmeetHelper::get_ingress_features($roommetadata, $mform);
+
         $mform->addElement('header', 'defaultlock', get_string('defaultlock', 'mod_plugnmeet'));
         PlugNmeetHelper::get_default_lock_settings($roommetadata, $mform);
 

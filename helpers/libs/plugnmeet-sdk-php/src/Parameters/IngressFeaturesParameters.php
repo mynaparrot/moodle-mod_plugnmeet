@@ -22,79 +22,42 @@
  * SOFTWARE.
  */
 
-namespace Mynaparrot\Plugnmeet\Utils;
+namespace Mynaparrot\Plugnmeet\Parameters;
 
-/**
- *
- */
-class RecordingInfo
+class IngressFeaturesParameters
 {
     /**
-     * @var object
+     * @var bool
      */
-    protected $recording;
+    protected $isAllow = true;
 
-    /**
-     * @param object $recording
-     */
-    public function __construct(object $recording)
+    public function __construct()
     {
-        $this->recording = $recording;
     }
 
     /**
-     * @return string|null
+     * @return bool
      */
-    public function getRecordId(): ?string
+    public function isAllow(): bool
     {
-        return $this->recording->record_id;
+        return $this->isAllow;
     }
 
     /**
-     * @return string|null
+     * @param bool $isAllow
      */
-    public function getRoomId(): ?string
+    public function setIsAllow(bool $isAllow): void
     {
-        return $this->recording->room_id;
+        $this->isAllow = $isAllow;
     }
 
     /**
-     * @return string|null
+     * @return array
      */
-    public function getRoomSid(): ?string
+    public function buildBody(): array
     {
-        return $this->recording->room_sid;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getFilePath(): ?string
-    {
-        return $this->recording->file_path;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getFileSize(): ?int
-    {
-        return $this->recording->file_size;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getCreationTime(): ?int
-    {
-        return $this->recording->creation_time;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getRoomCreationTime(): ?int
-    {
-        return $this->recording->room_creation_time;
+        return array(
+            "is_allow" => $this->isAllow(),
+        );
     }
 }

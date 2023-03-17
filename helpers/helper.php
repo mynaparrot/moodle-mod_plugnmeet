@@ -166,6 +166,15 @@ class PlugNmeetHelper {
                 "default" => 0,
                 "type" => "number"
             ),
+            "moderator_join_first" => array(
+                "label" => get_string("moderator_join_first", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select"
+            ),
         );
 
         $data = [];
@@ -454,6 +463,33 @@ class PlugNmeetHelper {
         }
 
         self::format_html($displayexternallinkfeatures, "display_external_link_features", $data, $mform);
+    }
+
+    /**
+     * @param $roommetadata
+     * @param $mform
+     * @return void
+     * @throws coding_exception
+     */
+    public static function get_ingress_features($roommetadata, $mform) {
+        $ingressfeatures = array(
+            "is_allow" => array(
+                "label" => get_string("allow_ingress_features", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+        );
+
+        $data = [];
+        if (isset($roommetadata["ingress_features"])) {
+            $data = $roommetadata["ingress_features"];
+        }
+
+        self::format_html($ingressfeatures, "ingress_features", $data, $mform);
     }
 
     /**

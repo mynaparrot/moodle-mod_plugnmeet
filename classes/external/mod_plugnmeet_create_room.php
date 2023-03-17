@@ -78,6 +78,13 @@ class mod_plugnmeet_create_room extends external_api {
         $config = get_config('mod_plugnmeet');
         $roommetadata = json_decode($instance->roommetadata, true);
 
+        if (!$isadmin
+            && isset( $room_metadata["room_features"]["moderator_join_first"] )
+            && $room_metadata["room_features"]["moderator_join_first"] == 1 ) {
+            $result['msg'] = get_string('moderator_join_first_error', 'mod_plugnmeet');
+            return $result;
+        }
+
         $connect = new PlugNmeetConnect($config);
         try {
             $res = $connect->createRoom($instance->roomid,

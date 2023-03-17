@@ -104,6 +104,8 @@ $string['allow_view_other_users_list'] = 'Allow view other users';
 $string['admin_only_webcams'] = 'Admin only webcams';
 $string['allow_polls'] = 'Allow polls';
 $string['room_duration'] = 'Room duration (In minutes, 0 = unlimited)';
+$string['moderator_join_first'] = 'Moderator join first';
+$string['moderator_join_first_error'] = 'The meeting has not started yet, please come back later';
 
 $string['other_features'] = 'Other features';
 
@@ -138,6 +140,7 @@ $string['allowed_number_rooms'] = 'Number of rooms';
 
 $string['display_external_link_features'] = 'Display external link features';
 $string['allow_display_external_link_features'] = 'Allow display external link features';
+$string['allow_ingress_features'] = 'Allow to create ingress';
 
 $string['defaultlock'] = 'Default lock settings';
 $string['lock_microphone'] = 'Lock microphone';
@@ -197,3 +200,7 @@ $string['left_color'] = 'Left Side Color';
 $string['left_color_des'] = 'Left side bar color';
 $string['right_color'] = 'Right Side Color';
 $string['right_color_des'] = 'Right side bar color';
+$string['column_camera_position'] = 'Column camera position';
+$string['column_camera_position_des'] = 'Column camera position. Default: left';
+$string['column_camera_width'] = 'Column camera width';
+$string['column_camera_width_des'] = 'Column camera width';

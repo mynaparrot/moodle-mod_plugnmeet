@@ -65,7 +65,7 @@ function plugnmeet_add_instance($moduleinstance, $mform = null) {
         'shared_note_pad_features', 'whiteboard_features',
         'external_media_player_features', 'waiting_room_features',
         'breakout_room_features', 'display_external_link_features',
-        'default_lock_settings', 'custom_design'
+        'ingress_features', 'default_lock_settings', 'custom_design'
     );
 
     $roommetadata = [];
@@ -116,7 +116,7 @@ function plugnmeet_update_instance($moduleinstance, $mform = null) {
         'shared_note_pad_features', 'whiteboard_features',
         'external_media_player_features', 'waiting_room_features',
         'breakout_room_features', 'display_external_link_features',
-        'default_lock_settings', 'custom_design'
+        'ingress_features', 'default_lock_settings', 'custom_design'
     );
 
     $roommetadata = [];
@@ -459,6 +459,12 @@ function get_plugnmeet_config() {
     }
     if (!empty($config->custom_css_url)) {
         $customdesignitems['custom_css_url'] = $config->custom_css_url;
+    }
+    if (!empty($config->column_camera_position)) {
+        $customdesignitems['column_camera_position'] = $config->column_camera_position;
+    }
+    if (!empty($config->column_camera_width)) {
+        $customdesignitems['column_camera_width'] = $config->column_camera_width;
     }
 
     if (count($customdesignitems) > 0) {
