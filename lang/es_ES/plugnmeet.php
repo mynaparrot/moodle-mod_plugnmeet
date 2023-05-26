@@ -26,26 +26,26 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['choosereadme'] = 'Readme when selecting the theme.';
-$string['missingidandcmid'] = 'Missing id and cmid';
+$string['choosereadme'] = 'Léame al seleccionar el tema.';
+$string['missingidandcmid'] = 'Falta id y cmid';
 $string['modulename'] = 'plugNmeet';
-$string['modulename_help'] = 'Use the plugNmeet module for...';
+$string['modulename_help'] = 'Utilice el módulo plugNmeet para...';
 $string['modulenameplural'] = 'plugNmeets';
-$string['newmodulename'] = 'plugNmeet name';
-$string['newmodulename_help'] = 'This is the content of the help tooltip associated with the plugNmeet field';
-$string['newmodulesettings'] = 'Settings';
-$string['nonewmodules'] = 'No plugNmeet';
-$string['pluginadministration'] = 'plugNmeet administration';
+$string['newmodulename'] = 'nombre de plugNmeet';
+$string['newmodulename_help'] = 'Este es el contenido de la información sobre herramientas de ayuda asociada con el campo plugNmeet';
+$string['newmodulesettings'] = 'Configuración';
+$string['nonewmodules'] = 'Sin plugNmeet';
+$string['pluginadministration'] = 'administración de plugNmeet';
 $string['pluginname'] = 'plugNmeet';
 $string['pluginname_help'] = 'Help text when adding this question type.';
 $string['pluginnameadding'] = 'Rendered when adding this question type.';
 $string['pluginnameediting'] = 'Rendered when editing this question type.';
 $string['pluginnamesummary'] = 'Rendered when choosing the question type to be added.';
 $string['plugnmeet:access'] = 'Access content';
-$string['plugnmeet:addinstance'] = 'Add a new plugNmeet activity';
-$string['plugnmeet:edit'] = 'Edit plugNmeet';
-$string['plugnmeet:enrol'] = 'Enrol users';
-$string['plugnmeet:manage'] = 'Manage users';
+$string['plugnmeet:addinstance'] = 'Agregar una nueva actividad de plugNmeet';
+$string['plugnmeet:edit'] = 'Editar plugNmeet';
+$string['plugnmeet:enrol'] = 'Inscribir usuarios';
+$string['plugnmeet:manage'] = 'Administrar usuarios';
 $string['plugnmeet:unenrol'] = 'Unenrol users';
 $string['plugnmeet:upload'] = 'Upload content';
 $string['plugnmeet:useeditor'] = 'Edit content';
@@ -55,15 +55,15 @@ $string['privacy:metadata:plugnmeet:userid'] = 'The userid is sent from Moodle t
 $string['privacy:metadata:plugnmeet:fullname'] = 'Your full name is sent to the remote system to allow a better user experience.';
 
 $string['view'] = 'View';
-$string['yes'] = 'Yes';
+$string['yes'] = 'Sí';
 $string['no'] = 'No';
-$string['join'] = 'Join';
+$string['join'] = 'Unirse';
 $string['plugnmeetname'] = 'plugNmeet';
 $string['plugnmeetname_help'] = 'Help';
 $string['plugnmeet_viewed'] = 'plugNmeet activity viewed';
-$string['joined_session'] = 'Joined session';
+$string['joined_session'] = 'Unirse a la sesión';
 
-$string['plugnmeetconfig'] = 'plugNmeet config';
+$string['plugnmeetconfig'] = 'configuración plugNmeet';
 $string['plugnmeet_server_url'] = 'plugnmeet server url';
 $string['plugnmeet_server_url_des'] = 'Enter plugNmeet Server URL';
 $string['plugnmeet_api_key'] = 'plugnmeet API Key';
@@ -170,7 +170,7 @@ $string['error_file_open'] = 'Error in zip file open';
 $string['client_updated_success'] = 'Client updated successfully';
 $string['client_updated_failed'] = 'Failed to update client';
 
-$string['join'] = 'Join';
+$string['join'] = 'Unirse';
 $string['end'] = 'End';
 $string['recordings'] = 'Recordings';
 $string['recording_date'] = 'Recording date';
@@ -204,3 +204,6 @@ $string['column_camera_position'] = 'Column camera position';
 $string['column_camera_position_des'] = 'Column camera position. Default: left';
 $string['column_camera_width'] = 'Column camera width';
 $string['column_camera_width_des'] = 'Column camera width';
+
+$string['allow_speech_to_text_translation_features'] = 'Allow speech to text/translation features';
+$string['allow_speech_translation'] = 'Allow translation';
