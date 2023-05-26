@@ -204,3 +204,6 @@ $string['column_camera_position'] = 'Column camera position';
 $string['column_camera_position_des'] = 'Column camera position. Default: left';
 $string['column_camera_width'] = 'Column camera width';
 $string['column_camera_width_des'] = 'Column camera width';
+
+$string['allow_speech_to_text_translation_features'] = 'Allow speech to text/translation features';
+$string['allow_speech_translation'] = 'Allow translation';
