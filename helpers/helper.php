@@ -498,6 +498,42 @@ class PlugNmeetHelper {
      * @return void
      * @throws coding_exception
      */
+    public static function get_speech_to_text_translation_features($roommetadata, $mform) {
+        $speechfeatures = array(
+            "is_allow" => array(
+                "label" => get_string("allow_speech_to_text_translation_features", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+            "is_allow_translation" => array(
+                "label" => get_string("allow_speech_translation", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+        );
+
+        $data = [];
+        if (isset($roommetadata["speech_to_text_translation_features"])) {
+            $data = $roommetadata["speech_to_text_translation_features"];
+        }
+
+        self::format_html($speechfeatures, "speech_to_text_translation_features", $data, $mform);
+    }
+
+    /**
+     * @param $roommetadata
+     * @param $mform
+     * @return void
+     * @throws coding_exception
+     */
     public static function get_default_lock_settings($roommetadata, $mform) {
         $defaultlocksettings = array(
             "lock_microphone" => array(
