@@ -57,7 +57,8 @@ function get_room_metadata_items() {
         'external_media_player_features', 'waiting_room_features',
         'breakout_room_features', 'display_external_link_features',
         'ingress_features', 'speech_to_text_translation_features',
-        'default_lock_settings', 'custom_design'
+        'end_to_end_encryption_features', 'default_lock_settings',
+        'custom_design'
     );
 }
 

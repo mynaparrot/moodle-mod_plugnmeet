@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbdcf1e044f4f7e492f5246dedc8614fd
+class ComposerStaticInitc9bd71345d80e278cfb1d338867b60ea
 {
     public static $files = array (
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
@@ -98,6 +98,7 @@ class ComposerStaticInitbdcf1e044f4f7e492f5246dedc8614fd
         'Mynaparrot\\Plugnmeet\\Parameters\\DeleteRecordingParameters' => __DIR__ . '/../..' . '/src/Parameters/DeleteRecordingParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\DisplayExternalLinkFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/DisplayExternalLinkFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\EndRoomParameters' => __DIR__ . '/../..' . '/src/Parameters/EndRoomParameters.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\EndToEndEncryptionFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/EndToEndEncryptionFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\ExternalMediaPlayerFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/ExternalMediaPlayerFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\FetchRecordingsParameters' => __DIR__ . '/../..' . '/src/Parameters/FetchRecordingsParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\GenerateJoinTokenParameters' => __DIR__ . '/../..' . '/src/Parameters/GenerateJoinTokenParameters.php',
@@ -270,9 +271,9 @@ class ComposerStaticInitbdcf1e044f4f7e492f5246dedc8614fd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbdcf1e044f4f7e492f5246dedc8614fd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbdcf1e044f4f7e492f5246dedc8614fd::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitbdcf1e044f4f7e492f5246dedc8614fd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitc9bd71345d80e278cfb1d338867b60ea::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitc9bd71345d80e278cfb1d338867b60ea::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitc9bd71345d80e278cfb1d338867b60ea::$classMap;
 
         }, null, ClassLoader::class);
     }

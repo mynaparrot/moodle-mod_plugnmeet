@@ -528,6 +528,33 @@ class PlugNmeetHelper {
         self::format_html($speechfeatures, "speech_to_text_translation_features", $data, $mform);
     }
 
+    /*
+    * @param $roommetadata
+    * @param $mform
+    * @return void
+    * @throws coding_exception
+    */
+    public static function get_end_to_end_encryption_features($roommetadata, $mform) {
+        $e2eefeatures = array(
+            "is_enabled" => array(
+                "label" => get_string("enable_end_to_end_encryption_features", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select"
+            ),
+        );
+
+        $data = [];
+        if (isset($roommetadata["end_to_end_encryption_features"])) {
+            $data = $roommetadata["end_to_end_encryption_features"];
+        }
+
+        self::format_html($e2eefeatures, "end_to_end_encryption_features", $data, $mform);
+    }
+
     /**
      * @param $roommetadata
      * @param $mform
