@@ -207,3 +207,5 @@ $string['column_camera_width_des'] = 'Column camera width';
 
 $string['allow_speech_to_text_translation_features'] = 'Allow speech to text/translation features';
 $string['allow_speech_translation'] = 'Allow translation';
+
+$string['enable_end_to_end_encryption_features'] = 'Enable End-To-End Encryption (E2EE)';
