@@ -170,7 +170,7 @@ $string['error_file_open'] = 'Error in zip file open';
 $string['client_updated_success'] = 'Client updated successfully';
 $string['client_updated_failed'] = 'Failed to update client';
 
-$string['join'] = 'Unirse';
+$string['join'] = 'Join';
 $string['end'] = 'End';
 $string['recordings'] = 'Recordings';
 $string['recording_date'] = 'Recording date';
@@ -207,3 +207,5 @@ $string['column_camera_width_des'] = 'Column camera width';
 
 $string['allow_speech_to_text_translation_features'] = 'Allow speech to text/translation features';
 $string['allow_speech_translation'] = 'Allow translation';
+
+$string['enable_end_to_end_encryption_features'] = 'Enable End-To-End Encryption (E2EE)';
