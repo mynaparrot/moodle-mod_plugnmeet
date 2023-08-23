@@ -87,12 +87,20 @@ class mod_plugnmeet_create_room extends external_api {
 
         $connect = new PlugNmeetConnect($config);
         try {
+            $extradata = json_encode(array(
+                "platform" => "moodle",
+                "php-version" => phpversion(),
+                "plugin-version" => $config->version
+            ));
             $res = $connect->createRoom($instance->roomid,
                 $instance->name,
                 $instance->welcomemessage,
                 $instance->maxparticipants,
                 "",
-                $roommetadata);
+                $roommetadata,
+                0,
+                "",
+                $extradata);
 
             $result['status'] = $res->getStatus();
             $result['msg'] = $res->getResponseMsg();

@@ -113,7 +113,7 @@ class plugNmeetConnect {
      * @param int $empty_timeout
      * @return CreateRoomResponse
      */
-    public function createRoom(string $roomId, string $roomTitle, string $welcomeMessage, int $max_participants, string $webHookUrl, array $roomMetadata, int $empty_timeout = 0): CreateRoomResponse
+    public function createRoom(string $roomId, string $roomTitle, string $welcomeMessage, int $max_participants, string $webHookUrl, array $roomMetadata, int $empty_timeout = 0, string $logoutUrl = "", string $extraData = null): CreateRoomResponse
     {
         $roomFeatures = $roomMetadata['room_features'];
         $features = new RoomFeaturesParameters();
@@ -274,8 +274,20 @@ class plugNmeetConnect {
 
         $metadata = new RoomMetadataParameters();
         $metadata->setRoomTitle($roomTitle);
-        $metadata->setWelcomeMessage($welcomeMessage);
-        $metadata->setWebhookUrl($webHookUrl);
+
+        if (!empty($welcomeMessage)) {
+            $metadata->setWelcomeMessage($welcomeMessage);
+        }
+        if (!empty($webHookUrl)) {
+            $metadata->setWebhookUrl($webHookUrl);
+        }
+        if (!empty($logoutUrl)) {
+            $metadata->setLogoutUrl($logoutUrl);
+        }
+        if (!empty($extraData)) {
+            $metadata->setExtraData($extraData);
+        }
+
         $metadata->setFeatures($features);
 
         if (isset($roomMetadata['default_lock_settings'])) {
