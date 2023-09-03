@@ -175,6 +175,15 @@ class PlugNmeetHelper {
                 "selected" => 0,
                 "type" => "select"
             ),
+            "enable_analytics" => array(
+                "label" => get_string("enable_analytics", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
         );
 
         $data = [];

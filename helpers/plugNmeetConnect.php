@@ -21,14 +21,19 @@
  * SOFTWARE.
  */
 
+
+use Mynaparrot\Plugnmeet\Parameters\AnalyticsDownloadTokenParameters;
 use Mynaparrot\Plugnmeet\Parameters\BreakoutRoomFeaturesParameters;
 use Mynaparrot\Plugnmeet\Parameters\ChatFeaturesParameters;
 use Mynaparrot\Plugnmeet\Parameters\CreateRoomParameters;
+use Mynaparrot\Plugnmeet\Parameters\DeleteAnalyticsParameters;
 use Mynaparrot\Plugnmeet\Parameters\DeleteRecordingParameters;
 use Mynaparrot\Plugnmeet\Parameters\DisplayExternalLinkFeaturesParameters;
 use Mynaparrot\Plugnmeet\Parameters\EndRoomParameters;
 use Mynaparrot\Plugnmeet\Parameters\EndToEndEncryptionFeaturesParameters;
 use Mynaparrot\Plugnmeet\Parameters\ExternalMediaPlayerFeaturesParameters;
+use Mynaparrot\Plugnmeet\Parameters\FetchAnalyticsParameters;
+use Mynaparrot\Plugnmeet\Parameters\FetchPastRoomsParameters;
 use Mynaparrot\Plugnmeet\Parameters\FetchRecordingsParameters;
 use Mynaparrot\Plugnmeet\Parameters\GenerateJoinTokenParameters;
 use Mynaparrot\Plugnmeet\Parameters\GetActiveRoomInfoParameters;
@@ -45,10 +50,14 @@ use Mynaparrot\Plugnmeet\Parameters\UserMetadataParameters;
 use Mynaparrot\Plugnmeet\Parameters\WaitingRoomFeaturesParameters;
 use Mynaparrot\Plugnmeet\Parameters\WhiteboardFeaturesParameters;
 use Mynaparrot\Plugnmeet\PlugNmeet;
+use Mynaparrot\Plugnmeet\Responses\AnalyticsDownloadTokenResponse;
 use Mynaparrot\Plugnmeet\Responses\ClientFilesResponses;
 use Mynaparrot\Plugnmeet\Responses\CreateRoomResponse;
+use Mynaparrot\Plugnmeet\Responses\DeleteAnalyticsResponse;
 use Mynaparrot\Plugnmeet\Responses\DeleteRecordingResponse;
 use Mynaparrot\Plugnmeet\Responses\EndRoomResponse;
+use Mynaparrot\Plugnmeet\Responses\FetchAnalyticsResponse;
+use Mynaparrot\Plugnmeet\Responses\FetchPastRoomsResponse;
 use Mynaparrot\Plugnmeet\Responses\FetchRecordingsResponse;
 use Mynaparrot\Plugnmeet\Responses\GenerateJoinTokenResponse;
 use Mynaparrot\Plugnmeet\Responses\GetActiveRoomInfoResponse;
@@ -147,6 +156,9 @@ class plugNmeetConnect {
                 $features->setRoomDuration($roomFeatures['room_duration']);
             }
         }
+        if (isset($roomFeatures['enable_analytics'])) {
+            $features->setEnableAnalytics($roomFeatures['enable_analytics']);
+        }
 
         if (isset($roomMetadata['recording_features'])) {
             $roomRecordingFeatures = $roomMetadata['recording_features'];
@@ -162,6 +174,9 @@ class plugNmeetConnect {
             }
             if (isset($roomRecordingFeatures['enable_auto_cloud_recording'])) {
                 $recordingFeatures->setEnableAutoCloudRecording($roomRecordingFeatures['enable_auto_cloud_recording']);
+            }
+            if (isset($roomRecordingFeatures['only_record_admin_webcams'])) {
+                $recordingFeatures->setOnlyRecordAdminWebcams($roomRecordingFeatures['only_record_admin_webcams']);
             }
             $features->setRecordingFeatures($recordingFeatures);
         }
@@ -192,6 +207,9 @@ class plugNmeetConnect {
             $whiteboardFeatures = new WhiteboardFeaturesParameters();
             if (isset($roomWhiteboardFeatures['allowed_whiteboard'])) {
                 $whiteboardFeatures->setAllowedWhiteboard($roomWhiteboardFeatures['allowed_whiteboard']);
+            }
+            if (isset($roomWhiteboardFeatures['preload_file'])) {
+                $whiteboardFeatures->setPreloadFile($roomWhiteboardFeatures['preload_file']);
             }
             $features->setWhiteboardFeatures($whiteboardFeatures);
         }
@@ -242,25 +260,25 @@ class plugNmeetConnect {
             $features->setDisplayExternalLinkFeatures($displayExternalLinkFeatures);
         }
 
-        if ( isset( $roomMetadata['ingress_features'] ) ) {
+        if (isset($roomMetadata['ingress_features'])) {
             $roomIngressFeatures = $roomMetadata['ingress_features'];
-            $ingressFeatures     = new IngressFeaturesParameters();
-            if ( isset( $roomIngressFeatures['is_allow'] ) ) {
-                $ingressFeatures->setIsAllow( $roomIngressFeatures['is_allow'] );
+            $ingressFeatures = new IngressFeaturesParameters();
+            if (isset($roomIngressFeatures['is_allow'])) {
+                $ingressFeatures->setIsAllow($roomIngressFeatures['is_allow']);
             }
-            $features->setIngressFeatures( $ingressFeatures );
+            $features->setIngressFeatures($ingressFeatures);
         }
 
-        if ( isset( $roomMetadata['speech_to_text_translation_features'] ) ) {
+        if (isset($roomMetadata['speech_to_text_translation_features'])) {
             $roomSpeechToTextTranslationFeatures = $roomMetadata['speech_to_text_translation_features'];
-            $speechToTextTranslationFeatures     = new SpeechToTextTranslationFeaturesParameters();
-            if ( isset( $roomSpeechToTextTranslationFeatures['is_allow'] ) ) {
-                $speechToTextTranslationFeatures->setIsAllow( $roomSpeechToTextTranslationFeatures['is_allow'] );
+            $speechToTextTranslationFeatures = new SpeechToTextTranslationFeaturesParameters();
+            if (isset($roomSpeechToTextTranslationFeatures['is_allow'])) {
+                $speechToTextTranslationFeatures->setIsAllow($roomSpeechToTextTranslationFeatures['is_allow']);
             }
-            if ( isset( $roomSpeechToTextTranslationFeatures['is_allow_translation'] ) ) {
-                $speechToTextTranslationFeatures->setIsAllowTranslation( $roomSpeechToTextTranslationFeatures['is_allow_translation'] );
+            if (isset($roomSpeechToTextTranslationFeatures['is_allow_translation'])) {
+                $speechToTextTranslationFeatures->setIsAllowTranslation($roomSpeechToTextTranslationFeatures['is_allow_translation']);
             }
-            $features->setSpeechToTextTranslationFeatures( $speechToTextTranslationFeatures );
+            $features->setSpeechToTextTranslationFeatures($speechToTextTranslationFeatures);
         }
 
         if (isset($roomMetadata['end_to_end_encryption_features'])) {
@@ -399,6 +417,24 @@ class plugNmeetConnect {
      * @param int $from
      * @param int $limit
      * @param string $orderBy
+     * @return FetchPastRoomsResponse
+     */
+    public function getPastRooms(array $roomIds, int $from = 0, int $limit = 20, string $orderBy = "DESC"): FetchPastRoomsResponse
+    {
+        $fetchPastRoomsParameters = new FetchPastRoomsParameters();
+        $fetchPastRoomsParameters->setRoomIds($roomIds);
+        $fetchPastRoomsParameters->setFrom($from);
+        $fetchPastRoomsParameters->setLimit($limit);
+        $fetchPastRoomsParameters->setOrderBy($orderBy);
+
+        return $this->plugnmeet->fetchPastRoomsInfo($fetchPastRoomsParameters);
+    }
+
+    /**
+     * @param array $roomIds
+     * @param int $from
+     * @param int $limit
+     * @param string $orderBy
      * @return FetchRecordingsResponse
      */
     public function getRecordings(array $roomIds, int $from = 0, int $limit = 20, string $orderBy = "DESC"): FetchRecordingsResponse
@@ -434,6 +470,48 @@ class plugNmeetConnect {
         $deleteRecordingParameters->setRecordId($recordingId);
 
         return $this->plugnmeet->deleteRecordings($deleteRecordingParameters);
+    }
+
+    /**
+     * @param array $roomIds
+     * @param int $from
+     * @param int $limit
+     * @param string $orderBy
+     * @return FetchAnalyticsResponse
+     */
+    public function getAnalytics(array $roomIds, int $from = 0, int $limit = 20, string $orderBy = "DESC"): FetchAnalyticsResponse
+    {
+        $fetchAnalyticsParameters = new FetchAnalyticsParameters();
+        $fetchAnalyticsParameters->setRoomIds($roomIds);
+        $fetchAnalyticsParameters->setFrom($from);
+        $fetchAnalyticsParameters->setLimit($limit);
+        $fetchAnalyticsParameters->setOrderBy($orderBy);
+
+        return $this->plugnmeet->fetchAnalytics($fetchAnalyticsParameters);
+    }
+
+    /**
+     * @param  $fileId
+     * @return AnalyticsDownloadTokenResponse
+     */
+    public function getAnalyticsDownloadLink($fileId): AnalyticsDownloadTokenResponse
+    {
+        $analyticsDownloadTokenParameters = new AnalyticsDownloadTokenParameters();
+        $analyticsDownloadTokenParameters->setFileId($fileId);
+
+        return $this->plugnmeet->getAnalyticsDownloadToken($analyticsDownloadTokenParameters);
+    }
+
+    /**
+     * @param  $fileId
+     * @return DeleteAnalyticsResponse
+     */
+    public function deleteAnalytics($fileId): DeleteAnalyticsResponse
+    {
+        $deleteAnalyticsParameters = new DeleteAnalyticsParameters();
+        $deleteAnalyticsParameters->setFileId($fileId);
+
+        return $this->plugnmeet->deleteAnalytics($deleteAnalyticsParameters);
     }
 
     /**

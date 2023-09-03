@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1decb35cc4b7b63873ead2743cbfb1c9
+class ComposerStaticInit5d75bcc2884817ec7b66212adb575adc
 {
     public static $files = array (
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
@@ -84,6 +84,7 @@ class ComposerStaticInit1decb35cc4b7b63873ead2743cbfb1c9
         'Brick\\Math\\Internal\\Calculator\\GmpCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/GmpCalculator.php',
         'Brick\\Math\\Internal\\Calculator\\NativeCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/NativeCalculator.php',
         'Brick\\Math\\RoundingMode' => __DIR__ . '/..' . '/brick/math/src/RoundingMode.php',
+        'CURLStringFile' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Firebase\\JWT\\BeforeValidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/BeforeValidException.php',
         'Firebase\\JWT\\CachedKeySet' => __DIR__ . '/..' . '/firebase/php-jwt/src/CachedKeySet.php',
@@ -92,14 +93,18 @@ class ComposerStaticInit1decb35cc4b7b63873ead2743cbfb1c9
         'Firebase\\JWT\\JWT' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWT.php',
         'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
         'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\AnalyticsDownloadTokenParameters' => __DIR__ . '/../..' . '/src/Parameters/AnalyticsDownloadTokenParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\BreakoutRoomFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/BreakoutRoomFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\ChatFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/ChatFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\CreateRoomParameters' => __DIR__ . '/../..' . '/src/Parameters/CreateRoomParameters.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\DeleteAnalyticsParameters' => __DIR__ . '/../..' . '/src/Parameters/DeleteAnalyticsParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\DeleteRecordingParameters' => __DIR__ . '/../..' . '/src/Parameters/DeleteRecordingParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\DisplayExternalLinkFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/DisplayExternalLinkFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\EndRoomParameters' => __DIR__ . '/../..' . '/src/Parameters/EndRoomParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\EndToEndEncryptionFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/EndToEndEncryptionFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\ExternalMediaPlayerFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/ExternalMediaPlayerFeaturesParameters.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\FetchAnalyticsParameters' => __DIR__ . '/../..' . '/src/Parameters/FetchAnalyticsParameters.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\FetchPastRoomsParameters' => __DIR__ . '/../..' . '/src/Parameters/FetchPastRoomsParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\FetchRecordingsParameters' => __DIR__ . '/../..' . '/src/Parameters/FetchRecordingsParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\GenerateJoinTokenParameters' => __DIR__ . '/../..' . '/src/Parameters/GenerateJoinTokenParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\GetActiveRoomInfoParameters' => __DIR__ . '/../..' . '/src/Parameters/GetActiveRoomInfoParameters.php',
@@ -116,11 +121,15 @@ class ComposerStaticInit1decb35cc4b7b63873ead2743cbfb1c9
         'Mynaparrot\\Plugnmeet\\Parameters\\WaitingRoomFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/WaitingRoomFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\WhiteboardFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/WhiteboardFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\PlugNmeet' => __DIR__ . '/../..' . '/src/PlugNmeet.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\AnalyticsDownloadTokenResponse' => __DIR__ . '/../..' . '/src/Responses/AnalyticsDownloadTokenResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\BaseResponse' => __DIR__ . '/../..' . '/src/Responses/BaseResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\ClientFilesResponses' => __DIR__ . '/../..' . '/src/Responses/ClientFilesResponses.php',
         'Mynaparrot\\Plugnmeet\\Responses\\CreateRoomResponse' => __DIR__ . '/../..' . '/src/Responses/CreateRoomResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\DeleteAnalyticsResponse' => __DIR__ . '/../..' . '/src/Responses/DeleteAnalyticsResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\DeleteRecordingResponse' => __DIR__ . '/../..' . '/src/Responses/DeleteRecordingResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\EndRoomResponse' => __DIR__ . '/../..' . '/src/Responses/EndRoomResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\FetchAnalyticsResponse' => __DIR__ . '/../..' . '/src/Responses/FetchAnalyticsResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\FetchPastRoomsResponse' => __DIR__ . '/../..' . '/src/Responses/FetchPastRoomsResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\FetchRecordingsResponse' => __DIR__ . '/../..' . '/src/Responses/FetchRecordingsResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\GenerateJoinTokenResponse' => __DIR__ . '/../..' . '/src/Responses/GenerateJoinTokenResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\GetActiveRoomInfoResponse' => __DIR__ . '/../..' . '/src/Responses/GetActiveRoomInfoResponse.php',
@@ -128,7 +137,9 @@ class ComposerStaticInit1decb35cc4b7b63873ead2743cbfb1c9
         'Mynaparrot\\Plugnmeet\\Responses\\IsRoomActiveResponse' => __DIR__ . '/../..' . '/src/Responses/IsRoomActiveResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\RecordingDownloadTokenResponse' => __DIR__ . '/../..' . '/src/Responses/RecordingDownloadTokenResponse.php',
         'Mynaparrot\\Plugnmeet\\Utils\\ActiveRoomInfo' => __DIR__ . '/../..' . '/src/Utils/ActiveRoomInfo.php',
+        'Mynaparrot\\Plugnmeet\\Utils\\AnalyticsInfo' => __DIR__ . '/../..' . '/src/Utils/AnalyticsInfo.php',
         'Mynaparrot\\Plugnmeet\\Utils\\ParticipantInfo' => __DIR__ . '/../..' . '/src/Utils/ParticipantInfo.php',
+        'Mynaparrot\\Plugnmeet\\Utils\\PastRoomInfo' => __DIR__ . '/../..' . '/src/Utils/PastRoomInfo.php',
         'Mynaparrot\\Plugnmeet\\Utils\\RecordingInfo' => __DIR__ . '/../..' . '/src/Utils/RecordingInfo.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
@@ -271,9 +282,9 @@ class ComposerStaticInit1decb35cc4b7b63873ead2743cbfb1c9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1decb35cc4b7b63873ead2743cbfb1c9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1decb35cc4b7b63873ead2743cbfb1c9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1decb35cc4b7b63873ead2743cbfb1c9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5d75bcc2884817ec7b66212adb575adc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5d75bcc2884817ec7b66212adb575adc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5d75bcc2884817ec7b66212adb575adc::$classMap;
 
         }, null, ClassLoader::class);
     }
