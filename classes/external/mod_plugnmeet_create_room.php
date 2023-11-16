@@ -90,7 +90,11 @@ class mod_plugnmeet_create_room extends external_api {
             $extradata = json_encode(array(
                 "platform" => "moodle",
                 "php-version" => phpversion(),
-                "plugin-version" => $config->version
+                "plugin-version" => $config->version,
+                "activity" => array(
+                    "id" => $cm->id,
+                    "course" => $cm->course,
+                )
             ));
             $res = $connect->createRoom($instance->roomid,
                 $instance->name,
