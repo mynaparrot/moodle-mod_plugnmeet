@@ -22,6 +22,7 @@
  */
 
 
+
 use Mynaparrot\Plugnmeet\Parameters\AnalyticsDownloadTokenParameters;
 use Mynaparrot\Plugnmeet\Parameters\BreakoutRoomFeaturesParameters;
 use Mynaparrot\Plugnmeet\Parameters\ChatFeaturesParameters;
@@ -42,6 +43,7 @@ use Mynaparrot\Plugnmeet\Parameters\IsRoomActiveParameters;
 use Mynaparrot\Plugnmeet\Parameters\LockSettingsParameters;
 use Mynaparrot\Plugnmeet\Parameters\RecordingDownloadTokenParameters;
 use Mynaparrot\Plugnmeet\Parameters\RecordingFeaturesParameters;
+use Mynaparrot\Plugnmeet\Parameters\RecordingInfoParameters;
 use Mynaparrot\Plugnmeet\Parameters\RoomFeaturesParameters;
 use Mynaparrot\Plugnmeet\Parameters\RoomMetadataParameters;
 use Mynaparrot\Plugnmeet\Parameters\SharedNotePadFeaturesParameters;
@@ -64,6 +66,7 @@ use Mynaparrot\Plugnmeet\Responses\GetActiveRoomInfoResponse;
 use Mynaparrot\Plugnmeet\Responses\GetActiveRoomsInfoResponse;
 use Mynaparrot\Plugnmeet\Responses\IsRoomActiveResponse;
 use Mynaparrot\Plugnmeet\Responses\RecordingDownloadTokenResponse;
+use Mynaparrot\Plugnmeet\Responses\RecordingInfoResponse;
 
 require __DIR__ . "/libs/plugnmeet-sdk-php/vendor/autoload.php";
 
@@ -98,6 +101,16 @@ class plugNmeetConnect {
     public function getUUID()
     {
         return $this->plugnmeet->getUUID();
+    }
+
+    /**
+     * Generate UUID v4 random string
+     *
+     * @return string
+     */
+    public static function generateUuid4(): string
+    {
+        return PlugNmeet::generateUuid4();
     }
 
     /**
@@ -446,6 +459,18 @@ class plugNmeetConnect {
         $fetchRecordingsParameters->setOrderBy($orderBy);
 
         return $this->plugnmeet->fetchRecordings($fetchRecordingsParameters);
+    }
+
+    /**
+     * @param string $recordingId
+     * @return RecordingInfoResponse
+     */
+    public function getRecordingInfo(string $recordingId): RecordingInfoResponse
+    {
+        $recordingInfoParameters = new RecordingInfoParameters();
+        $recordingInfoParameters->setRecordId($recordingId);
+
+        return $this->plugnmeet->getRecordingInfo($recordingInfoParameters);
     }
 
     /**

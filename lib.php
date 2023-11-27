@@ -384,6 +384,7 @@ function get_plugnmeet_config() {
     $js .= 'window.VIDEO_CODEC = "' . $config->video_codec . '";';
     $js .= 'window.DEFAULT_WEBCAM_RESOLUTION = "' . $config->default_webcam_resolution . '";';
     $js .= 'window.DEFAULT_SCREEN_SHARE_RESOLUTION = "' . $config->default_screen_share_resolution . '";';
+    $js .= 'window.DEFAULT_AUDIO_PRESET = "' . $config->default_audio_preset . '";';
     $js .= 'window.STOP_MIC_TRACK_ON_MUTE = ' . $config->stop_mic_track_on_mute . ';';
 
     if ($config->custom_logo) {

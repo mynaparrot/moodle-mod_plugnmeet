@@ -39,6 +39,7 @@ use Mynaparrot\Plugnmeet\Parameters\GenerateJoinTokenParameters;
 use Mynaparrot\Plugnmeet\Parameters\GetActiveRoomInfoParameters;
 use Mynaparrot\Plugnmeet\Parameters\IsRoomActiveParameters;
 use Mynaparrot\Plugnmeet\Parameters\RecordingDownloadTokenParameters;
+use Mynaparrot\Plugnmeet\Parameters\RecordingInfoParameters;
 use Mynaparrot\Plugnmeet\Responses\AnalyticsDownloadTokenResponse;
 use Mynaparrot\Plugnmeet\Responses\ClientFilesResponses;
 use Mynaparrot\Plugnmeet\Responses\CreateRoomResponse;
@@ -53,6 +54,7 @@ use Mynaparrot\Plugnmeet\Responses\GetActiveRoomInfoResponse;
 use Mynaparrot\Plugnmeet\Responses\GetActiveRoomsInfoResponse;
 use Mynaparrot\Plugnmeet\Responses\IsRoomActiveResponse;
 use Mynaparrot\Plugnmeet\Responses\RecordingDownloadTokenResponse;
+use Mynaparrot\Plugnmeet\Responses\RecordingInfoResponse;
 use Ramsey\Uuid\Uuid;
 use stdClass;
 
@@ -198,6 +200,19 @@ class PlugNmeet
     }
 
     /**
+     * To get recording info
+     *
+     * @param RecordingInfoParameters $recordingInfoParameters
+     * @return RecordingInfoResponse
+     */
+    public function getRecordingInfo(RecordingInfoParameters $recordingInfoParameters): RecordingInfoResponse
+    {
+        $body = $recordingInfoParameters->buildBody();
+        $output = $this->sendRequest("/recording/recordingInfo", $body);
+        return new RecordingInfoResponse($output);
+    }
+
+    /**
      * To delete recording
      *
      * @param DeleteRecordingParameters $deleteRecordingParameters
@@ -308,6 +323,16 @@ class PlugNmeet
     {
         $uuid = Uuid::uuid4();
         return $uuid->toString();
+    }
+
+    /**
+     * Generate UUID v4 random string
+     *
+     * @return string
+     */
+    public static function generateUuid4(): string
+    {
+        return Uuid::uuid4()->toString();
     }
 
     /**

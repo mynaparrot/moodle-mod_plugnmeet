@@ -88,6 +88,8 @@ $string['default_webcam_resolution'] = 'Default webcam resolution';
 $string['default_webcam_resolution_des'] = 'Default webcam resolution';
 $string['default_screen_share_resolution'] = 'Default screen share resolution';
 $string['default_screen_share_resolution_des'] = 'Default screen share resolution';
+$string['default_audio_preset'] = 'Audio preset';
+$string['default_audio_preset_des'] = 'Audio preset for microphone';
 
 $string['roomtitle'] = 'Room title';
 $string['welcome_message'] = 'Welcome message';

@@ -120,7 +120,21 @@ if ($hassiteconfig) {
         'mod_plugnmeet/default_screen_share_resolution',
         get_string('default_screen_share_resolution', 'mod_plugnmeet'),
         get_string('default_screen_share_resolution_des',
-            'mod_plugnmeet'), 'vp8', $screenshareresolution));
+            'mod_plugnmeet'), 'h1080fps15', $screenshareresolution));
+
+    $audiopreset = array(
+        "telephone" => "telephone",
+        "speech" => "speech",
+        "music" => "music",
+        "musicStereo" => "musicStereo",
+        "musicHighQuality" => "musicHighQuality",
+        "musicHighQualityStereo" => "musicHighQualityStereo"
+    );
+    $settings->add(new admin_setting_configselect(
+        'mod_plugnmeet/default_audio_preset',
+        get_string('default_audio_preset', 'mod_plugnmeet'),
+        get_string('default_audio_preset_des',
+            'mod_plugnmeet'), 'music', $audiopreset));
 
     $stopmictrackonmute = array(
         1 => get_string('yes', 'mod_plugnmeet'),
@@ -232,7 +246,7 @@ if ($hassiteconfig) {
             'mod_plugnmeet'), 'left', $columncameraposition));
 
     $columncamerawidth = array(
-        "full" => "default",
+        "full" => "full",
         "medium" => "medium",
         "small" => "small"
     );

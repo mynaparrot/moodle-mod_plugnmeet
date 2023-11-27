@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5d75bcc2884817ec7b66212adb575adc
+class ComposerStaticInit76dc681ed1d1d9c1ba66855355366da5
 {
     public static $files = array (
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
@@ -91,6 +91,7 @@ class ComposerStaticInit5d75bcc2884817ec7b66212adb575adc
         'Firebase\\JWT\\ExpiredException' => __DIR__ . '/..' . '/firebase/php-jwt/src/ExpiredException.php',
         'Firebase\\JWT\\JWK' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWK.php',
         'Firebase\\JWT\\JWT' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWT.php',
+        'Firebase\\JWT\\JWTExceptionWithPayloadInterface' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWTExceptionWithPayloadInterface.php',
         'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
         'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\AnalyticsDownloadTokenParameters' => __DIR__ . '/../..' . '/src/Parameters/AnalyticsDownloadTokenParameters.php',
@@ -113,6 +114,7 @@ class ComposerStaticInit5d75bcc2884817ec7b66212adb575adc
         'Mynaparrot\\Plugnmeet\\Parameters\\LockSettingsParameters' => __DIR__ . '/../..' . '/src/Parameters/LockSettingsParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\RecordingDownloadTokenParameters' => __DIR__ . '/../..' . '/src/Parameters/RecordingDownloadTokenParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\RecordingFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/RecordingFeaturesParameters.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\RecordingInfoParameters' => __DIR__ . '/../..' . '/src/Parameters/RecordingInfoParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\RoomFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/RoomFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\RoomMetadataParameters' => __DIR__ . '/../..' . '/src/Parameters/RoomMetadataParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\SharedNotePadFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/SharedNotePadFeaturesParameters.php',
@@ -136,6 +138,7 @@ class ComposerStaticInit5d75bcc2884817ec7b66212adb575adc
         'Mynaparrot\\Plugnmeet\\Responses\\GetActiveRoomsInfoResponse' => __DIR__ . '/../..' . '/src/Responses/GetActiveRoomsInfoResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\IsRoomActiveResponse' => __DIR__ . '/../..' . '/src/Responses/IsRoomActiveResponse.php',
         'Mynaparrot\\Plugnmeet\\Responses\\RecordingDownloadTokenResponse' => __DIR__ . '/../..' . '/src/Responses/RecordingDownloadTokenResponse.php',
+        'Mynaparrot\\Plugnmeet\\Responses\\RecordingInfoResponse' => __DIR__ . '/../..' . '/src/Responses/RecordingInfoResponse.php',
         'Mynaparrot\\Plugnmeet\\Utils\\ActiveRoomInfo' => __DIR__ . '/../..' . '/src/Utils/ActiveRoomInfo.php',
         'Mynaparrot\\Plugnmeet\\Utils\\AnalyticsInfo' => __DIR__ . '/../..' . '/src/Utils/AnalyticsInfo.php',
         'Mynaparrot\\Plugnmeet\\Utils\\ParticipantInfo' => __DIR__ . '/../..' . '/src/Utils/ParticipantInfo.php',
@@ -282,9 +285,9 @@ class ComposerStaticInit5d75bcc2884817ec7b66212adb575adc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5d75bcc2884817ec7b66212adb575adc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5d75bcc2884817ec7b66212adb575adc::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5d75bcc2884817ec7b66212adb575adc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit76dc681ed1d1d9c1ba66855355366da5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit76dc681ed1d1d9c1ba66855355366da5::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit76dc681ed1d1d9c1ba66855355366da5::$classMap;
 
         }, null, ClassLoader::class);
     }

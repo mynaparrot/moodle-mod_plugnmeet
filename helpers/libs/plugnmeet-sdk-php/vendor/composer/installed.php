@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'mynaparrot/plugnmeet-sdk',
-        'pretty_version' => '1.4.0',
-        'version' => '1.4.0.0',
+        'pretty_version' => '1.4.1',
+        'version' => '1.4.1.0',
         'reference' => NULL,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
@@ -20,17 +20,17 @@
             'dev_requirement' => false,
         ),
         'firebase/php-jwt' => array(
-            'pretty_version' => 'v6.8.1',
-            'version' => '6.8.1.0',
-            'reference' => '5dbc8959427416b8ee09a100d7a8588c00fb2e26',
+            'pretty_version' => 'v6.9.0',
+            'version' => '6.9.0.0',
+            'reference' => 'f03270e63eaccf3019ef0f32849c497385774e11',
             'type' => 'library',
             'install_path' => __DIR__ . '/../firebase/php-jwt',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'mynaparrot/plugnmeet-sdk' => array(
-            'pretty_version' => '1.4.0',
-            'version' => '1.4.0.0',
+            'pretty_version' => '1.4.1',
+            'version' => '1.4.1.0',
             'reference' => NULL,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
