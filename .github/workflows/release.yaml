@@ -22,7 +22,7 @@ jobs:
           cd build
           zip -X -r mod_plugnmeet.zip *
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mod_plugnmeet
           path: build/mod_plugnmeet.zip
