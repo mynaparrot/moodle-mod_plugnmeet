@@ -184,6 +184,24 @@ class PlugNmeetHelper {
                 "selected" => 1,
                 "type" => "select"
             ),
+            "allow_virtual_bg" => array(
+                "label" => get_string("allow_virtual_bg", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+            "allow_raise_hand" => array(
+                "label" => get_string("allow_raise_hand", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
         );
 
         $data = [];

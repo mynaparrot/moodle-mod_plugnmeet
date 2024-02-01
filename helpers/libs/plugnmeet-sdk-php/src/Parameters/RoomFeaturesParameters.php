@@ -70,6 +70,14 @@ class RoomFeaturesParameters
      */
     protected $enableAnalytics = false;
     /**
+     * @var bool
+     */
+    protected $allowVirtualBg = true;
+    /**
+     * @var bool
+     */
+    protected $allowRaiseHand = true;
+    /**
      * @var RecordingFeaturesParameters
      */
     protected $recordingFeatures;
@@ -268,7 +276,9 @@ class RoomFeaturesParameters
      */
     public function setRoomDuration(int $roomDuration): void
     {
-        $this->roomDuration = $roomDuration;
+        if ($roomDuration > 0) {
+            $this->roomDuration = $roomDuration;
+        }
     }
 
     /**
@@ -285,6 +295,40 @@ class RoomFeaturesParameters
     public function setEnableAnalytics(bool $enableAnalytics): void
     {
         $this->enableAnalytics = filter_var($enableAnalytics, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAllowVirtualBg(): bool
+    {
+        return $this->allowVirtualBg;
+    }
+
+    /**
+     * @param bool $allowVirtualBg
+     * @return void
+     */
+    public function setAllowVirtualBg(bool $allowVirtualBg): void
+    {
+        $this->allowVirtualBg = filter_var($allowVirtualBg, FILTER_VALIDATE_BOOLEAN);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAllowRaiseHand(): bool
+    {
+        return $this->allowRaiseHand;
+    }
+
+    /**
+     * @param bool $allowRaiseHand
+     * @return void
+     */
+    public function setAllowRaiseHand(bool $allowRaiseHand): void
+    {
+        $this->allowRaiseHand = filter_var($allowRaiseHand, FILTER_VALIDATE_BOOLEAN);
     }
 
     /**
@@ -482,7 +526,9 @@ class RoomFeaturesParameters
             "allow_view_other_users_list" => $this->isAllowViewOtherParticipants(),
             "allow_polls" => $this->isAllowPolls(),
             "room_duration" => $this->getRoomDuration(),
-            "enable_analytics" => $this->isEnableAnalytics()
+            "enable_analytics" => $this->isEnableAnalytics(),
+            "allow_virtual_bg" => $this->isAllowVirtualBg(),
+            "allow_raise_hand" => $this->isAllowRaiseHand()
         );
 
         if ($this->recordingFeatures !== null) {

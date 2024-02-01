@@ -109,6 +109,8 @@ $string['room_duration'] = 'Room duration (In minutes, 0 = unlimited)';
 $string['moderator_join_first'] = 'Moderator join first';
 $string['moderator_join_first_error'] = 'The meeting has not started yet, please come back later';
 $string['enable_analytics'] = 'Enable analytics';
+$string['allow_virtual_bg'] = 'Allow virtual background';
+$string['allow_raise_hand'] = 'Allow raise hand';
 
 $string['other_features'] = 'Other features';
 

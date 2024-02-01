@@ -2,7 +2,12 @@
 
 Plug-N-Meet PHP SDK. You can use this SDK to make API requests to the Plug-N-Meet server from your PHP application.
 
-Download the latest version from [release page](https://github.com/mynaparrot/plugNmeet-sdk-php/releases)
+Download the latest version from [release page](https://github.com/mynaparrot/plugNmeet-sdk-php/releases) or if you
+prefer to use [composer](https://packagist.org/packages/mynaparrot/plugnmeet-sdk):
+
+```bash
+composer require mynaparrot/plugnmeet-sdk
+```
 
 Please check `examples` directory to see some examples.
 
@@ -18,6 +23,7 @@ Please check `examples` directory to see some examples.
 | [fetchPastRoomsInfo](https://mynaparrot.github.io/plugNmeet-sdk-php/classes/Mynaparrot-Plugnmeet-PlugNmeet.html#method_fetchPastRoomsInfo)               | Get past  rooms                           |
 | [endRoom](https://mynaparrot.github.io/plugNmeet-sdk-php/classes/Mynaparrot-Plugnmeet-PlugNmeet.html#method_endRoom)                                     | End active room                           |
 | [fetchRecordings](https://mynaparrot.github.io/plugNmeet-sdk-php/classes/Mynaparrot-Plugnmeet-PlugNmeet.html#method_fetchRecordings)                     | Fetch recordings                          |
+| [getRecordingInfo](https://mynaparrot.github.io/plugNmeet-sdk-php/classes/Mynaparrot-Plugnmeet-PlugNmeet.html#method_getRecordingInfo)                   | Get details of a recording                |
 | [deleteRecordings](https://mynaparrot.github.io/plugNmeet-sdk-php/classes/Mynaparrot-Plugnmeet-PlugNmeet.html#method_deleteRecordings)                   | Delete recording                          |
 | [getRecordingDownloadToken](https://mynaparrot.github.io/plugNmeet-sdk-php/classes/Mynaparrot-Plugnmeet-PlugNmeet.html#method_getRecordingDownloadToken) | Generate token to download recording      |
 | [fetchAnalytics](https://mynaparrot.github.io/plugNmeet-sdk-php/classes/Mynaparrot-Plugnmeet-PlugNmeet.html#method_fetchAnalytics)                       | Fetch analytics info                      |
