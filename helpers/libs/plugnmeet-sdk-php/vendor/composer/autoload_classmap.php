@@ -34,6 +34,7 @@ return array(
     'Mynaparrot\\Plugnmeet\\Parameters\\AnalyticsDownloadTokenParameters' => $baseDir . '/src/Parameters/AnalyticsDownloadTokenParameters.php',
     'Mynaparrot\\Plugnmeet\\Parameters\\BreakoutRoomFeaturesParameters' => $baseDir . '/src/Parameters/BreakoutRoomFeaturesParameters.php',
     'Mynaparrot\\Plugnmeet\\Parameters\\ChatFeaturesParameters' => $baseDir . '/src/Parameters/ChatFeaturesParameters.php',
+    'Mynaparrot\\Plugnmeet\\Parameters\\CopyrightConfParameters' => $baseDir . '/src/Parameters/CopyrightConfParameters.php',
     'Mynaparrot\\Plugnmeet\\Parameters\\CreateRoomParameters' => $baseDir . '/src/Parameters/CreateRoomParameters.php',
     'Mynaparrot\\Plugnmeet\\Parameters\\DeleteAnalyticsParameters' => $baseDir . '/src/Parameters/DeleteAnalyticsParameters.php',
     'Mynaparrot\\Plugnmeet\\Parameters\\DeleteRecordingParameters' => $baseDir . '/src/Parameters/DeleteRecordingParameters.php',

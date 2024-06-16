@@ -572,6 +572,24 @@ class PlugNmeetHelper {
                 "selected" => 0,
                 "type" => "select"
             ),
+            "included_chat_messages" => array(
+                "label" => get_string("included_e2ee_chat_messages", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select"
+            ),
+            "included_whiteboard" => array(
+                "label" => get_string("included_e2ee_whiteboard", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select"
+            ),
         );
 
         $data = [];

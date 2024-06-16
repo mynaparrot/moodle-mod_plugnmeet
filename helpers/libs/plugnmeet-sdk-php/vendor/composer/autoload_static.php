@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7667aeb9615a62a407df6c8e585cc65c
+class ComposerStaticInit5f22457c876a78ed36e29de1118473f4
 {
     public static $files = array (
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
@@ -97,6 +97,7 @@ class ComposerStaticInit7667aeb9615a62a407df6c8e585cc65c
         'Mynaparrot\\Plugnmeet\\Parameters\\AnalyticsDownloadTokenParameters' => __DIR__ . '/../..' . '/src/Parameters/AnalyticsDownloadTokenParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\BreakoutRoomFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/BreakoutRoomFeaturesParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\ChatFeaturesParameters' => __DIR__ . '/../..' . '/src/Parameters/ChatFeaturesParameters.php',
+        'Mynaparrot\\Plugnmeet\\Parameters\\CopyrightConfParameters' => __DIR__ . '/../..' . '/src/Parameters/CopyrightConfParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\CreateRoomParameters' => __DIR__ . '/../..' . '/src/Parameters/CreateRoomParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\DeleteAnalyticsParameters' => __DIR__ . '/../..' . '/src/Parameters/DeleteAnalyticsParameters.php',
         'Mynaparrot\\Plugnmeet\\Parameters\\DeleteRecordingParameters' => __DIR__ . '/../..' . '/src/Parameters/DeleteRecordingParameters.php',
@@ -285,9 +286,9 @@ class ComposerStaticInit7667aeb9615a62a407df6c8e585cc65c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7667aeb9615a62a407df6c8e585cc65c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7667aeb9615a62a407df6c8e585cc65c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7667aeb9615a62a407df6c8e585cc65c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5f22457c876a78ed36e29de1118473f4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5f22457c876a78ed36e29de1118473f4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5f22457c876a78ed36e29de1118473f4::$classMap;
 
         }, null, ClassLoader::class);
     }
