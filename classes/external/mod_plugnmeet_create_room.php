@@ -75,8 +75,15 @@ class mod_plugnmeet_create_room extends external_api {
         }
 
         $instance = $DB->get_record('plugnmeet', array('id' => $instanceid), '*', MUST_EXIST);
-        $config = get_config('mod_plugnmeet');
         $roommetadata = json_decode($instance->roommetadata, true);
+
+        $config = get_config('mod_plugnmeet');
+        if (isset($config->copyright_display)) {
+            $roommetadata["copyright_conf"] = array(
+                "display" => $config->copyright_display == 1,
+                "text" => $config->copyright_text,
+            );
+        }
 
         if (!$isadmin
             && isset( $roommetadata["room_features"]["moderator_join_first"] )

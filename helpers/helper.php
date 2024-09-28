@@ -202,6 +202,15 @@ class PlugNmeetHelper {
                 "selected" => 1,
                 "type" => "select"
             ),
+            "auto_gen_user_id" => array(
+                "label" => get_string("auto_gen_user_id", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select"
+            ),
         );
 
         $data = [];

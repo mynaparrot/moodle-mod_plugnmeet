@@ -255,6 +255,23 @@ if ($hassiteconfig) {
         get_string('column_camera_width', 'mod_plugnmeet'),
         get_string('column_camera_width_des',
             'mod_plugnmeet'), 'full', $columncamerawidth));
+
+    $copyright = array(
+        1 => get_string('yes', 'mod_plugnmeet'),
+        0 => get_string('no', 'mod_plugnmeet')
+    );
+    $settings->add(new admin_setting_configselect(
+        'mod_plugnmeet/copyright_display',
+        get_string('copyright_display', 'mod_plugnmeet'),
+        get_string('copyright_display_des', 'mod_plugnmeet'),
+        1, $copyright));
+
+    $settings->add(new admin_setting_configtext(
+        'mod_plugnmeet/copyright_text',
+        get_string('copyright_text', 'plugnmeet'),
+        get_string('copyright_text_des', 'plugnmeet'),
+        "Powered by <a href=\"https://www.plugnmeet.org\" target=\"_blank\">plugNmeet</a>",
+        PARAM_RAW));
 }
 ?>
     <script type="text/javascript">

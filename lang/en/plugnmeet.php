@@ -90,6 +90,10 @@ $string['default_screen_share_resolution'] = 'Default screen share resolution';
 $string['default_screen_share_resolution_des'] = 'Default screen share resolution';
 $string['default_audio_preset'] = 'Audio preset';
 $string['default_audio_preset_des'] = 'Audio preset for microphone';
+$string['copyright_display'] = 'Enable copyright display';
+$string['copyright_display_des'] = 'If enabled then it will display bellow text';
+$string['copyright_text'] = 'Copyright text';
+$string['copyright_text_des'] = 'This text can be set if configuration of server allow to override';
 
 $string['roomtitle'] = 'Room title';
 $string['welcome_message'] = 'Welcome message';
@@ -111,6 +115,7 @@ $string['moderator_join_first_error'] = 'The meeting has not started yet, please
 $string['enable_analytics'] = 'Enable analytics';
 $string['allow_virtual_bg'] = 'Allow virtual background';
 $string['allow_raise_hand'] = 'Allow raise hand';
+$string['auto_gen_user_id'] = 'Auto generate user ID';
 
 $string['other_features'] = 'Other features';
 
