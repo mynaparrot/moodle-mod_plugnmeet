@@ -55,7 +55,7 @@ class mod_plugnmeet_create_room extends external_api {
      * @throws dml_exception
      */
     public static function create_room($instanceid, $join, $isadmin) {
-        global $DB, $USER;
+        global $DB, $USER, $PAGE;
 
         $result = [
             'status' => false,
@@ -94,6 +94,7 @@ class mod_plugnmeet_create_room extends external_api {
 
         $connect = new PlugNmeetConnect($config);
         try {
+            $logout_url = $PAGE->url->get_scheme() . "://".$PAGE->url->get_host() . "/mod/plugnmeet/view.php?id=" . $cm->id;
             $extradata = json_encode(array(
                 "platform" => "moodle",
                 "php-version" => phpversion(),
@@ -110,7 +111,7 @@ class mod_plugnmeet_create_room extends external_api {
                 "",
                 $roommetadata,
                 0,
-                "",
+                $logout_url,
                 $extradata);
 
             $result['status'] = $res->getStatus();
