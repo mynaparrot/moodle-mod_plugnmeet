@@ -191,7 +191,7 @@ defined('MOODLE_INTERNAL') || die();
                             if (!windowOpen) {
                                 setTimeout(() => {
                                     window.location.href = url
-                                }, 2000);
+                                }, 5000);
                             }
                         } else {
                             alert(res.msg);

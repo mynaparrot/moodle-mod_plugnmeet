@@ -23,6 +23,8 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_plugnmeet\event\course_module_viewed;
+
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
 
@@ -61,7 +63,7 @@ if (!time_restriction_check_pass($moduleinstance) && !$isadmin) {
     exit();
 }
 
-$event = \mod_plugnmeet\event\course_module_viewed::create(array(
+$event = course_module_viewed::create(array(
     'objectid' => $moduleinstance->id,
     'context' => $context
 ));
@@ -87,6 +89,13 @@ $roommetadata = json_decode($moduleinstance->roommetadata);
         </div>
         <?php endif; ?>
     </div>
-
+    <script>
+        // check if returned from conference
+        const params = new URLSearchParams(document.location.search);
+        if (params.has("returned", "true")) {
+            // this will only work if link opened with window.open()
+            window.close();
+        }
+    </script>
 <?php
 echo $OUTPUT->footer();
