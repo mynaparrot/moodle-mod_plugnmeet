@@ -190,7 +190,10 @@ defined('MOODLE_INTERNAL') || die();
                             const windowOpen = window.open(url, "_blank");
                             if (!windowOpen) {
                                 setTimeout(() => {
-                                    window.location.href = url
+                                    // check, if still not opened
+                                    if (!windowOpen) {
+                                        window.location.href = url
+                                    }
                                 }, 5000);
                             }
                         } else {
