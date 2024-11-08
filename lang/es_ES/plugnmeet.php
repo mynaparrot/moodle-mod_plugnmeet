@@ -88,6 +88,12 @@ $string['default_webcam_resolution'] = 'Default webcam resolution';
 $string['default_webcam_resolution_des'] = 'Default webcam resolution';
 $string['default_screen_share_resolution'] = 'Default screen share resolution';
 $string['default_screen_share_resolution_des'] = 'Default screen share resolution';
+$string['default_audio_preset'] = 'Audio preset';
+$string['default_audio_preset_des'] = 'Audio preset for microphone';
+$string['copyright_display'] = 'Enable copyright display';
+$string['copyright_display_des'] = 'If enabled then it will display bellow text';
+$string['copyright_text'] = 'Copyright text';
+$string['copyright_text_des'] = 'This text can be set if configuration of server allow to override';
 
 $string['roomtitle'] = 'Room title';
 $string['welcome_message'] = 'Welcome message';
@@ -106,6 +112,10 @@ $string['allow_polls'] = 'Allow polls';
 $string['room_duration'] = 'Room duration (In minutes, 0 = unlimited)';
 $string['moderator_join_first'] = 'Moderator join first';
 $string['moderator_join_first_error'] = 'The meeting has not started yet, please come back later';
+$string['enable_analytics'] = 'Enable analytics';
+$string['allow_virtual_bg'] = 'Allow virtual background';
+$string['allow_raise_hand'] = 'Allow raise hand';
+$string['auto_gen_user_id'] = 'Auto generate user ID';
 
 $string['other_features'] = 'Other features';
 
@@ -170,7 +180,7 @@ $string['error_file_open'] = 'Error in zip file open';
 $string['client_updated_success'] = 'Client updated successfully';
 $string['client_updated_failed'] = 'Failed to update client';
 
-$string['join'] = 'Unirse';
+$string['join'] = 'Join';
 $string['end'] = 'End';
 $string['recordings'] = 'Recordings';
 $string['recording_date'] = 'Recording date';
@@ -207,3 +217,7 @@ $string['column_camera_width_des'] = 'Column camera width';
 
 $string['allow_speech_to_text_translation_features'] = 'Allow speech to text/translation features';
 $string['allow_speech_translation'] = 'Allow translation';
+
+$string['enable_end_to_end_encryption_features'] = 'Enable End-To-End Encryption (E2EE)';
+$string['included_e2ee_chat_messages'] = "Enable encryption for chat";
+$string['included_e2ee_whiteboard'] = "Enable encryption for whiteboard";
