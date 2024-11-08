@@ -1,10 +1,15 @@
 name: Upload as release asset and transfer to moodle.org
 on:
-  release:
-    types: [ published ]
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  build:
-    name: Upload Release Asset
+  release-mod:
     runs-on: ubuntu-latest
     env:
       PLUGIN: mod_plugnmeet
@@ -13,37 +18,29 @@ jobs:
       TOKEN: ${{ secrets.MOODLE_ORG_TOKEN }}
       FUNCTION: local_plugins_add_version
     steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: simple
       - name: Checkout code
+        if: ${{ steps.release.outputs.release_created }}
         uses: actions/checkout@v4
       - name: Build project
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p build/plugnmeet
           rsync -ar --exclude=".*" --exclude=build ./ build/plugnmeet/
           cd build
           zip -X -r mod_plugnmeet.zip *
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: mod_plugnmeet
-          path: build/mod_plugnmeet.zip
-      - name: Upload to release
-        uses: JasonEtco/upload-to-release@master
-        with:
-          args: build/mod_plugnmeet.zip application/zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          gh release upload ${{ steps.release.outputs.tag_name }} mod_plugnmeet.zip
       - name: Call the service for moodle.org
+        if: ${{ steps.release.outputs.release_created }}
         id: add-version
         run: |
-          if [[ ! -z "${{ github.event.inputs.tag }}" ]]; then
-            TAGNAME="${{ github.event.inputs.tag }}"
-          elif [[ $GITHUB_REF = refs/tags/* ]]; then
-            TAGNAME="${GITHUB_REF##*/}"
-          fi
-          if [[ -z "${TAGNAME}" ]]; then
-            echo "No tag name has been provided!"
-            exit 1
-          fi
+          TAGNAME="${{ steps.release.outputs.tag_name }}"
           ZIPURL="https://github.com/mynaparrot/plugNmeet-Moodle/releases/latest/download/mod_plugnmeet.zip"
           RESPONSE=$(${CURL} ${ENDPOINT} --data-urlencode "wstoken=${TOKEN}" \
                                          --data-urlencode "wsfunction=${FUNCTION}" \
@@ -57,6 +54,7 @@ jobs:
                                          --data-urlencode "altdownloadurl=${ZIPURL}")
           echo "response=${RESPONSE}" >> $GITHUB_OUTPUT
       - name: Evaluate the response
+        if: ${{ steps.release.outputs.release_created }}
         id: evaluate-response
         env:
           RESPONSE: ${{ steps.add-version.outputs.response }}
