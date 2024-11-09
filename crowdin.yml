@@ -1,5 +1,5 @@
-pull_request_title: "fix: new Crowdin updates"
-commit_message: "fix: new translations %original_file_name% from Crowdin"
+pull_request_title: "fix(locale): new Crowdin updates"
+commit_message: "fix(locale): new translations %original_file_name% from Crowdin"
 files:
   - source: /lang/en/plugnmeet.php
     translation: /lang/%locale_with_underscore%/%original_file_name%
