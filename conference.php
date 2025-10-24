@@ -62,6 +62,10 @@ if ($config->client_load === "1") {
 
 $jstag = "";
 foreach ($jsfiles as $file) {
+    if (substr($file, 0, strlen('main-module.')) === 'main-module.') {
+        $jstag .= '<script src="' . $path . '/js/' . $file . '" type="module"></script>' . "\n\t";
+        continue;
+    }
     $jstag .= '<script src="' . $path . '/js/' . $file . '" defer="defer"></script>' . "\n\t";
 }
 
