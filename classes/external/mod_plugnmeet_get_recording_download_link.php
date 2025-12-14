@@ -72,7 +72,7 @@ class mod_plugnmeet_get_recording_download_link extends external_api {
             $res = $connect->getRecordingDownloadLink($recordid);
 
             $result['status'] = $res->getStatus();
-            $result['msg'] = $res->getResponseMsg();
+            $result['msg'] = $res->getMsg();
 
             if ($result['status']) {
                 $result['url'] = $config->plugnmeet_server_url . "/download/recording/" . $res->getToken();

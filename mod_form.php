@@ -118,10 +118,13 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         PlugNmeetHelper::get_ingress_features($roommetadata, $mform);
 
         $mform->addElement('html', '<hr />');
-        PlugNmeetHelper::get_speech_to_text_translation_features($roommetadata, $mform);
+        PlugNmeetHelper::get_polls_features($roommetadata, $mform);
 
         $mform->addElement('html', '<hr />');
         PlugNmeetHelper::get_end_to_end_encryption_features($roommetadata, $mform);
+
+        $mform->addElement('header', 'insights_features', get_string('insights_features', 'mod_plugnmeet'));
+        PlugNmeetHelper::get_insights_features($roommetadata, $mform);
 
         $mform->addElement('header', 'defaultlock', get_string('defaultlock', 'mod_plugnmeet'));
         PlugNmeetHelper::get_default_lock_settings($roommetadata, $mform);

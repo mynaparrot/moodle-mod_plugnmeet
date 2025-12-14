@@ -78,7 +78,7 @@ class mod_plugnmeet_get_join_token extends external_api {
             $res = $connect->getJoinToken($instance->roomid, $name, $USER->id, $isadmin);
 
             $result['status'] = $res->getStatus();
-            $result['msg'] = $res->getResponseMsg();
+            $result['msg'] = $res->getMsg();
             if ($result['status']) {
                 $result['access_token'] = $res->getToken();
             }

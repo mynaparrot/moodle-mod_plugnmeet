@@ -83,18 +83,12 @@ class mod_plugnmeet_get_recordings extends external_api {
 
         try {
             $roomids = array($roomid);
-            $res = $connect->getRecordings($roomids, $from, $limit, $orderby);
+            $res = $connect->getRecordings($roomids,null, $from, $limit, $orderby);
 
             $result['status'] = $res->getStatus();
-            $result['msg'] = $res->getResponseMsg();
+            $result['msg'] = $res->getMsg();
             if ($result['status']) {
-                $result['result'] = array(
-                    'total_recordings' => $res->getTotalRecordings(),
-                    'from' => $res->getFrom(),
-                    'limit' => $res->getLimit(),
-                    'order_by' => $res->getOrderBy(),
-                    'recordings_list' => json_encode($res->getRawResponse()->result->recordings_list)
-                );
+                $result['result'] = $res->getResult()->serializeToJsonString();
             }
         } catch (Exception $e) {
             $result['msg'] = $e->getMessage();
@@ -110,13 +104,7 @@ class mod_plugnmeet_get_recordings extends external_api {
         return new external_single_structure([
             'status' => new external_value(PARAM_BOOL, 'status of request'),
             'msg' => new external_value(PARAM_TEXT, 'status message', VALUE_REQUIRED),
-            'result' => new external_single_structure([
-                'total_recordings' => new external_value(PARAM_INT, 'status of request', VALUE_OPTIONAL, 0),
-                'from' => new external_value(PARAM_INT, 'status of request', VALUE_OPTIONAL, 0),
-                'limit' => new external_value(PARAM_INT, 'status of request', VALUE_OPTIONAL, 20),
-                'order_by' => new external_value(PARAM_TEXT, 'status of request', VALUE_OPTIONAL, 'DESC'),
-                'recordings_list' => new external_value(PARAM_RAW, 'recordings_list', VALUE_OPTIONAL, null)
-            ], 'recording result', VALUE_OPTIONAL, null),
+            'result' => new external_value(PARAM_RAW, 'result', VALUE_OPTIONAL, null)
         ]);
     }
 }

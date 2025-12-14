@@ -71,17 +71,17 @@ defined('MOODLE_INTERNAL') || die();
                             showMessage(res.msg);
                             return;
                         }
-                        if (!res.result.total_recordings) {
+                        const result = JSON.parse(res.result);
+                        if (!result.totalRecordings) {
                             showMessage('no recordings');
                             return;
                         }
-
-                        const recordings = JSON.parse(res.result.recordings_list);
+                        const recordings = result.recordingsList;
                         if (
-                            res.result.total_recordings > recordings.length &&
+                            result.totalRecordings > recordings.length &&
                             !isShowingPagination
                         ) {
-                            totalRecordings = res.result.total_recordings;
+                            totalRecordings = result.totalRecordings;
                             showPagination();
                             isShowingPagination = true;
                         }
@@ -92,29 +92,29 @@ defined('MOODLE_INTERNAL') || die();
                             html += '<tr>';
                             html +=
                                 '<td class="center" id="r_creation_' + i + '">' +
-                                new Date(recording.creation_time * 1e3).toLocaleString() +
+                                new Date(recording.creationTime * 1e3).toLocaleString() +
                                 '</td>';
                             html +=
                                 '<td class="center">' +
-                                new Date(recording.room_creation_time * 1e3).toLocaleString() +
+                                new Date(recording.roomCreationTime * 1e3).toLocaleString() +
                                 '</td>';
-                            html += '<td class="center">' + recording.file_size + '</td>';
+                            html += '<td class="center">' + recording.fileSize + '</td>';
 
                             html += '<td class="center"><button onclick="playRecording(event, ' + i + ')" class="btn btn-success btn-sm playRecording" id="' +
-                                recording.record_id +
+                                recording.recordId +
                                 '"><?php echo get_string('play', 'plugnmeet'); ?></button></td>';
 
                             if (!canDownload && !canEdit) {
                                 // don't show
                             } else {
                                 html += '<td class="center"><button onclick="downloadRecording(event)" class="btn btn-success btn-sm downloadRecording" id="' +
-                                    recording.record_id +
+                                    recording.recordId +
                                     '"><?php echo get_string('download', 'plugnmeet'); ?></button></td>';
                             }
 
                             if (canEdit) {
                                 html += '<td class="center"><button onclick="deleteRecording(event)" class="btn btn-danger btn-sm deleteRecording" id="' +
-                                    recording.record_id +
+                                    recording.recordId +
                                     '"><?php echo get_string('delete', 'plugnmeet'); ?></button></td>';
                             }
 

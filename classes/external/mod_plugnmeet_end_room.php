@@ -70,7 +70,7 @@ class mod_plugnmeet_end_room extends external_api {
         try {
             $res = $connect->endRoom($roomid);
             $result['status'] = $res->getStatus();
-            $result['msg'] = $res->getResponseMsg();
+            $result['msg'] = $res->getMsg();
         } catch (Exception $e) {
             $result['msg'] = $e->getMessage();
         }

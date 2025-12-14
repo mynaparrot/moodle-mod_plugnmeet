@@ -27,16 +27,31 @@ class PlugNmeetHelper {
      * @param $items
      * @param $fieldname
      * @param $data
-     * @param $mform
+     * @param MoodleQuickForm $mform
      * @return void
      * @throws coding_exception
      */
     private static function format_html($items, $fieldname, $data, $mform) {
         foreach ($items as $key => $item) {
+            // If 'type' is not set, we assume it's a nested array of fields.
+            if (empty($item['type'])) {
+                $newfieldname = $fieldname . '[' . $key . ']';
+                $newdata = isset($data[$key]) && is_array($data[$key]) ? $data[$key] : [];
+                $mform->addElement('html', '<hr />');
+                self::format_html($item, $newfieldname, $newdata, $mform);
+                continue;
+            }
+
+            $elementname = "{$fieldname}[{$key}]";
+
+            if (isset($item["disable_if"])) {
+                $mform->disabledIf($elementname, $item["disable_if"]["depend_on"], $item["disable_if"]["condition"], $item["disable_if"]["value"]);
+            }
+
             if ($item["type"] === "select") {
                 $select = $mform->addElement(
                     'select',
-                    "{$fieldname}[{$key}]",
+                    $elementname,
                     $item['label'],
                     $item["options"]
                 );
@@ -56,13 +71,13 @@ class PlugNmeetHelper {
                 if (isset($data[$key])) {
                     $value = $data[$key];
                 }
-                $mform->addElement("text", "{$fieldname}[{$key}]", $item['label']);
-                $mform->setDefault("{$fieldname}[{$key}]", $value);
+                $mform->addElement("text", $elementname, $item['label']);
+                $mform->setDefault($elementname, $value);
 
                 if ($item["type"] === "text") {
-                    $mform->setType("{$fieldname}[{$key}]", PARAM_NOTAGS);
+                    $mform->setType($elementname, PARAM_NOTAGS);
                 } else if ($item["type"] === "number") {
-                    $mform->setType("{$fieldname}[{$key}]", PARAM_INT);
+                    $mform->setType($elementname, PARAM_INT);
                 }
             } else if ($item["type"] === "textarea") {
                 $value = $item["default"];
@@ -71,12 +86,12 @@ class PlugNmeetHelper {
                 }
                 $mform->addElement(
                     'textarea',
-                    "{$fieldname}[{$key}]",
+                    $elementname,
                     $item['label'],
                     'wrap="virtual" rows="5" cols="50"'
                 );
-                $mform->setDefault("{$fieldname}[{$key}]", $value);
-                $mform->setType("{$fieldname}[{$key}]", PARAM_CLEANHTML);
+                $mform->setDefault($elementname, $value);
+                $mform->setType($elementname, PARAM_CLEANHTML);
             }
         }
     }
@@ -150,15 +165,6 @@ class PlugNmeetHelper {
                     1 => get_string("yes", "mod_plugnmeet")
                 ),
                 "selected" => 0,
-                "type" => "select"
-            ),
-            "allow_polls" => array(
-                "label" => get_string("allow_polls", "mod_plugnmeet"),
-                "options" => array(
-                    0 => get_string("no", "mod_plugnmeet"),
-                    1 => get_string("yes", "mod_plugnmeet")
-                ),
-                "selected" => 1,
                 "type" => "select"
             ),
             "room_duration" => array(
@@ -534,19 +540,10 @@ class PlugNmeetHelper {
      * @return void
      * @throws coding_exception
      */
-    public static function get_speech_to_text_translation_features($roommetadata, $mform) {
-        $speechfeatures = array(
+    public static function get_polls_features($roommetadata, $mform) {
+        $pollsfeatures = array(
             "is_allow" => array(
-                "label" => get_string("allow_speech_to_text_translation_features", "mod_plugnmeet"),
-                "options" => array(
-                    0 => get_string("no", "mod_plugnmeet"),
-                    1 => get_string("yes", "mod_plugnmeet")
-                ),
-                "selected" => 1,
-                "type" => "select"
-            ),
-            "is_allow_translation" => array(
-                "label" => get_string("allow_speech_translation", "mod_plugnmeet"),
+                "label" => get_string("allow_polls", "mod_plugnmeet"),
                 "options" => array(
                     0 => get_string("no", "mod_plugnmeet"),
                     1 => get_string("yes", "mod_plugnmeet")
@@ -557,11 +554,11 @@ class PlugNmeetHelper {
         );
 
         $data = [];
-        if (isset($roommetadata["speech_to_text_translation_features"])) {
-            $data = $roommetadata["speech_to_text_translation_features"];
+        if (isset($roommetadata["polls_features"])) {
+            $data = $roommetadata["polls_features"];
         }
 
-        self::format_html($speechfeatures, "speech_to_text_translation_features", $data, $mform);
+        self::format_html($pollsfeatures, "polls_features", $data, $mform);
     }
 
     /*
@@ -581,6 +578,20 @@ class PlugNmeetHelper {
                 "selected" => 0,
                 "type" => "select"
             ),
+            "enabled_self_insert_encryption_key" => array(
+                "label" => get_string("enabled_self_insert_encryption_key", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "end_to_end_encryption_features[is_enabled]",
+                    "condition"=> "eq",
+                    "value" => "0"
+                )
+            ),
             "included_chat_messages" => array(
                 "label" => get_string("included_e2ee_chat_messages", "mod_plugnmeet"),
                 "options" => array(
@@ -588,7 +599,12 @@ class PlugNmeetHelper {
                     1 => get_string("yes", "mod_plugnmeet")
                 ),
                 "selected" => 0,
-                "type" => "select"
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "end_to_end_encryption_features[is_enabled]",
+                    "condition"=> "eq",
+                    "value" => "0"
+                )
             ),
             "included_whiteboard" => array(
                 "label" => get_string("included_e2ee_whiteboard", "mod_plugnmeet"),
@@ -597,7 +613,12 @@ class PlugNmeetHelper {
                     1 => get_string("yes", "mod_plugnmeet")
                 ),
                 "selected" => 0,
-                "type" => "select"
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "end_to_end_encryption_features[is_enabled]",
+                    "condition"=> "eq",
+                    "value" => "0"
+                )
             ),
         );
 
@@ -607,6 +628,141 @@ class PlugNmeetHelper {
         }
 
         self::format_html($e2eefeatures, "end_to_end_encryption_features", $data, $mform);
+    }
+
+    /*
+    * @param $roommetadata
+    * @param $mform
+    * @return void
+    * @throws coding_exception
+    */
+    public static function get_insights_features($roommetadata, $mform) {
+        $insightsfeatures = array(
+            "is_allow" => array(
+                "label" => get_string("insights_features_is_allow", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select"
+            ),
+            "transcription_features" => array(
+                "is_allow" => array(
+                    "label" => get_string("insights_transcription_features_is_allow", "mod_plugnmeet"),
+                    "options" => array(
+                        0 => get_string("no", "mod_plugnmeet"),
+                        1 => get_string("yes", "mod_plugnmeet")
+                    ),
+                    "selected" => 0,
+                    "type" => "select",
+                    "disable_if" => array(
+                        "depend_on" => "insights_features[is_allow]",
+                        "condition"=> "eq",
+                        "value" => "0"
+                    )
+                ),
+                "is_allow_translation" => array(
+                    "label" => get_string("insights_transcription_features_is_allow_translation", "mod_plugnmeet"),
+                    "options" => array(
+                        0 => get_string("no", "mod_plugnmeet"),
+                        1 => get_string("yes", "mod_plugnmeet")
+                    ),
+                    "selected" => 0,
+                    "type" => "select",
+                    "disable_if" => array(
+                        "depend_on" => "insights_features[transcription_features][is_allow]",
+                        "condition"=> "eq",
+                        "value" => "0"
+                    )
+                ),
+                "is_allow_speech_synthesis" => array(
+                    "label" => get_string("insights_transcription_features_is_allow_speech_synthesis", "mod_plugnmeet"),
+                    "options" => array(
+                        0 => get_string("no", "mod_plugnmeet"),
+                        1 => get_string("yes", "mod_plugnmeet")
+                    ),
+                    "selected" => 0,
+                    "type" => "select",
+                    "disable_if" => array(
+                        "depend_on" => "insights_features[transcription_features][is_allow]",
+                        "condition"=> "eq",
+                        "value" => "0"
+                    )
+                ),
+            ),
+            "chat_translation_features" => array(
+                "is_allow" => array(
+                    "label" => get_string("insights_chat_translation_features_is_allow", "mod_plugnmeet"),
+                    "options" => array(
+                        0 => get_string("no", "mod_plugnmeet"),
+                        1 => get_string("yes", "mod_plugnmeet")
+                    ),
+                    "selected" => 0,
+                    "type" => "select",
+                    "disable_if" => array(
+                        "depend_on" => "insights_features[is_allow]",
+                        "condition"=> "eq",
+                        "value" => "0"
+                    )
+                ),
+            ),
+            "ai_features" => array(
+                "is_allow" => array(
+                    "label" => get_string("insights_ai_features_is_allow", "mod_plugnmeet"),
+                    "options" => array(
+                        0 => get_string("no", "mod_plugnmeet"),
+                        1 => get_string("yes", "mod_plugnmeet")
+                    ),
+                    "selected" => 0,
+                    "type" => "select",
+                    "disable_if" => array(
+                        "depend_on" => "insights_features[is_allow]",
+                        "condition"=> "eq",
+                        "value" => "0"
+                    )
+                ),
+                "ai_text_chat_features" => array(
+                    "is_allow" => array(
+                        "label" => get_string("insights_ai_text_chat_features_is_allow", "mod_plugnmeet"),
+                        "options" => array(
+                            0 => get_string("no", "mod_plugnmeet"),
+                            1 => get_string("yes", "mod_plugnmeet")
+                        ),
+                        "selected" => 0,
+                        "type" => "select",
+                        "disable_if" => array(
+                            "depend_on" => "insights_features[ai_features][is_allow]",
+                            "condition"=> "eq",
+                            "value" => "0"
+                        )
+                    ),
+                ),
+                "meeting_summarization_features" => array(
+                    "is_allow" => array(
+                        "label" => get_string("insights_ai_meeting_summarization_features_is_allow", "mod_plugnmeet"),
+                        "options" => array(
+                            0 => get_string("no", "mod_plugnmeet"),
+                            1 => get_string("yes", "mod_plugnmeet")
+                        ),
+                        "selected" => 0,
+                        "type" => "select",
+                        "disable_if" => array(
+                            "depend_on" => "insights_features[ai_features][is_allow]",
+                            "condition"=> "eq",
+                            "value" => "0"
+                        )
+                    ),
+                )
+            )
+        );
+
+        $data = [];
+        if (isset($roommetadata["insights_features"])) {
+            $data = $roommetadata["insights_features"];
+        }
+
+        self::format_html($insightsfeatures, "insights_features", $data, $mform);
     }
 
     /**

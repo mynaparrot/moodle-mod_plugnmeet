@@ -95,29 +95,29 @@ class mod_plugnmeet_create_room extends external_api {
         $connect = new PlugNmeetConnect($config);
         try {
             $logouturl = $PAGE->url->get_scheme() . "://".$PAGE->url->get_host() . "/mod/plugnmeet/view.php?id=" . $cm->id . "&returned=true";
-            $extradata = json_encode(array(
+            $extradata = array(
                 "platform" => "moodle",
                 "php-version" => phpversion(),
                 "plugin-version" => $config->version,
-                "activity" => array(
+                "activity" => json_encode(array(
                     "id" => $cm->id,
                     "course" => $cm->course,
-                )
-            ));
+                ))
+            );
             $res = $connect->createRoom($instance->roomid,
                 $instance->name,
-                $instance->welcomemessage,
-                $instance->maxparticipants,
-                "",
                 $roommetadata,
-                0,
+                $instance->welcomemessage,
                 $logouturl,
+                "",
+                $instance->maxparticipants,
+                0,
                 $extradata);
 
             $result['status'] = $res->getStatus();
-            $result['msg'] = $res->getResponseMsg();
+            $result['msg'] = $res->getMsg();
             if ($result['status']) {
-                $result['roomInfo'] = json_encode($res->getRawResponse());
+                $result['roomInfo'] = json_encode($res->getRoomInfo());
             }
         } catch (Exception $e) {
             $result['msg'] = $e->getMessage();
@@ -128,7 +128,7 @@ class mod_plugnmeet_create_room extends external_api {
             try {
                 $res = $connect->getJoinToken($instance->roomid, $name, $USER->id, $isadmin);
                 $result['status'] = $res->getStatus();
-                $result['msg'] = $res->getResponseMsg();
+                $result['msg'] = $res->getMsg();
                 if ($result['status']) {
                     $result['access_token'] = $res->getToken();
                 }

@@ -70,7 +70,7 @@ class mod_plugnmeet_delete_recording extends external_api {
         try {
             $res = $connect->deleteRecording($recordid);
             $result['status'] = $res->getStatus();
-            $result['msg'] = $res->getResponseMsg();
+            $result['msg'] = $res->getMsg();
         } catch (Exception $e) {
             $result['msg'] = $e->getMessage();
         }

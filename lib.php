@@ -56,8 +56,8 @@ function get_room_metadata_items() {
         'shared_note_pad_features', 'whiteboard_features',
         'external_media_player_features', 'waiting_room_features',
         'breakout_room_features', 'display_external_link_features',
-        'ingress_features', 'speech_to_text_translation_features',
-        'end_to_end_encryption_features', 'default_lock_settings',
+        'ingress_features', 'end_to_end_encryption_features',
+        'insights_features', 'polls_features', 'default_lock_settings',
         'custom_design'
     );
 }
@@ -371,21 +371,48 @@ function get_plugnmeet_config() {
 
     $config = get_config('mod_plugnmeet');
     if ($config->client_load === "1") {
-        $path = $config->plugnmeet_server_url . "/assets";
+        $assetspath = $config->plugnmeet_server_url . "/assets";
     } else {
-        $path = $CFG->wwwroot . "/mod/plugnmeet/pix/client/dist/assets";
+        $assetspath = $CFG->wwwroot . "/mod/plugnmeet/pix/client/dist/assets";
     }
 
-    $js = 'window.PLUG_N_MEET_SERVER_URL = "' . $config->plugnmeet_server_url . '";';
-    $js .= 'window.STATIC_ASSETS_PATH = "' . $path . '";';
+    $plugnmeetconfig = [
+        // The URL of your plugNmeet server.
+        'serverUrl' => $config->plugnmeet_server_url,
 
-    $js .= 'Window.ENABLE_DYNACAST = ' . $config->enable_dynacast . ';';
-    $js .= 'window.ENABLE_SIMULCAST = ' . $config->enable_simulcast . ';';
-    $js .= 'window.VIDEO_CODEC = "' . $config->video_codec . '";';
-    $js .= 'window.DEFAULT_WEBCAM_RESOLUTION = "' . $config->default_webcam_resolution . '";';
-    $js .= 'window.DEFAULT_SCREEN_SHARE_RESOLUTION = "' . $config->default_screen_share_resolution . '";';
-    $js .= 'window.DEFAULT_AUDIO_PRESET = "' . $config->default_audio_preset . '";';
-    $js .= 'window.STOP_MIC_TRACK_ON_MUTE = ' . $config->stop_mic_track_on_mute . ';';
+        // This is helpful for external plugin development where images or other files are located
+        // in another place.
+        'staticAssetsPath' => $assetspath,
+
+        // Dynacast dynamically pauses video layers that are not being consumed by any subscribers,
+        // significantly reducing publishing CPU and bandwidth usage.
+        'enableDynacast' => (bool)$config->enable_dynacast,
+
+        // When using simulcast, LiveKit will publish up to three versions of the stream at various resolutions.
+        // The client can then pick the most appropriate one.
+        'enableSimulcast' => (bool)$config->enable_simulcast,
+
+        // Available options: 'vp8' | 'h264' | 'vp9' | 'av1'. Default: 'vp8'.
+        'videoCodec' => $config->video_codec,
+
+        // Available options: 'h90' | 'h180' | 'h216' | 'h360' | 'h540' | 'h720' | 'h1080' | 'h1440' | 'h2160'.
+        // Default: 'h720'.
+        'defaultWebcamResolution' => $config->default_webcam_resolution,
+
+        // Available options: 'h360fps3' | 'h720fps5' | 'h720fps15' | 'h1080fps15' | 'h1080fps30'.
+        // Default: 'h1080fps15'.
+        'defaultScreenShareResolution' => $config->default_screen_share_resolution,
+
+        // Available options: 'telephone' | 'speech' | 'music' | 'musicStereo' | 'musicHighQuality' | 'musicHighQualityStereo'.
+        // Default: 'music'.
+        'defaultAudioPreset' => $config->default_audio_preset,
+
+        // For local tracks, stop the underlying MediaStreamTrack when the track is muted (or paused).
+        // On some platforms, this option is necessary to disable the microphone recording indicator.
+        // Note: When this is enabled and BT devices are connected, they will transition between profiles
+        // (e.g., HFP to A2DP), and there will be an audible difference in playback.
+        'stopMicTrackOnMute' => (bool)$config->stop_mic_track_on_mute,
+    ];
 
     if ($config->custom_logo) {
         $filename = str_replace("/", "", $config->custom_logo);
@@ -406,22 +433,23 @@ function get_plugnmeet_config() {
                 $filename,
                 false,
                 true);
-            $js .= 'window.CUSTOM_LOGO = "' . $url->out(false) . '";';
+            $plugnmeetconfig['customLogo'] = [
+                'main_logo_light' => $url->out(false),
+                'main_logo_dark' => $url->out(false),
+            ];
         }
     }
 
-    $customdesignitems = [];
+    $designcustomization = [];
     if (!empty($config->primary_color)) {
-        $customdesignitems['primary_color'] = $config->primary_color;
+        $designcustomization['primary_color'] = $config->primary_color;
     }
     if (!empty($config->secondary_color)) {
-        $customdesignitems['secondary_color'] = $config->secondary_color;
+        $designcustomization['secondary_color'] = $config->secondary_color;
     }
-
     if (!empty($config->background_color)) {
-        $customdesignitems['background_color'] = $config->background_color;
+        $designcustomization['background_color'] = $config->background_color;
     }
-
     if (!empty($config->background_image)) {
         $filename = str_replace("/", "", $config->background_image);
         $tablefiles = "files";
@@ -443,39 +471,40 @@ function get_plugnmeet_config() {
                 $filename,
                 false,
                 true);
-            $customdesignitems['background_image'] = $url->out(false);
+            $designcustomization['background_image'] = $url->out(false);
         }
     }
-
     if (!empty($config->header_color)) {
-        $customdesignitems['header_bg_color'] = $config->header_color;
+        $designcustomization['header_bg_color'] = $config->header_color;
     }
     if (!empty($config->footer_color)) {
-        $customdesignitems['footer_bg_color'] = $config->footer_color;
+        $designcustomization['footer_bg_color'] = $config->footer_color;
     }
     if (!empty($config->left_color)) {
-        $customdesignitems['left_side_bg_color'] = $config->left_color;
+        $designcustomization['left_side_bg_color'] = $config->left_color;
     }
     if (!empty($config->right_color)) {
-        $customdesignitems['right_side_bg_color'] = $config->right_color;
+        $designcustomization['right_side_bg_color'] = $config->right_color;
     }
     if (!empty($config->custom_css_url)) {
-        $customdesignitems['custom_css_url'] = $config->custom_css_url;
+        $designcustomization['custom_css_url'] = $config->custom_css_url;
     }
     if (!empty($config->column_camera_position)) {
-        $customdesignitems['column_camera_position'] = $config->column_camera_position;
+        $designcustomization['column_camera_position'] = $config->column_camera_position;
     }
     if (!empty($config->column_camera_width)) {
-        $customdesignitems['column_camera_width'] = $config->column_camera_width;
+        $designcustomization['column_camera_width'] = $config->column_camera_width;
     }
 
-    if (count($customdesignitems) > 0) {
-        $js .= 'window.DESIGN_CUSTOMIZATION = `' . json_encode($customdesignitems) . '`;';
+    if (!empty($designcustomization)) {
+        $plugnmeetconfig['designCustomization'] = $designcustomization;
     }
 
-    $script = "<script type=\"text/javascript\">" . $js . "</script>\n";
+    $jsonconfig = json_encode($plugnmeetconfig, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    $js = "window.plugNmeetConfig = JSON.parse(`" . addslashes($jsonconfig) . "`);";
+    $cnfscript = "<script type=\"text/javascript\">\n" . $js . "\n</script>\n";
 
-    return $script;
+    return $cnfscript;
 }
 
 function time_restriction_check_pass($moduleinstance) {
