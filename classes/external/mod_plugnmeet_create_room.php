@@ -94,7 +94,8 @@ class mod_plugnmeet_create_room extends external_api {
 
         $connect = new PlugNmeetConnect($config);
         try {
-            $logouturl = $PAGE->url->get_scheme() . "://".$PAGE->url->get_host() . "/mod/plugnmeet/view.php?id=" . $cm->id . "&returned=true";
+            $logouturl = $PAGE->url->get_scheme() . "://".$PAGE->url->get_host() .
+                "/mod/plugnmeet/view.php?id=" . $cm->id . "&returned=true";
             $extradata = array(
                 "platform" => "moodle",
                 "php-version" => phpversion(),

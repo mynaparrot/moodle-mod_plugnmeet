@@ -83,7 +83,7 @@ class mod_plugnmeet_get_recordings extends external_api {
 
         try {
             $roomids = array($roomid);
-            $res = $connect->getRecordings($roomids,null, $from, $limit, $orderby);
+            $res = $connect->getRecordings($roomids, null, $from, $limit, $orderby);
 
             $result['status'] = $res->getStatus();
             $result['msg'] = $res->getMsg();

@@ -45,7 +45,8 @@ class PlugNmeetHelper {
             $elementname = "{$fieldname}[{$key}]";
 
             if (isset($item["disable_if"])) {
-                $mform->disabledIf($elementname, $item["disable_if"]["depend_on"], $item["disable_if"]["condition"], $item["disable_if"]["value"]);
+                $mform->disabledIf($elementname, $item["disable_if"]["depend_on"],
+                    $item["disable_if"]["condition"], $item["disable_if"]["value"]);
             }
 
             if ($item["type"] === "select") {
@@ -588,7 +589,7 @@ class PlugNmeetHelper {
                 "type" => "select",
                 "disable_if" => array(
                     "depend_on" => "end_to_end_encryption_features[is_enabled]",
-                    "condition"=> "eq",
+                    "condition" => "eq",
                     "value" => "0"
                 )
             ),
@@ -602,7 +603,7 @@ class PlugNmeetHelper {
                 "type" => "select",
                 "disable_if" => array(
                     "depend_on" => "end_to_end_encryption_features[is_enabled]",
-                    "condition"=> "eq",
+                    "condition" => "eq",
                     "value" => "0"
                 )
             ),
@@ -616,7 +617,7 @@ class PlugNmeetHelper {
                 "type" => "select",
                 "disable_if" => array(
                     "depend_on" => "end_to_end_encryption_features[is_enabled]",
-                    "condition"=> "eq",
+                    "condition" => "eq",
                     "value" => "0"
                 )
             ),
@@ -658,7 +659,7 @@ class PlugNmeetHelper {
                     "type" => "select",
                     "disable_if" => array(
                         "depend_on" => "insights_features[is_allow]",
-                        "condition"=> "eq",
+                        "condition" => "eq",
                         "value" => "0"
                     )
                 ),
@@ -672,7 +673,7 @@ class PlugNmeetHelper {
                     "type" => "select",
                     "disable_if" => array(
                         "depend_on" => "insights_features[transcription_features][is_allow]",
-                        "condition"=> "eq",
+                        "condition" => "eq",
                         "value" => "0"
                     )
                 ),
@@ -686,7 +687,7 @@ class PlugNmeetHelper {
                     "type" => "select",
                     "disable_if" => array(
                         "depend_on" => "insights_features[transcription_features][is_allow]",
-                        "condition"=> "eq",
+                        "condition" => "eq",
                         "value" => "0"
                     )
                 ),
@@ -702,7 +703,7 @@ class PlugNmeetHelper {
                     "type" => "select",
                     "disable_if" => array(
                         "depend_on" => "insights_features[is_allow]",
-                        "condition"=> "eq",
+                        "condition" => "eq",
                         "value" => "0"
                     )
                 ),
@@ -718,7 +719,7 @@ class PlugNmeetHelper {
                     "type" => "select",
                     "disable_if" => array(
                         "depend_on" => "insights_features[is_allow]",
-                        "condition"=> "eq",
+                        "condition" => "eq",
                         "value" => "0"
                     )
                 ),
@@ -733,7 +734,7 @@ class PlugNmeetHelper {
                         "type" => "select",
                         "disable_if" => array(
                             "depend_on" => "insights_features[ai_features][is_allow]",
-                            "condition"=> "eq",
+                            "condition" => "eq",
                             "value" => "0"
                         )
                     ),
@@ -749,7 +750,7 @@ class PlugNmeetHelper {
                         "type" => "select",
                         "disable_if" => array(
                             "depend_on" => "insights_features[ai_features][is_allow]",
-                            "condition"=> "eq",
+                            "condition" => "eq",
                             "value" => "0"
                         )
                     ),
