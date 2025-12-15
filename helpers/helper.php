@@ -252,7 +252,12 @@ class PlugNmeetHelper {
                     1 => get_string("yes", "mod_plugnmeet")
                 ),
                 "selected" => 1,
-                "type" => "select"
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "recording_features[is_allow]",
+                    "condition" => "eq",
+                    "value" => "0"
+                )
             ),
             "enable_auto_cloud_recording" => array(
                 "label" => get_string("enable_auto_cloud_recording", "mod_plugnmeet"),
@@ -261,7 +266,12 @@ class PlugNmeetHelper {
                     1 => get_string("yes", "mod_plugnmeet")
                 ),
                 "selected" => 0,
-                "type" => "select"
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "recording_features[is_allow_cloud]",
+                    "condition" => "eq",
+                    "value" => "0"
+                )
             ),
             "is_allow_local" => array(
                 "label" => get_string("allow_local_recording", "mod_plugnmeet"),
@@ -270,7 +280,12 @@ class PlugNmeetHelper {
                     1 => get_string("yes", "mod_plugnmeet")
                 ),
                 "selected" => 1,
-                "type" => "select"
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "recording_features[is_allow]",
+                    "condition" => "eq",
+                    "value" => "0"
+                )
             ),
             "is_allow_view_recording" => array(
                 "label" => get_string("is_allow_view_recording", "mod_plugnmeet"),
@@ -279,7 +294,12 @@ class PlugNmeetHelper {
                     1 => get_string("yes", "mod_plugnmeet")
                 ),
                 "selected" => 1,
-                "type" => "select"
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "recording_features[is_allow]",
+                    "condition" => "eq",
+                    "value" => "0"
+                )
             ),
             "is_allow_download_recording" => array(
                 "label" => get_string("is_allow_download_recording", "mod_plugnmeet"),
@@ -288,7 +308,12 @@ class PlugNmeetHelper {
                     1 => get_string("yes", "mod_plugnmeet")
                 ),
                 "selected" => 1,
-                "type" => "select"
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "recording_features[is_allow]",
+                    "condition" => "eq",
+                    "value" => "0"
+                )
             ),
         );
 
@@ -308,7 +333,7 @@ class PlugNmeetHelper {
      */
     public static function get_chat_features($roommetadata, $mform) {
         $chatfeatures = array(
-            "allow_chat" => array(
+            "is_allow" => array(
                 "label" => get_string("allow_chat", "mod_plugnmeet"),
                 "options" => array(
                     0 => get_string("no", "mod_plugnmeet"),
@@ -317,14 +342,19 @@ class PlugNmeetHelper {
                 "selected" => 1,
                 "type" => "select"
             ),
-            "allow_file_upload" => array(
+            "is_allow_file_upload" => array(
                 "label" => get_string("allow_file_upload", "mod_plugnmeet"),
                 "options" => array(
                     0 => get_string("no", "mod_plugnmeet"),
                     1 => get_string("yes", "mod_plugnmeet")
                 ),
                 "selected" => 1,
-                "type" => "select"
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "chat_features[is_allow]",
+                    "condition" => "eq",
+                    "value" => "0"
+                )
             ),
         );
 
@@ -344,7 +374,7 @@ class PlugNmeetHelper {
      */
     public static function get_shared_note_pad_features($roommetadata, $mform) {
         $sharednotepadfeatures = array(
-            "allowed_shared_note_pad" => array(
+            "is_allow" => array(
                 "label" => get_string("allow_shared_notepad", "plugnmeet"),
                 "options" => array(
                     0 => get_string("no", "mod_plugnmeet"),
@@ -371,7 +401,7 @@ class PlugNmeetHelper {
      */
     public static function get_whiteboard_features($roommetadata, $mform) {
         $whiteboardfeatures = array(
-            "allowed_whiteboard" => array(
+            "is_allow" => array(
                 "label" => get_string("allow_whiteboard", "mod_plugnmeet"),
                 "options" => array(
                     0 => get_string("no", "mod_plugnmeet"),
@@ -398,7 +428,7 @@ class PlugNmeetHelper {
      */
     public static function get_external_media_player_features($roommetadata, $mform) {
         $externalmediaplayerfeatures = array(
-            "allowed_external_media_player" => array(
+            "is_allow" => array(
                 "label" => get_string("allowed_external_media_player", "mod_plugnmeet"),
                 "options" => array(
                     0 => get_string("no", "mod_plugnmeet"),
@@ -437,7 +467,12 @@ class PlugNmeetHelper {
             "waiting_room_msg" => array(
                 "label" => get_string("waiting_room_msg", "mod_plugnmeet"),
                 "default" => "",
-                "type" => "textarea"
+                "type" => "textarea",
+                "disable_if" => array(
+                    "depend_on" => "waiting_room_features[is_active]",
+                    "condition" => "eq",
+                    "value" => "0"
+                )
             )
         );
 
@@ -469,7 +504,12 @@ class PlugNmeetHelper {
             "allowed_number_rooms" => array(
                 "label" => get_string("allowed_number_rooms", "mod_plugnmeet"),
                 "default" => 6,
-                "type" => "number"
+                "type" => "number",
+                "disable_if" => array(
+                    "depend_on" => "breakout_room_features[is_allow]",
+                    "condition" => "eq",
+                    "value" => "0"
+                )
             )
         );
 

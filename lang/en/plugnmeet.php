@@ -117,7 +117,7 @@ $string['allow_virtual_bg'] = 'Allow virtual background';
 $string['allow_raise_hand'] = 'Allow raise hand';
 $string['auto_gen_user_id'] = 'Auto generate user ID';
 
-$string['other_features'] = 'Other features';
+$string['other_features'] = 'Advanced features';
 
 $string['recordingfeatures'] = 'Recording features';
 $string['allow_recording'] = 'Allow recording';
@@ -219,11 +219,11 @@ $string['allow_speech_to_text_translation_features'] = 'Allow speech to text/tra
 $string['allow_speech_translation'] = 'Allow translation';
 
 $string['enable_end_to_end_encryption_features'] = 'Enable End-To-End Encryption (E2EE)';
-$string['enabled_self_insert_encryption_key'] = 'Enable self key insertion';
+$string['enabled_self_insert_encryption_key'] = 'Enable manual E2EE key';
 $string['included_e2ee_chat_messages'] = "Enable encryption for chat";
 $string['included_e2ee_whiteboard'] = "Enable encryption for whiteboard";
 
-$string['insights_features'] = 'Insights AI features';
+$string['insights_features'] = 'Insights AI';
 $string['insights_features_is_allow'] = 'Enable insights features';
 $string['insights_transcription_features_is_allow'] = 'Allow transcription';
 $string['insights_transcription_features_is_allow_translation'] = 'Allow transcription translation';
