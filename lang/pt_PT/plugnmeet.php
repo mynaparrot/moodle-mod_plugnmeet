@@ -117,7 +117,7 @@ $string['allow_virtual_bg'] = 'Permitir plano de fundo virtual';
 $string['allow_raise_hand'] = 'Permitir levantar a mão';
 $string['auto_gen_user_id'] = 'Gerar automaticamente ID de usuário';
 
-$string['other_features'] = 'Outras características';
+$string['other_features'] = 'Advanced features';
 
 $string['recordingfeatures'] = 'Recursos de gravação';
 $string['allow_recording'] = 'Permitir gravação';
@@ -219,5 +219,16 @@ $string['allow_speech_to_text_translation_features'] = 'Permitir recursos de fal
 $string['allow_speech_translation'] = 'Permitir tradução';
 
 $string['enable_end_to_end_encryption_features'] = 'Habilitar criptografia de ponta a ponta (E2EE)';
+$string['enabled_self_insert_encryption_key'] = 'Enable manual E2EE key';
 $string['included_e2ee_chat_messages'] = "Ativar criptografia para bate-papo";
 $string['included_e2ee_whiteboard'] = "Ativar criptografia para quadro de comunicações";
+
+$string['insights_features'] = 'Insights AI';
+$string['insights_features_is_allow'] = 'Enable insights features';
+$string['insights_transcription_features_is_allow'] = 'Allow transcription';
+$string['insights_transcription_features_is_allow_translation'] = 'Allow transcription translation';
+$string['insights_transcription_features_is_allow_speech_synthesis'] = 'Allow speech synthesis';
+$string['insights_chat_translation_features_is_allow'] = 'Allow chat translation';
+$string['insights_ai_features_is_allow'] = 'Allow AI features';
+$string['insights_ai_text_chat_features_is_allow'] = 'Allow AI text chat';
+$string['insights_ai_meeting_summarization_features_is_allow'] = 'Allow AI meeting summarization';
