@@ -117,7 +117,7 @@ $string['allow_virtual_bg'] = 'Дозволити віртуальний фон'
 $string['allow_raise_hand'] = 'Дозволити підняти руку';
 $string['auto_gen_user_id'] = 'Автоматична генерація ідентифікатора користувача';
 
-$string['other_features'] = 'Інші особливості';
+$string['other_features'] = 'Advanced features';
 
 $string['recordingfeatures'] = 'Особливості запису';
 $string['allow_recording'] = 'Дозволити запис';
@@ -219,5 +219,16 @@ $string['allow_speech_to_text_translation_features'] = 'Дозволити фу�
 $string['allow_speech_translation'] = 'Дозволити переклад';
 
 $string['enable_end_to_end_encryption_features'] = 'Увімкнути наскрізне шифрування (E2EE)';
+$string['enabled_self_insert_encryption_key'] = 'Enable manual E2EE key';
 $string['included_e2ee_chat_messages'] = "Увімкніть шифрування для чату";
 $string['included_e2ee_whiteboard'] = "Увімкніть шифрування для дошки";
+
+$string['insights_features'] = 'Insights AI';
+$string['insights_features_is_allow'] = 'Enable insights features';
+$string['insights_transcription_features_is_allow'] = 'Allow transcription';
+$string['insights_transcription_features_is_allow_translation'] = 'Allow transcription translation';
+$string['insights_transcription_features_is_allow_speech_synthesis'] = 'Allow speech synthesis';
+$string['insights_chat_translation_features_is_allow'] = 'Allow chat translation';
+$string['insights_ai_features_is_allow'] = 'Allow AI features';
+$string['insights_ai_text_chat_features_is_allow'] = 'Allow AI text chat';
+$string['insights_ai_meeting_summarization_features_is_allow'] = 'Allow AI meeting summarization';
