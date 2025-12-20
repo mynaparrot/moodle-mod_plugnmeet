@@ -117,7 +117,7 @@ $string['allow_virtual_bg'] = 'Virtuele achtergrond toestaan';
 $string['allow_raise_hand'] = 'Sta hand opsteken toe';
 $string['auto_gen_user_id'] = 'Gebruikers-ID automatisch genereren';
 
-$string['other_features'] = 'Advanced features';
+$string['other_features'] = 'Geavanceerde functies';
 
 $string['recordingfeatures'] = 'Opname functies';
 $string['allow_recording'] = 'Opname toestaan';
@@ -208,8 +208,8 @@ $string['footer_color'] = 'Voettekst Kleur';
 $string['footer_color_des'] = 'Interface Footer Kleur';
 $string['left_color'] = 'Kleur linkerkant';
 $string['left_color_des'] = 'Kleur linkerzijbalk';
-$string['side_panel_bg_color'] = 'Side Panel background color';
-$string['side_panel_bg_color_des'] = 'Right side panel background color';
+$string['side_panel_bg_color'] = 'Achtergrondkleur van het zijpaneel';
+$string['side_panel_bg_color_des'] = 'Achtergrondkleur rechter zijpaneel';
 $string['column_camera_position'] = 'Kolom camera positie';
 $string['column_camera_position_des'] = 'Kolom camera positie. Standaardinstelling: links';
 $string['column_camera_width'] = 'Breedte kolomcamera';
@@ -219,16 +219,16 @@ $string['allow_speech_to_text_translation_features'] = 'Spraak-naar-tekst/vertaa
 $string['allow_speech_translation'] = 'Vertaling toestaan';
 
 $string['enable_end_to_end_encryption_features'] = 'End-to-end-versleuteling inschakelen (E2EE)';
-$string['enabled_self_insert_encryption_key'] = 'Enable manual E2EE key';
+$string['enabled_self_insert_encryption_key'] = 'Schakel de handmatige E2EE-toets in';
 $string['included_e2ee_chat_messages'] = "Versleuteling inschakelen voor chat";
 $string['included_e2ee_whiteboard'] = "Versleuteling inschakelen voor whiteboard";
 
 $string['insights_features'] = 'Insights AI';
-$string['insights_features_is_allow'] = 'Enable insights features';
-$string['insights_transcription_features_is_allow'] = 'Allow transcription';
-$string['insights_transcription_features_is_allow_translation'] = 'Allow transcription translation';
-$string['insights_transcription_features_is_allow_speech_synthesis'] = 'Allow speech synthesis';
-$string['insights_chat_translation_features_is_allow'] = 'Allow chat translation';
-$string['insights_ai_features_is_allow'] = 'Allow AI features';
-$string['insights_ai_text_chat_features_is_allow'] = 'Allow AI text chat';
-$string['insights_ai_meeting_summarization_features_is_allow'] = 'Allow AI meeting summarization';
+$string['insights_features_is_allow'] = 'Inzichtsfuncties inschakelen';
+$string['insights_transcription_features_is_allow'] = 'Transcriptie toestaan';
+$string['insights_transcription_features_is_allow_translation'] = 'Transcriptievertaling mogelijk';
+$string['insights_transcription_features_is_allow_speech_synthesis'] = 'Spraaksynthese mogelijk maken';
+$string['insights_chat_translation_features_is_allow'] = 'Staat chatvertaling toe';
+$string['insights_ai_features_is_allow'] = 'Sta AI-functies toe';
+$string['insights_ai_text_chat_features_is_allow'] = 'Sta AI-tekstchat toe';
+$string['insights_ai_meeting_summarization_features_is_allow'] = 'Sta AI-vergaderingssamenvatting mogelijk';
