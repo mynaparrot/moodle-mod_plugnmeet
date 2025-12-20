@@ -223,38 +223,10 @@ if ($hassiteconfig) {
         ''));
 
     $settings->add(new admin_setting_configcolourpicker(
-        'mod_plugnmeet/left_color',
-        get_string('left_color', 'plugnmeet'),
-        get_string('left_color_des', 'plugnmeet'),
+        'mod_plugnmeet/side_panel_bg_color',
+        get_string('side_panel_bg_color', 'plugnmeet'),
+        get_string('side_panel_bg_color_des', 'plugnmeet'),
         ''));
-
-    $settings->add(new admin_setting_configcolourpicker(
-        'mod_plugnmeet/right_color',
-        get_string('right_color', 'plugnmeet'),
-        get_string('right_color_des', 'plugnmeet'),
-        ''));
-
-    $columncameraposition = array(
-        "left" => "left",
-        "top" => "top",
-        "bottom" => "bottom"
-    );
-    $settings->add(new admin_setting_configselect(
-        'mod_plugnmeet/column_camera_position',
-        get_string('column_camera_position', 'mod_plugnmeet'),
-        get_string('column_camera_position_des',
-            'mod_plugnmeet'), 'left', $columncameraposition));
-
-    $columncamerawidth = array(
-        "full" => "full",
-        "medium" => "medium",
-        "small" => "small"
-    );
-    $settings->add(new admin_setting_configselect(
-        'mod_plugnmeet/column_camera_width',
-        get_string('column_camera_width', 'mod_plugnmeet'),
-        get_string('column_camera_width_des',
-            'mod_plugnmeet'), 'full', $columncamerawidth));
 
     $copyright = array(
         1 => get_string('yes', 'mod_plugnmeet'),

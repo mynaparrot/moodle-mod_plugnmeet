@@ -480,20 +480,11 @@ function get_plugnmeet_config() {
     if (!empty($config->footer_color)) {
         $designcustomization['footer_bg_color'] = $config->footer_color;
     }
-    if (!empty($config->left_color)) {
-        $designcustomization['left_side_bg_color'] = $config->left_color;
-    }
-    if (!empty($config->right_color)) {
-        $designcustomization['right_side_bg_color'] = $config->right_color;
+    if (!empty($config->side_panel_bg_color)) {
+        $designcustomization['side_panel_bg_color'] = $config->side_panel_bg_color;
     }
     if (!empty($config->custom_css_url)) {
         $designcustomization['custom_css_url'] = $config->custom_css_url;
-    }
-    if (!empty($config->column_camera_position)) {
-        $designcustomization['column_camera_position'] = $config->column_camera_position;
-    }
-    if (!empty($config->column_camera_width)) {
-        $designcustomization['column_camera_width'] = $config->column_camera_width;
     }
 
     if (!empty($designcustomization)) {

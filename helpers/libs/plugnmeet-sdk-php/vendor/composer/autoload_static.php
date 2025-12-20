@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5e28ec4851f87dfd62802c52f72cc5f2
+class ComposerStaticInitd70491718715c295c580a0b85fbd69bb
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -14,26 +14,26 @@ class ComposerStaticInit5e28ec4851f87dfd62802c52f72cc5f2
     );
 
     public static $prefixLengthsPsr4 = array (
-        'R' => 
+        'R' =>
         array (
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
         ),
-        'M' => 
+        'M' =>
         array (
             'Mynaparrot\\Plugnmeet\\' => 21,
             'Mynaparrot\\PlugnmeetProto\\' => 26,
         ),
-        'L' => 
+        'L' =>
         array (
             'Livekit\\' => 8,
         ),
-        'G' => 
+        'G' =>
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
@@ -42,75 +42,75 @@ class ComposerStaticInit5e28ec4851f87dfd62802c52f72cc5f2
             'GPBMetadata\\Google\\Protobuf\\' => 28,
             'GPBMetadata\\' => 12,
         ),
-        'F' => 
+        'F' =>
         array (
             'Firebase\\JWT\\' => 13,
         ),
-        'B' => 
+        'B' =>
         array (
             'Brick\\Math\\' => 11,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Ramsey\\Uuid\\' => 
+        'Ramsey\\Uuid\\' =>
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
         ),
-        'Ramsey\\Collection\\' => 
+        'Ramsey\\Collection\\' =>
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
-        'Psr\\Http\\Message\\' => 
+        'Psr\\Http\\Message\\' =>
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' => 
+        'Psr\\Http\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Mynaparrot\\Plugnmeet\\' => 
+        'Mynaparrot\\Plugnmeet\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'Mynaparrot\\PlugnmeetProto\\' => 
+        'Mynaparrot\\PlugnmeetProto\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto',
         ),
-        'Livekit\\' => 
+        'Livekit\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src/gen/Livekit',
         ),
-        'GuzzleHttp\\Psr7\\' => 
+        'GuzzleHttp\\Psr7\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' => 
+        'GuzzleHttp\\Promise\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' => 
+        'GuzzleHttp\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Google\\Protobuf\\' => 
+        'Google\\Protobuf\\' =>
         array (
             0 => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf',
         ),
-        'GPBMetadata\\Google\\Protobuf\\' => 
+        'GPBMetadata\\Google\\Protobuf\\' =>
         array (
             0 => __DIR__ . '/..' . '/google/protobuf/src/GPBMetadata/Google/Protobuf',
         ),
-        'GPBMetadata\\' => 
+        'GPBMetadata\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src/gen/GPBMetadata',
         ),
-        'Firebase\\JWT\\' => 
+        'Firebase\\JWT\\' =>
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
-        'Brick\\Math\\' => 
+        'Brick\\Math\\' =>
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
@@ -1159,9 +1159,9 @@ class ComposerStaticInit5e28ec4851f87dfd62802c52f72cc5f2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5e28ec4851f87dfd62802c52f72cc5f2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5e28ec4851f87dfd62802c52f72cc5f2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5e28ec4851f87dfd62802c52f72cc5f2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd70491718715c295c580a0b85fbd69bb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd70491718715c295c580a0b85fbd69bb::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd70491718715c295c580a0b85fbd69bb::$classMap;
 
         }, null, ClassLoader::class);
     }
