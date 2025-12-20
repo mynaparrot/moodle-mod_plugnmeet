@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.0.0](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v1.2.13...v2.0.0) (2025-12-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* new UI + API
+
+### Features
+
+* new UI + API ([a3ae8b6](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/a3ae8b63c49c11bab899053949791e70106b649f))
+
+
+### Bug Fixes
+
+* bump SDK ([5430f7a](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/5430f7a5f12fce3bca81a08ed8bfdade9d65c265))
+* lint ([cc9ef90](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/cc9ef9060c1f9a307a2f070368bd2e3a706a690f))
+* **locale:** new Crowdin updates ([d54f743](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/d54f743d895b441de07aac389b409cb524341765))
+* removed deprecated fields ([840428a](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/840428a00a319ecbfd1e17eb28adc43a7c48790e))
+
 ## [1.2.13](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v1.2.12...v1.2.13) (2025-10-24)
 
 
