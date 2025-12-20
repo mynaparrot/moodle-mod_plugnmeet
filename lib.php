@@ -377,40 +377,14 @@ function get_plugnmeet_config() {
     }
 
     $plugnmeetconfig = [
-        // The URL of your plugNmeet server.
         'serverUrl' => $config->plugnmeet_server_url,
-
-        // This is helpful for external plugin development where images or other files are located
-        // in another place.
         'staticAssetsPath' => $assetspath,
-
-        // Dynacast dynamically pauses video layers that are not being consumed by any subscribers,
-        // significantly reducing publishing CPU and bandwidth usage.
         'enableDynacast' => (bool)$config->enable_dynacast,
-
-        // When using simulcast, LiveKit will publish up to three versions of the stream at various resolutions.
-        // The client can then pick the most appropriate one.
         'enableSimulcast' => (bool)$config->enable_simulcast,
-
-        // Available options: 'vp8' | 'h264' | 'vp9' | 'av1'. Default: 'vp8'.
         'videoCodec' => $config->video_codec,
-
-        // Available options: 'h90' | 'h180' | 'h216' | 'h360' | 'h540' | 'h720' | 'h1080' | 'h1440' | 'h2160'.
-        // Default: 'h720'.
         'defaultWebcamResolution' => $config->default_webcam_resolution,
-
-        // Available options: 'h360fps3' | 'h720fps5' | 'h720fps15' | 'h1080fps15' | 'h1080fps30'.
-        // Default: 'h1080fps15'.
         'defaultScreenShareResolution' => $config->default_screen_share_resolution,
-
-        // Available options: 'telephone' | 'speech' | 'music' | 'musicStereo' | 'musicHighQuality' | 'musicHighQualityStereo'.
-        // Default: 'music'.
         'defaultAudioPreset' => $config->default_audio_preset,
-
-        // For local tracks, stop the underlying MediaStreamTrack when the track is muted (or paused).
-        // On some platforms, this option is necessary to disable the microphone recording indicator.
-        // Note: When this is enabled and BT devices are connected, they will transition between profiles
-        // (e.g., HFP to A2DP), and there will be an audible difference in playback.
         'stopMicTrackOnMute' => (bool)$config->stop_mic_track_on_mute,
     ];
 
