@@ -117,7 +117,7 @@ $string['allow_virtual_bg'] = 'Разрешить виртуальный фон'
 $string['allow_raise_hand'] = 'Разрешить поднять руку';
 $string['auto_gen_user_id'] = 'Автоматическая генерация идентификатора пользователя';
 
-$string['other_features'] = 'Advanced features';
+$string['other_features'] = 'Расширенные возможности';
 
 $string['recordingfeatures'] = 'Особенности записи';
 $string['allow_recording'] = 'Разрешить запись';
@@ -208,8 +208,8 @@ $string['footer_color'] = 'Цвет нижнего колонтитула';
 $string['footer_color_des'] = 'Цвет нижнего колонтитула интерфейса';
 $string['left_color'] = 'Цвет левой стороны';
 $string['left_color_des'] = 'Цвет левой боковой панели';
-$string['side_panel_bg_color'] = 'Side Panel background color';
-$string['side_panel_bg_color_des'] = 'Right side panel background color';
+$string['side_panel_bg_color'] = 'Цвет фона боковой панели';
+$string['side_panel_bg_color_des'] = 'Цвет фона правой стороны панели';
 $string['column_camera_position'] = 'Положение камеры колонны';
 $string['column_camera_position_des'] = 'Положение камеры колонны. По умолчанию: левый';
 $string['column_camera_width'] = 'Ширина камеры в столбце';
@@ -219,16 +219,16 @@ $string['allow_speech_to_text_translation_features'] = 'Разрешить пр�
 $string['allow_speech_translation'] = 'Разрешить перевод';
 
 $string['enable_end_to_end_encryption_features'] = 'Включение сквозного шифрования (E2EE)';
-$string['enabled_self_insert_encryption_key'] = 'Enable manual E2EE key';
+$string['enabled_self_insert_encryption_key'] = 'Включите ручную клавишу E2EE';
 $string['included_e2ee_chat_messages'] = "Как включить шифрование для чата";
 $string['included_e2ee_whiteboard'] = "Включение шифрования для доски объявлений";
 
 $string['insights_features'] = 'Insights AI';
-$string['insights_features_is_allow'] = 'Enable insights features';
-$string['insights_transcription_features_is_allow'] = 'Allow transcription';
-$string['insights_transcription_features_is_allow_translation'] = 'Allow transcription translation';
-$string['insights_transcription_features_is_allow_speech_synthesis'] = 'Allow speech synthesis';
-$string['insights_chat_translation_features_is_allow'] = 'Allow chat translation';
-$string['insights_ai_features_is_allow'] = 'Allow AI features';
-$string['insights_ai_text_chat_features_is_allow'] = 'Allow AI text chat';
-$string['insights_ai_meeting_summarization_features_is_allow'] = 'Allow AI meeting summarization';
+$string['insights_features_is_allow'] = 'Включить функции аналитики';
+$string['insights_transcription_features_is_allow'] = 'Разрешить транскрипцию';
+$string['insights_transcription_features_is_allow_translation'] = 'Разрешить транскрипционный перевод';
+$string['insights_transcription_features_is_allow_speech_synthesis'] = 'Разрешить синтез речи';
+$string['insights_chat_translation_features_is_allow'] = 'Разрешить перевод в чате';
+$string['insights_ai_features_is_allow'] = 'Разрешить функции ИИ';
+$string['insights_ai_text_chat_features_is_allow'] = 'Разрешить текстовый чат с помощью ИИ';
+$string['insights_ai_meeting_summarization_features_is_allow'] = 'Разрешить резюме встреч с помощью ИИ';
