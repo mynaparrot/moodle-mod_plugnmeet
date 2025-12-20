@@ -117,7 +117,7 @@ $string['allow_virtual_bg'] = 'السماح بالخلفية الافتراضي�
 $string['allow_raise_hand'] = 'السماح برفع اليد';
 $string['auto_gen_user_id'] = 'إنشاء معرف المستخدم تلقائيا';
 
-$string['other_features'] = 'ميزات أخرى';
+$string['other_features'] = 'الميزات المتقدمة';
 
 $string['recordingfeatures'] = 'ميزات التسجيل';
 $string['allow_recording'] = 'السماح بالتسجيل';
@@ -208,8 +208,8 @@ $string['footer_color'] = 'لون التذييل';
 $string['footer_color_des'] = 'لون تذييل الواجهة';
 $string['left_color'] = 'لون الجانب الأيسر';
 $string['left_color_des'] = 'لون شريط الجانب الأيسر';
-$string['right_color'] = 'لون الجانب الأيمن';
-$string['right_color_des'] = 'لون شريط الجانب الأيمن';
+$string['side_panel_bg_color'] = 'لون خلفية اللوحة الجانبية';
+$string['side_panel_bg_color_des'] = 'لون خلفية اللوحة على الجانب الأيمن';
 $string['column_camera_position'] = 'موضع الكاميرا العمودية';
 $string['column_camera_position_des'] = 'موضع كاميرا العمود. الافتراضي: يسار';
 $string['column_camera_width'] = 'عرض كاميرا العمود';
@@ -219,5 +219,16 @@ $string['allow_speech_to_text_translation_features'] = 'السماح بميزا�
 $string['allow_speech_translation'] = 'السماح بالترجمة';
 
 $string['enable_end_to_end_encryption_features'] = 'تمكين التشفير من طرف إلى طرف (E2EE)';
+$string['enabled_self_insert_encryption_key'] = 'تفعيل مفتاح E2EE اليدوي';
 $string['included_e2ee_chat_messages'] = "تمكين التشفير للدردشة";
 $string['included_e2ee_whiteboard'] = "تمكين تشفير لوح المعلومات";
+
+$string['insights_features'] = 'رؤى الذكاء الاصطناعي';
+$string['insights_features_is_allow'] = 'تمكين ميزات الرؤية';
+$string['insights_transcription_features_is_allow'] = 'السماح بالنسخ';
+$string['insights_transcription_features_is_allow_translation'] = 'السماح بترجمة النسخ';
+$string['insights_transcription_features_is_allow_speech_synthesis'] = 'السماح بتوليف الكلام';
+$string['insights_chat_translation_features_is_allow'] = 'السماح بترجمة الدردشة';
+$string['insights_ai_features_is_allow'] = 'السماح بميزات الذكاء الاصطناعي';
+$string['insights_ai_text_chat_features_is_allow'] = 'السماح بالمحادثة النصية الذكاء الاصطناعي';
+$string['insights_ai_meeting_summarization_features_is_allow'] = 'السماح بتلخيص اجتماعات الذكاء الاصطناعي';

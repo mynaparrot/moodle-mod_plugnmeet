@@ -117,7 +117,7 @@ $string['allow_virtual_bg'] = '允许虚拟背景';
 $string['allow_raise_hand'] = '允许举手';
 $string['auto_gen_user_id'] = '自动生成 User ID';
 
-$string['other_features'] = '其他功能';
+$string['other_features'] = '高级功能';
 
 $string['recordingfeatures'] = '录制功能';
 $string['allow_recording'] = '允许录制';
@@ -208,8 +208,8 @@ $string['footer_color'] = '页脚颜色';
 $string['footer_color_des'] = '界面页脚颜色';
 $string['left_color'] = '左侧颜色';
 $string['left_color_des'] = '左侧栏颜色';
-$string['right_color'] = '右侧颜色';
-$string['right_color_des'] = '右侧栏颜色';
+$string['side_panel_bg_color'] = '侧面板背景色';
+$string['side_panel_bg_color_des'] = '右侧面板背景色';
 $string['column_camera_position'] = '列相机位置';
 $string['column_camera_position_des'] = '列摄像机位置。默认值：left';
 $string['column_camera_width'] = '柱式摄像机宽度';
@@ -219,5 +219,16 @@ $string['allow_speech_to_text_translation_features'] = '允许语音到文本/�
 $string['allow_speech_translation'] = '允许翻译';
 
 $string['enable_end_to_end_encryption_features'] = '启用端到端加密 （E2EE）';
+$string['enabled_self_insert_encryption_key'] = '启用手动E2EE密钥';
 $string['included_e2ee_chat_messages'] = "启用聊天加密";
 $string['included_e2ee_whiteboard'] = "为白板启用加密";
+
+$string['insights_features'] = '洞察人工智能';
+$string['insights_features_is_allow'] = '启用洞察功能';
+$string['insights_transcription_features_is_allow'] = '允许转录';
+$string['insights_transcription_features_is_allow_translation'] = '允许转录翻译';
+$string['insights_transcription_features_is_allow_speech_synthesis'] = '允许语音合成';
+$string['insights_chat_translation_features_is_allow'] = '允许聊天翻译';
+$string['insights_ai_features_is_allow'] = '允许AI功能';
+$string['insights_ai_text_chat_features_is_allow'] = '允许AI文本聊天';
+$string['insights_ai_meeting_summarization_features_is_allow'] = '允许AI会议摘要';

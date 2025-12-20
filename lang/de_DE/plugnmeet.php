@@ -117,7 +117,7 @@ $string['allow_virtual_bg'] = 'Virtuellen Hintergrund zulassen';
 $string['allow_raise_hand'] = 'Erlauben Sie das Heben der Hand';
 $string['auto_gen_user_id'] = 'Benutzer-ID automatisch generieren';
 
-$string['other_features'] = 'Weitere Funktionen';
+$string['other_features'] = 'Erweiterte Funktionen';
 
 $string['recordingfeatures'] = 'Funktionen für die Aufzeichnung';
 $string['allow_recording'] = 'Aufzeichnung zulassen';
@@ -208,8 +208,8 @@ $string['footer_color'] = 'Farbe der Fußzeile';
 $string['footer_color_des'] = 'Farbe der Fußzeile der Benutzeroberfläche';
 $string['left_color'] = 'Farbe der linken Seite';
 $string['left_color_des'] = 'Farbe der linken Seitenleiste';
-$string['right_color'] = 'Farbe der rechten Seite';
-$string['right_color_des'] = 'Farbe der rechten Seitenleiste';
+$string['side_panel_bg_color'] = 'Hintergrundfarbe des Seitenpanels';
+$string['side_panel_bg_color_des'] = 'Hintergrundfarbe des rechten Seitenpanels';
 $string['column_camera_position'] = 'Position der Säulenkamera';
 $string['column_camera_position_des'] = 'Position der Spaltenkamera. Standardeinstellung: links';
 $string['column_camera_width'] = 'Kamerabreite der Spalte';
@@ -219,5 +219,16 @@ $string['allow_speech_to_text_translation_features'] = 'Sprach-zu-Text-/Überset
 $string['allow_speech_translation'] = 'Übersetzung zulassen';
 
 $string['enable_end_to_end_encryption_features'] = 'Aktivieren der Ende-zu-Ende-Verschlüsselung (E2EE)';
+$string['enabled_self_insert_encryption_key'] = 'Manuelle E2EE-Taste aktivieren';
 $string['included_e2ee_chat_messages'] = "Aktivieren der Verschlüsselung für den Chat";
 $string['included_e2ee_whiteboard'] = "Aktivieren der Verschlüsselung für Whiteboards";
+
+$string['insights_features'] = 'Insights-KI';
+$string['insights_features_is_allow'] = 'Aktivieren Sie Insights-Funktionen';
+$string['insights_transcription_features_is_allow'] = 'Transkription erlauben';
+$string['insights_transcription_features_is_allow_translation'] = 'Erlauben Sie Transkriptionsübersetzung';
+$string['insights_transcription_features_is_allow_speech_synthesis'] = 'Sprachsynthese erlauben';
+$string['insights_chat_translation_features_is_allow'] = 'Chat-Übersetzung erlauben';
+$string['insights_ai_features_is_allow'] = 'KI-Funktionen erlauben';
+$string['insights_ai_text_chat_features_is_allow'] = 'KI-Textchat erlauben';
+$string['insights_ai_meeting_summarization_features_is_allow'] = 'KI-Zusammenfassung von Sitzungen ermöglichen';
