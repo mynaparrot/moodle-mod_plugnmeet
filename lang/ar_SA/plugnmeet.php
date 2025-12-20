@@ -117,7 +117,7 @@ $string['allow_virtual_bg'] = 'السماح بالخلفية الافتراضي�
 $string['allow_raise_hand'] = 'السماح برفع اليد';
 $string['auto_gen_user_id'] = 'إنشاء معرف المستخدم تلقائيا';
 
-$string['other_features'] = 'Advanced features';
+$string['other_features'] = 'الميزات المتقدمة';
 
 $string['recordingfeatures'] = 'ميزات التسجيل';
 $string['allow_recording'] = 'السماح بالتسجيل';
@@ -208,8 +208,8 @@ $string['footer_color'] = 'لون التذييل';
 $string['footer_color_des'] = 'لون تذييل الواجهة';
 $string['left_color'] = 'لون الجانب الأيسر';
 $string['left_color_des'] = 'لون شريط الجانب الأيسر';
-$string['side_panel_bg_color'] = 'Side Panel background color';
-$string['side_panel_bg_color_des'] = 'Right side panel background color';
+$string['side_panel_bg_color'] = 'لون خلفية اللوحة الجانبية';
+$string['side_panel_bg_color_des'] = 'لون خلفية اللوحة على الجانب الأيمن';
 $string['column_camera_position'] = 'موضع الكاميرا العمودية';
 $string['column_camera_position_des'] = 'موضع كاميرا العمود. الافتراضي: يسار';
 $string['column_camera_width'] = 'عرض كاميرا العمود';
@@ -219,16 +219,16 @@ $string['allow_speech_to_text_translation_features'] = 'السماح بميزا�
 $string['allow_speech_translation'] = 'السماح بالترجمة';
 
 $string['enable_end_to_end_encryption_features'] = 'تمكين التشفير من طرف إلى طرف (E2EE)';
-$string['enabled_self_insert_encryption_key'] = 'Enable manual E2EE key';
+$string['enabled_self_insert_encryption_key'] = 'تفعيل مفتاح E2EE اليدوي';
 $string['included_e2ee_chat_messages'] = "تمكين التشفير للدردشة";
 $string['included_e2ee_whiteboard'] = "تمكين تشفير لوح المعلومات";
 
-$string['insights_features'] = 'Insights AI';
-$string['insights_features_is_allow'] = 'Enable insights features';
-$string['insights_transcription_features_is_allow'] = 'Allow transcription';
-$string['insights_transcription_features_is_allow_translation'] = 'Allow transcription translation';
-$string['insights_transcription_features_is_allow_speech_synthesis'] = 'Allow speech synthesis';
-$string['insights_chat_translation_features_is_allow'] = 'Allow chat translation';
-$string['insights_ai_features_is_allow'] = 'Allow AI features';
-$string['insights_ai_text_chat_features_is_allow'] = 'Allow AI text chat';
-$string['insights_ai_meeting_summarization_features_is_allow'] = 'Allow AI meeting summarization';
+$string['insights_features'] = 'رؤى الذكاء الاصطناعي';
+$string['insights_features_is_allow'] = 'تمكين ميزات الرؤية';
+$string['insights_transcription_features_is_allow'] = 'السماح بالنسخ';
+$string['insights_transcription_features_is_allow_translation'] = 'السماح بترجمة النسخ';
+$string['insights_transcription_features_is_allow_speech_synthesis'] = 'السماح بتوليف الكلام';
+$string['insights_chat_translation_features_is_allow'] = 'السماح بترجمة الدردشة';
+$string['insights_ai_features_is_allow'] = 'السماح بميزات الذكاء الاصطناعي';
+$string['insights_ai_text_chat_features_is_allow'] = 'السماح بالمحادثة النصية الذكاء الاصطناعي';
+$string['insights_ai_meeting_summarization_features_is_allow'] = 'السماح بتلخيص اجتماعات الذكاء الاصطناعي';
