@@ -49,23 +49,19 @@ class mod_plugnmeet_get_recordings extends external_api {
     }
 
     /**
+     * @param $instanceid
      * @param $roomid
      * @param $from
      * @param $limit
      * @param $orderby
      * @return array
+     * @throws coding_exception
      * @throws dml_exception
      */
     public static function get_recordings($instanceid, $roomid, $from, $limit, $orderby) {
         $result = array(
             "status" => false,
-            "result" => array (
-                'total_recordings' => 0,
-                'from' => 0,
-                'limit' => 20,
-                'order_by' => 'DESC',
-                'recordings_list' => null
-            )
+            "result" => ""
         );
         $cm = get_coursemodule_from_instance('plugnmeet', $instanceid, 0, false, MUST_EXIST);
         $context = context_module::instance($cm->id);
@@ -87,7 +83,8 @@ class mod_plugnmeet_get_recordings extends external_api {
 
             $result['status'] = $res->getStatus();
             $result['msg'] = $res->getMsg();
-            if ($result['status']) {
+            $result['result'] = "";
+            if ($res->getStatus()) {
                 $result['result'] = $res->getResult()->serializeToJsonString();
             }
         } catch (Exception $e) {
