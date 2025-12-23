@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v2.0.0...v2.0.1) (2025-12-23)
+
+
+### Bug Fixes
+
+* bug for invalid response ([718bb32](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/718bb3232587acdd8c0fb27fc00667d55b96c77c))
+
 ## [2.0.0](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v2.0.0...v2.0.0) (2025-12-20)
 
 
