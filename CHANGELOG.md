@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v2.0.1...v2.0.2) (2026-01-09)
+
+
+### Bug Fixes
+
+* bump SDK ([05cc91c](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/05cc91cb8ce26edd3cec6ec97dee32389a0b9b58))
+
 ## [2.0.1](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v2.0.0...v2.0.1) (2025-12-23)
 
 
