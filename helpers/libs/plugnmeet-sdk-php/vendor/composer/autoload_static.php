@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd70491718715c295c580a0b85fbd69bb
+class ComposerStaticInit62f2446b5022375b28479055575ae97d
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -499,6 +499,7 @@ class ComposerStaticInitd70491718715c295c580a0b85fbd69bb
         'Livekit\\DisabledCodecs' => __DIR__ . '/../..' . '/src/gen/Livekit/DisabledCodecs.php',
         'Livekit\\DisconnectReason' => __DIR__ . '/../..' . '/src/gen/Livekit/DisconnectReason.php',
         'Livekit\\DisconnectWhatsAppCallRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DisconnectWhatsAppCallRequest.php',
+        'Livekit\\DisconnectWhatsAppCallRequest\\DisconnectReason' => __DIR__ . '/../..' . '/src/gen/Livekit/DisconnectWhatsAppCallRequest/DisconnectReason.php',
         'Livekit\\DisconnectWhatsAppCallResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/DisconnectWhatsAppCallResponse.php',
         'Livekit\\EgressInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/EgressInfo.php',
         'Livekit\\EgressSourceType' => __DIR__ . '/../..' . '/src/gen/Livekit/EgressSourceType.php',
@@ -622,6 +623,7 @@ class ComposerStaticInitd70491718715c295c580a0b85fbd69bb
         'Livekit\\PublishDataTrackResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/PublishDataTrackResponse.php',
         'Livekit\\PurchasePhoneNumberRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/PurchasePhoneNumberRequest.php',
         'Livekit\\PurchasePhoneNumberResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/PurchasePhoneNumberResponse.php',
+        'Livekit\\PushTextRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/PushTextRequest.php',
         'Livekit\\RTCPSenderReportState' => __DIR__ . '/../..' . '/src/gen/Livekit/RTCPSenderReportState.php',
         'Livekit\\RTPDrift' => __DIR__ . '/../..' . '/src/gen/Livekit/RTPDrift.php',
         'Livekit\\RTPForwarderState' => __DIR__ . '/../..' . '/src/gen/Livekit/RTPForwarderState.php',
@@ -728,6 +730,8 @@ class ComposerStaticInitd70491718715c295c580a0b85fbd69bb
         'Livekit\\SubscriptionPermissionUpdate' => __DIR__ . '/../..' . '/src/gen/Livekit/SubscriptionPermissionUpdate.php',
         'Livekit\\SubscriptionResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/SubscriptionResponse.php',
         'Livekit\\SyncState' => __DIR__ . '/../..' . '/src/gen/Livekit/SyncState.php',
+        'Livekit\\TextMessageRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/TextMessageRequest.php',
+        'Livekit\\TextMessageResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/TextMessageResponse.php',
         'Livekit\\TimeRange' => __DIR__ . '/../..' . '/src/gen/Livekit/TimeRange.php',
         'Livekit\\TimeSeriesMetric' => __DIR__ . '/../..' . '/src/gen/Livekit/TimeSeriesMetric.php',
         'Livekit\\TimedVersion' => __DIR__ . '/../..' . '/src/gen/Livekit/TimedVersion.php',
@@ -1159,9 +1163,9 @@ class ComposerStaticInitd70491718715c295c580a0b85fbd69bb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd70491718715c295c580a0b85fbd69bb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd70491718715c295c580a0b85fbd69bb::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd70491718715c295c580a0b85fbd69bb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit62f2446b5022375b28479055575ae97d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit62f2446b5022375b28479055575ae97d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit62f2446b5022375b28479055575ae97d::$classMap;
 
         }, null, ClassLoader::class);
     }

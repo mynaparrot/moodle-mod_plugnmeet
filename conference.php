@@ -53,6 +53,9 @@ if ($config->client_load === "1") {
     $jsfiles = $files->getJSFiles() ?? [];
     $cssfiles = $files->getCSSFiles() ?? [];
     $path = $config->plugnmeet_server_url . "/assets";
+    if (!empty($files->getStaticAssetsPath())) {
+        $path = $files->getStaticAssetsPath();
+    }
 } else {
     $clientpath = $CFG->dirroot . "/mod/plugnmeet/pix/client/dist/assets";
     $jsfiles = preg_grep('~\.(js)$~', scandir($clientpath . "/js", SCANDIR_SORT_DESCENDING));
