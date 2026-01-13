@@ -98,7 +98,7 @@ defined('MOODLE_INTERNAL') || die();
                                 '<td class="center">' +
                                 new Date(recording.roomCreationTime * 1e3).toLocaleString() +
                                 '</td>';
-                            html += '<td class="center">' + recording.fileSize + '</td>';
+                            html += '<td class="center">' + recording.fileSize.toFixed(2) + '</td>';
 
                             html += '<td class="center"><button onclick="playRecording(event, ' + i + ')" class="btn btn-success btn-sm playRecording" id="' +
                                 recording.recordId +
