@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.3](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v2.0.2...v2.0.3) (2026-01-13)
+
+
+### Bug Fixes
+
+* use `toFixed(2)` for recording file size ([355d1f1](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/355d1f11692e0bf71e21ce81b0b9c099fea85037))
+
 ## [2.0.2](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v2.0.1...v2.0.2) (2026-01-09)
 
 
