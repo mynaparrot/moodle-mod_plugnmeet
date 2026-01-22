@@ -223,6 +223,11 @@ $string['enabled_self_insert_encryption_key'] = '启用手动E2EE密钥';
 $string['included_e2ee_chat_messages'] = "启用聊天加密";
 $string['included_e2ee_whiteboard'] = "为白板启用加密";
 
+$string['sip_dial_in_features'] = "SIP/VoIP dial in features";
+$string['sip_dial_in_features_is_allow'] = "Allow SIP/VoIP dial in";
+$string['enable_dial_in_on_create'] = "Enable dial in on create";
+$string['hide_phone_number'] = "Hide phone number";
+
 $string['insights_features'] = '洞察人工智能';
 $string['insights_features_is_allow'] = '启用洞察功能';
 $string['insights_transcription_features_is_allow'] = '允许转录';
