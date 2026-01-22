@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.1.0](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v2.0.3...v2.1.0) (2026-01-22)
+
+
+### Features
+
+* SIP/VoIP dial in ([d8542ff](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/d8542ffe32810627121d0820290f192d4529ea27))
+
+
+### Bug Fixes
+
+* adjust design ([e42f061](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/e42f0616af75ebdfe61df340f515a667406ef55a))
+* disable by default ([5b8f4cc](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/5b8f4cce1a6f5f52b241ca56115a96f4601f150b))
+* **locale:** new Crowdin updates ([87c769e](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/87c769e85035db39c3ff68b5726f91051c1eb9bd))
+
 ## [2.0.3](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v2.0.2...v2.0.3) (2026-01-13)
 
 
