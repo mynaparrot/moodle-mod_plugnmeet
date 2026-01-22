@@ -685,7 +685,7 @@ class PlugNmeetHelper {
                     0 => get_string("no", "mod_plugnmeet"),
                     1 => get_string("yes", "mod_plugnmeet")
                 ),
-                "selected" => 1,
+                "selected" => 0,
                 "type" => "select"
             ),
             "enable_dial_in_on_create" => array(
