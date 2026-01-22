@@ -26,13 +26,13 @@ defined('MOODLE_INTERNAL') || die();
 ?>
 
 <div class="mb-6 row">
-    <div class="join mr-6 col">
+    <div class="join col-auto">
         <button onclick="join(event)" id="joinBtn"
                 class='btn btn-success btn-lg'><?php echo get_string('join', 'plugnmeet'); ?>
         </button>
     </div>
     <?php if ($canedit): ?>
-        <div class="end col" style="display: none">
+        <div class="end col-auto" style="display: none">
             <button onclick="endRoom(event)" id="endBtn"
                     class='btn btn-danger btn-lg'><?php echo get_string('end', 'plugnmeet'); ?></button>
         </div>

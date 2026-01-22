@@ -33,6 +33,7 @@ defined('MOODLE_INTERNAL') || die();
             <th scope="col"><?php echo get_string('recording_date', 'plugnmeet'); ?></th>
             <th scope="col"><?php echo get_string('meeting_date', 'plugnmeet'); ?></th>
             <th scope="col"><?php echo get_string('file_size', 'plugnmeet'); ?></th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody id="recordingListsBody"></tbody>
@@ -100,24 +101,26 @@ defined('MOODLE_INTERNAL') || die();
                                 '</td>';
                             html += '<td class="center">' + recording.fileSize.toFixed(2) + '</td>';
 
-                            html += '<td class="center"><button onclick="playRecording(event, ' + i + ')" class="btn btn-success btn-sm playRecording" id="' +
+                            html += '<td class="center">';
+
+                            html += '<button onclick="playRecording(event, ' + i + ')" class="btn btn-success btn-sm playRecording" id="' +
                                 recording.recordId +
-                                '"><?php echo get_string('play', 'plugnmeet'); ?></button></td>';
+                                '"><?php echo get_string('play', 'plugnmeet'); ?></button>';
 
                             if (!canDownload && !canEdit) {
                                 // don't show
                             } else {
-                                html += '<td class="center"><button onclick="downloadRecording(event)" class="btn btn-success btn-sm downloadRecording" id="' +
+                                html += ' <button onclick="downloadRecording(event)" class="btn btn-success btn-sm downloadRecording" id="' +
                                     recording.recordId +
-                                    '"><?php echo get_string('download', 'plugnmeet'); ?></button></td>';
+                                    '"><?php echo get_string('download', 'plugnmeet'); ?></button>';
                             }
 
                             if (canEdit) {
-                                html += '<td class="center"><button onclick="deleteRecording(event)" class="btn btn-danger btn-sm deleteRecording" id="' +
+                                html += ' <button onclick="deleteRecording(event)" class="btn btn-danger btn-sm deleteRecording" id="' +
                                     recording.recordId +
-                                    '"><?php echo get_string('delete', 'plugnmeet'); ?></button></td>';
+                                    '"><?php echo get_string('delete', 'plugnmeet'); ?></button>';
                             }
-
+                            html += '</td>';
                             html += '</tr>';
                         }
 
@@ -149,7 +152,7 @@ defined('MOODLE_INTERNAL') || die();
         html += '</ul></nav>';
 
         document.getElementById('recordingListsFooter').innerHTML =
-            '<tr><td colspan="5"> ' + html + ' </td></tr>';
+            '<tr><td colspan="4"> ' + html + ' </td></tr>';
     }
 
     let showPre = false,
@@ -205,7 +208,7 @@ defined('MOODLE_INTERNAL') || die();
         document.getElementById('recordingListsBody').innerHTML =
             '<tr>' +
             '<td ' +
-            'colspan="6" ' +
+            'colspan="4" ' +
             'class="center">' +
             msg +
             '</td>' +
