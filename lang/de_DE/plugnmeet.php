@@ -223,6 +223,11 @@ $string['enabled_self_insert_encryption_key'] = 'Manuelle E2EE-Taste aktivieren'
 $string['included_e2ee_chat_messages'] = "Aktivieren der Verschlüsselung für den Chat";
 $string['included_e2ee_whiteboard'] = "Aktivieren der Verschlüsselung für Whiteboards";
 
+$string['sip_dial_in_features'] = "SIP/VoIP-Einwahlfunktionen";
+$string['sip_dial_in_features_is_allow'] = "SIP/VoIP-Einwahl erlauben";
+$string['enable_dial_in_on_create'] = "Aktivieren Sie das Einwählen beim Erstellen";
+$string['hide_phone_number'] = "Telefonnummer ausblenden";
+
 $string['insights_features'] = 'Insights-KI';
 $string['insights_features_is_allow'] = 'Aktivieren Sie Insights-Funktionen';
 $string['insights_transcription_features_is_allow'] = 'Transkription erlauben';

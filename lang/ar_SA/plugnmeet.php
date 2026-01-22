@@ -223,6 +223,11 @@ $string['enabled_self_insert_encryption_key'] = 'تفعيل مفتاح E2EE ال
 $string['included_e2ee_chat_messages'] = "تمكين التشفير للدردشة";
 $string['included_e2ee_whiteboard'] = "تمكين تشفير لوح المعلومات";
 
+$string['sip_dial_in_features'] = "ميزات الاتصال ب SIP/VoIP";
+$string['sip_dial_in_features_is_allow'] = "السماح بالاتصال ب SIP/VoIP";
+$string['enable_dial_in_on_create'] = "تفعيل الاتصال عند إنشاء";
+$string['hide_phone_number'] = "إخفاء رقم الهاتف";
+
 $string['insights_features'] = 'رؤى الذكاء الاصطناعي';
 $string['insights_features_is_allow'] = 'تمكين ميزات الرؤية';
 $string['insights_transcription_features_is_allow'] = 'السماح بالنسخ';
