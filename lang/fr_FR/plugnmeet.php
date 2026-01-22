@@ -223,10 +223,10 @@ $string['enabled_self_insert_encryption_key'] = 'Activer la touche manuelle E2EE
 $string['included_e2ee_chat_messages'] = "Activer le chiffrement pour le chat";
 $string['included_e2ee_whiteboard'] = "Activer le chiffrement pour le tableau blanc";
 
-$string['sip_dial_in_features'] = "SIP/VoIP dial in features";
-$string['sip_dial_in_features_is_allow'] = "Allow SIP/VoIP dial in";
-$string['enable_dial_in_on_create'] = "Enable dial in on create";
-$string['hide_phone_number'] = "Hide phone number";
+$string['sip_dial_in_features'] = "Fonctionnalités de réglage SIP/VoIP";
+$string['sip_dial_in_features_is_allow'] = "Autoriser le SIP/VoIP à l’appel";
+$string['enable_dial_in_on_create'] = "Activer le dial-in lors de la création";
+$string['hide_phone_number'] = "Masquer le numéro de téléphone";
 
 $string['insights_features'] = 'IA des insights';
 $string['insights_features_is_allow'] = 'Activer les fonctionnalités d’insights';
