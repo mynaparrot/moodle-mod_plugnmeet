@@ -671,6 +671,61 @@ class PlugNmeetHelper {
         self::format_html($e2eefeatures, "end_to_end_encryption_features", $data, $mform);
     }
 
+    /**
+     * @param $roommetadata
+     * @param $mform
+     * @return void
+     * @throws coding_exception
+     */
+    public static function get_sip_dial_in_features($roommetadata, $mform) {
+        $sipdialinfeatures = array(
+            "is_allow" => array(
+                "label" => get_string("sip_dial_in_features_is_allow", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 1,
+                "type" => "select"
+            ),
+            "enable_dial_in_on_create" => array(
+                "label" => get_string("enable_dial_in_on_create", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "sip_dial_in_features[is_allow]",
+                    "condition" => "eq",
+                    "value" => "0"
+                )
+            ),
+            "hide_phone_number" => array(
+                "label" => get_string("hide_phone_number", "mod_plugnmeet"),
+                "options" => array(
+                    0 => get_string("no", "mod_plugnmeet"),
+                    1 => get_string("yes", "mod_plugnmeet")
+                ),
+                "selected" => 0,
+                "type" => "select",
+                "disable_if" => array(
+                    "depend_on" => "sip_dial_in_features[is_allow]",
+                    "condition" => "eq",
+                    "value" => "0"
+                )
+            ),
+        );
+
+        $data = [];
+        if (isset($roommetadata["sip_dial_in_features"])) {
+            $data = $roommetadata["sip_dial_in_features"];
+        }
+
+        self::format_html($sipdialinfeatures, "sip_dial_in_features", $data, $mform);
+    }
+
     /*
     * @param $roommetadata
     * @param $mform

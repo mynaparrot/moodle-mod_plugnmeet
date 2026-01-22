@@ -57,8 +57,8 @@ function get_room_metadata_items() {
         'external_media_player_features', 'waiting_room_features',
         'breakout_room_features', 'display_external_link_features',
         'ingress_features', 'end_to_end_encryption_features',
-        'insights_features', 'polls_features', 'default_lock_settings',
-        'custom_design'
+        'insights_features', 'polls_features', 'sip_dial_in_features',
+        'default_lock_settings', 'custom_design'
     );
 }
 

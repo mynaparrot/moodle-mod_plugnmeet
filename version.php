@@ -28,6 +28,6 @@ $plugin->component = 'mod_plugnmeet';
 // x-release-please-start-version
 $plugin->release = '2.0.3';
 // x-release-please-end
-$plugin->version = 2026011301;
+$plugin->version = 2026012201;
 $plugin->requires = 2021051700;
 $plugin->maturity = MATURITY_STABLE;

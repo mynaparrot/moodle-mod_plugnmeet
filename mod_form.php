@@ -121,6 +121,9 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         PlugNmeetHelper::get_polls_features($roommetadata, $mform);
 
         $mform->addElement('html', '<hr />');
+        PlugNmeetHelper::get_insights_features($roommetadata, $mform);
+
+        $mform->addElement('html', '<hr />');
         PlugNmeetHelper::get_end_to_end_encryption_features($roommetadata, $mform);
 
         $mform->addElement('header', 'insights_features', get_string('insights_features', 'mod_plugnmeet'));
