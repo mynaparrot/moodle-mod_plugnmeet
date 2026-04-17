@@ -1,4 +1,4 @@
-define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function ($, ajax, notification, templates) {
+define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function($, ajax, notification, templates) {
     "use strict";
 
     const pollingInterval = 60 * 1000; // 1 minute
@@ -14,11 +14,14 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function 
 
     const renderRoomInfo = function(data, canManage) {
         const context = {
+            // eslint-disable-next-line camelcase
             room_info: data.room_info,
+            // eslint-disable-next-line camelcase
             participants_info: data.participants_info,
+            // eslint-disable-next-line camelcase
             has_participants: data.participants_info && data.participants_info.length > 0,
         };
-        templates.render('mod_plugnmeet/room_info_tables', context).done(function (html) {
+        templates.render('mod_plugnmeet/room_info_tables', context).done(function(html) {
             $('#live_session_info').html(html);
             if (canManage && data.room_info) {
                 $('#end_room_button').show();

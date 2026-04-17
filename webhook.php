@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Webhook handler for PlugNmeet events.
@@ -8,6 +22,10 @@
  * @copyright   2026 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+// We need to allow direct access for this file
+// phpcs:disable moodle.Files.MoodleInternal.MoodleInternalGlobalState,moodle.Files.RequireLogin.Missing
+require_once(__DIR__ . '/../../config.php');
 
 use mod_plugnmeet\helper\CompletionHelper;
 use mod_plugnmeet\helper\plugNmeetConnect;
@@ -24,8 +42,6 @@ if (empty($hash)) {
     http_response_code(401);
     return;
 }
-
-require_once(__DIR__ . '/../../config.php');
 
 $config = get_config('mod_plugnmeet');
 
@@ -56,14 +72,13 @@ try {
     $webhook = new CommonNotifyEvent();
     $webhook->mergeFromJsonString($entitybody);
 
-    $event_type = $webhook->getEvent();
     $id = required_param('id', PARAM_INT);
-
     $plugnmeet = $DB->get_record('plugnmeet', ['id' => $id], '*', MUST_EXIST);
     $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id, 0, false, MUST_EXIST);
     $context = context_module::instance($cm->id);
 
-    switch ($event_type) {
+    $eventtype = $webhook->getEvent();
+    switch ($eventtype) {
         case 'participant_joined':
             $userid = $webhook->getParticipant()->getIdentity();
             if (is_numeric($userid)) {
@@ -73,7 +88,7 @@ try {
                 $event = \mod_plugnmeet\event\participant_joined::create([
                     'context' => $context,
                     'objectid' => $plugnmeet->id,
-                    'userid' => (int)$userid
+                    'userid' => (int)$userid,
                 ]);
                 $event->trigger();
             }
@@ -86,7 +101,7 @@ try {
                 $event = \mod_plugnmeet\event\participant_left::create([
                     'context' => $context,
                     'objectid' => $plugnmeet->id,
-                    'userid' => (int)$userid
+                    'userid' => (int)$userid,
                 ]);
                 $event->trigger();
             }
@@ -104,22 +119,22 @@ try {
                 'objectid' => $plugnmeet->id,
                 'other' => [
                     'artifact_id' => $artifact->getArtifactId(),
-                    'type' => RoomArtifactType::name($artifact->getType())
-                ]
+                    'type' => RoomArtifactType::name($artifact->getType()),
+                ],
             ]);
             $event->trigger();
             break;
 
         case 'recording_proceeded':
-            $recording = $webhook->getRecording();
+            $recording = $webhook->getRecordingInfo();
 
             // Trigger Moodle Event.
             $event = \mod_plugnmeet\event\recording_proceeded::create([
                 'context' => $context,
                 'objectid' => $plugnmeet->id,
                 'other' => [
-                    'recording_id' => $recording->getRecordId()
-                ]
+                    'recording_id' => $recording->getRecordId(),
+                ],
             ]);
             $event->trigger();
             break;
@@ -128,7 +143,7 @@ try {
             // Trigger Moodle Event.
             $event = \mod_plugnmeet\event\room_created::create([
                 'context' => $context,
-                'objectid' => $plugnmeet->id
+                'objectid' => $plugnmeet->id,
             ]);
             $event->trigger();
             break;
@@ -137,7 +152,7 @@ try {
             // Trigger Moodle Event.
             $event = \mod_plugnmeet\event\room_started::create([
                 'context' => $context,
-                'objectid' => $plugnmeet->id
+                'objectid' => $plugnmeet->id,
             ]);
             $event->trigger();
             break;
@@ -146,7 +161,7 @@ try {
             // Trigger Moodle Session Ended Event.
             $event = \mod_plugnmeet\event\session_ended::create([
                 'context' => $context,
-                'objectid' => $plugnmeet->id
+                'objectid' => $plugnmeet->id,
             ]);
             $event->trigger();
             break;
@@ -155,13 +170,12 @@ try {
             // Trigger Moodle Room Ended Event.
             $event = \mod_plugnmeet\event\room_ended::create([
                 'context' => $context,
-                'objectid' => $plugnmeet->id
+                'objectid' => $plugnmeet->id,
             ]);
             $event->trigger();
             break;
     }
-
-} catch (Exception $e){
+} catch (Exception $e) {
     http_response_code(500);
     return;
 }

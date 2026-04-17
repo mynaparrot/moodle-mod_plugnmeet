@@ -6,7 +6,7 @@
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Moodle is distributed in the hope that it will be website,
+// Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -34,13 +34,13 @@ use mod_plugnmeet\helper\plugNmeetConnect;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($GLOBALS['CFG']->libdir . '/externallib.php');
+global $CFG;
+require_once($CFG->libdir . '/externallib.php');
 
 /**
  * Class for getting a join token external API.
  */
 class get_join_token extends external_api {
-
     /**
      * Parameters for the execute method.
      * @return external_function_parameters
@@ -73,14 +73,14 @@ class get_join_token extends external_api {
         if ($plugnmeet->available && $timenow < $plugnmeet->available && !$isadmin) {
             return [
                 'status' => false,
-                'msg' => get_string('session_not_started_yet', 'mod_plugnmeet')
+                'msg' => get_string('session_not_started_yet', 'mod_plugnmeet'),
             ];
         }
 
         if ($plugnmeet->deadline && $timenow > $plugnmeet->deadline) {
             return [
                 'status' => false,
-                'msg' => get_string('session_ended', 'mod_plugnmeet')
+                'msg' => get_string('session_ended', 'mod_plugnmeet'),
             ];
         }
 
@@ -88,34 +88,34 @@ class get_join_token extends external_api {
         $connect = new plugNmeetConnect($config);
 
         // 1. Check if room is active.
-        $is_active_res = $connect->isRoomActive($plugnmeet->roomid);
-        if (!$is_active_res->getStatus()) {
+        $isactiveres = $connect->isRoomActive($plugnmeet->roomid);
+        if (!$isactiveres->getStatus()) {
             return [
                 'status' => false,
-                'msg' => $is_active_res->getMsg()
+                'msg' => $isactiveres->getMsg(),
             ];
         }
 
-        if (!$is_active_res->getIsActive()) {
+        if (!$isactiveres->getIsActive()) {
             // Room is not active.
             if (!$isadmin) {
                 // Not a moderator, check if moderator must join first.
                 $roommetadata = json_decode($plugnmeet->roommetadata, true) ?: [];
-                $moderator_join_first = $roommetadata['room_features']['moderator_join_first'] ?? 0;
+                $moderatorjoinfirst = $roommetadata['room_features']['moderator_join_first'] ?? 0;
 
-                if ($moderator_join_first) {
+                if ($moderatorjoinfirst) {
                     return [
                         'status' => false,
-                        'msg' => get_string('moderator_not_joined', 'mod_plugnmeet')
+                        'msg' => get_string('moderator_not_joined', 'mod_plugnmeet'),
                     ];
                 }
             }
 
             // Room is not active but user is admin or moderator_join_first is disabled.
             // Create the room first.
-            $create_res = create_room::execute($plugnmeet->id);
-            if (!$create_res['status']) {
-                return $create_res;
+            $createres = create_room::execute($plugnmeet->id);
+            if (!$createres['status']) {
+                return $createres;
             }
         }
 
@@ -126,14 +126,14 @@ class get_join_token extends external_api {
         $result = ['status' => $res->getStatus(), 'msg' => $res->getMsg()];
         if ($result['status']) {
             // Generate meeting URL.
-            $server_url = rtrim($config->plugnmeet_server_url, '/');
+            $serverurl = rtrim($config->plugnmeet_server_url, '/');
             if ($config->client_load === "1") {
                 $result['url'] = (new \moodle_url('/mod/plugnmeet/conference.php', [
                     'access_token' => $res->getToken(),
-                    'id' => $cm->id
+                    'id' => $cm->id,
                 ]))->out(false);
             } else {
-                $result['url'] = $server_url . '/?access_token=' . $res->getToken();
+                $result['url'] = $serverurl . '/?access_token=' . $res->getToken();
             }
         }
 

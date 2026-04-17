@@ -34,58 +34,87 @@ if ($hassiteconfig) {
         'mod_plugnmeet/plugnmeet_server_url',
         get_string('server_url', 'mod_plugnmeet'),
         get_string('server_url_desc', 'mod_plugnmeet'),
-        'https://demo.plugnmeet.com', PARAM_URL));
+        'https://demo.plugnmeet.com',
+        PARAM_URL
+    ));
 
     $settings->add(new admin_setting_configtext(
         'mod_plugnmeet/plugnmeet_api_key',
         get_string('api_key', 'mod_plugnmeet'),
         get_string('api_key_desc', 'mod_plugnmeet'),
-        'plugnmeet', PARAM_TEXT));
+        'plugnmeet',
+        PARAM_TEXT
+    ));
 
     $settings->add(new admin_setting_configpasswordunmask(
         'mod_plugnmeet/plugnmeet_secret',
         get_string('api_secret', 'mod_plugnmeet'),
         get_string('api_secret_desc', 'mod_plugnmeet'),
-        'zumyyYWqv7KR2kUqvYdq4z4sXg7XTBD2ljT6', PARAM_TEXT));
+        'zumyyYWqv7KR2kUqvYdq4z4sXg7XTBD2ljT6',
+        PARAM_TEXT
+    ));
 
     // Technical Defaults
-    $settings->add(new admin_setting_heading('mod_plugnmeet/defaults', get_string('defaults', 'mod_plugnmeet'), get_string('defaults_desc', 'mod_plugnmeet')));
+    $settings->add(new admin_setting_heading(
+        'mod_plugnmeet/defaults',
+        get_string('defaults', 'mod_plugnmeet'),
+        get_string('defaults_desc', 'mod_plugnmeet')
+    ));
 
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/enable_dynacast',
         get_string('enable_dynacast', 'mod_plugnmeet'),
         get_string('enable_dynacast_des', 'mod_plugnmeet'),
-        1, [1 => get_string('yes'), 0 => get_string('no')]));
+        1,
+        [1 => get_string('yes'), 0 => get_string('no')]
+    ));
 
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/enable_simulcast',
         get_string('enable_simulcast', 'mod_plugnmeet'),
         get_string('enable_simulcast_des', 'mod_plugnmeet'),
-        1, [1 => get_string('yes'), 0 => get_string('no')]));
+        1,
+        [1 => get_string('yes'), 0 => get_string('no')]
+    ));
 
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/video_codec',
         get_string('video_codec', 'mod_plugnmeet'),
         get_string('video_codec_des', 'mod_plugnmeet'),
-        'vp8', ["vp8" => "vp8", "h264" => "h264", "av1" => "av1", "vp9" => "vp9"]));
+        'vp8',
+        ["vp8" => "vp8", "h264" => "h264", "av1" => "av1", "vp9" => "vp9"]
+    ));
 
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/default_webcam_resolution',
         get_string('default_webcam_resolution', 'mod_plugnmeet'),
         get_string('default_webcam_resolution_des', 'mod_plugnmeet'),
-        'h720', ["h90" => "h90", "h180" => "h180", "h216" => "h216", "h360" => "h360", "h540" => "h540", "h720" => "h720", "h1080" => "h1080", "h1440" => "h1440", "h2160" => "h2160"]));
+        'h720',
+        ["h90" => "h90", "h180" => "h180", "h216" => "h216",
+            "h360" => "h360", "h540" => "h540", "h720" => "h720",
+            "h1080" => "h1080", "h1440" => "h1440",
+        "h2160" => "h2160"]
+    ));
 
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/default_screen_share_resolution',
         get_string('default_screen_share_resolution', 'mod_plugnmeet'),
         get_string('default_screen_share_resolution_des', 'mod_plugnmeet'),
-        'h1080fps15', ["h360fps3" => "h360fps3", "h720fps5" => "h720fps5", "h720fps15" => "h720fps15", "h1080fps15" => "h1080fps15", "h1080fps30" => "h1080fps30"]));
+        'h1080fps15',
+        ["h360fps3" => "h360fps3", "h720fps5" => "h720fps5",
+            "h720fps15" => "h720fps15", "h1080fps15" => "h1080fps15",
+        "h1080fps30" => "h1080fps30"]
+    ));
 
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/default_audio_preset',
         get_string('default_audio_preset', 'mod_plugnmeet'),
         get_string('default_audio_preset_des', 'mod_plugnmeet'),
-        'music', ["telephone" => "telephone", "speech" => "speech", "music" => "music", "musicStereo" => "musicStereo", "musicHighQuality" => "musicHighQuality", "musicHighQualityStereo" => "musicHighQualityStereo"]));
+        'music',
+        ["telephone" => "telephone", "speech" => "speech", "music" => "music",
+            "musicStereo" => "musicStereo", "musicHighQuality" => "musicHighQuality",
+        "musicHighQualityStereo" => "musicHighQualityStereo"]
+    ));
 
     // Branding and Customization
     $settings->add(new admin_setting_heading('mod_plugnmeet/branding', get_string('branding', 'mod_plugnmeet'), ''));
@@ -94,72 +123,87 @@ if ($hassiteconfig) {
         'mod_plugnmeet/custom_logo',
         get_string('custom_logo', 'mod_plugnmeet'),
         get_string('custom_logo_des', 'mod_plugnmeet'),
-        'custom_logo', 0,
-        ['maxfiles' => 1, 'accepted_types' => ['.png', '.jpg', '.svg']]));
+        'custom_logo',
+        0,
+        ['maxfiles' => 1, 'accepted_types' => ['.png', '.jpg', '.svg']]
+    ));
 
     $settings->add(new admin_setting_configtext(
         'mod_plugnmeet/custom_css_url',
         get_string('custom_css_url', 'plugnmeet'),
         get_string('custom_css_url_des', 'plugnmeet'),
-        "", PARAM_URL));
+        "",
+        PARAM_URL
+    ));
 
     $settings->add(new admin_setting_configcolourpicker(
         'mod_plugnmeet/primary_color',
         get_string('primary_color', 'plugnmeet'),
         get_string('primary_color_des', 'plugnmeet'),
-        ''));
+        ''
+    ));
 
     $settings->add(new admin_setting_configcolourpicker(
         'mod_plugnmeet/secondary_color',
         get_string('secondary_color', 'plugnmeet'),
         get_string('secondary_color_des', 'plugnmeet'),
-        ''));
+        ''
+    ));
 
     $settings->add(new admin_setting_configcolourpicker(
         'mod_plugnmeet/background_color',
         get_string('background_color', 'plugnmeet'),
         get_string('background_color_des', 'plugnmeet'),
-        ''));
+        ''
+    ));
 
     $settings->add(new admin_setting_configstoredfile(
         'mod_plugnmeet/background_image',
         get_string('background_image', 'plugnmeet'),
-        get_string('background_image_des', 'plugnmeet'), 'background_image',
+        get_string('background_image_des', 'plugnmeet'),
+        'background_image',
         0,
-        array('maxfiles' => 1, 'accepted_types' => array('.png', '.jpg'))));
+        ['maxfiles' => 1, 'accepted_types' => ['.png', '.jpg']]
+    ));
 
     $settings->add(new admin_setting_configcolourpicker(
         'mod_plugnmeet/header_color',
         get_string('header_color', 'plugnmeet'),
         get_string('header_color_des', 'plugnmeet'),
-        ''));
+        ''
+    ));
 
     $settings->add(new admin_setting_configcolourpicker(
         'mod_plugnmeet/footer_color',
         get_string('footer_color', 'plugnmeet'),
         get_string('footer_color_des', 'plugnmeet'),
-        ''));
+        ''
+    ));
 
     $settings->add(new admin_setting_configcolourpicker(
         'mod_plugnmeet/side_panel_bg_color',
         get_string('side_panel_bg_color', 'plugnmeet'),
         get_string('side_panel_bg_color_des', 'plugnmeet'),
-        ''));
+        ''
+    ));
 
     $settings->add(new admin_setting_configtext(
         'mod_plugnmeet/copyright_text',
         get_string('copyright_text', 'plugnmeet'),
         get_string('copyright_text_des', 'plugnmeet'),
         "Powered by <a href=\"https://www.plugnmeet.org\" target=\"_blank\">plugNmeet</a>",
-        PARAM_RAW));
+        PARAM_RAW
+    ));
 
-    $loadclient = array(
+    $loadclient = [
         1 => get_string('local', 'mod_plugnmeet'),
-        2 => get_string('remote', 'mod_plugnmeet')
-    );
+        2 => get_string('remote', 'mod_plugnmeet'),
+    ];
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/client_load',
         get_string('client_load', 'mod_plugnmeet'),
         get_string('client_load_des', 'mod_plugnmeet'),
-        1, $loadclient));
+        1,
+        $loadclient
+    ));
 }

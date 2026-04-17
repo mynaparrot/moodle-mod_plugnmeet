@@ -6,7 +6,7 @@
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Moodle is distributed in the hope that it will be website,
+// Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -25,13 +25,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$observers = array(
-    array(
+$observers = [
+    [
         'eventname'   => '\mod_plugnmeet\event\recording_proceeded',
         'callback'    => '\mod_plugnmeet\observer::recording_ready',
-    ),
-    array(
+    ],
+    [
         'eventname'   => '\mod_plugnmeet\event\artifact_created',
         'callback'    => '\mod_plugnmeet\observer::artifact_ready',
-    ),
-);
+    ],
+];

@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace mod_plugnmeet\helper;
 
@@ -15,45 +29,44 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class AnalyticsHelper
-{
+class AnalyticsHelper {
     /**
      * @var string[]
      */
-    protected array $room_fields = array(
+    protected array $roomfields = [
         "room_id", "room_title", "room_creation", "room_ended", "room_duration",
         "room_total_users", "enabled_e2ee", "recording_status", "rtmp_status",
         "external_media_player_status", "etherpad_status", "external_display_link_status",
-        "ingress_created", "breakout_room"
-    );
+        "ingress_created", "breakout_room",
+    ];
 
     /**
      * @var string[]
      */
-    protected array $user_fields = array(
+    protected array $userfields = [
         "name", "ex_user_id", "is_admin", "duration", "joined", "left", "mic_status",
         "mic_muted", "talked", "talked_duration", "webcam_status", "raise_hand",
         "voted_poll", "whiteboard_annotated", "whiteboard_files", "screen_share_status",
-        "public_chat", "private_chat", "chat_files", "interface_invisible", "connection_quality"
-    );
+        "public_chat", "private_chat", "chat_files", "interface_invisible", "connection_quality",
+    ];
 
     /**
      * @var array
      */
-    protected array $room_data = array();
+    protected array $roomdata = [];
 
     /**
      * @var array
      */
-    protected array $users_data = array();
+    protected array $usersdata = [];
 
     /**
      * @var array
      */
-    protected mixed $analytics_data = array(
-        "room"  => array(),
-        "users" => array()
-    );
+    protected mixed $analyticsdata = [
+        "room"  => [],
+        "users" => [],
+    ];
 
     /**
      * @var \DateTimeZone
@@ -63,31 +76,30 @@ class AnalyticsHelper
     /**
      * @var string
      */
-    private string $file_id;
+    private string $fileid;
 
     /**
      * Constructor.
      *
-     * @param string $artifact_id
-     * @throws \DateInvalidTimeZoneException
+     * @param string $artifactid
      */
-    public function __construct(string $artifact_id) {
+    public function __construct(string $artifactid) {
         global $CFG;
 
         require_once($CFG->libdir . '/excellib.class.php');
 
-        $this->file_id = $artifact_id;
+        $this->fileid = $artifactid;
         $this->timezone = new \DateTimeZone(get_user_timezone());
 
         $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
-        $res = $pnc->getArtifactDownloadToken($artifact_id);
+        $res = $pnc->getArtifactDownloadToken($artifactid);
 
         if ($res->getStatus()) {
-            $analytics_data = $this->fetch_data($res->getToken());
-            if (!empty($analytics_data)) {
-                $data = json_decode($analytics_data, true);
+            $analyticsdata = $this->fetch_data($res->getToken());
+            if (!empty($analyticsdata)) {
+                $data = json_decode($analyticsdata, true);
                 if (!empty($data)) {
-                    $this->analytics_data = $data;
+                    $this->analyticsdata = $data;
                 }
             }
         } else {
@@ -105,27 +117,16 @@ class AnalyticsHelper
      * @return bool|string|null
      */
     private function fetch_data(string $token) {
-        $server_url = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
-        $host = $server_url . "/download/artifact/" . $token;
+        $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
+        $host = $serverurl . "/download/artifact/" . $token;
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $host);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $result   = curl_exec($ch);
-        $errno    = curl_errno($ch);
-        $error    = curl_error($ch);
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if (0 !== $errno) {
-             notification::error("Error: " . $error);
+        $curl = new \curl();
+        $result = $curl->get($host);
+        if ($curl->get_errno()) {
+            notification::error("Error: " . $curl->get_errno());
             return null;
         }
-        if ((int) $http_code === 200) {
-            return $result;
-        }
-
-        return null;
+        return $result;
     }
 
     /**
@@ -134,10 +135,10 @@ class AnalyticsHelper
      * @return array
      */
     public function get_formatted_event_data(): array {
-        return array(
-            "room"  => $this->room_data,
-            "users" => $this->users_data
-        );
+        return [
+            "room"  => $this->roomdata,
+            "users" => $this->usersdata,
+        ];
     }
 
     /**
@@ -146,7 +147,7 @@ class AnalyticsHelper
      * @return array
      */
     public function get_raw_analytics_data(): array {
-        return $this->analytics_data;
+        return $this->analyticsdata;
     }
 
     /**
@@ -155,7 +156,7 @@ class AnalyticsHelper
      * @return string[]
      */
     public function get_user_fields(): array {
-        return $this->user_fields;
+        return $this->userfields;
     }
 
     /**
@@ -164,7 +165,7 @@ class AnalyticsHelper
      * @return string[]
      */
     public function get_room_fields(): array {
-        return $this->room_fields;
+        return $this->roomfields;
     }
 
     /**
@@ -173,18 +174,18 @@ class AnalyticsHelper
      * @return void
      */
     private function format_room_data(): void {
-        foreach ($this->analytics_data["room"] as $key => $data) {
+        foreach ($this->analyticsdata["room"] as $key => $data) {
             if ($key !== "events") {
                 if ($key === "room_creation" || $key === "room_ended") {
                     $data = $this->format_timestamp($data, false);
-                } elseif ($key === "room_id") {
+                } else if ($key === "room_id") {
                     $data = str_replace(get_config('mod_plugnmeet', 'plugnmeet_server_id') . "_", "", $data);
                 }
-                $this->room_data[$key] = $data;
+                $this->roomdata[$key] = $data;
             }
         }
-        if (isset($this->analytics_data["room"]["events"])) {
-            $this->format_room_events($this->analytics_data["room"]["events"]);
+        if (isset($this->analyticsdata["room"]["events"])) {
+            $this->format_room_events($this->analyticsdata["room"]["events"]);
         }
     }
 
@@ -202,17 +203,17 @@ class AnalyticsHelper
                 case "external_media_player_status":
                 case "external_display_link_status":
                 case "etherpad_status":
-                    $this->room_data[$event["name"]] = $this->count_status_start_type_event($event["values"]);
+                    $this->roomdata[$event["name"]] = $this->count_status_start_type_event($event["values"]);
                     break;
                 case "ingress_created":
                 case "breakout_room":
-                    $this->room_data[$event["name"]] = $event["total"];
+                    $this->roomdata[$event["name"]] = $event["total"];
                     break;
                 case "whiteboard_files":
-                    $this->room_data[$event["name"]] = $event["values"];
+                    $this->roomdata[$event["name"]] = $event["values"];
                     break;
                 case "poll_added":
-                    $this->room_data["polls"] = $this->format_room_polls($event["values"]);
+                    $this->roomdata["polls"] = $this->format_room_polls($event["values"]);
                     break;
             }
         }
@@ -224,8 +225,8 @@ class AnalyticsHelper
      * @return void
      */
     private function format_users_data(): void {
-        foreach ($this->analytics_data["users"] as $user) {
-            $u = array();
+        foreach ($this->analyticsdata["users"] as $user) {
+            $u = [];
             foreach ($user as $key => $val) {
                 if ($key !== "events") {
                     if ($key === "ex_user_id") {
@@ -237,7 +238,7 @@ class AnalyticsHelper
             }
             $this->format_user_events($u, $user["events"]);
             $this->format_user_join_duration($u);
-            $this->users_data[] = $u;
+            $this->usersdata[] = $u;
         }
     }
 
@@ -269,7 +270,7 @@ class AnalyticsHelper
                     $user[$event["name"]] = $event["total"];
                     break;
                 case "talked_duration":
-                    $user[$event["name"]] = (int)ceil((float)$event["total"] / 1000); // Store in seconds
+                    $user[$event["name"]] = (int)ceil((float)$event["total"] / 1000); // Store in seconds.
                     break;
                 case "joined":
                 case "left":
@@ -327,16 +328,16 @@ class AnalyticsHelper
             }
             $p = json_decode($val["value"], true);
 
-            $poll = array(
+            $poll = [
                 "created"  => $this->format_timestamp($val["time"]),
-                "question" => $p["question"]
-            );
+                "question" => $p["question"],
+            ];
 
             foreach ($p["options"] as $opt) {
-                $poll["options"][$opt["id"]] = array(
+                $poll["options"][$opt["id"]] = [
                     "text"      => $opt["text"],
-                    "responses" => 0
-                );
+                    "responses" => 0,
+                ];
             }
             $polls[$p["poll_id"]] = $poll;
         }
@@ -358,8 +359,8 @@ class AnalyticsHelper
         foreach ($values as $val) {
             $total++;
             $vote = json_decode($val["value"], true);
-            if (isset($this->room_data["polls"][$vote["poll_id"]])) {
-                $this->room_data["polls"][$vote["poll_id"]]["options"][$vote["selected_option"]]["responses"] += 1;
+            if (isset($this->roomdata["polls"][$vote["poll_id"]])) {
+                $this->roomdata["polls"][$vote["poll_id"]]["options"][$vote["selected_option"]]["responses"] += 1;
             }
         }
 
@@ -378,61 +379,61 @@ class AnalyticsHelper
             return;
         }
 
-        $total_duration = 0;
-        $room_ended_timestamp = null;
+        $totalduration = 0;
+        $roomendedtimestamp = null;
 
-        if (isset($this->analytics_data["room"]["room_ended"])) {
-            $room_ended_timestamp = (float)$this->analytics_data["room"]["room_ended"] * 1000;
+        if (isset($this->analyticsdata["room"]["room_ended"])) {
+            $roomendedtimestamp = (float)$this->analyticsdata["room"]["room_ended"] * 1000;
         }
 
-        $joined_events = $user["joined"];
-        $left_events = $user["left"] ?? [];
+        $joinedevents = $user["joined"];
+        $leftevents = $user["left"] ?? [];
 
-        sort($joined_events);
-        sort($left_events);
+        sort($joinedevents);
+        sort($leftevents);
 
-        $left_index = 0;
-        foreach ($joined_events as $join_time) {
-            $leave_time = null;
+        $leftindex = 0;
+        foreach ($joinedevents as $jointime) {
+            $leavetime = null;
 
-            while ($left_index < count($left_events) && $left_events[$left_index] <= $join_time) {
-                $left_index++;
+            while ($leftindex < count($leftevents) && $leftevents[$leftindex] <= $jointime) {
+                $leftindex++;
             }
 
-            if ($left_index < count($left_events)) {
-                $leave_time = (float)$left_events[$left_index];
-                $left_index++;
+            if ($leftindex < count($leftevents)) {
+                $leavetime = (float)$leftevents[$leftindex];
+                $leftindex++;
             } else {
-                $leave_time = (float)$room_ended_timestamp;
+                $leavetime = (float)$roomendedtimestamp;
             }
 
-            if ($leave_time > (float)$join_time) {
-                $total_duration += ($leave_time - (float)$join_time);
+            if ($leavetime > (float)$jointime) {
+                $totalduration += ($leavetime - (float)$jointime);
             }
         }
 
-        $user["duration"] = (int)ceil($total_duration / 1000); // Store in seconds
+        $user["duration"] = (int)ceil($totalduration / 1000); // Store in seconds.
     }
 
     /**
      * Generates XLSX file for analytics.
      *
-     * @param string $file_name
+     * @param string $filename
      * @return void
      */
-    public function generate_xlsx_file(string $file_name): void {
-        $workbook = new MoodleExcelWorkbook($file_name);
+    public function generate_xlsx_file(string $filename): void {
+        $workbook = new MoodleExcelWorkbook($filename);
 
-        $header_format = new MoodleExcelFormat([
+        $headerformat = new MoodleExcelFormat([
             'bold' => 1,
             'size' => 12,
             'color' => '1171A3',
         ]);
 
-        $this->format_room_xlsx($workbook, $header_format);
-        $this->format_users_xlsx($workbook, $header_format);
-        $this->format_polls_xlsx($workbook, $header_format);
-        $this->format_whiteboard_files_xlsx($workbook, $header_format);
+        $this->format_room_xlsx($workbook, $headerformat);
+        $this->format_users_xlsx($workbook, $headerformat);
+        $this->format_polls_xlsx($workbook, $headerformat);
+        $this->format_whiteboard_files_xlsx($workbook, $headerformat);
 
         $workbook->close();
     }
@@ -441,25 +442,25 @@ class AnalyticsHelper
      * Formats room sheet in XLSX.
      *
      * @param MoodleExcelWorkbook $workbook
-     * @param MoodleExcelFormat $header_format
+     * @param MoodleExcelFormat $headerformat
      * @return void
      */
-    private function format_room_xlsx(MoodleExcelWorkbook $workbook, MoodleExcelFormat $header_format): void {
+    private function format_room_xlsx(MoodleExcelWorkbook $workbook, MoodleExcelFormat $headerformat): void {
         $sheet = $workbook->add_worksheet(get_string('room_info', 'plugnmeet'));
 
         $sheet->set_column(0, 0, 30);
         $sheet->set_column(1, 1, 50);
 
-        $row_index = 0;
-        foreach ($this->room_fields as $field) {
-            $data = $this->room_data[$field] ?? 0;
+        $rowindex = 0;
+        foreach ($this->roomfields as $field) {
+            $data = $this->roomdata[$field] ?? 0;
 
             $title = get_string('analytics_room_' . $field, 'plugnmeet');
-            $sheet->write_string($row_index, 0, $title, $header_format);
+            $sheet->write_string($rowindex, 0, $title, $headerformat);
 
-            $formatted_data = $this->format_room_data_for_xlsx($data, $field);
-            $sheet->write_string($row_index, 1, (string)$formatted_data);
-            $row_index++;
+            $formatteddata = $this->format_room_data_for_xlsx($data, $field);
+            $sheet->write_string($rowindex, 1, (string)$formatteddata);
+            $rowindex++;
         }
     }
 
@@ -486,30 +487,30 @@ class AnalyticsHelper
      * Formats users sheet in XLSX.
      *
      * @param MoodleExcelWorkbook $workbook
-     * @param MoodleExcelFormat $header_format
+     * @param MoodleExcelFormat $headerformat
      * @return void
      */
-    private function format_users_xlsx(MoodleExcelWorkbook $workbook, MoodleExcelFormat $header_format): void {
+    private function format_users_xlsx(MoodleExcelWorkbook $workbook, MoodleExcelFormat $headerformat): void {
         $sheet = $workbook->add_worksheet(get_string('users_info', 'plugnmeet'));
 
-        $column_map   = [];
-        $column_index = 0;
-        foreach ($this->user_fields as $field) {
-            $column_map[$field] = $column_index++;
+        $columnmap   = [];
+        $columnindex = 0;
+        foreach ($this->userfields as $field) {
+            $columnmap[$field] = $columnindex++;
         }
 
-        foreach ($column_map as $field => $col_index) {
-            $sheet->set_column($col_index, $col_index, 25);
+        foreach ($columnmap as $field => $colindex) {
+            $sheet->set_column($colindex, $colindex, 25);
             $title = get_string('analytics_user_' . str_replace("user_", "", $field), 'plugnmeet');
-            $sheet->write_string(0, $col_index, $title, $header_format);
+            $sheet->write_string(0, $colindex, $title, $headerformat);
         }
 
-        foreach ($this->users_data as $row_index => $user) {
-            $current_row = $row_index + 1;
-            foreach ($column_map as $field => $col_index) {
+        foreach ($this->usersdata as $rowindex => $user) {
+            $currentrow = $rowindex + 1;
+            foreach ($columnmap as $field => $colindex) {
                 $data = $user[$field] ?? 0;
-                $formatted_data = $this->format_user_data_for_xlsx($data, $field);
-                $sheet->write_string($current_row, $col_index, (string)$formatted_data);
+                $formatteddata = $this->format_user_data_for_xlsx($data, $field);
+                $sheet->write_string($currentrow, $colindex, (string)$formatteddata);
             }
         }
     }
@@ -560,11 +561,11 @@ class AnalyticsHelper
      * Formats polls sheet in XLSX.
      *
      * @param MoodleExcelWorkbook $workbook
-     * @param MoodleExcelFormat $header_format
+     * @param MoodleExcelFormat $headerformat
      * @return void
      */
-    private function format_polls_xlsx(MoodleExcelWorkbook $workbook, MoodleExcelFormat $header_format): void {
-        if (empty($this->room_data["polls"])) {
+    private function format_polls_xlsx(MoodleExcelWorkbook $workbook, MoodleExcelFormat $headerformat): void {
+        if (empty($this->roomdata["polls"])) {
             return;
         }
         $sheet = $workbook->add_worksheet(get_string('polls', 'plugnmeet'));
@@ -573,12 +574,12 @@ class AnalyticsHelper
         $sheet->set_column(1, 1, 50);
         $sheet->set_column(2, 2, 30);
 
-        $sheet->write_string(0, 0, get_string('question', 'plugnmeet'), $header_format);
-        $sheet->write_string(0, 1, get_string('options', 'plugnmeet'), $header_format);
-        $sheet->write_string(0, 2, get_string('created_at', 'plugnmeet'), $header_format);
+        $sheet->write_string(0, 0, get_string('question', 'plugnmeet'), $headerformat);
+        $sheet->write_string(0, 1, get_string('options', 'plugnmeet'), $headerformat);
+        $sheet->write_string(0, 2, get_string('created_at', 'plugnmeet'), $headerformat);
 
         $i = 1;
-        foreach ($this->room_data["polls"] as $poll) {
+        foreach ($this->roomdata["polls"] as $poll) {
             $sheet->write_string($i, 0, $poll["question"]);
             $sheet->write_string($i, 2, $poll["created"]);
 
@@ -596,11 +597,11 @@ class AnalyticsHelper
      * Formats whiteboard files sheet in XLSX.
      *
      * @param MoodleExcelWorkbook $workbook
-     * @param MoodleExcelFormat $header_format
+     * @param MoodleExcelFormat $headerformat
      * @return void
      */
-    private function format_whiteboard_files_xlsx(MoodleExcelWorkbook $workbook, MoodleExcelFormat $header_format): void {
-        if (empty($this->room_data["whiteboard_files"])) {
+    private function format_whiteboard_files_xlsx(MoodleExcelWorkbook $workbook, MoodleExcelFormat $headerformat): void {
+        if (empty($this->roomdata["whiteboard_files"])) {
             return;
         }
         $sheet = $workbook->add_worksheet(get_string('whiteboard_files', 'plugnmeet'));
@@ -608,11 +609,11 @@ class AnalyticsHelper
         $sheet->set_column(0, 0, 50);
         $sheet->set_column(1, 1, 30);
 
-        $sheet->write_string(0, 0, get_string('file_name', 'plugnmeet'), $header_format);
-        $sheet->write_string(0, 1, get_string('created_at', 'plugnmeet'), $header_format);
+        $sheet->write_string(0, 0, get_string('file_name', 'plugnmeet'), $headerformat);
+        $sheet->write_string(0, 1, get_string('created_at', 'plugnmeet'), $headerformat);
 
         $i = 1;
-        foreach ($this->room_data["whiteboard_files"] as $file) {
+        foreach ($this->roomdata["whiteboard_files"] as $file) {
             $created = $this->format_timestamp($file["time"]);
 
             $sheet->write_string($i, 0, $file["value"], new MoodleExcelFormat(['text_wrap' => true]));

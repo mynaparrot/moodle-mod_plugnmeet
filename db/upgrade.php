@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
 /**
  * Plugin upgrade steps are defined here.
  *
@@ -40,25 +55,25 @@ function xmldb_plugnmeet_upgrade($oldversion) {
         }
 
         // 2. Create plugnmeet_user_stats table.
-        $stats_table = new xmldb_table('plugnmeet_user_stats');
+        $statstable = new xmldb_table('plugnmeet_user_stats');
 
-        $stats_table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
-        $stats_table->add_field('plugnmeetid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
-        $stats_table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
-        $stats_table->add_field('statsdata', XMLDB_TYPE_TEXT, null, null, null, null, null);
-        $stats_table->add_field('is_present', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0');
-        $stats_table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $statstable->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $statstable->add_field('plugnmeetid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $statstable->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $statstable->add_field('statsdata', XMLDB_TYPE_TEXT, null, null, null, null, null);
+        $statstable->add_field('is_present', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0');
+        $statstable->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
 
         // Adding keys to table plugnmeet_user_stats.
-        $stats_table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
-        $stats_table->add_key('plugnmeetid', XMLDB_KEY_FOREIGN, ['plugnmeetid'], 'plugnmeet', ['id']);
-        $stats_table->add_key('userid', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
+        $statstable->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $statstable->add_key('plugnmeetid', XMLDB_KEY_FOREIGN, ['plugnmeetid'], 'plugnmeet', ['id']);
+        $statstable->add_key('userid', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
 
         // Adding indexes to table plugnmeet_user_stats.
-        $stats_table->add_index('plugnmeetid_userid', XMLDB_INDEX_UNIQUE, ['plugnmeetid', 'userid']);
+        $statstable->add_index('plugnmeetid_userid', XMLDB_INDEX_UNIQUE, ['plugnmeetid', 'userid']);
 
-        if (!$dbman->table_exists($stats_table)) {
-            $dbman->create_table($stats_table);
+        if (!$dbman->table_exists($statstable)) {
+            $dbman->create_table($statstable);
         }
 
         upgrade_mod_savepoint(true, 2026012211, 'plugnmeet');

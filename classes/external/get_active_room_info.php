@@ -36,12 +36,16 @@ use mod_plugnmeet\helper\plugNmeetConnect;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($GLOBALS['CFG']->libdir . '/externallib.php');
+global $CFG;
+require_once($CFG->libdir . '/externallib.php');
 
+/**
+ * Class for getting active room info.
+ */
 class get_active_room_info extends external_api {
-
     /**
      * Parameters for the execute method.
+     *
      * @return external_function_parameters
      */
     public static function execute_parameters() {
@@ -70,7 +74,7 @@ class get_active_room_info extends external_api {
         $res = $pnc->getActiveRoomInfo($plugnmeet->roomid);
 
         $response = [];
-        $participants_info = [];
+        $participantsinfo = [];
 
         if ($res->getStatus() && $res->getRoom()) {
             $room = $res->getRoom();
@@ -78,7 +82,7 @@ class get_active_room_info extends external_api {
             if ($info) {
                 $response['room_info'] = [
                     'room_id' => $info->getRoomId(),
-                    'is_recording' =>$info->getIsRecording(),
+                    'is_recording' => $info->getIsRecording(),
                     'joined_participants' => $info->getJoinedParticipants(),
                     'creation_time' => $info->getCreationTime(),
                 ];
@@ -89,19 +93,19 @@ class get_active_room_info extends external_api {
                 foreach ($participants as $participant) {
                     $metadata = $participant->getMetadata();
                     if (!empty($metadata)) {
-                        $userInfo = json_decode($metadata);
-                        $participants_info[] = [
+                        $userinfo = json_decode($metadata);
+                        $participantsinfo[] = [
                             'name' => $participant->getName(),
                             'user_id' => $participant->getIdentity(),
-                            'is_admin' => $userInfo->is_admin,
-                            'is_presenter' => $userInfo->is_presenter,
+                            'is_admin' => $userinfo->is_admin,
+                            'is_presenter' => $userinfo->is_presenter,
                             'joined_at' => $participant->getJoinedAt(),
                         ];
                     }
                 }
             }
         }
-        $response['participants_info'] = $participants_info;
+        $response['participants_info'] = $participantsinfo;
 
         return $response;
     }
@@ -125,7 +129,10 @@ class get_active_room_info extends external_api {
                     'is_admin' => new external_value(PARAM_BOOL, 'Is admin'),
                     'is_presenter' => new external_value(PARAM_BOOL, 'Is presenter'),
                     'joined_at' => new external_value(PARAM_INT, 'Joined at'),
-                ]), 'Participants info', VALUE_OPTIONAL),
+                ]),
+                'Participants info',
+                VALUE_OPTIONAL
+            ),
         ]);
     }
 }

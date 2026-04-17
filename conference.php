@@ -1,10 +1,25 @@
 <?php
+// This file is part of Moodle - https://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
 /**
- * Part of mod_plugnmeet.
+ * Local client loader
  *
  * @package     mod_plugnmeet
- * @author     Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright  2022 MynaParrot
+ * @author      Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright   2026 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -16,8 +31,8 @@ global $CFG, $DB;
 
 $id = optional_param('id', 0, PARAM_INT);
 $cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
-$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-$moduleinstance = $DB->get_record('plugnmeet', array('id' => $cm->instance), '*', MUST_EXIST);
+$course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
+$moduleinstance = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
 $context = context_module::instance($cm->id);
 
 require_login($course, true, $cm);
@@ -46,17 +61,19 @@ foreach ($cssfiles as $file) {
     $csstag .= '<link href="' . $path . '/css/' . $file . '" rel="stylesheet" />' . "\n\t";
 }
 $script = get_plugnmeet_config();
-?>
-<!doctype html>
+
+$title = format_string($moduleinstance->name);
+
+echo '<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <title><?php echo format_string($moduleinstance->name); ?></title>
-    <?php echo $csstag . $jstag . $script; ?>
+    <title>' . $title . '</title>
+    ' . $csstag . $jstag . $script . '
 </head>
 <body>
 <div id="plugNmeet-app"></div>
 </body>
-</html>
+</html>';

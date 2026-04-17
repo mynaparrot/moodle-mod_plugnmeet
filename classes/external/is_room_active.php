@@ -35,10 +35,13 @@ use mod_plugnmeet\helper\plugNmeetConnect;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($GLOBALS['CFG']->libdir . '/externallib.php');
+global $CFG;
+require_once($CFG->libdir . '/externallib.php');
 
+/**
+ * Class for checking if a room is active.
+ */
 class is_room_active extends external_api {
-
     /**
      * Parameters for the execute method.
      * @return external_function_parameters

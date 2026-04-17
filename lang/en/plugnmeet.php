@@ -6,7 +6,7 @@
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Moodle is distributed in the hope that it will be website,
+// Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -25,21 +25,21 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'plugNmeet';
-$string['pluginadministration'] = 'plugNmeet administration';
 $string['modulename'] = 'plugNmeet';
-$string['modulenameplural'] = 'plugNmeets';
 $string['modulename_help'] = 'The PlugNmeet activity module allows you to create and manage real-time web conferencing sessions from within Moodle.';
 $string['modulename_link'] = 'mod/plugnmeet/view';
+$string['modulenameplural'] = 'plugNmeets';
+$string['pluginadministration'] = 'plugNmeet administration';
+$string['pluginname'] = 'plugNmeet';
+$string['plugnmeet:addinstance'] = 'Add a new PlugNmeet activity';
+$string['plugnmeet:deleterecording'] = 'Delete recordings';
+$string['plugnmeet:manage'] = 'Manage PlugNmeet settings';
+$string['plugnmeet:view'] = 'View PlugNmeet activity';
+$string['plugnmeet:viewartifacts'] = 'View artifacts';
+$string['plugnmeet:viewlivesessioninfo'] = 'View live session information';
 $string['plugnmeetfieldset'] = 'Custom example fieldset';
 $string['plugnmeetname'] = 'Custom example name';
 $string['plugnmeetname_help'] = 'Custom example help';
-$string['plugnmeet:addinstance'] = 'Add a new PlugNmeet activity';
-$string['plugnmeet:view'] = 'View PlugNmeet activity';
-$string['plugnmeet:manage'] = 'Manage PlugNmeet settings';
-$string['plugnmeet:viewlivesessioninfo'] = 'View live session information';
-$string['plugnmeet:deleterecording'] = 'Delete recordings';
-$string['plugnmeet:viewartifacts'] = 'View artifacts';
 
 // Admin Settings
 $string['api_config'] = 'API Configuration';

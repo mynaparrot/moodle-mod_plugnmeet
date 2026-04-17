@@ -24,7 +24,6 @@
  */
 
 use mod_plugnmeet\helper\plugNmeetConnect;
-use mod_plugnmeet\hook_manager;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -127,12 +126,8 @@ function plugnmeet_delete_instance($id) {
     // Delete calendar event.
     require_once($CFG->dirroot . '/calendar/lib.php');
     if ($plugnmeet->eventid) {
-        try {
-            $event = calendar_event::load($plugnmeet->eventid);
-            $event->delete();
-        } catch (Exception $e) {
-            // Event not found, nothing to delete.
-        }
+        $event = calendar_event::load($plugnmeet->eventid);
+        $event->delete();
     }
 
     plugnmeet_grade_item_delete($plugnmeet);
@@ -203,7 +198,7 @@ function plugnmeet_grade_item_update(stdClass $plugnmeet, $grades = null) {
     global $CFG;
     require_once($CFG->libdir . '/gradelib.php');
 
-    $params = array('itemname' => $plugnmeet->name);
+    $params = ['itemname' => $plugnmeet->name];
 
     if (isset($plugnmeet->grade)) {
         if ($plugnmeet->grade > 0) {
@@ -247,7 +242,7 @@ function plugnmeet_grade_item_delete(stdClass $plugnmeet) {
     global $CFG;
     require_once($CFG->libdir . '/gradelib.php');
 
-    return grade_update('mod/plugnmeet', $plugnmeet->course, 'mod', 'plugnmeet', $plugnmeet->id, 0, null, array('deleted' => 1));
+    return grade_update('mod/plugnmeet', $plugnmeet->course, 'mod', 'plugnmeet', $plugnmeet->id, 0, null, ['deleted' => 1]);
 }
 
 /**
@@ -262,7 +257,7 @@ function plugnmeet_update_calendar_event($plugnmeet) {
 
     // Ensure we have the full record if called from update/add instance.
     if (!isset($plugnmeet->eventid) || !isset($plugnmeet->coursemodule)) {
-        $record = $DB->get_record('plugnmeet', array('id' => $plugnmeet->id));
+        $record = $DB->get_record('plugnmeet', ['id' => $plugnmeet->id]);
         $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id);
         if ($record) {
             foreach ($record as $key => $value) {
@@ -342,6 +337,9 @@ function plugnmeet_get_completion_state($course, $cm, $userid, $type) {
     return $data->completionstate;
 }
 
+/**
+ * Build client config
+ */
 function get_plugnmeet_config() {
     global $DB;
 
@@ -363,11 +361,11 @@ function get_plugnmeet_config() {
     if ($config->custom_logo) {
         $filename = str_replace("/", "", $config->custom_logo);
         $tablefiles = "files";
-        $results = $DB->get_record($tablefiles, array(
+        $results = $DB->get_record($tablefiles, [
             'filename' => $filename,
             'component' => 'mod_plugnmeet',
-            'filearea' => 'custom_logo'
-        ));
+            'filearea' => 'custom_logo',
+        ]);
 
         if ($results) {
             $url = moodle_url::make_pluginfile_url(
@@ -378,7 +376,8 @@ function get_plugnmeet_config() {
                 $results->filepath,
                 $filename,
                 false,
-                true);
+                true
+            );
             $plugnmeetconfig['customLogo'] = [
                 'main_logo_light' => $url->out(false),
                 'main_logo_dark' => $url->out(false),
@@ -401,11 +400,12 @@ function get_plugnmeet_config() {
         $tablefiles = "files";
         $results = $DB->get_record(
             $tablefiles,
-            array(
+            [
                 'filename' => $filename,
                 'component' => 'mod_plugnmeet',
-                'filearea' => 'background_image'
-            ));
+                'filearea' => 'background_image',
+            ]
+        );
 
         if ($results) {
             $url = moodle_url::make_pluginfile_url(
@@ -416,7 +416,8 @@ function get_plugnmeet_config() {
                 $results->filepath,
                 $filename,
                 false,
-                true);
+                true
+            );
             $designcustomization['background_image'] = $url->out(false);
         }
     }

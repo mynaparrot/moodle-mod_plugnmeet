@@ -6,7 +6,7 @@
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Moodle is distributed in the hope that it will be website,
+// Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -35,13 +35,13 @@ use mod_plugnmeet\helper\plugNmeetConnect;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($GLOBALS['CFG']->libdir . '/externallib.php');
+global $CFG;
+require_once($CFG->libdir . '/externallib.php');
 
 /**
  * Class for creating a room external API.
  */
 class create_room extends external_api {
-
     /**
      * Parameters for the execute method.
      * @return external_function_parameters
@@ -69,19 +69,19 @@ class create_room extends external_api {
 
         // Check availability.
         $timenow = time();
-        $can_manage = has_capability('mod/plugnmeet:manage', $context);
+        $canmanage = has_capability('mod/plugnmeet:manage', $context);
 
-        if ($instance->available && $timenow < $instance->available && !$can_manage) {
+        if ($instance->available && $timenow < $instance->available && !$canmanage) {
             return [
                 'status' => false,
-                'msg' => get_string('session_not_started_yet', 'mod_plugnmeet')
+                'msg' => get_string('session_not_started_yet', 'mod_plugnmeet'),
             ];
         }
 
         if ($instance->deadline && $timenow > $instance->deadline) {
             return [
                 'status' => false,
-                'msg' => get_string('session_ended', 'mod_plugnmeet')
+                'msg' => get_string('session_ended', 'mod_plugnmeet'),
             ];
         }
 
@@ -102,7 +102,7 @@ class create_room extends external_api {
             "platform" => "moodle",
             "php-version" => phpversion(),
             "plugin-version" => $config->version,
-            "activity" => json_encode(["id" => $cm->id, "course" => $cm->course])
+            "activity" => json_encode(["id" => $cm->id, "course" => $cm->course]),
         ];
 
         $res = $connect->createRoom(

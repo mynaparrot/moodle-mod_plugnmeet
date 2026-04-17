@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace mod_plugnmeet\helper;
 
@@ -6,8 +20,9 @@ use coding_exception;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($GLOBALS['CFG']->dirroot . '/mod/plugnmeet/lib.php');
-require_once($GLOBALS['CFG']->dirroot . '/lib/completionlib.php');
+global $CFG;
+require_once($CFG->dirroot . '/mod/plugnmeet/lib.php');
+require_once($CFG->dirroot . '/lib/completionlib.php');
 
 /**
  * Helper class for handling activity completion.
@@ -16,25 +31,23 @@ require_once($GLOBALS['CFG']->dirroot . '/lib/completionlib.php');
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class CompletionHelper
-{
+class CompletionHelper {
     /**
      * Update completion and grades for all users in a room based on its analytics.
      *
      * @param \stdClass $plugnmeet
-     * @param string $artifact_id
+     * @param string $artifactid
      * @return bool
      * @throws coding_exception
      */
-    public static function update_completion_for_room(\stdClass $plugnmeet, string $artifact_id): bool
-    {
+    public static function update_completion_for_room(\stdClass $plugnmeet, string $artifactid): bool {
         $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id);
         if (!$cm) {
             return false;
         }
 
         try {
-            $analytics = new AnalyticsHelper($artifact_id);
+            $analytics = new AnalyticsHelper($artifactid);
             $data = $analytics->get_formatted_event_data();
             $users = $data['users'] ?? [];
 
@@ -48,14 +61,14 @@ class CompletionHelper
                 $results = self::evaluate_criteria($user, $plugnmeet);
 
                 // Save individual stats and attendance.
-                self::save_user_stats($userid, $plugnmeet, $user, $results['all_met']);
+                self::save_user_stats((int)$userid, $plugnmeet, $user, $results['all_met']);
 
                 // Update Grade (Partial Progress).
-                self::update_grade($userid, $plugnmeet, $results['progress']);
+                self::update_grade((int)$userid, $plugnmeet, $results['progress']);
 
                 // If ALL criteria met, mark as complete.
                 if ($results['all_met']) {
-                    self::mark_as_complete($userid, $cm);
+                    self::mark_as_complete((int)$userid, $cm);
                 }
             }
         } catch (\Exception $e) {
@@ -72,10 +85,10 @@ class CompletionHelper
      * @param \stdClass $plugnmeet
      * @return bool
      */
-    public static function record_participant_join(int $userid, \stdClass $plugnmeet) {
+    public static function record_participant_join(int $userid, \stdClass $plugnmeet): bool {
         global $DB;
 
-        $stats_record = $DB->get_record('plugnmeet_user_stats', ['plugnmeetid' => $plugnmeet->id, 'userid' => $userid]);
+        $statsrecord = $DB->get_record('plugnmeet_user_stats', ['plugnmeetid' => $plugnmeet->id, 'userid' => $userid]);
 
         $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id, 0, false, MUST_EXIST);
         if (!$cm) {
@@ -83,11 +96,11 @@ class CompletionHelper
         }
 
         $completion = new \completion_info(get_course($cm->course));
-        // Attendance Logic:
-        $is_present = 0;
+        // Attendance Logic.
+        $ispresent = 0;
         if (!$completion->is_enabled($cm)) {
             // If NO custom completion criteria are set, mark as present immediately upon joining.
-            $is_present = 1;
+            $ispresent = 1;
         }
 
         $data = new \stdClass();
@@ -95,13 +108,13 @@ class CompletionHelper
         $data->userid = $userid;
         $data->timemodified = time();
 
-        if ($stats_record) {
-            $data->id = $stats_record->id;
+        if ($statsrecord) {
+            $data->id = $statsrecord->id;
             // Never downgrade presence from 1 to 0.
-            $data->is_present = max($is_present, $stats_record->is_present);
+            $data->is_present = max($ispresent, $statsrecord->is_present);
             $DB->update_record('plugnmeet_user_stats', $data);
         } else {
-            $data->is_present = $is_present;
+            $data->is_present = $ispresent;
             $data->statsdata = json_encode([]);
             $DB->insert_record('plugnmeet_user_stats', $data);
         }
@@ -114,64 +127,45 @@ class CompletionHelper
      *
      * @param int $userid
      * @param \stdClass $plugnmeet
-     * @param array $user_data
-     * @param bool $all_criteria_met
+     * @param array $userdata
+     * @param bool $allmet
      */
-    private static function save_user_stats(int $userid, \stdClass $plugnmeet, array $user_data, bool $all_criteria_met) {
+    private static function save_user_stats(int $userid, \stdClass $plugnmeet, array $userdata, bool $allmet): void {
         global $DB;
 
-        $stats_record = $DB->get_record('plugnmeet_user_stats', ['plugnmeetid' => $plugnmeet->id, 'userid' => $userid]);
-        $current_stats = [];
-        if ($stats_record && !empty($stats_record->statsdata)) {
-            $current_stats = json_decode($stats_record->statsdata, true) ?: [];
+        $statsrecord = $DB->get_record('plugnmeet_user_stats', ['plugnmeetid' => $plugnmeet->id, 'userid' => $userid]);
+        $currentstats = [];
+        if ($statsrecord && !empty($statsrecord->statsdata)) {
+            $currentstats = json_decode($statsrecord->statsdata, true) ?: [];
         }
 
-        $new_stats = [
-            'minutes' => (int)(($user_data['duration'] ?? 0) / 60),
-            'raisedhand' => (int)($user_data['raise_hand'] ?? 0),
-            'chatmessages' => (int)(($user_data['public_chat'] ?? 0) + ($user_data['private_chat'] ?? 0)),
-            'webcam' => (int)(($user_data['webcam_status'] ?? 0) > 0 ? 1 : 0),
-            'mic' => (int)(($user_data['mic_status'] ?? 0) > 0 ? 1 : 0),
+        $newstats = [
+            'minutes' => (int)(($userdata['duration'] ?? 0) / 60),
+            'raisedhand' => (int)($userdata['raise_hand'] ?? 0),
+            'chatmessages' => (int)(($userdata['public_chat'] ?? 0) + ($userdata['private_chat'] ?? 0)),
+            'webcam' => (int)(($userdata['webcam_status'] ?? 0) > 0 ? 1 : 0),
+            'mic' => (int)(($userdata['mic_status'] ?? 0) > 0 ? 1 : 0),
         ];
 
         // Merge stats using max values.
-        foreach ($new_stats as $key => $value) {
-            $current_stats[$key] = max($value, ($current_stats[$key] ?? 0));
+        foreach ($newstats as $key => $value) {
+            $currentstats[$key] = max($value, ($currentstats[$key] ?? 0));
         }
 
-        // Attendance Logic:
-        $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id);
-        $completion = new \completion_info(get_course($cm->course));
-        
-        $is_present = 0;
-        if ($completion->is_enabled($cm)) {
-            if (!empty($plugnmeet->completionminutes)) {
-                $required_seconds = (int)$plugnmeet->completionminutes * 60;
-                if (($user_data['duration'] ?? 0) >= $required_seconds) {
-                    $is_present = 1;
-                }
-            } else {
-                // If other criteria are set but not minutes, meet ANY/ALL criteria makes them present.
-                if ($all_criteria_met) {
-                    $is_present = 1;
-                }
-            }
-        } else {
-            // Completion disabled, any join data makes them present.
-            $is_present = 1;
-        }
+        // Attendance Logic.
+        $ispresent = self::calculate_is_present($plugnmeet, $userdata, $allmet);
 
         $data = new \stdClass();
         $data->plugnmeetid = $plugnmeet->id;
         $data->userid = $userid;
-        $data->statsdata = json_encode($current_stats);
-        $data->is_present = $is_present;
+        $data->statsdata = json_encode($currentstats);
+        $data->is_present = $ispresent;
         $data->timemodified = time();
 
-        if ($stats_record) {
-            $data->id = $stats_record->id;
+        if ($statsrecord) {
+            $data->id = $statsrecord->id;
             // Attendance status only upgrades from 0 to 1, never back to 0.
-            $data->is_present = max($is_present, $stats_record->is_present);
+            $data->is_present = max($ispresent, $statsrecord->is_present);
             $DB->update_record('plugnmeet_user_stats', $data);
         } else {
             $DB->insert_record('plugnmeet_user_stats', $data);
@@ -179,67 +173,91 @@ class CompletionHelper
     }
 
     /**
+     * Calculate if the user is present.
+     *
+     * @param \stdClass $plugnmeet
+     * @param array $userdata
+     * @param bool $allmet
+     * @return int
+     */
+    private static function calculate_is_present(\stdClass $plugnmeet, array $userdata, bool $allmet): int {
+        $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id);
+        $completion = new \completion_info(get_course($cm->course));
+
+        if (!$completion->is_enabled($cm)) {
+            return 1;
+        }
+
+        if (!empty($plugnmeet->completionminutes)) {
+            $requiredseconds = (int)$plugnmeet->completionminutes * 60;
+            return (($userdata['duration'] ?? 0) >= $requiredseconds) ? 1 : 0;
+        }
+
+        // If other criteria are set but not minutes, meet ANY/ALL criteria makes them present.
+        return $allmet ? 1 : 0;
+    }
+
+    /**
      * Evaluate criteria and return progress.
      *
-     * @param array $user_data
+     * @param array $userdata
      * @param \stdClass $plugnmeet
      * @return array ['all_met' => bool, 'progress' => float]
      */
-    private static function evaluate_criteria(array $user_data, \stdClass $plugnmeet): array
-    {
-        $enabled_count = 0;
-        $met_count = 0;
+    private static function evaluate_criteria(array $userdata, \stdClass $plugnmeet): array {
+        $enabledcount = 0;
+        $metcount = 0;
 
         // 1. Check duration (minutes).
         if (!empty($plugnmeet->completionminutes)) {
-            $enabled_count++;
-            $required_seconds = (int)$plugnmeet->completionminutes * 60;
-            if (($user_data['duration'] ?? 0) >= $required_seconds) {
-                $met_count++;
+            $enabledcount++;
+            $requiredseconds = (int)$plugnmeet->completionminutes * 60;
+            if (($userdata['duration'] ?? 0) >= $requiredseconds) {
+                $metcount++;
             }
         }
 
         // 2. Check raised hand.
         if (!empty($plugnmeet->completionraisedhand)) {
-            $enabled_count++;
-            if (($user_data['raise_hand'] ?? 0) > 0) {
-                $met_count++;
+            $enabledcount++;
+            if (($userdata['raise_hand'] ?? 0) > 0) {
+                $metcount++;
             }
         }
 
         // 3. Check chat messages.
         if (!empty($plugnmeet->completionchatmessages)) {
-            $enabled_count++;
-            $public_chat = $user_data['public_chat'] ?? 0;
-            $private_chat = $user_data['private_chat'] ?? 0;
-            if (($public_chat + $private_chat) > 0) {
-                $met_count++;
+            $enabledcount++;
+            $publicchat = $userdata['public_chat'] ?? 0;
+            $privatechat = $userdata['private_chat'] ?? 0;
+            if (($publicchat + $privatechat) > 0) {
+                $metcount++;
             }
         }
 
         // 4. Check webcam enabled.
         if (!empty($plugnmeet->completionwebcam)) {
-            $enabled_count++;
-            if (($user_data['webcam_status'] ?? 0) > 0) {
-                $met_count++;
+            $enabledcount++;
+            if (($userdata['webcam_status'] ?? 0) > 0) {
+                $metcount++;
             }
         }
 
         // 5. Check mic enabled.
         if (!empty($plugnmeet->completionmic)) {
-            $enabled_count++;
-            if (($user_data['mic_status'] ?? 0) > 0) {
-                $met_count++;
+            $enabledcount++;
+            if (($userdata['mic_status'] ?? 0) > 0) {
+                $metcount++;
             }
         }
 
-        if ($enabled_count === 0) {
+        if ($enabledcount === 0) {
             return ['all_met' => true, 'progress' => 100.0];
         }
 
         return [
-            'all_met' => ($met_count === $enabled_count),
-            'progress' => ($met_count / $enabled_count) * 100.0
+            'all_met' => ($metcount === $enabledcount),
+            'progress' => ($metcount / $enabledcount) * 100.0,
         ];
     }
 
@@ -250,14 +268,13 @@ class CompletionHelper
      * @param \stdClass $plugnmeet
      * @param float $progress 0-100
      */
-    private static function update_grade(int $userid, $plugnmeet, float $progress)
-    {
+    private static function update_grade(int $userid, $plugnmeet, float $progress): void {
         // Calculate actual grade based on activity max grade.
-        $grade_value = ($progress / 100.0) * $plugnmeet->grade;
+        $gradevalue = ($progress / 100.0) * $plugnmeet->grade;
 
         $grade = new \stdClass();
         $grade->userid = $userid;
-        $grade->rawgrade = $grade_value;
+        $grade->rawgrade = $gradevalue;
 
         plugnmeet_grade_item_update($plugnmeet, $grade);
     }
@@ -266,10 +283,9 @@ class CompletionHelper
      * Mark the activity as complete for a user.
      *
      * @param int $userid
-     * @param \cm_info $cm
+     * @param \stdClass $cm
      */
-    private static function mark_as_complete(int $userid, $cm)
-    {
+    private static function mark_as_complete(int $userid, $cm): void {
         $completion = new \completion_info(get_course($cm->course));
         if ($completion->is_enabled($cm)) {
             $completion->update_state($cm, COMPLETION_COMPLETE, $userid);

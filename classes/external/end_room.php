@@ -35,10 +35,13 @@ use mod_plugnmeet\helper\plugNmeetConnect;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($GLOBALS['CFG']->libdir . '/externallib.php');
+global $CFG;
+require_once($CFG->libdir . '/externallib.php');
 
+/**
+ * Class for ending a room external API.
+ */
 class end_room extends external_api {
-
     /**
      * Parameters for the execute method.
      * @return external_function_parameters
@@ -61,6 +64,7 @@ class end_room extends external_api {
         $cm = get_coursemodule_from_id('plugnmeet', $cmid, 0, false, MUST_EXIST);
         $context = context_module::instance($cm->id);
         self::validate_context($context);
+        require_capability('mod/plugnmeet:manage', $context);
 
         $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
         $config = get_config('mod_plugnmeet');

@@ -1,4 +1,18 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Define all the backup steps for mod_plugnmeet.
@@ -14,7 +28,6 @@ defined('MOODLE_INTERNAL') || die();
  * Define the structure step for mod_plugnmeet.
  */
 class backup_plugnmeet_activity_structure_step extends backup_activity_structure_step {
-
     /**
      * Define the structure of the plugnmeet activity.
      */
@@ -29,13 +42,13 @@ class backup_plugnmeet_activity_structure_step extends backup_activity_structure
             'timecreated', 'timemodified', 'intro', 'introformat',
             'available', 'deadline', 'usermodified', 'grade',
             'completionminutes', 'completionraisedhand', 'completionchatmessages',
-            'completionwebcam', 'completionmic'
+            'completionwebcam', 'completionmic',
         ]);
 
         $userstats = new backup_nested_element('user_stats');
 
         $userstat = new backup_nested_element('user_stat', ['id'], [
-            'userid', 'statsdata', 'timemodified'
+            'userid', 'statsdata', 'timemodified',
         ]);
 
         // Build the tree.

@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$functions = array(
-    'mod_plugnmeet_create_room' => array(
+$functions = [
+    'mod_plugnmeet_create_room' => [
         'classname'   => 'mod_plugnmeet\external\create_room',
         'methodname'  => 'execute',
         'classpath'   => 'mod/plugnmeet/classes/external/create_room.php',
@@ -34,8 +34,8 @@ $functions = array(
         'type'        => 'write',
         'ajax'        => true,
         'capability'  => 'mod/plugnmeet:view',
-    ),
-    'mod_plugnmeet_end_room' => array(
+    ],
+    'mod_plugnmeet_end_room' => [
         'classname'   => 'mod_plugnmeet\external\end_room',
         'methodname'  => 'execute',
         'classpath'   => 'mod/plugnmeet/classes/external/end_room.php',
@@ -43,8 +43,8 @@ $functions = array(
         'type'        => 'write',
         'ajax'        => true,
         'capability'  => 'mod/plugnmeet:manage',
-    ),
-    'mod_plugnmeet_get_join_token' => array(
+    ],
+    'mod_plugnmeet_get_join_token' => [
         'classname'   => 'mod_plugnmeet\external\get_join_token',
         'methodname'  => 'execute',
         'classpath'   => 'mod/plugnmeet/classes/external/get_join_token.php',
@@ -52,8 +52,8 @@ $functions = array(
         'type'        => 'read',
         'ajax'        => true,
         'capability'  => 'mod/plugnmeet:view',
-    ),
-    'mod_plugnmeet_is_room_active' => array(
+    ],
+    'mod_plugnmeet_is_room_active' => [
         'classname'   => 'mod_plugnmeet\external\is_room_active',
         'methodname'  => 'execute',
         'classpath'   => 'mod/plugnmeet/classes/external/is_room_active.php',
@@ -61,8 +61,8 @@ $functions = array(
         'type'        => 'read',
         'ajax'        => true,
         'capability'  => 'mod/plugnmeet:view',
-    ),
-    'mod_plugnmeet_get_active_room_info' => array(
+    ],
+    'mod_plugnmeet_get_active_room_info' => [
         'classname'   => 'mod_plugnmeet\external\get_active_room_info',
         'methodname'  => 'execute',
         'classpath'   => 'mod/plugnmeet/classes/external/get_active_room_info.php',
@@ -70,5 +70,5 @@ $functions = array(
         'type'        => 'read',
         'ajax'        => true,
         'capability'  => 'mod/plugnmeet:viewlivesessioninfo',
-    ),
-);
+    ],
+];

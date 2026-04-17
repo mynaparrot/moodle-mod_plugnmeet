@@ -1,18 +1,18 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Moodle is distributed in the hope that it will be website,
+// Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * The main mod_plugnmeet configuration form.
@@ -25,19 +25,17 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+global $CFG;
 require_once($CFG->dirroot . '/course/moodleform_mod.php');
 
 /**
  * Module instance settings form.
  */
 class mod_plugnmeet_mod_form extends moodleform_mod {
-
     /**
      * Defines forms elements
      */
     public function definition() {
-        global $CFG;
-
         $mform = $this->_form;
 
         // General settings
@@ -90,9 +88,9 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
 
         // Availability.
         $mform->addElement('header', 'availabilityhdr', get_string('availability'));
-        $mform->addElement('date_time_selector', 'available', get_string('available', 'mod_plugnmeet'), array('optional' => true));
+        $mform->addElement('date_time_selector', 'available', get_string('available', 'mod_plugnmeet'), ['optional' => true]);
         $mform->setDefault('available', 0);
-        $mform->addElement('date_time_selector', 'deadline', get_string('deadline', 'mod_plugnmeet'), array('optional' => true));
+        $mform->addElement('date_time_selector', 'deadline', get_string('deadline', 'mod_plugnmeet'), ['optional' => true]);
         $mform->setDefault('deadline', 0);
 
         // Standard grading elements.
@@ -103,6 +101,9 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $this->add_action_buttons();
     }
 
+    /**
+     * Add room features.
+     */
     private function add_room_features() {
         $mform = $this->_form;
 
@@ -148,13 +149,26 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addHelpButton('meta[room_features][auto_gen_user_id]', 'auto_gen_user_id', 'mod_plugnmeet');
     }
 
+    /**
+     * Add recording features.
+     * @return void
+     * @throws coding_exception
+     */
     private function add_recording_features() {
         $mform = $this->_form;
-        $mform->addElement('advcheckbox', 'meta[recording_features][is_allow]', get_string('allow_recording', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[recording_features][is_allow]',
+            get_string('allow_recording', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[recording_features][is_allow]', 1);
         $mform->addHelpButton('meta[recording_features][is_allow]', 'allow_recording', 'mod_plugnmeet');
 
-        $mform->addElement('advcheckbox', 'meta[recording_features][is_allow_cloud]', get_string('allow_cloud_recording', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[recording_features][is_allow_cloud]',
+            get_string('allow_cloud_recording', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[recording_features][is_allow_cloud]', 1);
         $mform->addHelpButton('meta[recording_features][is_allow_cloud]', 'allow_cloud_recording', 'mod_plugnmeet');
         $mform->disabledIf('meta[recording_features][is_allow_cloud]', 'meta[recording_features][is_allow]', 'eq', 0);
@@ -164,12 +178,20 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addHelpButton('meta[recording_features][enable_auto_cloud_recording]', 'enable_auto_cloud_recording', 'mod_plugnmeet');
         $mform->disabledIf('meta[recording_features][enable_auto_cloud_recording]', 'meta[recording_features][is_allow_cloud]', 'eq', 0);
 
-        $mform->addElement('advcheckbox', 'meta[recording_features][is_allow_local]', get_string('allow_local_recording', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[recording_features][is_allow_local]',
+            get_string('allow_local_recording', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[recording_features][is_allow_local]', 1);
         $mform->addHelpButton('meta[recording_features][is_allow_local]', 'allow_local_recording', 'mod_plugnmeet');
         $mform->disabledIf('meta[recording_features][is_allow_local]', 'meta[recording_features][is_allow]', 'eq', 0);
 
-        $mform->addElement('advcheckbox', 'meta[recording_features][is_allow_view_recording]', get_string('is_allow_view_recording', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[recording_features][is_allow_view_recording]',
+            get_string('is_allow_view_recording', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[recording_features][is_allow_view_recording]', 1);
         $mform->addHelpButton('meta[recording_features][is_allow_view_recording]', 'is_allow_view_recording', 'mod_plugnmeet');
         $mform->disabledIf('meta[recording_features][is_allow_view_recording]', 'meta[recording_features][is_allow]', 'eq', 0);
@@ -177,56 +199,118 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('advcheckbox', 'meta[recording_features][is_allow_download_recording]', get_string('is_allow_download_recording', 'mod_plugnmeet'));
         $mform->setDefault('meta[recording_features][is_allow_download_recording]', 1);
         $mform->addHelpButton('meta[recording_features][is_allow_download_recording]', 'is_allow_download_recording', 'mod_plugnmeet');
-        $mform->disabledIf('meta[recording_features][is_allow_download_recording]', 'meta[recording_features][is_allow]', 'eq', 0);
+        $mform->disabledIf(
+            'meta[recording_features][is_allow_download_recording]',
+            'meta[recording_features][is_allow]',
+            'eq',
+            0
+        );
     }
 
+    /**
+     * Add chat features.
+     */
     private function add_chat_features() {
         $mform = $this->_form;
         $mform->addElement('advcheckbox', 'meta[chat_features][is_allow]', get_string('allow_chat', 'mod_plugnmeet'));
         $mform->setDefault('meta[chat_features][is_allow]', 1);
         $mform->addHelpButton('meta[chat_features][is_allow]', 'allow_chat', 'mod_plugnmeet');
 
-        $mform->addElement('advcheckbox', 'meta[chat_features][is_allow_file_upload]', get_string('allow_file_upload', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[chat_features][is_allow_file_upload]',
+            get_string('allow_file_upload', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[chat_features][is_allow_file_upload]', 1);
         $mform->addHelpButton('meta[chat_features][is_allow_file_upload]', 'allow_file_upload', 'mod_plugnmeet');
         $mform->disabledIf('meta[chat_features][is_allow_file_upload]', 'meta[chat_features][is_allow]', 'eq', 0);
     }
 
+    /**
+     * Add other features.
+     */
     private function add_other_features() {
         $mform = $this->_form;
-        $mform->addElement('advcheckbox', 'meta[shared_note_pad_features][is_allow]', get_string('allow_shared_notepad', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[shared_note_pad_features][is_allow]',
+            get_string('allow_shared_notepad', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[shared_note_pad_features][is_allow]', 1);
         $mform->addHelpButton('meta[shared_note_pad_features][is_allow]', 'allow_shared_notepad', 'mod_plugnmeet');
 
-        $mform->addElement('advcheckbox', 'meta[whiteboard_features][is_allow]', get_string('allow_whiteboard', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[whiteboard_features][is_allow]',
+            get_string('allow_whiteboard', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[whiteboard_features][is_allow]', 1);
         $mform->addHelpButton('meta[whiteboard_features][is_allow]', 'allow_whiteboard', 'mod_plugnmeet');
 
-        $mform->addElement('advcheckbox', 'meta[external_media_player_features][is_allow]', get_string('allowed_external_media_player', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[external_media_player_features][is_allow]',
+            get_string('allowed_external_media_player', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[external_media_player_features][is_allow]', 1);
         $mform->addHelpButton('meta[external_media_player_features][is_allow]', 'allowed_external_media_player', 'mod_plugnmeet');
 
-        $mform->addElement('advcheckbox', 'meta[waiting_room_features][is_active]', get_string('activate_waiting_room', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[waiting_room_features][is_active]',
+            get_string('activate_waiting_room', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[waiting_room_features][is_active]', 0);
         $mform->addHelpButton('meta[waiting_room_features][is_active]', 'activate_waiting_room', 'mod_plugnmeet');
 
-        $mform->addElement('textarea', 'meta[waiting_room_features][waiting_room_msg]', get_string('waiting_room_msg', 'mod_plugnmeet'), 'wrap="virtual" rows="5" cols="50"');
-        $mform->disabledIf('meta[waiting_room_features][waiting_room_msg]', 'meta[waiting_room_features][is_active]', 'eq', 0);
+        $mform->addElement(
+            'textarea',
+            'meta[waiting_room_features][waiting_room_msg]',
+            get_string('waiting_room_msg', 'mod_plugnmeet'),
+            'wrap="virtual" rows="5" cols="50"'
+        );
+        $mform->disabledIf(
+            'meta[waiting_room_features][waiting_room_msg]',
+            'meta[waiting_room_features][is_active]',
+            'eq',
+            0
+        );
 
-        $mform->addElement('advcheckbox', 'meta[breakout_room_features][is_allow]', get_string('allow_breakout_rooms', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[breakout_room_features][is_allow]',
+            get_string('allow_breakout_rooms', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[breakout_room_features][is_allow]', 1);
         $mform->addHelpButton('meta[breakout_room_features][is_allow]', 'allow_breakout_rooms', 'mod_plugnmeet');
 
-        $mform->addElement('text', 'meta[breakout_room_features][allowed_number_rooms]', get_string('allowed_number_rooms', 'mod_plugnmeet'));
+        $mform->addElement(
+            'text',
+            'meta[breakout_room_features][allowed_number_rooms]',
+            get_string('allowed_number_rooms', 'mod_plugnmeet')
+        );
         $mform->setType('meta[breakout_room_features][allowed_number_rooms]', PARAM_INT);
         $mform->setDefault('meta[breakout_room_features][allowed_number_rooms]', 6);
-        $mform->disabledIf('meta[breakout_room_features][allowed_number_rooms]', 'meta[breakout_room_features][is_allow]', 'eq', 0);
+        $mform->disabledIf(
+            'meta[breakout_room_features][allowed_number_rooms]',
+            'meta[breakout_room_features][is_allow]',
+            'eq',
+            0
+        );
 
         $mform->addElement('advcheckbox', 'meta[display_external_link_features][is_allow]', get_string('allow_display_external_link_features', 'mod_plugnmeet'));
         $mform->setDefault('meta[display_external_link_features][is_allow]', 1);
-        $mform->addHelpButton('meta[display_external_link_features][is_allow]', 'allow_display_external_link_features', 'mod_plugnmeet');
+        $mform->addHelpButton(
+            'meta[display_external_link_features][is_allow]',
+            'allow_display_external_link_features',
+            'mod_plugnmeet'
+        );
 
-        $mform->addElement('advcheckbox', 'meta[ingress_features][is_allow]', get_string('allow_ingress_features', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[ingress_features][is_allow]',
+            get_string('allow_ingress_features', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[ingress_features][is_allow]', 1);
         $mform->addHelpButton('meta[ingress_features][is_allow]', 'allow_ingress_features', 'mod_plugnmeet');
 
@@ -234,78 +318,171 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->setDefault('meta[polls_features][is_allow]', 1);
         $mform->addHelpButton('meta[polls_features][is_allow]', 'allow_polls', 'mod_plugnmeet');
 
-        $mform->addElement('advcheckbox', 'meta[sip_dial_in_features][is_allow]', get_string('sip_dial_in_features_is_allow', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[sip_dial_in_features][is_allow]',
+            get_string('sip_dial_in_features_is_allow', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[sip_dial_in_features][is_allow]', 0);
         $mform->addHelpButton('meta[sip_dial_in_features][is_allow]', 'sip_dial_in_features_is_allow', 'mod_plugnmeet');
     }
 
+    /**
+     * Add E2EE features.
+     */
     private function add_e2ee_features() {
         $mform = $this->_form;
         $mform->addElement('advcheckbox', 'meta[end_to_end_encryption_features][is_enabled]', get_string('enable_end_to_end_encryption_features', 'mod_plugnmeet'));
         $mform->setDefault('meta[end_to_end_encryption_features][is_enabled]', 0);
-        $mform->addHelpButton('meta[end_to_end_encryption_features][is_enabled]', 'enable_end_to_end_encryption_features', 'mod_plugnmeet');
+        $mform->addHelpButton(
+            'meta[end_to_end_encryption_features][is_enabled]',
+            'enable_end_to_end_encryption_features',
+            'mod_plugnmeet'
+        );
 
-        $mform->addElement('advcheckbox', 'meta[end_to_end_encryption_features][enabled_self_insert_encryption_key]', get_string('enabled_self_insert_encryption_key', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[end_to_end_encryption_features][enabled_self_insert_encryption_key]',
+            get_string('enabled_self_insert_encryption_key', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[end_to_end_encryption_features][enabled_self_insert_encryption_key]', 0);
         $mform->addHelpButton('meta[end_to_end_encryption_features][enabled_self_insert_encryption_key]', 'enabled_self_insert_encryption_key', 'mod_plugnmeet');
         $mform->disabledIf('meta[end_to_end_encryption_features][enabled_self_insert_encryption_key]', 'meta[end_to_end_encryption_features][is_enabled]', 'eq', 0);
 
         $mform->addElement('advcheckbox', 'meta[end_to_end_encryption_features][included_chat_messages]', get_string('included_e2ee_chat_messages', 'mod_plugnmeet'));
         $mform->setDefault('meta[end_to_end_encryption_features][included_chat_messages]', 0);
-        $mform->addHelpButton('meta[end_to_end_encryption_features][included_chat_messages]', 'included_e2ee_chat_messages', 'mod_plugnmeet');
+        $mform->addHelpButton(
+            'meta[end_to_end_encryption_features][included_chat_messages]',
+            'included_e2ee_chat_messages',
+            'mod_plugnmeet'
+        );
         $mform->disabledIf('meta[end_to_end_encryption_features][included_chat_messages]', 'meta[end_to_end_encryption_features][is_enabled]', 'eq', 0);
 
         $mform->addElement('advcheckbox', 'meta[end_to_end_encryption_features][included_whiteboard]', get_string('included_e2ee_whiteboard', 'mod_plugnmeet'));
         $mform->setDefault('meta[end_to_end_encryption_features][included_whiteboard]', 0);
-        $mform->addHelpButton('meta[end_to_end_encryption_features][included_whiteboard]', 'included_e2ee_whiteboard', 'mod_plugnmeet');
-        $mform->disabledIf('meta[end_to_end_encryption_features][included_whiteboard]', 'meta[end_to_end_encryption_features][is_enabled]', 'eq', 0);
+        $mform->addHelpButton(
+            'meta[end_to_end_encryption_features][included_whiteboard]',
+            'included_e2ee_whiteboard',
+            'mod_plugnmeet'
+        );
+        $mform->disabledIf('meta[end_to_end_encryption_features][included_whiteboard]', '
+        meta[end_to_end_encryption_features][is_enabled]', 'eq', 0);
     }
 
+    /**
+     * Add insights features.
+     */
     private function add_insights_features() {
         $mform = $this->_form;
-        $mform->addElement('advcheckbox', 'meta[insights_features][is_allow]', get_string('insights_features_is_allow', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[insights_features][is_allow]',
+            get_string('insights_features_is_allow', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[insights_features][is_allow]', 0);
         $mform->addHelpButton('meta[insights_features][is_allow]', 'insights_features_is_allow', 'mod_plugnmeet');
 
         $mform->addElement('advcheckbox', 'meta[insights_features][transcription_features][is_allow]', get_string('insights_transcription_features_is_allow', 'mod_plugnmeet'));
         $mform->setDefault('meta[insights_features][transcription_features][is_allow]', 0);
-        $mform->addHelpButton('meta[insights_features][transcription_features][is_allow]', 'insights_transcription_features_is_allow', 'mod_plugnmeet');
-        $mform->disabledIf('meta[insights_features][transcription_features][is_allow]', 'meta[insights_features][is_allow]', 'eq', 0);
+        $mform->addHelpButton(
+            'meta[insights_features][transcription_features][is_allow]',
+            'insights_transcription_features_is_allow',
+            'mod_plugnmeet'
+        );
+        $mform->disabledIf(
+            'meta[insights_features][transcription_features][is_allow]',
+            'meta[insights_features][is_allow]',
+            'eq',
+            0
+        );
 
-        $mform->addElement('advcheckbox', 'meta[insights_features][transcription_features][is_allow_translation]', get_string('insights_transcription_features_is_allow_translation', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[insights_features][transcription_features][is_allow_translation]',
+            get_string('insights_transcription_features_is_allow_translation', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[insights_features][transcription_features][is_allow_translation]', 0);
         $mform->addHelpButton('meta[insights_features][transcription_features][is_allow_translation]', 'insights_transcription_features_is_allow_translation', 'mod_plugnmeet');
         $mform->disabledIf('meta[insights_features][transcription_features][is_allow_translation]', 'meta[insights_features][transcription_features][is_allow]', 'eq', 0);
 
-        $mform->addElement('advcheckbox', 'meta[insights_features][transcription_features][is_allow_speech_synthesis]', get_string('insights_transcription_features_is_allow_speech_synthesis', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[insights_features][transcription_features][is_allow_speech_synthesis]',
+            get_string('insights_transcription_features_is_allow_speech_synthesis', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[insights_features][transcription_features][is_allow_speech_synthesis]', 0);
-        $mform->addHelpButton('meta[insights_features][transcription_features][is_allow_speech_synthesis]', 'insights_transcription_features_is_allow_speech_synthesis', 'mod_plugnmeet');
+        $mform->addHelpButton(
+            'meta[insights_features][transcription_features][is_allow_speech_synthesis]',
+            'insights_transcription_features_is_allow_speech_synthesis',
+            'mod_plugnmeet'
+        );
         $mform->disabledIf('meta[insights_features][transcription_features][is_allow_speech_synthesis]', 'meta[insights_features][transcription_features][is_allow]', 'eq', 0);
 
-        $mform->addElement('advcheckbox', 'meta[insights_features][chat_translation_features][is_allow]', get_string('insights_chat_translation_features_is_allow', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[insights_features][chat_translation_features][is_allow]',
+            get_string('insights_chat_translation_features_is_allow', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[insights_features][chat_translation_features][is_allow]', 0);
         $mform->addHelpButton('meta[insights_features][chat_translation_features][is_allow]', 'insights_chat_translation_features_is_allow', 'mod_plugnmeet');
-        $mform->disabledIf('meta[insights_features][chat_translation_features][is_allow]', 'meta[insights_features][is_allow]', 'eq', 0);
+        $mform->disabledIf(
+            'meta[insights_features][chat_translation_features][is_allow]',
+            'meta[insights_features][is_allow]',
+            'eq',
+            0
+        );
 
-        $mform->addElement('advcheckbox', 'meta[insights_features][ai_features][is_allow]', get_string('insights_ai_features_is_allow', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[insights_features][ai_features][is_allow]',
+            get_string('insights_ai_features_is_allow', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[insights_features][ai_features][is_allow]', 0);
-        $mform->addHelpButton('meta[insights_features][ai_features][is_allow]', 'insights_ai_features_is_allow', 'mod_plugnmeet');
-        $mform->disabledIf('meta[insights_features][ai_features][is_allow]', 'meta[insights_features][is_allow]', 'eq', 0);
+        $mform->addHelpButton(
+            'meta[insights_features][ai_features][is_allow]',
+            'insights_ai_features_is_allow',
+            'mod_plugnmeet'
+        );
+        $mform->disabledIf(
+            'meta[insights_features][ai_features][is_allow]',
+            'meta[insights_features][is_allow]',
+            'eq',
+            0
+        );
 
-        $mform->addElement('advcheckbox', 'meta[insights_features][ai_features][ai_text_chat_features][is_allow]', get_string('insights_ai_text_chat_features_is_allow', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[insights_features][ai_features][ai_text_chat_features][is_allow]',
+            get_string('insights_ai_text_chat_features_is_allow', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[insights_features][ai_features][ai_text_chat_features][is_allow]', 0);
         $mform->addHelpButton('meta[insights_features][ai_features][ai_text_chat_features][is_allow]', 'insights_ai_text_chat_features_is_allow', 'mod_plugnmeet');
         $mform->disabledIf('meta[insights_features][ai_features][ai_text_chat_features][is_allow]', 'meta[insights_features][ai_features][is_allow]', 'eq', 0);
 
-        $mform->addElement('advcheckbox', 'meta[insights_features][ai_features][meeting_summarization_features][is_allow]', get_string('insights_ai_meeting_summarization_features_is_allow', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[insights_features][ai_features][meeting_summarization_features][is_allow]',
+            get_string('insights_ai_meeting_summarization_features_is_allow', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[insights_features][ai_features][meeting_summarization_features][is_allow]', 0);
-        $mform->addHelpButton('meta[insights_features][ai_features][meeting_summarization_features][is_allow]', 'insights_ai_meeting_summarization_features_is_allow', 'mod_plugnmeet');
+        $mform->addHelpButton(
+            'meta[insights_features][ai_features][meeting_summarization_features][is_allow]',
+            'insights_ai_meeting_summarization_features_is_allow',
+            'mod_plugnmeet'
+        );
         $mform->disabledIf('meta[insights_features][ai_features][meeting_summarization_features][is_allow]', 'meta[insights_features][ai_features][is_allow]', 'eq', 0);
     }
 
+    /**
+     * Add default lock settings.
+     */
     private function add_default_lock_settings() {
         $mform = $this->_form;
-        $mform->addElement('advcheckbox', 'meta[default_lock_settings][lock_microphone]', get_string('lock_microphone', 'mod_plugnmeet'));
+        $mform->addElement(
+            'advcheckbox',
+            'meta[default_lock_settings][lock_microphone]',
+            get_string('lock_microphone', 'mod_plugnmeet')
+        );
         $mform->setDefault('meta[default_lock_settings][lock_microphone]', 0);
         $mform->addHelpButton('meta[default_lock_settings][lock_microphone]', 'lock_microphone', 'mod_plugnmeet');
 
@@ -366,7 +543,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('advcheckbox', 'completionmic', get_string('completion_mic_enabled', 'mod_plugnmeet'));
         $mform->addHelpButton('completionmic', 'completion_mic_enabled', 'mod_plugnmeet');
 
-        return array('completionminutes', 'completionraisedhand', 'completionchatmessages', 'completionwebcam', 'completionmic');
+        return ['completionminutes', 'completionraisedhand', 'completionchatmessages', 'completionwebcam', 'completionmic'];
     }
 
     /**
@@ -376,9 +553,14 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
      * @return bool
      */
     public function completion_rule_enabled($data) {
-        return (!empty($data['completionminutes']) || !empty($data['completionraisedhand']) || !empty($data['completionchatmessages']) || !empty($data['completionwebcam']) || !empty($data['completionmic']));
+        return (!empty($data['completionminutes']) || !empty($data['completionraisedhand']) ||
+            !empty($data['completionchatmessages']) || !empty($data['completionwebcam']) ||
+            !empty($data['completionmic']));
     }
 
+    /**
+     * Moodle validation
+     */
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);
         if ($data['available'] && $data['deadline'] && $data['deadline'] < $data['available']) {
@@ -387,8 +569,11 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         return $errors;
     }
 
-    public function data_preprocessing(&$default_values) {
-        parent::data_preprocessing($default_values);
+    /**
+     * Moodle data processing hook
+     */
+    public function data_preprocessing(&$defaultvalues) {
+        parent::data_preprocessing($defaultvalues);
         if (isset($this->current->id) && $this->current->id) {
             // Handle metadata
             $metadata = json_decode($this->current->roommetadata, true);
@@ -398,14 +583,14 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
                         foreach ($value as $subkey => $subvalue) {
                             if (is_array($subvalue)) {
                                 foreach ($subvalue as $subsubkey => $subsubvalue) {
-                                    $default_values['meta[' . $key . '][' . $subkey . '][' . $subsubkey . ']'] = $subsubvalue;
+                                    $defaultvalues['meta[' . $key . '][' . $subkey . '][' . $subsubkey . ']'] = $subsubvalue;
                                 }
                             } else {
-                                $default_values['meta[' . $key . '][' . $subkey . ']'] = $subvalue;
+                                $defaultvalues['meta[' . $key . '][' . $subkey . ']'] = $subvalue;
                             }
                         }
                     } else {
-                        $default_values['meta[' . $key . ']'] = $value;
+                        $defaultvalues['meta[' . $key . ']'] = $value;
                     }
                 }
             }
