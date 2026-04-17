@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,43 +12,64 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Backup steps for mod_plugnmeet are defined here.
+ * Define all the backup steps for mod_plugnmeet.
  *
- * @package     mod_plugnmeet
- * @category    backup
- * @author     Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright  2022 MynaParrot
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    mod_plugnmeet
+ * @copyright  2024 MynaParrot
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-// More information about the backup process: {@link https://docs.moodle.org/dev/Backup_API}.
-// More information about the restore process: {@link https://docs.moodle.org/dev/Restore_API}.
-
 /**
- * Define the complete structure for backup, with file and id annotations.
+ * Define the structure step for mod_plugnmeet.
  */
 class backup_plugnmeet_activity_structure_step extends backup_activity_structure_step {
-
     /**
-     * Defines the structure of the resulting xml file.
-     *
-     * @return backup_nested_element The structure wrapped by the common 'activity' element.
+     * Define the structure of the plugnmeet activity.
      */
     protected function define_structure() {
-        $plugnmeet = new backup_nested_element('plugnmeet', array('id'), array(
-            'course', 'name', 'roomid', 'welcomemessage', 'maxparticipants', 'roommetadata', 'intro', 'introformat', 'available', 'deadline', 'grade'));
+
+        // To know if we are including userinfo.
+        $userinfo = $this->get_setting_value('userinfo');
+
+        // Define each element.
+        $plugnmeet = new backup_nested_element('plugnmeet', ['id'], [
+            'name', 'roomid', 'welcomemessage', 'maxparticipants', 'roommetadata',
+            'timecreated', 'timemodified', 'intro', 'introformat',
+            'available', 'deadline', 'usermodified', 'grade',
+            'completionminutes', 'completionraisedhand', 'completionchatmessages',
+            'completionwebcam', 'completionmic',
+        ]);
+
+        $userstats = new backup_nested_element('user_stats');
+
+        $userstat = new backup_nested_element('user_stat', ['id'], [
+            'userid', 'statsdata', 'timemodified',
+        ]);
+
+        // Build the tree.
+        $plugnmeet->add_child($userstats);
+        $userstats->add_child($userstat);
 
         // Define sources.
         $plugnmeet->set_source_table('plugnmeet', ['id' => backup::VAR_ACTIVITYID]);
 
-        // Define file annotations.
-        $plugnmeet->annotate_files('mod_plugnmeet', 'intro', null);
+        if ($userinfo) {
+            $userstat->set_source_table('plugnmeet_user_stats', ['plugnmeetid' => backup::VAR_PARENTID]);
+        }
 
+        // Define id annotations.
+        $plugnmeet->annotate_ids('user', 'usermodified');
+        $userstat->annotate_ids('user', 'userid');
+
+        // Define file annotations (if you store files in intro).
+        $plugnmeet->annotate_files('mod_plugnmeet', 'intro', 'id');
+
+        // Return the root element (plugnmeet).
         return $this->prepare_activity_structure($plugnmeet);
     }
 }

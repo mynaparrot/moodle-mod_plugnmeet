@@ -17,15 +17,13 @@
 /**
  * Plugin upgrade steps are defined here.
  *
- * @package     mod_plugnmeet
- * @category    upgrade
- * @copyright   2022 mynaparrot
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    mod_plugnmeet
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright  2026 MynaParrot
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
-
-require_once(__DIR__ . '/upgradelib.php');
 
 /**
  * Execute mod_plugnmeet upgrade from the given old version.
@@ -38,25 +36,47 @@ function xmldb_plugnmeet_upgrade($oldversion) {
 
     $dbman = $DB->get_manager();
 
-    // For further information please read {@link https://docs.moodle.org/dev/Upgrade_API}.
-    //
-    // You will also have to create the db/install.xml file by using the XMLDB Editor.
-    // Documentation for the XMLDB Editor can be found at {@link https://docs.moodle.org/dev/XMLDB_editor}.
+    if ($oldversion < 2026041400) {
+        // 1. Add fields to plugnmeet table.
+        $table = new xmldb_table('plugnmeet');
+        $fields = [
+            'completionminutes' => new xmldb_field('completionminutes', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
+            'completionraisedhand' => new xmldb_field('completionraisedhand', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
+            'completionchatmessages' => new xmldb_field('completionchatmessages', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
+            'completionwebcam' => new xmldb_field('completionwebcam', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
+            'completionmic' => new xmldb_field('completionmic', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
+            'eventid' => new xmldb_field('eventid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
+        ];
 
-    $table = new xmldb_table('plugnmeet');
-    $available = new xmldb_field('available', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0);
-    $deadline = new xmldb_field('deadline', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0);
-    $grade = new xmldb_field('grade', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 100);
+        foreach ($fields as $name => $field) {
+            if (!$dbman->field_exists($table, $field)) {
+                $dbman->add_field($table, $field);
+            }
+        }
 
-    // Conditionally launch add field newfield.
-    if (!$dbman->field_exists($table, $available)) {
-        $dbman->add_field($table, $available);
-    }
-    if (!$dbman->field_exists($table, $deadline)) {
-        $dbman->add_field($table, $deadline);
-    }
-    if (!$dbman->field_exists($table, $grade)) {
-        $dbman->add_field($table, $grade);
+        // 2. Create plugnmeet_user_stats table.
+        $statstable = new xmldb_table('plugnmeet_user_stats');
+
+        $statstable->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $statstable->add_field('plugnmeetid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $statstable->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $statstable->add_field('statsdata', XMLDB_TYPE_TEXT, null, null, null, null, null);
+        $statstable->add_field('is_present', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0');
+        $statstable->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+
+        // Adding keys to table plugnmeet_user_stats.
+        $statstable->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $statstable->add_key('plugnmeetid', XMLDB_KEY_FOREIGN, ['plugnmeetid'], 'plugnmeet', ['id']);
+        $statstable->add_key('userid', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
+
+        // Adding indexes to table plugnmeet_user_stats.
+        $statstable->add_index('plugnmeetid_userid', XMLDB_INDEX_UNIQUE, ['plugnmeetid', 'userid']);
+
+        if (!$dbman->table_exists($statstable)) {
+            $dbman->create_table($statstable);
+        }
+
+        upgrade_mod_savepoint(true, 2026041400, 'plugnmeet');
     }
 
     return true;

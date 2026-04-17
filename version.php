@@ -18,16 +18,17 @@
  *
  * @package     mod_plugnmeet
  * @author     Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright  2022 MynaParrot
+ * @copyright  2026 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
+
 $plugin->component = 'mod_plugnmeet';
 // x-release-please-start-version
 $plugin->release = '2.1.0';
 // x-release-please-end
-$plugin->version = 2026012201;
-$plugin->requires = 2021051700;
-$plugin->maturity = MATURITY_STABLE;
+$plugin->version   = 2026041400;
+$plugin->requires  = 2024051300;
+$plugin->maturity  = MATURITY_STABLE;

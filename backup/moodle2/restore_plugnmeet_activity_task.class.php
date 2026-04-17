@@ -15,79 +15,56 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * The task that provides a complete restore of mod_plugnmeet is defined here.
+ * Activity task for mod_plugnmeet restore.
  *
- * @package     mod_plugnmeet
- * @category    backup
- * @author     Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright  2022 MynaParrot
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    mod_plugnmeet
+ * @copyright  2024 MynaParrot
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-// More information about the backup process: {@link https://docs.moodle.org/dev/Backup_API}.
-// More information about the restore process: {@link https://docs.moodle.org/dev/Restore_API}.
-
-require_once($CFG->dirroot . '//mod/plugnmeet/backup/moodle2/restore_plugnmeet_stepslib.php');
+require_once($CFG->dirroot . '/mod/plugnmeet/backup/moodle2/restore_plugnmeet_stepslib.php');
 
 /**
- * Restore task for mod_plugnmeet.
+ * Activity task for mod_plugnmeet restore.
  */
 class restore_plugnmeet_activity_task extends restore_activity_task {
-
     /**
-     * Defines particular settings that this activity can have.
+     * Define particular settings this activity can have.
      */
     protected function define_my_settings() {
+        // No particular settings for this activity.
     }
 
     /**
-     * Defines particular steps that this activity can have.
-     *
-     * @return base_step.
+     * Define particular steps this activity can have.
      */
     protected function define_my_steps() {
         $this->add_step(new restore_plugnmeet_activity_structure_step('plugnmeet_structure', 'plugnmeet.xml'));
     }
 
     /**
-     * Defines the contents in the activity that must be processed by the link decoder.
-     *
-     * @return array.
-     */
-    public static function define_decode_contents() {
-        $contents = array();
-
-        // Define the contents.
-
-        return $contents;
-    }
-
-    /**
-     * Defines the decoding rules for links belonging to the activity to be executed by the link decoder.
-     *
-     * @return array.
+     * Define the decoding rules for links in this activity.
      */
     public static function define_decode_rules() {
-        $rules = array();
+        $rules = [];
 
-        // Define the rules.
+        $rules[] = new restore_decode_rule('PLUGNMEETVIEWBYID', '/mod/plugnmeet/view.php?id=$1', 'course_module');
+        $rules[] = new restore_decode_rule('PLUGNMEETINDEX', '/mod/plugnmeet/index.php?id=$1', 'course');
 
         return $rules;
     }
 
     /**
-     * Defines the restore log rules that will be applied by the
-     * {@see restore_logs_processor} when restoring mod_plugnmeet logs. It
-     * must return one array of {@see restore_log_rule} objects.
-     *
-     * @return array.
+     * Define the decoding rules for logs in this activity.
      */
     public static function define_restore_log_rules() {
-        $rules = array();
+        $rules = [];
 
-        // Define the rules.
+        $rules[] = new restore_log_rule('plugnmeet', 'add', 'view.php?id={course_module}', '{name}');
+        $rules[] = new restore_log_rule('plugnmeet', 'update', 'view.php?id={course_module}', '{name}');
+        $rules[] = new restore_log_rule('plugnmeet', 'view', 'view.php?id={course_module}', '{name}');
 
         return $rules;
     }

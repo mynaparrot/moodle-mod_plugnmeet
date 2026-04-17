@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,82 +12,83 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Display information about all the mod_plugnmeet modules in the requested course.
+ * This page lists all the instances of plugnmeet in a particular course.
  *
- * @package     mod_plugnmeet
- * @author     Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright  2022 MynaParrot
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    mod_plugnmeet
+ * @copyright  2026 MynaParrot
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require(__DIR__ . '/../../config.php');
-
+require_once(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
 
-$id = required_param('id', PARAM_INT);
+$id = required_param('id', PARAM_INT); // Course ID.
 
-$course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
-require_course_login($course);
+$course = $DB->get_record('course', ['id' => $id], '*', MUST_EXIST);
 
-$coursecontext = context_course::instance($course->id);
+require_login($course);
 
-$event = \mod_plugnmeet\event\course_module_instance_list_viewed::create(array(
-    'context' => $modulecontext
-));
+$context = context_course::instance($course->id);
+
+$event = \mod_plugnmeet\event\course_module_instance_list_viewed::create([
+    'context' => $context,
+]);
 $event->add_record_snapshot('course', $course);
 $event->trigger();
 
-$PAGE->set_url('/mod/plugnmeet/index.php', array('id' => $id));
-$PAGE->set_title(format_string($course->fullname));
-$PAGE->set_heading(format_string($course->fullname));
-$PAGE->set_context($coursecontext);
+$strplugnmeets = get_string('modulenameplural', 'mod_plugnmeet');
+
+$PAGE->set_url('/mod/plugnmeet/index.php', ['id' => $id]);
+$PAGE->set_title($strplugnmeets);
+$PAGE->set_heading($course->fullname);
+$PAGE->set_context($context);
 
 echo $OUTPUT->header();
-
-$modulenameplural = get_string('modulenameplural', 'mod_plugnmeet');
-echo $OUTPUT->heading($modulenameplural);
+echo $OUTPUT->heading($strplugnmeets);
 
 $plugnmeets = get_all_instances_in_course('plugnmeet', $course);
-
-if (empty($plugnmeets)) {
-    notice(get_string('no$plugnmeetinstances', 'mod_plugnmeet'), new moodle_url('/course/view.php', array('id' => $course->id)));
+if (!$plugnmeets) {
+    notice(get_string('thereareno', 'moodle', $strplugnmeets), new moodle_url('/course/view.php', ['id' => $course->id]));
+    die();
 }
 
 $table = new html_table();
-$table->attributes['class'] = 'generaltable mod_index';
 
 if ($course->format == 'weeks') {
-    $table->head = array(get_string('week'), get_string('name'));
-    $table->align = array('center', 'left');
+    $table->head  = [get_string('week'), get_string('name')];
+    $table->align = ['center', 'left'];
 } else if ($course->format == 'topics') {
-    $table->head = array(get_string('topic'), get_string('name'));
-    $table->align = array('center', 'left', 'left', 'left');
+    $table->head  = [get_string('topic'), get_string('name')];
+    $table->align = ['center', 'left'];
 } else {
-    $table->head = array(get_string('name'));
-    $table->align = array('left', 'left', 'left');
+    $table->head  = [get_string('name')];
+    $table->align = ['left'];
 }
 
 foreach ($plugnmeets as $plugnmeet) {
     if (!$plugnmeet->visible) {
         $link = html_writer::link(
-            new moodle_url('/mod/plugnmeet/view.php', array('id' => $plugnmeet->coursemodule)),
-            format_string($plugnmeet->name, true),
-            array('class' => 'dimmed'));
+            new moodle_url('/mod/plugnmeet/view.php', ['id' => $plugnmeet->coursemodule]),
+            $plugnmeet->name,
+            ['class' => 'dimmed']
+        );
     } else {
         $link = html_writer::link(
-            new moodle_url('/mod/plugnmeet/view.php', array('id' => $plugnmeet->coursemodule)),
-            format_string($plugnmeet->name, true));
+            new moodle_url('/mod/plugnmeet/view.php', ['id' => $plugnmeet->coursemodule]),
+            $plugnmeet->name
+        );
     }
 
-    if ($course->format == 'weeks' or $course->format == 'topics') {
-        $table->data[] = array($plugnmeet->section, $link);
+    if ($course->format == 'weeks' || $course->format == 'topics') {
+        $table->data[] = [$plugnmeet->section, $link];
     } else {
-        $table->data[] = array($link);
+        $table->data[] = [$link];
     }
 }
 
 echo html_writer::table($table);
+
 echo $OUTPUT->footer();

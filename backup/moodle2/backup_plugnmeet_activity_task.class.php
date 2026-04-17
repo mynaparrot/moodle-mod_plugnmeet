@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,60 +12,52 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The task that provides all the steps to perform a complete backup is defined here.
+ * Activity task for mod_plugnmeet.
  *
- * @package     mod_plugnmeet
- * @category    backup
- * @author     Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright  2022 MynaParrot
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    mod_plugnmeet
+ * @copyright  2024 MynaParrot
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-// More information about the backup process: {@link https://docs.moodle.org/dev/Backup_API}.
-// More information about the restore process: {@link https://docs.moodle.org/dev/Restore_API}.
-global $CFG;
 require_once($CFG->dirroot . '/mod/plugnmeet/backup/moodle2/backup_plugnmeet_stepslib.php');
 
 /**
- * Provides all the settings and steps to perform a complete backup of mod_plugnmeet.
+ * Activity task for mod_plugnmeet.
  */
 class backup_plugnmeet_activity_task extends backup_activity_task {
-
     /**
-     * Defines particular settings for the plugin.
+     * Define (add) particular settings this activity can have.
      */
     protected function define_my_settings() {
+        // No particular settings for this activity.
     }
 
     /**
-     * Defines particular steps for the backup process.
+     * Define (add) particular steps this activity can have.
      */
     protected function define_my_steps() {
         $this->add_step(new backup_plugnmeet_activity_structure_step('plugnmeet_structure', 'plugnmeet.xml'));
     }
 
     /**
-     * Codes the transformations to perform in the activity in order to get transportable (encoded) links.
-     *
-     * @param string $content
-     * @return string
+     * Code the substitutions to happen in titles for this activity.
      */
     public static function encode_content_links($content) {
         global $CFG;
 
-        $base = preg_quote($CFG->wwwroot, '/');
+        $base = preg_quote($CFG->wwwroot . '/mod/plugnmeet', '/');
 
-        // Link to the list of choices.
-        $search = "/(" . $base . "\/mod\/plugnmeet\/index.php\?id\=)([0-9]+)/";
+        // Link to the list of plugnmeets.
+        $search = "/(" . $base . "\/index.php\?id\=)([0-9]+)/";
         $content = preg_replace($search, '$@PLUGNMEETINDEX*$2@$', $content);
 
-        // Link to choice view by moduleid.
-        $search = "/(" . $base . "\/mod\/plugnmeet\/view.php\?id\=)([0-9]+)/";
+        // Link to plugnmeet view by moduleid.
+        $search = "/(" . $base . "\/view.php\?id\=)([0-9]+)/";
         $content = preg_replace($search, '$@PLUGNMEETVIEWBYID*$2@$', $content);
 
         return $content;

@@ -15,366 +15,336 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Library of interface functions and constants.
+ * Library of functions and constants for module plugnmeet
  *
  * @package     mod_plugnmeet
- * @author     Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright  2022 MynaParrot
+ * @author      Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright   2026 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_plugnmeet\helper\plugNmeetConnect;
+
 defined('MOODLE_INTERNAL') || die();
 
+
 /**
- * Return if the plugin supports $feature.
+ * Declare support for custom completion rules.
  *
- * @param string $feature Constant representing the feature.
- * @return true | null True if the feature is supported, null otherwise.
+ * @param string $feature The feature to check for.
+ * @return mixed The support status.
  */
 function plugnmeet_supports($feature) {
-    switch ($feature) {
-        case FEATURE_GRADE_HAS_GRADE:
-            return true;
-        case FEATURE_SHOW_DESCRIPTION:
-            return true;
-        case FEATURE_MOD_INTRO:
-            return true;
-        case FEATURE_BACKUP_MOODLE2:
-            return true;
-        default:
-            return null;
-    }
+    return match ($feature) {
+        FEATURE_COMPLETION_HAS_RULES => true,
+        FEATURE_GRADE_HAS_GRADE => true,
+        FEATURE_MOD_INTRO => true,
+        FEATURE_SHOW_DESCRIPTION => true,
+        FEATURE_IDNUMBER => true,
+        FEATURE_GROUPS => true,
+        FEATURE_GROUPINGS => true,
+        default => null,
+    };
 }
 
 /**
- * Get default room's metadata items
- * @return string[]
+ * Adds a new instance of a plugnmeet to the database
+ *
+ * @param stdClass $data An object from the add/update form
+ * @param mod_plugnmeet_mod_form $mform The form used to add the instance
+ * @return int The ID of the newly inserted plugnmeet record
+ * @throws dml_exception
  */
-function get_room_metadata_items() {
-    return array(
-        'room_features', 'recording_features', 'chat_features',
-        'shared_note_pad_features', 'whiteboard_features',
-        'external_media_player_features', 'waiting_room_features',
-        'breakout_room_features', 'display_external_link_features',
-        'ingress_features', 'end_to_end_encryption_features',
-        'insights_features', 'polls_features', 'sip_dial_in_features',
-        'default_lock_settings', 'custom_design'
-    );
+function plugnmeet_add_instance(stdClass $data, $mform = null) {
+    global $DB, $COURSE;
+
+    $data->timecreated = time();
+    $data->timemodified = time();
+    $data->roomid = plugNmeetConnect::generateUuid4();
+
+    // Handle metadata from the 'meta' form fields.
+    if (isset($data->meta)) {
+        $data->roommetadata = json_encode($data->meta);
+        unset($data->meta);
+    }
+
+    $data->id = $DB->insert_record('plugnmeet', $data);
+
+    plugnmeet_grade_item_update($data);
+
+    // Update calendar event.
+    plugnmeet_update_calendar_event($data);
+
+    return $data->id;
 }
 
 /**
- * Saves a new instance of the mod_plugnmeet into the database.
+ * Updates an existing instance of a plugnmeet in the database
  *
- * Given an object containing all the necessary data, (defined by the form
- * in mod_form.php) this function will create a new instance and return the id
- * number of the instance.
- *
- * @param object $moduleinstance An object from the form.
- * @param mod_plugnmeet_mod_form $mform The form.
- * @return int The id of the newly inserted record.
+ * @param stdClass $data An object from the add/update form
+ * @param mod_plugnmeet_mod_form $mform The form used to update the instance
+ * @return bool True if the record was updated, false otherwise
+ * @throws dml_exception
  */
-function plugnmeet_add_instance($moduleinstance, $mform = null) {
-    global $DB, $CFG;
-
-    $roommetadataitems = get_room_metadata_items();
-    $roommetadata = [];
-
-    foreach ($roommetadataitems as $item) {
-        if (isset($moduleinstance->{$item})) {
-            $roommetadata[$item] = $moduleinstance->{$item};
-        } else {
-            $roommetadata[$item] = [];
-        }
-    }
-
-    $moduleinstance->roommetadata = json_encode($roommetadata);
-    $moduleinstance->timecreated = time();
-
-    if (!class_exists("plugNmeetConnect")) {
-        require($CFG->dirroot . '/mod/plugnmeet/helpers/plugNmeetConnect.php');
-    }
-
-    $config = get_config('mod_plugnmeet');
-    $connect = new PlugNmeetConnect($config);
-    $moduleinstance->roomid = $connect->getUUID();
-
-    $moduleinstance->id = $DB->insert_record('plugnmeet', $moduleinstance);
-    plugnmeet_grade_item_update($moduleinstance);
-
-    return $moduleinstance->id;
-}
-
-/**
- * Updates an instance of the mod_plugnmeet in the database.
- *
- * Given an object containing all the necessary data (defined in mod_form.php),
- * this function will update an existing instance with new data.
- *
- * @param object $moduleinstance An object from the form in mod_form.php.
- * @param mod_plugnmeet_mod_form $mform The form.
- * @return bool True if successful, false otherwise.
- */
-function plugnmeet_update_instance($moduleinstance, $mform = null) {
+function plugnmeet_update_instance(stdClass $data, $mform = null) {
     global $DB;
 
-    $moduleinstance->timemodified = time();
-    $moduleinstance->id = $moduleinstance->instance;
-    $roommetadata = [];
-    $roommetadataitems = get_room_metadata_items();
+    $data->timemodified = time();
+    $data->id = $data->instance;
 
-    foreach ($roommetadataitems as $item) {
-        if (isset($moduleinstance->{$item})) {
-            $roommetadata[$item] = $moduleinstance->{$item};
-        } else {
-            $roommetadata[$item] = [];
-        }
+    // Handle metadata from the 'meta' form fields.
+    if (isset($data->meta)) {
+        $data->roommetadata = json_encode($data->meta);
+        unset($data->meta);
     }
 
-    if (!empty($roommetadata)) {
-        $moduleinstance->roommetadata = json_encode($roommetadata);
-    }
+    $result = $DB->update_record('plugnmeet', $data);
 
-    if (!$DB->update_record('plugnmeet', $moduleinstance)) {
-        return false;
-    }
+    plugnmeet_grade_item_update($data);
+    plugnmeet_update_grades($data);
 
-    plugnmeet_grade_item_update($moduleinstance);
-    return true;
+    // Update calendar event.
+    plugnmeet_update_calendar_event($data);
+
+    return $result;
 }
 
 /**
- * Removes an instance of the mod_plugnmeet from the database.
+ * Deletes an existing instance of a plugnmeet from the database
  *
- * @param int $id Id of the module instance.
- * @return bool True if successful, false on failure.
+ * @param int $id The ID of the plugnmeet instance to delete
+ * @return bool True if the record was deleted, false otherwise
+ * @throws dml_exception
  */
 function plugnmeet_delete_instance($id) {
-    global $DB;
+    global $DB, $CFG;
 
-    $exists = $DB->get_record('plugnmeet', array('id' => $id));
-    if (!$exists) {
+    if (!$plugnmeet = $DB->get_record('plugnmeet', ['id' => $id])) {
         return false;
     }
 
-    return $DB->delete_records('plugnmeet', array('id' => $id));
+    // Delete calendar event.
+    require_once($CFG->dirroot . '/calendar/lib.php');
+    if ($plugnmeet->eventid) {
+        $event = calendar_event::load($plugnmeet->eventid);
+        $event->delete();
+    }
+
+    plugnmeet_grade_item_delete($plugnmeet);
+
+    return $DB->delete_records('plugnmeet', ['id' => $plugnmeet->id]);
 }
 
 /**
- * Is a given scale used by the instance of mod_plugnmeet?
+ * Returns any information about the plugnmeet instance that should be cached in the course module info.
  *
- * This function returns if a scale is being used by one mod_plugnmeet
- * if it has support for grading and scales.
- *
- * @param int $moduleinstanceid ID of an instance of this module.
- * @param int $scaleid ID of the scale.
- * @return bool True if the scale is used by the given mod_plugnmeet instance.
+ * @param stdClass $coursemodule The course module object.
+ * @return cached_cm_info|null The cached information.
  */
-function plugnmeet_scale_used($moduleinstanceid, $scaleid) {
+function plugnmeet_get_coursemodule_info($coursemodule) {
     global $DB;
 
-    try {
-        if ($scaleid && $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
-            return true;
-        }
-    } catch (\Exception $e) {
-        return false;
+    $fields = 'id, name, completionminutes, completionraisedhand, completionchatmessages, completionwebcam, completionmic';
+    if (!$plugnmeet = $DB->get_record('plugnmeet', ['id' => $coursemodule->instance], $fields)) {
+        return null;
     }
 
-    return false;
+    $info = new cached_cm_info();
+    $info->name = $plugnmeet->name;
+
+    // Populate custom completion rules for the "To do" indicators.
+    $info->customdata['customcompletionrules'] = [
+        'completionminutes' => $plugnmeet->completionminutes,
+        'completionraisedhand' => $plugnmeet->completionraisedhand,
+        'completionchatmessages' => $plugnmeet->completionchatmessages,
+        'completionwebcam' => $plugnmeet->completionwebcam,
+        'completionmic' => $plugnmeet->completionmic,
+    ];
+
+    return $info;
 }
 
 /**
- * Checks if scale is being used by any instance of mod_plugnmeet.
+ * Extend the settings navigation with plugin specific settings
  *
- * This is used to find out if scale used anywhere.
- *
- * @param int $scaleid ID of the scale.
- * @return bool True if the scale is used by any mod_plugnmeet instance.
+ * @param settings_navigation $settingsnav The settings navigation object
+ * @param navigation_node $plugnmeetnode The plugnmeet node
  */
-function plugnmeet_scale_used_anywhere($scaleid) {
-    global $DB;
+function plugnmeet_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $plugnmeetnode) {
+    global $PAGE;
 
-    try {
-        if ($scaleid && $DB->record_exists('plugnmeet', array('grade' => -$scaleid))) {
-            return true;
-        }
-    } catch (\Exception $e) {
-        return false;
+    $cm = $PAGE->cm;
+
+    if (has_capability('mod/plugnmeet:manage', context_module::instance($cm->id))) {
+        $attendanceurl = new moodle_url('/mod/plugnmeet/attendance.php', ['id' => $cm->id]);
+        $plugnmeetnode->add(get_string('attendance', 'plugnmeet'), $attendanceurl, navigation_node::TYPE_SETTING, null, 'attendance');
     }
 
-    return false;
+    $recordingsurl = new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $cm->id]);
+    $plugnmeetnode->add(get_string('recordings', 'plugnmeet'), $recordingsurl, navigation_node::TYPE_SETTING, null, 'recordings');
+
+    $artifactsurl = new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $cm->id]);
+    $plugnmeetnode->add(get_string('artifacts', 'plugnmeet'), $artifactsurl, navigation_node::TYPE_SETTING, null, 'artifacts');
 }
 
 /**
- * Creates or updates grade item for the given mod_plugnmeet instance.
+ * Update the grade item for the given plugnmeet instance.
  *
- * Needed by {@see grade_update_mod_grades()}.
- *
- * @param stdClass $moduleinstance Instance object with extra cmidnumber and modname property.
- * @param mixed $grades optional array/object of grade(s); 'reset' means reset grades in gradebook
+ * @param stdClass $plugnmeet
+ * @param array|null $grades
  * @return int 0 if ok, error code otherwise
  */
-function plugnmeet_grade_item_update($moduleinstance, $grades = null) {
+function plugnmeet_grade_item_update(stdClass $plugnmeet, $grades = null) {
     global $CFG;
     require_once($CFG->libdir . '/gradelib.php');
 
-    $item = array();
-    $item['itemname'] = clean_param($moduleinstance->name, PARAM_NOTAGS);
-    $item['gradetype'] = GRADE_TYPE_NONE;
+    $params = ['itemname' => $plugnmeet->name];
 
-    if ($moduleinstance->grade > 0) {
-        $item['gradetype'] = GRADE_TYPE_VALUE;
-        $item['grademax'] = $moduleinstance->grade;
-        $item['grademin'] = 0;
-    } else if ($moduleinstance->grade < 0) {
-        $item['gradetype'] = GRADE_TYPE_SCALE;
-        $item['scaleid'] = -$moduleinstance->grade;
+    if (isset($plugnmeet->grade)) {
+        if ($plugnmeet->grade > 0) {
+            $params['gradetype'] = GRADE_TYPE_VALUE;
+            $params['grademax']  = $plugnmeet->grade;
+            $params['grademin']  = 0;
+        } else if ($plugnmeet->grade < 0) {
+            $params['gradetype'] = GRADE_TYPE_SCALE;
+            $params['scaleid']   = -$plugnmeet->grade;
+        }
+    } else {
+        $params['gradetype'] = GRADE_TYPE_NONE;
     }
 
     if ($grades === 'reset') {
-        $item['reset'] = true;
+        $params['reset'] = true;
         $grades = null;
     }
 
-    return grade_update('/mod/plugnmeet', $moduleinstance->course, 'mod', 'plugnmeet', $moduleinstance->id, 0, $grades, $item);
+    return grade_update('mod/plugnmeet', $plugnmeet->course, 'mod', 'plugnmeet', $plugnmeet->id, 0, $grades, $params);
 }
 
 /**
- * Delete grade item for given mod_plugnmeet instance.
+ * Update grades for the given plugnmeet instance.
  *
- * @param stdClass $moduleinstance Instance object.
- * @return int.
+ * @param stdClass $plugnmeet
+ * @param int $userid
  */
-function plugnmeet_grade_item_delete($moduleinstance) {
+function plugnmeet_update_grades(stdClass $plugnmeet, $userid = 0) {
+    // This is typically used for mass updates or when settings change.
+    // For our hybrid completion, the CompletionHelper handles pushing grades.
+}
+
+/**
+ * Delete grade item for the given plugnmeet instance.
+ *
+ * @param stdClass $plugnmeet
+ * @return int 0 if ok, error code otherwise
+ */
+function plugnmeet_grade_item_delete(stdClass $plugnmeet) {
     global $CFG;
     require_once($CFG->libdir . '/gradelib.php');
 
-    return grade_update('/mod/plugnmeet', $moduleinstance->course, 'mod', 'plugnmeet',
-        $moduleinstance->id, 0, null, array('deleted' => 1));
+    return grade_update('mod/plugnmeet', $plugnmeet->course, 'mod', 'plugnmeet', $plugnmeet->id, 0, null, ['deleted' => 1]);
 }
 
 /**
- * Update mod_plugnmeet grades in the gradebook.
+ * Update the calendar event for the plugnmeet instance.
  *
- * Needed by {@see grade_update_mod_grades()}.
- *
- * @param stdClass $moduleinstance Instance object with extra cmidnumber and modname property.
- * @param int $userid Update grade of specific user only, 0 means all participants.
+ * @param stdClass $plugnmeet The plugnmeet record.
  */
-function plugnmeet_update_grades($moduleinstance, $userid = 0) {
-    global $CFG, $DB;
-    require_once($CFG->libdir . '/gradelib.php');
+function plugnmeet_update_calendar_event($plugnmeet) {
+    global $DB, $CFG;
 
-    // Populate array of grade objects indexed by userid.
-    $grades = array();
-    grade_update('/mod/plugnmeet', $moduleinstance->course, 'mod', 'plugnmeet', $moduleinstance->id, 0, $grades);
+    require_once($CFG->dirroot . '/calendar/lib.php');
+
+    // Ensure we have the full record if called from update/add instance.
+    if (!isset($plugnmeet->eventid) || !isset($plugnmeet->coursemodule)) {
+        $record = $DB->get_record('plugnmeet', ['id' => $plugnmeet->id]);
+        $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id);
+        if ($record) {
+            foreach ($record as $key => $value) {
+                if (!isset($plugnmeet->$key)) {
+                    $plugnmeet->$key = $value;
+                }
+            }
+        }
+        if ($cm) {
+            $plugnmeet->coursemodule = $cm->id;
+        }
+    }
+
+    $event = new stdClass();
+    $event->name        = $plugnmeet->name;
+    $event->description = format_module_intro('plugnmeet', $plugnmeet, $plugnmeet->coursemodule);
+    $event->format      = FORMAT_HTML;
+    $event->courseid    = $plugnmeet->course;
+    $event->groupid     = 0;
+    $event->userid      = 0;
+    $event->modulename  = 'plugnmeet';
+    $event->instance    = $plugnmeet->id;
+    $event->eventtype   = 'available';
+    $event->timestart   = $plugnmeet->available;
+    $event->timeduration = 0;
+
+    if ($plugnmeet->deadline > 0 && $plugnmeet->deadline > $plugnmeet->available) {
+        $event->timeduration = $plugnmeet->deadline - $plugnmeet->available;
+    }
+
+    if (!empty($plugnmeet->eventid)) {
+        $event->id = $plugnmeet->eventid;
+        try {
+            $calendarevent = calendar_event::load($event->id);
+            if ($event->timestart > 0) {
+                $calendarevent->update($event);
+            } else {
+                // If time was removed, delete the event.
+                $calendarevent->delete();
+                $DB->set_field('plugnmeet', 'eventid', 0, ['id' => $plugnmeet->id]);
+            }
+        } catch (Exception $e) {
+            // Event might have been deleted manually.
+            if ($event->timestart > 0) {
+                $calendarevent = calendar_event::create($event);
+                $DB->set_field('plugnmeet', 'eventid', $calendarevent->id, ['id' => $plugnmeet->id]);
+            }
+        }
+    } else if ($event->timestart > 0) {
+        $calendarevent = calendar_event::create($event);
+        $DB->set_field('plugnmeet', 'eventid', $calendarevent->id, ['id' => $plugnmeet->id]);
+    }
 }
 
 /**
- * Returns the lists of all browsable file areas within the given module context.
- *
- * The file area 'intro' for the activity introduction field is added automatically
- * by {@see file_browser::get_file_info_context_module()}.
- *
- * @param stdClass $course
- * @param stdClass $cm
- * @param stdClass $context
- * @return string[].
- * @package     mod_plugnmeet
- * @category    files
- *
- */
-function plugnmeet_get_file_areas($course, $cm, $context) {
-    return array();
-}
-
-/**
- * File browsing support for mod_plugnmeet file areas.
- *
- * @param file_browser $browser
- * @param array $areas
- * @param stdClass $course
- * @param stdClass $cm
- * @param stdClass $context
- * @param string $filearea
- * @param int $itemid
- * @param string $filepath
- * @param string $filename
- * @return file_info Instance or null if not found.
- * @package     mod_plugnmeet
- * @category    files
- *
- */
-function plugnmeet_get_file_info($browser, $areas, $course, $cm, $context, $filearea, $itemid, $filepath, $filename) {
-    return null;
-}
-
-/**
- * Serves the files from the mod_plugnmeet file areas.
+ * Obtains the automatic completion state for this plugnmeet activity.
  *
  * @param stdClass $course The course object.
  * @param stdClass $cm The course module object.
- * @param stdClass $context The mod_plugnmeet's context.
- * @param string $filearea The name of the file area.
- * @param array $args Extra arguments (itemid, path).
- * @param bool $forcedownload Whether or not force download.
- * @param array $options Additional options affecting the file serving.
- * @category    files
- *
- * @package     mod_plugnmeet
+ * @param int $userid The user ID.
+ * @param bool $type The type of completion (usually COMPLETION_AND).
+ * @return int The completion state (COMPLETION_COMPLETE, COMPLETION_INCOMPLETE, etc.)
  */
-function plugnmeet_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, $options = array()) {
-    $itemid = array_shift($args); // The first item in the $args array.
-    $filename = array_pop($args); // The last item in the $args array.
-    if (!$args) {
-        $filepath = '/';
-    } else {
-        $filepath = '/' . implode('/', $args) . '/';
-    }
-    // Retrieve the file from the Files API.
-    $fs = get_file_storage();
-    $file = $fs->get_file($context->id, 'mod_plugnmeet', $filearea, $itemid, $filepath, $filename);
-    if (!$file) {
-        return false; // The file does not exist.
+function plugnmeet_get_completion_state($course, $cm, $userid, $type) {
+    global $DB;
+
+    // Fetch the plugnmeet instance.
+    if (!$plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance])) {
+        return COMPLETION_INCOMPLETE;
     }
 
-    return send_stored_file($file, 86400, 0, $forcedownload, $options);
+    // Since our custom completion is processed asynchronously (via analytics/webhooks),
+    // we should check the current completion state in Moodle's completion table.
+    $completion = new completion_info($course);
+    $data = $completion->get_data($cm, false, $userid);
+
+    return $data->completionstate;
 }
 
 /**
- * Extends the global navigation tree by adding mod_plugnmeet nodes if there is a relevant content.
- *
- * This can be called by an AJAX request so do not rely on $PAGE as it might not be set up properly.
- *
- * @param navigation_node $plugnmeetnode An object representing the navigation tree node.
- * @param stdClass $course
- * @param stdClass $module
- * @param cm_info $cm
+ * Build client config
  */
-function plugnmeet_extend_navigation($plugnmeetnode, $course, $module, $cm) {
-}
-
-/**
- * Extends the settings navigation with the mod_plugnmeet settings.
- *
- * This function is called when the context for the page is a mod_plugnmeet module.
- * This is not called by AJAX so it is safe to rely on the $PAGE.
- *
- * @param settings_navigation $settingsnav {@see settings_navigation}
- * @param navigation_node $plugnmeetnode {@see navigation_node}
- */
-function plugnmeet_extend_settings_navigation($settingsnav, $plugnmeetnode = null) {
-}
-
 function get_plugnmeet_config() {
-    global $CFG, $DB;
+    global $DB;
 
     $config = get_config('mod_plugnmeet');
-    if ($config->client_load === "1") {
-        $assetspath = $config->plugnmeet_server_url . "/assets";
-    } else {
-        $assetspath = $CFG->wwwroot . "/mod/plugnmeet/pix/client/dist/assets";
-    }
+    $assetspath = $config->plugnmeet_server_url . "/assets";
 
     $plugnmeetconfig = [
         'serverUrl' => $config->plugnmeet_server_url,
@@ -391,11 +361,11 @@ function get_plugnmeet_config() {
     if ($config->custom_logo) {
         $filename = str_replace("/", "", $config->custom_logo);
         $tablefiles = "files";
-        $results = $DB->get_record($tablefiles, array(
+        $results = $DB->get_record($tablefiles, [
             'filename' => $filename,
             'component' => 'mod_plugnmeet',
-            'filearea' => 'custom_logo'
-        ));
+            'filearea' => 'custom_logo',
+        ]);
 
         if ($results) {
             $url = moodle_url::make_pluginfile_url(
@@ -406,7 +376,8 @@ function get_plugnmeet_config() {
                 $results->filepath,
                 $filename,
                 false,
-                true);
+                true
+            );
             $plugnmeetconfig['customLogo'] = [
                 'main_logo_light' => $url->out(false),
                 'main_logo_dark' => $url->out(false),
@@ -429,11 +400,12 @@ function get_plugnmeet_config() {
         $tablefiles = "files";
         $results = $DB->get_record(
             $tablefiles,
-            array(
+            [
                 'filename' => $filename,
                 'component' => 'mod_plugnmeet',
-                'filearea' => 'background_image'
-            ));
+                'filearea' => 'background_image',
+            ]
+        );
 
         if ($results) {
             $url = moodle_url::make_pluginfile_url(
@@ -444,7 +416,8 @@ function get_plugnmeet_config() {
                 $results->filepath,
                 $filename,
                 false,
-                true);
+                true
+            );
             $designcustomization['background_image'] = $url->out(false);
         }
     }
@@ -467,13 +440,5 @@ function get_plugnmeet_config() {
 
     $jsonconfig = json_encode($plugnmeetconfig, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     $js = "window.plugNmeetConfig = JSON.parse(`" . addslashes($jsonconfig) . "`);";
-    $cnfscript = "<script type=\"text/javascript\">\n" . $js . "\n</script>\n";
-
-    return $cnfscript;
-}
-
-function time_restriction_check_pass($moduleinstance) {
-    $available = $moduleinstance->available;
-    $deadline = $moduleinstance->deadline;
-    return (($available == 0 || time() >= $available) && ($deadline == 0 || time() < $deadline));
+    return "<script type=\"text/javascript\">\n" . $js . "\n</script>\n";
 }

@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,89 +12,63 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin capabilities are defined here.
+ * PlugNmeet web services definition.
  *
  * @package     mod_plugnmeet
- * @category    access
- * @copyright   2022 mynaparrot
+ * @author      Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright   2026 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 defined('MOODLE_INTERNAL') || die();
 
-$functions = array(
-    'mod_plugnmeet_isactive_room' => array(
-        'classname' => 'mod_plugnmeet_isactive_room',
-        'classpath' => 'mod/plugnmeet/classes/external/mod_plugnmeet_isactive_room.php',
-        'methodname' => 'isactive_room',
-        'description' => 'Check if room is active or not',
-        'type' => 'read',
-        'ajax' => true,
-        'capabilities' => 'mod/plugnmeet:view',
-    ),
-    'mod_plugnmeet_create_room' => array(
-        'classname' => 'mod_plugnmeet_create_room',
-        'classpath' => 'mod/plugnmeet/classes/external/mod_plugnmeet_create_room.php',
-        'methodname' => 'create_room',
-        'description' => 'create room',
-        'type' => 'read',
-        'ajax' => true,
-        'capabilities' => 'mod/plugnmeet:view',
-    ),
-    'mod_plugnmeet_get_join_token' => array(
-        'classname' => 'mod_plugnmeet_get_join_token',
-        'classpath' => 'mod/plugnmeet/classes/external/mod_plugnmeet_get_join_token.php',
-        'methodname' => 'get_join_token',
-        'description' => 'get join token',
-        'type' => 'read',
-        'ajax' => true,
-        'capabilities' => 'mod/plugnmeet:view',
-    ),
-    'mod_plugnmeet_end_room' => array(
-        'classname' => 'mod_plugnmeet_end_room',
-        'classpath' => 'mod/plugnmeet/classes/external/mod_plugnmeet_end_room.php',
-        'methodname' => 'end_room',
-        'description' => 'end room',
-        'type' => 'read',
-        'ajax' => true,
-        'capabilities' => 'mod/plugnmeet:edit',
-    ),
-    'mod_plugnmeet_get_recordings' => array(
-        'classname' => 'mod_plugnmeet_get_recordings',
-        'classpath' => 'mod/plugnmeet/classes/external/mod_plugnmeet_get_recordings.php',
-        'methodname' => 'get_recordings',
-        'description' => 'get recordings',
-        'type' => 'read',
-        'ajax' => true,
-        'capabilities' => 'mod/plugnmeet:view',
-    ),
-    'mod_plugnmeet_get_recording_download_link' => array(
-        'classname' => 'mod_plugnmeet_get_recording_download_link',
-        'classpath' => 'mod/plugnmeet/classes/external/mod_plugnmeet_get_recording_download_link.php',
-        'methodname' => 'get_download_link',
-        'description' => 'get download link',
-        'type' => 'read',
-        'ajax' => true,
-        'capabilities' => 'mod/plugnmeet:view',
-    ),
-    'mod_plugnmeet_delete_recording' => array(
-        'classname' => 'mod_plugnmeet_delete_recording',
-        'classpath' => 'mod/plugnmeet/classes/external/mod_plugnmeet_delete_recording.php',
-        'methodname' => 'delete_recording',
-        'description' => 'delete recordings',
-        'type' => 'read',
-        'ajax' => true,
-        'capabilities' => 'mod/plugnmeet:edit',
-    ),
-    'mod_plugnmeet_update_client' => array(
-        'classname' => 'mod_plugnmeet_update_client',
-        'classpath' => 'mod/plugnmeet/classes/external/mod_plugnmeet_update_client.php',
-        'methodname' => 'update_client',
-        'description' => 'update client',
-        'type' => 'read',
-        'ajax' => true,
-        'capabilities' => 'mod/plugnmeet:edit',
-    ),
-);
+$functions = [
+    'mod_plugnmeet_create_room' => [
+        'classname'   => 'mod_plugnmeet\external\create_room',
+        'methodname'  => 'execute',
+        'classpath'   => 'mod/plugnmeet/classes/external/create_room.php',
+        'description' => 'Creates a new room.',
+        'type'        => 'write',
+        'ajax'        => true,
+        'capability'  => 'mod/plugnmeet:view',
+    ],
+    'mod_plugnmeet_end_room' => [
+        'classname'   => 'mod_plugnmeet\external\end_room',
+        'methodname'  => 'execute',
+        'classpath'   => 'mod/plugnmeet/classes/external/end_room.php',
+        'description' => 'Ends a room.',
+        'type'        => 'write',
+        'ajax'        => true,
+        'capability'  => 'mod/plugnmeet:manage',
+    ],
+    'mod_plugnmeet_get_join_token' => [
+        'classname'   => 'mod_plugnmeet\external\get_join_token',
+        'methodname'  => 'execute',
+        'classpath'   => 'mod/plugnmeet/classes/external/get_join_token.php',
+        'description' => 'Gets a join token for the current user.',
+        'type'        => 'read',
+        'ajax'        => true,
+        'capability'  => 'mod/plugnmeet:view',
+    ],
+    'mod_plugnmeet_is_room_active' => [
+        'classname'   => 'mod_plugnmeet\external\is_room_active',
+        'methodname'  => 'execute',
+        'classpath'   => 'mod/plugnmeet/classes/external/is_room_active.php',
+        'description' => 'Checks if a room is active.',
+        'type'        => 'read',
+        'ajax'        => true,
+        'capability'  => 'mod/plugnmeet:view',
+    ],
+    'mod_plugnmeet_get_active_room_info' => [
+        'classname'   => 'mod_plugnmeet\external\get_active_room_info',
+        'methodname'  => 'execute',
+        'classpath'   => 'mod/plugnmeet/classes/external/get_active_room_info.php',
+        'description' => 'Gets active room info.',
+        'type'        => 'read',
+        'ajax'        => true,
+        'capability'  => 'mod/plugnmeet:viewlivesessioninfo',
+    ],
+];
