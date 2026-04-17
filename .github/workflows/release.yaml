@@ -1,0 +1,64 @@
+name: Upload as release asset and transfer to moodle.org
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-mod:
+    runs-on: ubuntu-latest
+    env:
+      PLUGIN: mod_plugnmeet
+      CURL: curl -s
+      ENDPOINT: https://moodle.org/webservice/rest/server.php
+      TOKEN: ${{ secrets.MOODLE_ORG_TOKEN }}
+      FUNCTION: local_plugins_add_version
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+      - name: Checkout code
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v4
+      - name: Build project
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p build/plugnmeet
+          rsync -ar --exclude=".*" --exclude=build ./ build/plugnmeet/
+          cd build
+          zip -X -r mod_plugnmeet.zip *
+          gh release upload ${{ steps.release.outputs.tag_name }} mod_plugnmeet.zip
+      - name: Call the service for moodle.org
+        if: ${{ steps.release.outputs.release_created }}
+        id: add-version
+        run: |
+          TAGNAME="${{ steps.release.outputs.tag_name }}"
+          ZIPURL="https://github.com/mynaparrot/plugNmeet-Moodle/releases/latest/download/mod_plugnmeet.zip"
+          RESPONSE=$(${CURL} ${ENDPOINT} --data-urlencode "wstoken=${TOKEN}" \
+                                         --data-urlencode "wsfunction=${FUNCTION}" \
+                                         --data-urlencode "moodlewsrestformat=json" \
+                                         --data-urlencode "frankenstyle=${PLUGIN}" \
+                                         --data-urlencode "zipurl=${ZIPURL}" \
+                                         --data-urlencode "vcssystem=git" \
+                                         --data-urlencode "vcsrepositoryurl=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" \
+                                         --data-urlencode "vcstag=${TAGNAME}" \
+                                         --data-urlencode "changelogurl=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commits/${TAGNAME}" \
+                                         --data-urlencode "altdownloadurl=${ZIPURL}")
+          echo "response=${RESPONSE}" >> $GITHUB_OUTPUT
+      - name: Evaluate the response
+        if: ${{ steps.release.outputs.release_created }}
+        id: evaluate-response
+        env:
+          RESPONSE: ${{ steps.add-version.outputs.response }}
+        run: |
+          jq <<< ${RESPONSE}
+          jq --exit-status ".id" <<< ${RESPONSE} > /dev/null
