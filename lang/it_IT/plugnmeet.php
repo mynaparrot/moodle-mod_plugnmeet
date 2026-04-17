@@ -15,189 +15,65 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin strings are defined here.
+ * Strings for component 'mod_plugnmeet', language 'en'
  *
  * @package     mod_plugnmeet
- * @category    string
- * @author     Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright  2022 MynaParrot
+ * @author      Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright   2026 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['choosereadme'] = 'Leggimi quando si seleziona il tema.';
-$string['missingidandcmid'] = 'ID e cmid mancanti';
 $string['modulename'] = 'plugNmeet';
-$string['modulename_help'] = 'Usa il modulo plugNmeet per...';
+$string['modulename_help'] = 'The PlugNmeet activity module allows you to create and manage real-time web conferencing sessions from within Moodle.';
+$string['modulename_link'] = 'mod/plugnmeet/view';
 $string['modulenameplural'] = 'plugNmeets';
-$string['newmodulename'] = 'nome plugNmeet';
-$string['newmodulename_help'] = 'Questo è il contenuto del tooltip della guida associato al campo plugNmeet';
-$string['newmodulesettings'] = 'Impostazioni';
-$string['nonewmodules'] = 'No plugNmeet';
 $string['pluginadministration'] = 'Amministrazione di plugNmeet';
 $string['pluginname'] = 'plugNmeet';
-$string['pluginname_help'] = 'Testo di aiuto quando si aggiunge questo tipo di domanda.';
-$string['pluginnameadding'] = 'Visualizzato quando si aggiunge questo tipo di domanda.';
-$string['pluginnameediting'] = 'Visualizzato durante la modifica di questo tipo di domanda.';
-$string['pluginnamesummary'] = 'Visualizzato quando si sceglie il tipo di domanda da aggiungere.';
-$string['plugnmeet:access'] = 'Accedi ai contenuti';
-$string['plugnmeet:addinstance'] = 'Aggiungere una nuova attività plugNmeet';
-$string['plugnmeet:edit'] = 'Modifica plugNmeet';
-$string['plugnmeet:enrol'] = 'Iscrivi gli utenti';
-$string['plugnmeet:manage'] = 'Gestire gli utenti';
-$string['plugnmeet:unenrol'] = 'Annulla l\'iscrizione degli utenti';
-$string['plugnmeet:upload'] = 'Caricare contenuti';
-$string['plugnmeet:useeditor'] = 'Modifica il contenuto';
-$string['plugnmeet:view'] = 'Visualizza plugNmeet';
-$string['privacy:metadata:plugnmeet'] = 'Per l\'integrazione con un server plugnmeet remoto, i dati dell\'utente devono essere scambiati con tale server.';
-$string['privacy:metadata:plugnmeet:userid'] = 'L\'userid viene inviato da Moodle per consentire l\'accesso ai propri dati sul sistema remoto.';
-$string['privacy:metadata:plugnmeet:fullname'] = 'Il tuo nome completo viene inviato al sistema remoto per consentire una migliore esperienza utente.';
+$string['plugnmeet:addinstance'] = 'Add a new PlugNmeet activity';
+$string['plugnmeet:deleterecording'] = 'Delete recordings';
+$string['plugnmeet:manage'] = 'Manage PlugNmeet settings';
+$string['plugnmeet:view'] = 'View PlugNmeet activity';
+$string['plugnmeet:viewartifacts'] = 'View artifacts';
+$string['plugnmeet:viewlivesessioninfo'] = 'View live session information';
+$string['plugnmeetfieldset'] = 'Custom example fieldset';
+$string['plugnmeetname'] = 'Custom example name';
+$string['plugnmeetname_help'] = 'Custom example help';
 
-$string['view'] = 'Vista';
-$string['yes'] = 'Sì';
-$string['no'] = 'No';
-$string['join'] = 'Unire';
-$string['plugnmeetname'] = 'plugNmeet';
-$string['plugnmeetname_help'] = 'Guida';
-$string['plugnmeet_viewed'] = 'attività di plugNmeet visualizzata';
-$string['joined_session'] = 'Sessione partecipata';
+// Admin Settings
+$string['api_config'] = 'API Configuration';
+$string['server_url'] = 'PlugNmeet Server URL';
+$string['server_url_desc'] = 'The base URL of your PlugNmeet server (e.g., https://pnm.example.com)';
+$string['api_key'] = 'API Key';
+$string['api_key_desc'] = 'The API key provided by your PlugNmeet server.';
+$string['api_secret'] = 'API Secret';
+$string['api_secret_desc'] = 'The API secret provided by your PlugNmeet server.';
 
-$string['plugnmeetconfig'] = 'Configurazione di plugNmeet';
-$string['plugnmeet_server_url'] = 'URL del server PlugnMeet';
-$string['plugnmeet_server_url_des'] = 'Inserisci l\'URL del server plugNmeet';
-$string['plugnmeet_api_key'] = 'Chiave API plugnmeet';
-$string['plugnmeet_api_key_des'] = 'Inserisci la chiave API plugnmeet';
-$string['plugnmeet_secret'] = 'plugnmeet Segreto';
-$string['plugnmeet_secret_des'] = 'Inserisci plugnmeet Secret';
-$string['livekit_server_url'] = 'URL del server Livekit';
-$string['livekit_server_url_des'] = 'Inserisci l\'URL del server Livekit';
-$string['custom_logo'] = 'Logo personalizzato';
-$string['custom_logo_des'] = 'Logo personalizzato per sala conferenze';
+$string['defaults'] = 'Technical Defaults';
+$string['defaults_desc'] = 'Default technical settings for new PlugNmeet sessions.';
+$string['enable_dynacast'] = 'Enable Dynacast';
+$string['enable_dynacast_des'] = 'Use Dynacast to optimize video streams by publishing only the most recently active speaker.';
+$string['enable_simulcast'] = 'Enable Simulcast';
+$string['enable_simulcast_des'] = 'Use Simulcast to provide multiple video quality layers to viewers.';
+$string['video_codec'] = 'Video Codec';
+$string['video_codec_des'] = 'The default video codec for sessions.';
+$string['default_webcam_resolution'] = 'Default Webcam Resolution';
+$string['default_webcam_resolution_des'] = 'The default resolution for webcams.';
+$string['default_screen_share_resolution'] = 'Default Screen Share Resolution';
+$string['default_screen_share_resolution_des'] = 'The default resolution for screen sharing.';
+$string['default_audio_preset'] = 'Default Audio Preset';
+$string['default_audio_preset_des'] = 'The default audio preset for sessions.';
 
-$string['plugnmeetoptions'] = 'Opzioni di plugNmeet';
-$string['enable_dynacast'] = 'Abilita dynacast';
-$string['enable_dynacast_des'] = 'Abilita dynacast';
-$string['enable_simulcast'] = 'Abilita simulcast';
-$string['enable_simulcast_des'] = 'Abilita simulcast';
-$string['stop_mic_track_on_mute'] = 'Interrompi la traccia del microfono in modalità silenziosa';
-$string['stop_mic_track_on_mute_des'] = 'Interrompi la traccia del microfono in modalità silenziosa';
-$string['video_codec'] = 'Codec video';
-$string['video_codec_des'] = 'Codec video';
-$string['default_webcam_resolution'] = 'Risoluzione predefinita della webcam';
-$string['default_webcam_resolution_des'] = 'Risoluzione predefinita della webcam';
-$string['default_screen_share_resolution'] = 'Risoluzione predefinita per la condivisione dello schermo';
-$string['default_screen_share_resolution_des'] = 'Risoluzione predefinita per la condivisione dello schermo';
-$string['default_audio_preset'] = 'Preimpostazione audio';
-$string['default_audio_preset_des'] = 'Preimpostazione audio per microfono';
-$string['copyright_display'] = 'Abilita la visualizzazione del copyright';
-$string['copyright_display_des'] = 'Se abilitato, verrà visualizzato il testo sottostante';
-$string['copyright_text'] = 'Testo protetto da copyright';
-$string['copyright_text_des'] = 'Questo testo può essere impostato se la configurazione del server consente di sovrascrivere';
-
-$string['roomtitle'] = 'Titolo della camera';
-$string['welcome_message'] = 'Messaggio di benvenuto';
-$string['max_participants'] = 'Numero massimo di partecipanti (0 = illimitato)';
-
-$string['room_features'] = 'Caratteristiche della camera';
-$string['roomfeatures'] = 'Caratteristiche della camera';
-$string['allow_webcams'] = 'Consenti webcam';
-$string['mute_on_start'] = 'Disattiva all\'avvio';
-$string['allow_screen_share'] = 'Consenti condivisione schermo';
-$string['allow_rtmp'] = 'Consenti RTMP';
-$string['allow_view_other_webcams'] = 'Consenti la visualizzazione di altre webcam';
-$string['allow_view_other_users_list'] = 'Consenti visualizzazione altri utenti';
-$string['admin_only_webcams'] = 'Webcam solo per amministratori';
-$string['allow_polls'] = 'Consenti sondaggi';
-$string['room_duration'] = 'Durata della stanza (in minuti, 0 = illimitato)';
-$string['moderator_join_first'] = 'Il moderatore si unisce per primo';
-$string['moderator_join_first_error'] = 'La riunione non è ancora iniziata, si prega di tornare più tardi';
-$string['enable_analytics'] = 'Abilita l\'analisi';
-$string['allow_virtual_bg'] = 'Consenti sfondo virtuale';
-$string['allow_raise_hand'] = 'Consentire di alzare la mano';
-$string['auto_gen_user_id'] = 'Genera automaticamente l\'ID utente';
-
-$string['other_features'] = 'Funzionalità avanzate';
-
-$string['recordingfeatures'] = 'Funzioni di registrazione';
-$string['allow_recording'] = 'Consenti registrazione';
-$string['allow_cloud_recording'] = 'Consenti registrazione cloud';
-$string['enable_auto_cloud_recording'] = 'Abilita l\'avvio automatico della registrazione su cloud';
-$string['allow_local_recording'] = 'Consenti registrazione locale';
-$string['is_allow_view_recording'] = 'Consenti agli studenti di visualizzare la registrazione';
-$string['is_allow_download_recording'] = 'Consenti agli studenti di scaricare la registrazione';
-
-$string['chatfeatures'] = 'Funzionalità di chat';
-$string['allow_chat'] = 'Consenti chat';
-$string['allow_file_upload'] = 'Consenti caricamento file';
-
-$string['shared_note_pad_features'] = 'Funzionalità del blocco note condiviso';
-$string['allow_shared_notepad'] = 'Consenti blocco note condiviso';
-
-$string['whiteboard_features'] = 'Caratteristiche della lavagna';
-$string['allow_whiteboard'] = 'Consenti lavagna';
-
-$string['external_media_player_features'] = 'Funzionalità del lettore multimediale esterno';
-$string['allowed_external_media_player'] = 'Consenti lettore multimediale esterno';
-
-$string['waiting_room_features'] = 'Caratteristiche della sala d\'attesa';
-$string['activate_waiting_room'] = 'Attiva sala d\'attesa';
-$string['waiting_room_msg'] = 'Messaggio sala d\'attesa';
-
-$string['breakout_room_features'] = 'Caratteristiche della sala riunioni';
-$string['allow_breakout_rooms'] = 'Consenti gruppi di lavoro';
-$string['allowed_number_rooms'] = 'Numero di camere';
-
-$string['display_external_link_features'] = 'Visualizzare le funzioni dei collegamenti esterni';
-$string['allow_display_external_link_features'] = 'Consenti la visualizzazione delle funzioni di collegamento esterno';
-$string['allow_ingress_features'] = 'Consenti di creare l\'ingresso';
-
-$string['defaultlock'] = 'Impostazioni di blocco predefinite';
-$string['lock_microphone'] = 'Blocca microfono';
-$string['lock_webcam'] = 'Blocca webcam';
-$string['lock_screen_sharing'] = 'Condivisione dello schermo di blocco';
-$string['lock_whiteboard'] = 'Blocca lavagna';
-$string['lock_shared_notepad'] = 'Bloccare il blocco note condiviso';
-$string['lock_chat'] = 'Blocca la chat';
-$string['lock_chat_send_message'] = 'Blocca l\'invio del messaggio';
-$string['lock_chat_file_share'] = 'Bloccare la condivisione file';
-$string['lock_private_chat'] = 'Blocca la chat privata';
-
-$string['available'] = 'Disponibile dal';
-$string['deadline'] = 'Scadenza';
-
-$string['extraoption'] = 'Opzioni extra';
-
-$string['client_load'] = 'Carico client da';
-$string['client_load_des'] = 'Predefinito: Remoto';
-$string['remote'] = 'Remoto';
-$string['local'] = 'Locale';
-
-$string['client_download_url'] = 'URL di download del client locale';
-$string['client_download_url_des'] = 'URL di download del client locale. Github predefinito';
-$string['update_client_code'] = '<button class="btn btn-sm btn-secondary mb-6" id="updateClient">Scarica l\'ultimo client</button>';
-$string['error_file_open'] = 'Errore nell\'apertura del file zip';
-$string['client_updated_success'] = 'Client aggiornato correttamente';
-$string['client_updated_failed'] = 'Impossibile aggiornare il client';
-
-$string['join'] = 'Unire';
-$string['end'] = 'Fine';
-$string['recordings'] = 'Registrazioni';
-$string['recording_date'] = 'Data di registrazione';
-$string['meeting_date'] = 'Data dell\'incontro';
-$string['file_size'] = 'Dimensione del file (MB)';
-$string['play'] = 'Giocare';
-$string['download'] = 'Scaricare';
-$string['delete'] = 'Cancellare';
-$string['sure_to_delete'] = 'Sei sicuro di eliminare?';
-
-$string['design_customization'] = 'Personalizzazione del design';
+$string['branding'] = 'Branding and Customization';
+$string['custom_logo'] = 'Custom Logo';
+$string['custom_logo_des'] = 'Upload a custom logo to display in the meeting room. If empty, the default PlugNmeet logo will be used.';
 $string['custom_css_url'] = 'URL CSS personalizzato';
-$string['custom_css_url_des'] = 'Dovrebbe essere l\'URL del file CSS diretto https';
+$string['custom_css_url_des'] = 'Provide a URL to an external CSS file to customize the look and feel of the meeting room.';
 $string['primary_color'] = 'Colore primario';
-$string['primary_color_des'] = 'Colore primario per l\'interfaccia';
+$string['primary_color_des'] = 'The primary color for buttons and highlights.';
 $string['secondary_color'] = 'Colore secondario';
-$string['secondary_color_des'] = 'Colore secondario per l\'interfaccia';
+$string['secondary_color_des'] = 'The secondary color for UI elements.';
 $string['background_color'] = 'Colore di sfondo';
 $string['background_color_des'] = 'Colore di sfondo dell\'interfaccia';
 $string['background_image'] = 'Immagine di sfondo';
@@ -210,30 +86,311 @@ $string['left_color'] = 'Colore lato sinistro';
 $string['left_color_des'] = 'Colore della barra laterale sinistra';
 $string['side_panel_bg_color'] = 'Colore di sfondo del pannello laterale';
 $string['side_panel_bg_color_des'] = 'Colore dello sfondo del pannello laterale destro';
-$string['column_camera_position'] = 'Posizione della telecamera a colonna';
-$string['column_camera_position_des'] = 'Posizione della telecamera a colonna. Impostazione predefinita: sinistra';
-$string['column_camera_width'] = 'Larghezza della telecamera a colonna';
-$string['column_camera_width_des'] = 'Larghezza della telecamera a colonna';
+$string['copyright_text'] = 'Copyright Text';
+$string['copyright_text_des'] = 'The copyright text to display in the footer of the meeting room. HTML is allowed.';
+$string['client_load'] = 'Carico client da';
+$string['client_load_des'] = 'default: local';
+$string['remote'] = 'Remoto';
+$string['local'] = 'Locale';
 
-$string['allow_speech_to_text_translation_features'] = 'Consenti funzionalità di sintesi vocale/traduzione';
-$string['allow_speech_translation'] = 'Consenti traduzione';
+$string['client_side'] = 'Client-Side Options';
+$string['client_load_mode'] = 'Client Load Mode';
+$string['client_load_mode_desc'] = 'Choose whether to load the web client from the remote server or from a local copy.';
+$string['remote'] = 'Remote';
+$string['local'] = 'Local';
+$string['client_download_url'] = 'Client Download URL';
+$string['client_download_url_des'] = 'If using the "Local" load mode, provide the URL to the client.zip file.';
+$string['update_client_btn'] = 'Update Local Client';
+$string['update_client_btn_label'] = 'Update Now';
 
-$string['enable_end_to_end_encryption_features'] = 'Abilita crittografia end-to-end (E2EE)';
-$string['enabled_self_insert_encryption_key'] = 'Abilita il tasto manuale E2EE';
-$string['included_e2ee_chat_messages'] = "Abilita la crittografia per la chat";
-$string['included_e2ee_whiteboard'] = "Abilita la crittografia per la lavagna";
+$string['yes'] = 'Sì';
+$string['no'] = 'No';
+$string['recordings'] = "Registrazioni";
+$string['artifacts'] = "Room Artifacts";
+$string['attendance'] = "Attendance Report";
+$string['artifact'] = "Artifact";
 
-$string['sip_dial_in_features'] = "Funzionalità di regolazione SIP/VoIP";
-$string['sip_dial_in_features_is_allow'] = "Consentire il dial-in SIP/VoIP";
-$string['enable_dial_in_on_create'] = "Abilita il dial-in su create";
-$string['hide_phone_number'] = "Nascondi numero di telefono";
+// mod_form.php
+$string['roomtitle'] = 'Room Title';
+$string['welcome_message'] = 'Welcome Message';
+$string['max_participants'] = 'Max Participants';
+$string['room_features'] = 'Room Features';
+$string['recording_features'] = 'Recording Features';
+$string['chat_features'] = 'Chat Features';
+$string['other_features'] = 'Other Features';
+$string['e2ee_features'] = 'End-to-End Encryption';
+$string['insights_features'] = 'Insights & AI Features';
+$string['defaultlock'] = 'Default Lock Settings';
+$string['advanced_completion'] = 'Advanced Completion';
+$string['available'] = 'Disponibile dal';
+$string['deadline'] = 'Available until';
+$string['err_deadline_before_available'] = 'The "Available until" date cannot be before the "Available from" date.';
 
-$string['insights_features'] = 'Insight AI';
-$string['insights_features_is_allow'] = 'Abilita le funzionalità di insight';
-$string['insights_transcription_features_is_allow'] = 'Consentire la trascrizione';
-$string['insights_transcription_features_is_allow_translation'] = 'Consentire la traduzione della trascrizione';
-$string['insights_transcription_features_is_allow_speech_synthesis'] = 'Consentire la sintesi vocale';
-$string['insights_chat_translation_features_is_allow'] = 'Consentire la traduzione della chat';
-$string['insights_ai_features_is_allow'] = 'Consentire funzionalità di IA';
-$string['insights_ai_text_chat_features_is_allow'] = 'Consenti chat testuale con IA';
-$string['insights_ai_meeting_summarization_features_is_allow'] = 'Permette la sintesi delle riunioni tramite IA';
+$string['allow_webcams'] = 'Allow Webcams';
+$string['allow_webcams_help'] = 'Allow participants to use their webcams.';
+$string['mute_on_start'] = 'Mute on Start';
+$string['mute_on_start_help'] = 'Automatically mute all participants when they join the session.';
+$string['allow_screen_share'] = 'Allow Screen Share';
+$string['allow_screen_share_help'] = 'Allow participants to share their screen.';
+$string['allow_rtmp'] = 'Allow RTMP Streaming';
+$string['allow_rtmp_help'] = 'Allow moderators to stream the session to an RTMP endpoint.';
+$string['admin_only_webcams'] = 'Admin Only Webcams';
+$string['admin_only_webcams_help'] = 'Only allow moderators to use their webcams.';
+$string['room_duration'] = 'Room Duration (minutes)';
+$string['room_duration_help'] = 'The maximum duration of the room in minutes. 0 for no limit.';
+$string['moderator_join_first'] = 'Moderator Join First';
+$string['moderator_join_first_help'] = 'Require a moderator to join before other participants can.';
+$string['enable_analytics'] = 'Enable Analytics';
+$string['enable_analytics_help'] = 'Generate analytics for the session.';
+$string['allow_virtual_bg'] = 'Allow Virtual Backgrounds';
+$string['allow_virtual_bg_help'] = 'Allow participants to use virtual backgrounds.';
+$string['auto_gen_user_id'] = 'Auto Generate User ID';
+$string['auto_gen_user_id_help'] = 'Automatically generate a user ID for each participant.';
+
+$string['allow_recording'] = 'Allow Recording';
+$string['allow_recording_help'] = 'Allow the session to be recorded.';
+$string['allow_cloud_recording'] = 'Allow Cloud Recording';
+$string['allow_cloud_recording_help'] = 'Allow the session to be recorded to the cloud.';
+$string['enable_auto_cloud_recording'] = 'Enable Auto Cloud Recording';
+$string['enable_auto_cloud_recording_help'] = 'Automatically start recording when the session starts.';
+$string['allow_local_recording'] = 'Allow Local Recording';
+$string['allow_local_recording_help'] = 'Allow participants to record the session locally.';
+$string['is_allow_view_recording'] = 'Allow Viewing Recordings';
+$string['is_allow_view_recording_help'] = 'Allow participants to view the recordings.';
+$string['is_allow_download_recording'] = 'Allow Downloading Recordings';
+$string['is_allow_download_recording_help'] = 'Allow participants to download the recordings.';
+
+$string['allow_chat'] = 'Allow Chat';
+$string['allow_chat_help'] = 'Enable the public chat feature.';
+$string['allow_file_upload'] = 'Allow File Upload';
+$string['allow_file_upload_help'] = 'Allow participants to upload files in the chat.';
+
+$string['allow_shared_notepad'] = 'Allow Shared Notepad';
+$string['allow_shared_notepad_help'] = 'Allow participants to use the shared notepad.';
+$string['allow_whiteboard'] = 'Consenti lavagna';
+$string['allow_whiteboard_help'] = 'Allow participants to use the whiteboard.';
+$string['allowed_external_media_player'] = 'Consenti lettore multimediale esterno';
+$string['allowed_external_media_player_help'] = 'Allow participants to play external media (e.g., YouTube videos).';
+$string['activate_waiting_room'] = 'Activate Waiting Room';
+$string['activate_waiting_room_help'] = 'Enable the waiting room for this session.';
+$string['waiting_room_msg'] = 'Waiting Room Message';
+$string['allow_breakout_rooms'] = 'Allow Breakout Rooms';
+$string['allow_breakout_rooms_help'] = 'Allow moderators to create breakout rooms.';
+$string['allowed_number_rooms'] = 'Allowed Number of Breakout Rooms';
+$string['allow_display_external_link_features'] = 'Allow Display External Link';
+$string['allow_display_external_link_features_help'] = 'Allow moderators to display an external link to all participants.';
+$string['allow_ingress_features'] = 'Allow Ingress';
+$string['allow_ingress_features_help'] = 'Allow ingress into the session.';
+$string['allow_polls'] = 'Allow Polls';
+$string['allow_polls_help'] = 'Allow moderators to create polls.';
+$string['sip_dial_in_features_is_allow'] = 'Allow SIP Dial-in';
+$string['sip_dial_in_features_is_allow_help'] = 'Allow participants to join the session via SIP dial-in.';
+
+$string['enable_end_to_end_encryption_features'] = 'Enable End-to-End Encryption';
+$string['enable_end_to_end_encryption_features_help'] = 'Enable end-to-end encryption for the session.';
+$string['enabled_self_insert_encryption_key'] = 'Allow Self-insert of Encryption Key';
+$string['enabled_self_insert_encryption_key_help'] = 'Allow participants to insert their own encryption key.';
+$string['included_e2ee_chat_messages'] = 'Include Chat Messages in E2EE';
+$string['included_e2ee_chat_messages_help'] = 'Include chat messages in the end-to-end encryption.';
+$string['included_e2ee_whiteboard'] = 'Include Whiteboard in E2EE';
+$string['included_e2ee_whiteboard_help'] = 'Include the whiteboard in the end-to-end encryption.';
+
+$string['insights_features_is_allow'] = 'Allow Insights';
+$string['insights_features_is_allow_help'] = 'Allow the generation of insights for this session.';
+$string['insights_transcription_features_is_allow'] = 'Allow Transcription';
+$string['insights_transcription_features_is_allow_help'] = 'Allow the session to be transcribed.';
+$string['insights_transcription_features_is_allow_translation'] = 'Allow Transcription Translation';
+$string['insights_transcription_features_is_allow_translation_help'] = 'Allow the transcription to be translated.';
+$string['insights_transcription_features_is_allow_speech_synthesis'] = 'Allow Transcription Speech Synthesis';
+$string['insights_transcription_features_is_allow_speech_synthesis_help'] = 'Allow the transcription to be read aloud.';
+$string['insights_chat_translation_features_is_allow'] = 'Allow Chat Translation';
+$string['insights_chat_translation_features_is_allow_help'] = 'Allow chat messages to be translated.';
+$string['insights_ai_features_is_allow'] = 'Allow AI Features';
+$string['insights_ai_features_is_allow_help'] = 'Allow AI features to be used in this session.';
+$string['insights_ai_text_chat_features_is_allow'] = 'Allow AI Text Chat';
+$string['insights_ai_text_chat_features_is_allow_help'] = 'Allow AI to be used in the chat.';
+$string['insights_ai_meeting_summarization_features_is_allow'] = 'Allow AI Meeting Summarization';
+$string['insights_ai_meeting_summarization_features_is_allow_help'] = 'Allow the meeting to be summarized by AI.';
+
+$string['lock_microphone'] = 'Lock Microphone';
+$string['lock_microphone_help'] = 'Disable all participants\' microphones by default.';
+$string['lock_webcam'] = 'Lock Webcam';
+$string['lock_webcam_help'] = 'Disable all participants\' webcams by default.';
+$string['lock_screen_sharing'] = 'Lock Screen Sharing';
+$string['lock_screen_sharing_help'] = 'Disable screen sharing for all participants by default.';
+$string['lock_whiteboard'] = 'Lock Whiteboard';
+$string['lock_whiteboard_help'] = 'Disable the whiteboard for all participants by default.';
+$string['lock_shared_notepad'] = 'Lock Shared Notepad';
+$string['lock_shared_notepad_help'] = 'Disable shared notes for all participants by default.';
+$string['lock_chat'] = 'Lock Chat';
+$string['lock_chat_help'] = 'Disable public chat for all participants by default.';
+$string['lock_chat_send_message'] = 'Lock Chat Send Message';
+$string['lock_chat_send_message_help'] = 'Disable sending messages in the public chat for all participants by default.';
+$string['lock_chat_file_share'] = 'Lock Chat File Share';
+$string['lock_chat_file_share_help'] = 'Disable file sharing in the public chat for all participants by default.';
+$string['lock_private_chat'] = 'Lock Private Chat';
+$string['lock_private_chat_help'] = 'Disable private chat for all participants by default.';
+
+$string['completion_minutes'] = 'Minutes Attended';
+$string['completion_minutes_help'] = 'Require the user to be in the session for a certain number of minutes.';
+$string['completion_minutes_desc'] = 'User must attend the session for at least {$a} minutes.';
+$string['completion_raised_hand'] = 'Raised Hand';
+$string['completion_raised_hand_help'] = 'Require the user to raise their hand at least 1 time.';
+$string['completion_chat_messages'] = 'Chat Messages Sent';
+$string['completion_chat_messages_help'] = 'Require the user to send at least 1 chat messages.';
+$string['completion_webcam_enabled'] = 'Webcam Enabled';
+$string['completion_webcam_enabled_help'] = 'Require the user to enable their webcam at least once.';
+$string['completion_mic_enabled'] = 'Microphone Enabled';
+$string['completion_mic_enabled_help'] = 'Require the user to enable their microphone at least once.';
+
+// Privacy
+$string['privacy:metadata:plugnmeet_user_stats'] = 'Stores session statistics for users to determine activity completion.';
+$string['privacy:metadata:plugnmeet_user_stats:userid'] = 'The ID of the user.';
+$string['privacy:metadata:plugnmeet_user_stats:statsdata'] = 'JSON-encoded session data (minutes, chat messages, etc.).';
+$string['privacy:metadata:plugnmeet_user_stats:timemodified'] = 'The time when the statistics were last updated.';
+
+// view.php
+$string['join_session'] = 'Join Session';
+$string['start_session'] = 'Start Session';
+$string['end_session'] = 'End Session';
+$string['participants'] = 'Participants';
+$string['is_recording'] = 'Is Recording';
+$string['is_active'] = 'Is Active';
+$string['room_info'] = 'Live Session Details';
+$string['participants_info'] = 'Live Participants';
+$string['room_id'] = 'Room ID';
+$string['creation_time'] = 'Creation Time';
+$string['name'] = 'Name';
+$string['user_id'] = 'User ID';
+$string['is_admin'] = 'Is Admin';
+$string['is_presenter'] = 'Is Presenter';
+$string['joined_at'] = 'Joined At';
+$string['moderator_not_joined'] = 'A moderator must start the session before you can join.';
+$string['session_available_from'] = 'Available from: {$a}';
+$string['session_available_until'] = 'Available until: {$a}';
+$string['session_not_started_yet'] = 'This session has not started yet.';
+$string['session_ended'] = 'This session has ended.';
+
+// Events
+$string['event_room_started'] = 'Room started';
+$string['event_room_ended'] = 'Room ended';
+$string['event_room_created'] = 'Room created';
+$string['event_session_ended'] = 'Session ended';
+$string['event_participant_joined'] = 'Participant joined';
+$string['event_participant_left'] = 'Participant left';
+$string['event_artifact_created'] = 'Artifact created';
+$string['event_recording_proceeded'] = 'Recording ready';
+
+// Notifications
+$string['messageprovider:recording_artifact_notifications'] = 'Notifications for ready recordings and artifacts';
+$string['recording_ready_notification_subject'] = 'Recording ready: {$a}';
+$string['recording_ready_notification_fullmessage'] = 'The recording for the session "{$a->roomname}" is now ready and processed. You can view it here: {$a->url}';
+$string['recording_ready_notification_fullmessagehtml'] = '<p>The recording for the session <strong>"{$a->roomname}"</strong> is now ready and processed.</p><p><a href="{$a->url}">Click here to view the recording.</a></p>';
+$string['recording_ready_notification_smallmessage'] = 'Recording ready for {$a}';
+$string['artifact_ready_notification_subject'] = 'Artifact ready: {$a}';
+$string['artifact_ready_notification_fullmessage'] = 'A new artifact ({$a->type}) for the session "{$a->roomname}" is now available. You can view it here: {$a->url}';
+$string['artifact_ready_notification_fullmessagehtml'] = '<p>A new artifact ({$a->type}) for the session <strong>"{$a->roomname}"</strong> is now available.</p><p><a href="{$a->url}">Click here to view the artifact details.</a></p>';
+$string['artifact_ready_notification_smallmessage'] = 'Artifact ready for {$a}';
+
+// recordings.php
+$string['no_recordings'] = 'No recordings found.';
+$string['recording_id'] = 'Recording ID';
+$string['room_sid'] = 'Room SID';
+$string['file_size'] = 'File Size';
+$string['created_at'] = 'Created At';
+$string['actions'] = 'Actions';
+$string['view'] = 'Vista';
+$string['play'] = 'Giocare';
+$string['download'] = 'Scaricare';
+$string['delete'] = 'Cancellare';
+$string['delete_confirm'] = 'Are you sure you want to delete this?';
+$string['recording_details'] = 'Recording Details';
+$string['recording_creation_time'] = 'Recording Creation Time';
+$string['room_creation_time'] = 'Session Creation Time';
+$string['back_to_list'] = 'Back to List';
+$string['browser_not_support_video'] = 'Your browser does not support the video tag.';
+$string['room_title'] = 'Room Title';
+$string['total_participants'] = 'Total Participants';
+$string['session_started_at'] = 'Session Started At';
+$string['session_ended_at'] = 'Session Ended At';
+
+// artifacts.php
+$string['no_artifacts'] = 'No artifacts found.';
+$string['artifact_id'] = 'Artifact ID';
+$string['type'] = 'Type';
+$string['artifact_details'] = 'Artifact Details';
+$string['no_permission'] = 'You do not have permission to view this page.';
+$string['token_usage'] = 'Token Usage';
+$string['duration_usage'] = 'Duration Usage';
+$string['character_count_usage'] = 'Character Count Usage';
+$string['estimated_cost'] = 'Estimated Cost';
+$string['file_path'] = 'File Path';
+$string['mime_type'] = 'Mime Type';
+$string['created_at'] = 'Created At';
+
+// Analytics strings
+$string['download_excel_report'] = 'Download Excel Report';
+$string['download_raw_json'] = 'Download Raw Data';
+$string['room_summary'] = 'Room Summary';
+$string['users_summary'] = 'Users Summary';
+$string['see_excel_report'] = 'See Excel Report for Details';
+$string['error_loading_analytics'] = 'Error loading analytics data: {$a}';
+$string['error_generating_excel'] = 'Error generating Excel report: {$a}';
+
+$string['analytics_room_room_id'] = 'Room ID';
+$string['analytics_room_room_title'] = 'Room Title';
+$string['analytics_room_room_creation'] = 'Room Creation Time';
+$string['analytics_room_room_ended'] = 'Room Ended Time';
+$string['analytics_room_room_duration'] = 'Room Duration';
+$string['analytics_room_room_total_users'] = 'Total Participants';
+$string['analytics_room_enabled_e2ee'] = 'E2EE Enabled';
+$string['analytics_room_recording_status'] = 'Recording Status Count';
+$string['analytics_room_rtmp_status'] = 'RTMP Status Count';
+$string['analytics_room_speech_service_total_usage'] = 'Speech Service Total Usage';
+$string['analytics_room_external_media_player_status'] = 'External Media Player Status Count';
+$string['analytics_room_etherpad_status'] = 'Etherpad Status Count';
+$string['analytics_room_external_display_link_status'] = 'External Display Link Status Count';
+$string['analytics_room_ingress_created'] = 'Ingress Created Count';
+$string['analytics_room_breakout_room'] = 'Breakout Room Count';
+
+$string['analytics_user_name'] = 'Name';
+$string['analytics_user_id'] = 'User ID';
+$string['analytics_user_ex_id'] = 'User ID';
+$string['analytics_user_is_admin'] = 'Is Admin';
+$string['analytics_user_duration'] = 'Duration';
+$string['analytics_user_joined'] = 'Joined At';
+$string['analytics_user_left'] = 'Left At';
+$string['analytics_user_mic_status'] = 'Mic Status Changes';
+$string['analytics_user_mic_muted'] = 'Mic Muted Count';
+$string['analytics_user_talked'] = 'Talked Count';
+$string['analytics_user_talked_duration'] = 'Talked Duration';
+$string['analytics_user_webcam_status'] = 'Webcam Status Changes';
+$string['analytics_user_raise_hand'] = 'Raise Hand Count';
+$string['analytics_user_voted_poll'] = 'Voted Poll Count';
+$string['analytics_user_whiteboard_annotated'] = 'Whiteboard Annotated Count';
+$string['analytics_user_whiteboard_files'] = 'Whiteboard Files Count';
+$string['analytics_user_screen_share_status'] = 'Screen Share Status Changes';
+$string['analytics_user_speech_services_usage'] = 'Speech Services Usage';
+$string['analytics_user_public_chat'] = 'Public Chat Messages';
+$string['analytics_user_private_chat'] = 'Private Chat Messages';
+$string['analytics_user_chat_files'] = 'Chat Files Shared';
+$string['analytics_user_interface_invisible'] = 'Interface Invisible Count';
+$string['analytics_user_connection_quality'] = 'Connection Quality';
+$string['analytics_user_connection_quality_excellent'] = 'Excellent';
+$string['analytics_user_connection_quality_good'] = 'Good';
+$string['analytics_user_connection_quality_poor'] = 'Poor';
+
+$string['users_info'] = 'Users Info';
+$string['polls'] = 'Polls';
+$string['question'] = 'Question';
+$string['options'] = 'Options';
+$string['file_name'] = 'File Name';
+$string['checkcompletiontask'] = 'Check plugNmeet completion';
+
+// attendance.php
+$string['attendance_report'] = 'Attendance Report';
+$string['status'] = 'Status';
+$string['present'] = 'Present';
+$string['absent'] = 'Absent';
+$string['minutes_attended'] = 'Minutes Attended';
+$string['last_updated'] = 'Last Updated';
