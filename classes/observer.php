@@ -58,14 +58,15 @@ class observer {
         $context = \context_module::instance($cm->id);
 
         // Get all users with the capability to manage plugnmeet in this context.
-        $managers = get_users_by_capability($context, 'mod/plugnmeet:manage', 'u.id, u.firstname, u.lastname, u.email');
+        $managers = get_users_by_capability($context, 'mod/plugnmeet:manage');
 
         if (empty($managers)) {
             return;
         }
+        $roomname = clean_string($plugnmeet->name);
 
         $langparams = [
-            'roomname' => format_string($plugnmeet->name),
+            'roomname' => $roomname,
             'url' => $event->get_url()->out(false),
         ];
         $langparams = array_merge($langparams, $extraparams);
@@ -76,13 +77,13 @@ class observer {
             $message->name = 'recording_artifact_notifications';
             $message->userfrom = \core_user::get_noreply_user();
             $message->userto = $manager;
-            $message->subject = get_string($messagetype . '_subject', 'mod_plugnmeet', format_string($plugnmeet->name));
+            $message->subject = get_string($messagetype . '_subject', 'mod_plugnmeet', $roomname);
             $message->fullmessage = get_string($messagetype . '_fullmessage', 'mod_plugnmeet', $langparams);
             $message->fullmessageformat = FORMAT_PLAIN;
             $message->fullmessagehtml = get_string($messagetype . '_fullmessagehtml', 'mod_plugnmeet', $langparams);
-            $message->smallmessage = get_string($messagetype . '_smallmessage', 'mod_plugnmeet', format_string($plugnmeet->name));
+            $message->smallmessage = get_string($messagetype . '_smallmessage', 'mod_plugnmeet', $roomname);
             $message->contexturl = $event->get_url()->out(false);
-            $message->contexturlname = format_string($plugnmeet->name);
+            $message->contexturlname = $roomname;
 
             message_send($message);
         }
