@@ -33,16 +33,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p build/plugnmeet
-          rsync -ar --exclude=".*" --exclude=build ./ build/plugnmeet/
+          # Exclude git files, github workflows, and build directory
+          rsync -ar --exclude=".*" --exclude="/build" --exclude="/tests" ./ build/plugnmeet/
           cd build
-          zip -X -r mod_plugnmeet.zip *
+          zip -X -r mod_plugnmeet.zip plugnmeet
           gh release upload ${{ steps.release.outputs.tag_name }} mod_plugnmeet.zip
       - name: Call the service for moodle.org
         if: ${{ steps.release.outputs.release_created }}
         id: add-version
         run: |
           TAGNAME="${{ steps.release.outputs.tag_name }}"
-          ZIPURL="https://github.com/mynaparrot/plugNmeet-Moodle/releases/latest/download/mod_plugnmeet.zip"
+          # Use the specific tag for the download URL
+          ZIPURL="${{ github.server_url }}/${{ github.repository }}/releases/download/${TAGNAME}/mod_plugnmeet.zip"
           RESPONSE=$(${CURL} ${ENDPOINT} --data-urlencode "wstoken=${TOKEN}" \
                                          --data-urlencode "wsfunction=${FUNCTION}" \
                                          --data-urlencode "moodlewsrestformat=json" \

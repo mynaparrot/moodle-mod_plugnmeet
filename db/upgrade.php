@@ -36,7 +36,7 @@ function xmldb_plugnmeet_upgrade($oldversion) {
 
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 2026012211) {
+    if ($oldversion < 2026041400) {
         // 1. Add fields to plugnmeet table.
         $table = new xmldb_table('plugnmeet');
         $fields = [
@@ -76,7 +76,7 @@ function xmldb_plugnmeet_upgrade($oldversion) {
             $dbman->create_table($statstable);
         }
 
-        upgrade_mod_savepoint(true, 2026012211, 'plugnmeet');
+        upgrade_mod_savepoint(true, 2026041400, 'plugnmeet');
     }
 
     return true;
