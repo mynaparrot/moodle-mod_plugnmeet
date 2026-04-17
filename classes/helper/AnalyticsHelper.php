@@ -22,6 +22,11 @@ use MoodleExcelFormat;
 
 defined('MOODLE_INTERNAL') || die();
 
+global $CFG;
+
+require_once($CFG->libdir . '/filelib.php');
+require_once($CFG->libdir . '/excellib.class.php');
+
 /**
  * Helper class for handling room analytics and reports.
  *
@@ -84,10 +89,6 @@ class AnalyticsHelper {
      * @param string $artifactid
      */
     public function __construct(string $artifactid) {
-        global $CFG;
-
-        require_once($CFG->libdir . '/excellib.class.php');
-
         $this->fileid = $artifactid;
         $this->timezone = new \DateTimeZone(get_user_timezone());
 
@@ -115,12 +116,20 @@ class AnalyticsHelper {
      *
      * @param string $token
      * @return bool|string|null
+     * @throws \dml_exception
      */
     private function fetch_data(string $token) {
+        $ignoresecurity = false;
+
         $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
+        if (str_contains($serverurl, 'http://')) {
+            $ignoresecurity = true;
+        }
         $host = $serverurl . "/download/artifact/" . $token;
 
-        $curl = new \curl();
+        $curl = new \curl([
+                'ignoresecurity' => $ignoresecurity,
+            ]);
         $result = $curl->get($host);
         if ($curl->get_errno()) {
             notification::error("Error: " . $curl->get_errno());
