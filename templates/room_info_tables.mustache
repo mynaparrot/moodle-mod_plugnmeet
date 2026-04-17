@@ -1,0 +1,49 @@
+{{#room_info}}
+    <h5 class="mt-4">{{#str}}room_info, mod_plugnmeet{{/str}}</h5>
+    <table class="generaltable">
+        <tbody>
+            <tr>
+                <td>{{#str}}room_id, mod_plugnmeet{{/str}}</td>
+                <td>{{room_id}}</td>
+            </tr>
+            <tr>
+                <td>{{#str}}is_recording, mod_plugnmeet{{/str}}</td>
+                <td>{{#is_recording}}{{#str}}yes{{/str}}{{/is_recording}}{{^is_recording}}{{#str}}no{{/str}}{{/is_recording}}</td>
+            </tr>
+            <tr>
+                <td>{{#str}}participants, mod_plugnmeet{{/str}}</td>
+                <td>{{joined_participants}}</td>
+            </tr>
+            <tr>
+                <td>{{#str}}creation_time, mod_plugnmeet{{/str}}</td>
+                <td>{{#userdate}} {{creation_time}}, {{#str}} strftimedaydatetime, core_langconfig {{/str}} {{/userdate}}</td>
+            </tr>
+        </tbody>
+    </table>
+{{/room_info}}
+
+{{#has_participants}}
+    <h5 class="mt-4">{{#str}}participants_info, mod_plugnmeet{{/str}}</h5>
+    <table class="generaltable">
+        <thead>
+            <tr>
+                <th>{{#str}}name, mod_plugnmeet{{/str}}</th>
+                <th>{{#str}}user_id, mod_plugnmeet{{/str}}</th>
+                <th>{{#str}}is_admin, mod_plugnmeet{{/str}}</th>
+                <th>{{#str}}is_presenter, mod_plugnmeet{{/str}}</th>
+                <th>{{#str}}joined_at, mod_plugnmeet{{/str}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#participants_info}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{user_id}}</td>
+                    <td>{{#is_admin}}{{#str}}yes{{/str}}{{/is_admin}}{{^is_admin}}{{#str}}no{{/str}}{{/is_admin}}</td>
+                    <td>{{#is_presenter}}{{#str}}yes{{/str}}{{/is_presenter}}{{^is_presenter}}{{#str}}no{{/str}}{{/is_presenter}}</td>
+                    <td>{{#userdate}} {{joined_at}}, {{#str}} strftimedaydatetime, core_langconfig {{/str}} {{/userdate}}</td>
+                </tr>
+            {{/participants_info}}
+        </tbody>
+    </table>
+{{/has_participants}}

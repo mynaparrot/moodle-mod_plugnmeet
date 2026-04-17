@@ -6,7 +6,7 @@
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-// Moodle is distributed in the hope that it will be useful,
+// Moodle is distributed in the hope that it will be website,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
@@ -15,20 +15,22 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
+ * Messages definition for the PlugNmeet module.
  *
  * @package     mod_plugnmeet
- * @author     Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright  2026 MynaParrot
+ * @author      Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright   2026 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-
-$plugin->component = 'mod_plugnmeet';
-// x-release-please-start-version
-$plugin->release = '2.1.0';
-// x-release-please-end
-$plugin->version   = 2026012212;
-$plugin->requires  = 2024051300;
-$plugin->maturity  = MATURITY_STABLE;
+$messageproviders = array(
+    'recording_artifact_notifications' => array(
+        'capability' => 'mod/plugnmeet:manage',
+        'defaults' => [
+            'popup' => MESSAGE_PERMITTED + MESSAGE_DEFAULT_ENABLED,
+            'email' => MESSAGE_PERMITTED,
+        ],
+    ),
+);

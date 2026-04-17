@@ -1,101 +1,99 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Prints an instance of mod_plugnmeet.
- *
  * @package     mod_plugnmeet
- * @author     Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright  2022 MynaParrot
+ * @author      Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright   2026 MynaParrot
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use mod_plugnmeet\event\course_module_viewed;
+require_once(__DIR__ . '/../../config.php');
 
-require(__DIR__ . '/../../config.php');
-require_once(__DIR__ . '/lib.php');
+$id = required_param('id', PARAM_INT);
+$cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+$plugnmeet = $DB->get_record('plugnmeet', array('id' => $cm->instance), '*', MUST_EXIST);
 
-// Course module id.
-$id = optional_param('id', 0, PARAM_INT);
-
-// Activity instance id.
-$p = optional_param('p', 0, PARAM_INT);
-
-if ($id) {
-    $cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
-    $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-    $moduleinstance = $DB->get_record('plugnmeet', array('id' => $cm->instance), '*', MUST_EXIST);
-} else {
-    $moduleinstance = $DB->get_record('plugnmeet', array('id' => $p), '*', MUST_EXIST);
-    $course = $DB->get_record('course', array('id' => $moduleinstance->course), '*', MUST_EXIST);
-    $cm = get_coursemodule_from_instance('plugnmeet', $moduleinstance->id, $course->id, false, MUST_EXIST);
-}
-
-$context = context_module::instance($cm->id);
 require_login($course, true, $cm);
-require_capability('mod/plugnmeet:view', $context);
+
+$context = \context_module::instance($cm->id);
+$can_manage = has_capability('mod/plugnmeet:manage', $context);
+$description = format_module_intro('plugnmeet', $plugnmeet, $cm->id);
 
 $PAGE->set_url('/mod/plugnmeet/view.php', array('id' => $cm->id));
-$PAGE->set_title(format_string($moduleinstance->name));
+$PAGE->set_title(format_string($plugnmeet->name));
 $PAGE->set_heading(format_string($course->fullname));
-$PAGE->set_context($context);
+$PAGE->requires->js_call_amd('mod_plugnmeet/join_button', 'init', [['cmid' => $cm->id]]);
+$PAGE->requires->js_call_amd('mod_plugnmeet/view_page', 'init', [['cmid' => $cm->id, 'can_manage' => $can_manage]]);
 
-$isadmin = has_capability('moodle/course:update', $context) ? 1 : 0;
-$canedit = has_capability('mod/plugnmeet:edit', $context) ? 1 : 0;
-
-if (!time_restriction_check_pass($moduleinstance) && !$isadmin) {
-    echo $OUTPUT->header();
-    echo get_string('notavailable');
-    echo $OUTPUT->footer();
-    exit();
+if ($can_manage) {
+    $PAGE->requires->js_call_amd('mod_plugnmeet/end_room_button', 'init', [['cmid' => $cm->id]]);
 }
 
-$event = course_module_viewed::create(array(
-    'objectid' => $moduleinstance->id,
-    'context' => $context
-));
-$event->add_record_snapshot('course', $course);
-$event->add_record_snapshot('plugnmeet', $moduleinstance);
-$event->trigger();
-
 echo $OUTPUT->header();
-$roommetadata = json_decode($moduleinstance->roommetadata);
-?>
-    <div class="container mt-5 mb-5">
-        <?php if (!empty($moduleinstance->intro)) : ?>
-            <div class="row mb-3"><?php echo $moduleinstance->intro ?></div>
-        <?php endif; ?>
-        <div class="row">
-            <?php require(__DIR__ . "/views/join_part.php") ?>
-        </div>
-        <?php if (!$roommetadata->recording_features->is_allow_view_recording && (!$isadmin || !$canedit)): ?>
-        <!---Don't have permission to view recording-->
-        <?php else: ?>
-        <div class="row">
-            <?php require(__DIR__ . "/views/recordings_part.php") ?>
-        </div>
-        <?php endif; ?>
-    </div>
-    <script>
-        // check if returned from conference
-        const params = new URLSearchParams(document.location.search);
-        if (params.has("returned", "true")) {
-            // this will only work if link opened with window.open()
-            window.close();
-        }
-    </script>
-<?php
+
+$timenow = time();
+$available = true;
+$availability_msg = '';
+
+if ($plugnmeet->available && $timenow < $plugnmeet->available) {
+    $available = false;
+    $availability_msg .= \html_writer::div(get_string('session_available_from', 'mod_plugnmeet', userdate($plugnmeet->available)), 'availabilityinfo font-weight-bold mb-2');
+    if (!$can_manage) {
+        $availability_msg .= \html_writer::div(get_string('session_not_started_yet', 'mod_plugnmeet'), 'alert alert-warning');
+    }
+}
+
+if ($plugnmeet->deadline && $timenow > $plugnmeet->deadline) {
+    $available = false;
+    $availability_msg .= \html_writer::div(get_string('session_available_until', 'mod_plugnmeet', userdate($plugnmeet->deadline)), 'availabilityinfo font-weight-bold mb-2');
+    $availability_msg .= \html_writer::div(get_string('session_ended', 'mod_plugnmeet'), 'alert alert-danger');
+}
+
+// Start Main Content Container.
+echo \html_writer::start_div('mod_plugnmeet_view_container');
+
+// Description section.
+if (!empty($description)) {
+    echo \html_writer::div($description, 'description mb-4');
+}
+
+// Card for availability and actions.
+echo \html_writer::start_div('card');
+echo \html_writer::start_div('card-body text-center');
+
+// Availability messages.
+if (!empty($availability_msg)) {
+    echo \html_writer::div($availability_msg, 'availability_container mb-4');
+}
+
+// Action buttons.
+$can_join = $available;
+// Managers can join even if session has not started, but not if it has ended.
+if ($can_manage && ($plugnmeet->deadline == 0 || $timenow <= $plugnmeet->deadline)) {
+    $can_join = true;
+}
+
+if ($can_join) {
+    echo \html_writer::start_div('action_buttons');
+    echo \html_writer::tag('button', get_string('join_session', 'plugnmeet'), ['id' => 'join_button', 'class' => 'btn btn-primary btn-lg']);
+
+    if ($can_manage) {
+        echo \html_writer::tag('button', get_string('end_session', 'plugnmeet'), [
+            'id' => 'end_room_button',
+            'class' => 'btn btn-danger btn-lg ml-2',
+            'style' => 'display:none;'
+        ]);
+    }
+    echo \html_writer::end_div(); // End action_buttons.
+}
+
+echo \html_writer::end_div(); // End card-body.
+echo \html_writer::end_div(); // End card.
+
+// Placeholder for live session info (handled by JS).
+echo \html_writer::div('', 'mt-4', ['id' => 'live_session_info']);
+
+echo \html_writer::end_div(); // End mod_plugnmeet_view_container.
+
 echo $OUTPUT->footer();
