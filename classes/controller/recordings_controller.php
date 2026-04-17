@@ -117,7 +117,6 @@ class recordings_controller {
                 'action' => 'delete',
                 'recording_id' => $recordid,
                 'page' => $page,
-                'sesskey' => sesskey(),
             ]);
             $buttons .= html_writer::link($deleteurl, get_string('delete', 'plugnmeet'), [
                 'class' => 'btn btn-danger',

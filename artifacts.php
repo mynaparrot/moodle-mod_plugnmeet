@@ -38,7 +38,6 @@ $controller = new artifacts_controller($cm, $course, $plugnmeet);
 
 $action = optional_param('action', '', PARAM_ALPHA);
 if ($action === 'delete') {
-    confirm_sesskey();
     $artifactid = required_param('artifact_id', PARAM_TEXT);
     $controller->delete_artifact($artifactid);
 }

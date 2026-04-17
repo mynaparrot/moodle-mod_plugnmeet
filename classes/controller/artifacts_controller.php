@@ -167,7 +167,11 @@ class artifacts_controller {
         if (has_capability('mod/plugnmeet:viewartifacts', $this->context) && $isfilebased) {
             $deleteurl = new moodle_url(
                 '/mod/plugnmeet/artifacts.php',
-                ['id' => $this->cm->id, 'action' => 'delete', 'artifact_id' => $artifactid, 'page' => $page, 'sesskey' => sesskey()]
+                ['id' => $this->cm->id,
+                    'action' => 'delete',
+                    'artifact_id' => $artifactid,
+                    'page' => $page,
+                ]
             );
             $buttons .= html_writer::link($deleteurl, get_string('delete', 'plugnmeet'), [
                 'class' => 'btn btn-danger',
