@@ -33,6 +33,11 @@ $id = required_param('id', PARAM_INT);
 $expiry = required_param('expiry', PARAM_INT);
 $sig = required_param('sig', PARAM_ALPHANUM);
 
+// If user is already logged in, redirect them to the regular view page with a message.
+if (isloggedin() && !isguestuser()) {
+    redirect(new moodle_url('/mod/plugnmeet/view.php', ['id' => $id]), get_string('redirect_to_moodle_login', 'mod_plugnmeet'), 3);
+}
+
 $config = get_config('mod_plugnmeet');
 
 // 1. Global Security Check: Is guest access allowed site-wide?
@@ -40,9 +45,8 @@ if (isset($config->allow_guest_global) && $config->allow_guest_global == 0) {
     throw new moodle_exception('guest_access_denied', 'mod_plugnmeet');
 }
 
-// Fetch the activity instance.
-$plugnmeet = $DB->get_record('plugnmeet', ['id' => $id], '*', MUST_EXIST);
-$cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id, 0, false, MUST_EXIST);
+$cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
+$plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
 
 // 2. Activity-level Security Check: Is guest access enabled for this room?
 if (empty($plugnmeet->allow_guest)) {

@@ -117,7 +117,7 @@ if ($canmanage && $allowglobal && !empty($plugnmeet->allow_guest) && !empty($plu
     $sig = sha1($plugnmeet->guest_token . $expiry);
 
     $guestjoinurl = new moodle_url('/mod/plugnmeet/guest_join.php', [
-        'id' => $plugnmeet->id,
+        'id' => $cm->id,
         'expiry' => $expiry,
         'sig' => $sig,
     ]);

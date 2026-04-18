@@ -74,7 +74,7 @@ class get_join_token extends external_api {
         $isguest = false;
         if (!isloggedin() || isguestuser()) {
             $isguest = true;
-
+            
             // 1. Global Security Check: Is guest access allowed site-wide?
             if (isset($config->allow_guest_global) && $config->allow_guest_global == 0) {
                 return ['status' => false, 'msg' => get_string('guest_access_denied', 'mod_plugnmeet')];
@@ -86,7 +86,7 @@ class get_join_token extends external_api {
             if (empty($plugnmeet->allow_guest)) {
                 return ['status' => false, 'msg' => get_string('guest_access_denied', 'mod_plugnmeet')];
             }
-
+            
             // 2. Validate Signature.
             $expectedsig = sha1($plugnmeet->guest_token . $expiry);
             if ($sig !== $expectedsig) {
@@ -164,7 +164,8 @@ class get_join_token extends external_api {
         // 2. Get join token.
         if ($isguest) {
             $name = $guestname;
-            $userid = 'guest_' . sha1($guestname . time());
+            // Generate userId using a hash of the session ID for uniqueness within the browser session.
+            $userid = 'guest_' . session_id();
         } else {
             $name = fullname($USER);
             $userid = (string)$USER->id;
