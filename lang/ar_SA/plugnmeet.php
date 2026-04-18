@@ -130,7 +130,7 @@ $string['advanced_completion'] = 'الإكمال المتقدم';
 $string['available'] = 'متاح من';
 $string['deadline'] = 'متاح حتى';
 $string['err_deadline_before_available'] = 'تاريخ "متاح حتى" لا يمكن أن يكون قبل تاريخ "متاح من".';
-$string['error_analytics_required_for_completion'] = 'Enable Analytics must be checked if any completion criteria are set.';
+$string['error_analytics_required_for_completion'] = 'يجب التحقق من تمكين تحليلات إذا تم تحديد أي معايير إكمال.';
 
 $string['allow_webcams'] = 'السماح بالكاميرات';
 $string['allow_webcams_help'] = 'اسمح للمشاركين باستخدام كاميرات الويب الخاصة بهم.';
@@ -147,7 +147,7 @@ $string['room_duration_help'] = 'أقصى مدة للغرفة بدقائق. 0 ب
 $string['moderator_join_first'] = 'المشرف انضم أولا';
 $string['moderator_join_first_help'] = 'اطلب انضمام مشرف قبل أن يتمكن المشاركون الآخرون.';
 $string['enable_analytics'] = 'تمكين التحليلات';
-$string['enable_analytics_help'] = 'Generate analytics for the session. Note: This must be enabled if any Completion criteria are set.';
+$string['enable_analytics_help'] = 'قم بإنشاء تحليلات للجلسة. ملاحظة: يجب تفعيل هذا إذا تم تحديد أي معايير إكمال.';
 $string['allow_virtual_bg'] = 'السماح بالخلفيات الافتراضية';
 $string['allow_virtual_bg_help'] = 'السماح للمشاركين باستخدام الخلفيات الافتراضية.';
 $string['auto_gen_user_id'] = 'إنشاء معرف المستخدم تلقائيا';
@@ -301,7 +301,7 @@ $string['guest_access_denied'] = 'غير مفعل وصول الضيوف لهذا
 $string['invalid_guest_token'] = 'رمز انضمام ضيف غير صالح أو منتهية الصلاحية.';
 $string['guest_link_expired'] = 'رابط انضمام الضيوف هذا انتهى صلاحيته.';
 $string['error_joining_session'] = 'حدث خطأ في الانضمام إلى الجلسة: {$a}';
-$string['already_logged_in'] = 'You are already logged into Moodle. You can join the session directly from this activity page.';
+$string['already_logged_in'] = 'أنت بالفعل مسجل الدخول إلى مودل. يمكنك الانضمام إلى الجلسة مباشرة من صفحة النشاط هذه.';
 
 // Events
 $string['event_room_started'] = 'بدأت الغرفة';
@@ -314,8 +314,8 @@ $string['event_artifact_created'] = 'قطعة أثرية تم إنشاؤها';
 $string['event_recording_proceeded'] = 'التسجيل جاهز';
 
 // Notifications
-$string['messageprovider:recording_ready'] = 'Notifications for ready recordings';
-$string['messageprovider:artifact_ready'] = 'Notifications for ready artifacts';
+$string['messageprovider:recording_ready'] = 'إشعارات للتسجيلات الجاهزة';
+$string['messageprovider:artifact_ready'] = 'إشعارات للتشويهات الجاهزة';
 $string['recording_ready_notification_subject'] = 'جاهز التسجيل: {$a}';
 $string['recording_ready_notification_fullmessage'] = 'التسجيل الخاص بالجلسة "{$a->roomname}" الآن جاهزة ومعالجة. يمكنك مشاهدته هنا: {$a->url}';
 $string['recording_ready_notification_fullmessagehtml'] = '<p>التسجيل الخاص بالجلسة <strong>"{$a->roomname}"</strong> الآن جاهز ومعالج.</p><p><a href="{$a->url}">اضغط هنا لعرض التسجيل.</a></p>';
