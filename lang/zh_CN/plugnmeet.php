@@ -300,7 +300,7 @@ $string['guest_access_denied'] = '本次会议未启用访客访问。';
 $string['invalid_guest_token'] = '访客加入令牌无效或过期。';
 $string['guest_link_expired'] = '这个访客加入链接已过期。';
 $string['error_joining_session'] = '加入会话时出现了一个错误： {$a}';
-$string['redirect_to_moodle_login'] = 'You are already logged into Moodle. Redirecting you to the activity page...';
+$string['redirect_to_moodle_login'] = '你已经登录了Moodle。将你重定向到活动页面......';
 
 // Events
 $string['event_room_started'] = '房间开始了';
