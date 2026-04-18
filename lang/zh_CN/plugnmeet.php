@@ -427,6 +427,7 @@ $string['attendance_report'] = '出勤报告';
 $string['status'] = '现状';
 $string['present'] = '现状';
 $string['absent'] = '缺席';
+$string['incomplete'] = 'Incomplete';
 $string['minutes_attended'] = '出席会议纪要';
 $string['last_updated'] = '最后更新';
 $string['mic_duration'] = '麦克风启用时长';
