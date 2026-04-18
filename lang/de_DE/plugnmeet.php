@@ -428,6 +428,7 @@ $string['status'] = 'Status';
 $string['present'] = 'Gegenwart';
 $string['absent'] = 'Abwesend';
 $string['incomplete'] = 'Incomplete';
+$string['completed'] = 'Completed';
 $string['minutes_attended'] = 'Protokoll';
 $string['last_updated'] = 'Zuletzt aktualisiert';
 $string['mic_duration'] = 'Mikrofonaktivierte Dauer';
