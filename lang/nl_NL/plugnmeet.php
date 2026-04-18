@@ -294,6 +294,7 @@ $string['allow_guest_help'] = 'Laat externe gebruikers zonder Moodle-account via
 $string['guest_join_link'] = 'Link voor gast';
 $string['guest_join_link_help'] = 'Deel deze link met externe deelnemers. Deze link blijft geldig voor {$a} uren. Elke herlaadpagina genereert een nieuwe link, maar eerder gedeelde links blijven geldig tot hun oorspronkelijke vervaldatum.';
 $string['copy_link'] = 'Kopieer link';
+$string['link_copied'] = 'Link copied to clipboard.';
 $string['guest_join_title'] = 'Sluit je aan bij de vergadering als gast';
 $string['enter_display_name'] = 'Voer je weergavenaam in';
 $string['join_as_guest'] = 'Sluit je aan bij de vergadering';
