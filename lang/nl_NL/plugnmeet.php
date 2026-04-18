@@ -130,6 +130,7 @@ $string['advanced_completion'] = 'Gevorderde voltooiing';
 $string['available'] = 'Beschikbaar vanaf';
 $string['deadline'] = 'Beschikbaar tot en met';
 $string['err_deadline_before_available'] = 'De "Beschikbaar tot" datum kan niet vóór de "Beschikbaar van" datum zijn.';
+$string['error_analytics_required_for_completion'] = 'Enable Analytics moet worden gecontroleerd als er voltooiingscriteria zijn vastgesteld.';
 
 $string['allow_webcams'] = 'Webcams toestaan';
 $string['allow_webcams_help'] = 'Laat deelnemers hun webcams gebruiken.';
@@ -146,7 +147,7 @@ $string['room_duration_help'] = 'De maximale duur van de kamer in enkele minuten
 $string['moderator_join_first'] = 'Moderator Eerst Lid Je Aan';
 $string['moderator_join_first_help'] = 'Vereis dat een moderator zich aansluit voordat andere deelnemers dat kunnen.';
 $string['enable_analytics'] = 'Enable Analytics';
-$string['enable_analytics_help'] = 'Genereer analyses voor de sessie.';
+$string['enable_analytics_help'] = 'Genereer analyses voor de sessie. Opmerking: Dit moet ingeschakeld zijn als er een voltooiingscriterium is ingesteld.';
 $string['allow_virtual_bg'] = 'Sta virtuele achtergronden toe';
 $string['allow_virtual_bg_help'] = 'Laat deelnemers virtuele achtergronden gebruiken.';
 $string['auto_gen_user_id'] = 'Automatisch Genereer Gebruikers-ID';
@@ -300,7 +301,7 @@ $string['guest_access_denied'] = 'Gasttoegang is niet ingeschakeld voor deze ver
 $string['invalid_guest_token'] = 'Ongeldige of verlopen gast-aansluitingstoken.';
 $string['guest_link_expired'] = 'Deze link voor gastdeelname is verlopen.';
 $string['error_joining_session'] = 'Er was een foutmelding tijdens de sessie: {$a}';
-$string['redirect_to_moodle_login'] = 'Je bent al ingelogd bij Moodle. Ik wijs je door naar de activiteitenpagina...';
+$string['already_logged_in'] = 'Je bent al ingelogd bij Moodle. Je kunt direct deelnemen aan de sessie vanaf deze activiteitenpagina.';
 
 // Events
 $string['event_room_started'] = 'De kamer is begonnen';
@@ -313,7 +314,8 @@ $string['event_artifact_created'] = 'Artefact gemaakt';
 $string['event_recording_proceeded'] = 'Opnameklaar';
 
 // Notifications
-$string['messageprovider:recording_artifact_notifications'] = 'Meldingen voor gereedstaande opnames en artefacten';
+$string['messageprovider:recording_ready'] = 'Meldingen voor gereedstaande opnames';
+$string['messageprovider:artifact_ready'] = 'Meldingen voor gereedstaande artefacten';
 $string['recording_ready_notification_subject'] = 'Opname klaar: {$a}';
 $string['recording_ready_notification_fullmessage'] = 'De opname voor de sessie "{$a->roomname}" is nu klaar en verwerkt. Je kunt het hier bekijken: {$a->url}';
 $string['recording_ready_notification_fullmessagehtml'] = '<p>De opname voor de sessie <strong>"{$a->roomname}"</strong> is nu klaar en verwerkt.</p><p><a href="{$a->url}">Klik hier om de opname te bekijken.</a></p>';

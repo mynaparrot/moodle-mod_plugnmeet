@@ -130,6 +130,7 @@ $string['advanced_completion'] = 'Finalización Avanzada';
 $string['available'] = 'Disponible en';
 $string['deadline'] = 'Disponible hasta';
 $string['err_deadline_before_available'] = 'La fecha de "Disponible hasta" no puede ser anterior a la de "Disponible desde".';
+$string['error_analytics_required_for_completion'] = 'Debe comprobarse Habilitar Analytics si se han establecido criterios de finalización.';
 
 $string['allow_webcams'] = 'Permitir cámaras web';
 $string['allow_webcams_help'] = 'Permite que los participantes usen sus webcams.';
@@ -146,7 +147,7 @@ $string['room_duration_help'] = 'La duración máxima de la sala en minutos. 0 p
 $string['moderator_join_first'] = 'Moderador Únete primero';
 $string['moderator_join_first_help'] = 'Exige que un moderador se una antes que otros participantes.';
 $string['enable_analytics'] = 'Habilitar la analítica';
-$string['enable_analytics_help'] = 'Genera análisis para la sesión.';
+$string['enable_analytics_help'] = 'Genera análisis para la sesión. Nota: Esto debe activarse si se han establecido criterios de Completación.';
 $string['allow_virtual_bg'] = 'Permitir fondos virtuales';
 $string['allow_virtual_bg_help'] = 'Permitir que los participantes utilicen fondos virtuales.';
 $string['auto_gen_user_id'] = 'Generación automática del ID de usuario';
@@ -300,7 +301,7 @@ $string['guest_access_denied'] = 'El acceso de invitados no está habilitado par
 $string['invalid_guest_token'] = 'Token de entrada de invitado inválido o caducado.';
 $string['guest_link_expired'] = 'Este enlace de invitado para unirse ha caducado.';
 $string['error_joining_session'] = 'Apareció un error al unirse a la sesión: {$a}';
-$string['redirect_to_moodle_login'] = 'Ya has iniciado sesión en Moodle. Redirigiéndote a la página de actividades...';
+$string['already_logged_in'] = 'Ya has iniciado sesión en Moodle. Puedes unirte directamente a la sesión desde esta página de actividades.';
 
 // Events
 $string['event_room_started'] = 'Inicio de la habitación';
@@ -313,7 +314,8 @@ $string['event_artifact_created'] = 'Artefacto creado';
 $string['event_recording_proceeded'] = 'Grabación lista';
 
 // Notifications
-$string['messageprovider:recording_artifact_notifications'] = 'Notificaciones de grabaciones y artefactos listos';
+$string['messageprovider:recording_ready'] = 'Notificaciones para grabaciones listas';
+$string['messageprovider:artifact_ready'] = 'Notificaciones de artefactos listos';
 $string['recording_ready_notification_subject'] = 'Listo para grabar: {$a}';
 $string['recording_ready_notification_fullmessage'] = 'La grabación para la sesión "{$a->roomname}" ya está listo y procesado. Puedes verlo aquí: {$a->url}';
 $string['recording_ready_notification_fullmessagehtml'] = '<p>La grabación de la sesión <strong>"{$a->roomname}"</strong> ahora está listo y procesado.</p><p><a href="{$a->url}">Haz clic aquí para ver la grabación.</a></p>';
