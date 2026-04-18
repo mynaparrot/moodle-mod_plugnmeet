@@ -300,7 +300,7 @@ $string['guest_access_denied'] = 'غير مفعل وصول الضيوف لهذا
 $string['invalid_guest_token'] = 'رمز انضمام ضيف غير صالح أو منتهية الصلاحية.';
 $string['guest_link_expired'] = 'رابط انضمام الضيوف هذا انتهى صلاحيته.';
 $string['error_joining_session'] = 'حدث خطأ في الانضمام إلى الجلسة: {$a}';
-$string['redirect_to_moodle_login'] = 'You are already logged into Moodle. Redirecting you to the activity page...';
+$string['redirect_to_moodle_login'] = 'أنت بالفعل مسجل الدخول إلى مودل. يعيد توجيهك إلى صفحة النشاط...';
 
 // Events
 $string['event_room_started'] = 'بدأت الغرفة';
