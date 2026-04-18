@@ -427,6 +427,7 @@ $string['attendance_report'] = 'Звіт про відвідуваність';
 $string['status'] = 'Статус';
 $string['present'] = 'Сьогодення';
 $string['absent'] = 'Відсутній';
+$string['incomplete'] = 'Incomplete';
 $string['minutes_attended'] = 'Протоколи присутності';
 $string['last_updated'] = 'Останнє оновлення';
 $string['mic_duration'] = 'Тривалість увімкнення мікрофона';
