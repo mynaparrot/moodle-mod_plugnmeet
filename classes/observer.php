@@ -30,7 +30,7 @@ class observer {
      * @param \mod_plugnmeet\event\recording_proceeded $event
      */
     public static function recording_ready(\mod_plugnmeet\event\recording_proceeded $event) {
-        self::send_notification($event, 'recording_ready_notification');
+        self::send_notification($event, 'recording_ready_notification', 'recording_ready');
     }
 
     /**
@@ -40,17 +40,18 @@ class observer {
      */
     public static function artifact_ready(\mod_plugnmeet\event\artifact_created $event) {
         $artifacttype = $event->other['type'] ?? get_string('artifact', 'mod_plugnmeet'); // Default to 'artifact' if type is missing.
-        self::send_notification($event, 'artifact_ready_notification', ['type' => $artifacttype]);
+        self::send_notification($event, 'artifact_ready_notification', 'artifact_ready', ['type' => $artifacttype]);
     }
 
     /**
      * Internal helper to send notifications to managers.
      *
      * @param \core\event\base $event
-     * @param string $messagetype
+     * @param string $messagetype Prefix for the language strings.
+     * @param string $provider The message provider name from db/messages.php.
      * @param array $extraparams Additional parameters to pass to the language string.
      */
-    private static function send_notification(\core\event\base $event, string $messagetype, array $extraparams = []) {
+    private static function send_notification(\core\event\base $event, string $messagetype, string $provider, array $extraparams = []) {
         global $DB;
 
         $cm = get_coursemodule_from_id('plugnmeet', $event->contextinstanceid, 0, false, MUST_EXIST);
@@ -74,7 +75,7 @@ class observer {
         foreach ($managers as $manager) {
             $message = new \core\message\message();
             $message->component = 'mod_plugnmeet';
-            $message->name = 'recording_artifact_notifications';
+            $message->name = $provider;
             $message->userfrom = \core_user::get_noreply_user();
             $message->userto = $manager;
             $message->subject = get_string($messagetype . '_subject', 'mod_plugnmeet', $roomname);

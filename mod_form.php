@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * The main mod_plugnmeet configuration form.
@@ -599,9 +599,18 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
      */
     public function validation($data, $files) {
         $errors = parent::validation($data, $files);
+
         if ($data['available'] && $data['deadline'] && $data['deadline'] < $data['available']) {
             $errors['deadline'] = get_string('err_deadline_before_available', 'mod_plugnmeet');
         }
+
+        // Validate Analytics dependency for completion.
+        if ($this->completion_rule_enabled($data)) {
+            if (empty($data['meta']['room_features']['enable_analytics'])) {
+                $errors['meta[room_features][enable_analytics]'] = get_string('error_analytics_required_for_completion', 'mod_plugnmeet');
+            }
+        }
+
         return $errors;
     }
 

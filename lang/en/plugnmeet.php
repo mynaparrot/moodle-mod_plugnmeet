@@ -130,6 +130,7 @@ $string['advanced_completion'] = 'Advanced Completion';
 $string['available'] = 'Available from';
 $string['deadline'] = 'Available until';
 $string['err_deadline_before_available'] = 'The "Available until" date cannot be before the "Available from" date.';
+$string['error_analytics_required_for_completion'] = 'Enable Analytics must be checked if any completion criteria are set.';
 
 $string['allow_webcams'] = 'Allow Webcams';
 $string['allow_webcams_help'] = 'Allow participants to use their webcams.';
@@ -146,7 +147,7 @@ $string['room_duration_help'] = 'The maximum duration of the room in minutes. 0 
 $string['moderator_join_first'] = 'Moderator Join First';
 $string['moderator_join_first_help'] = 'Require a moderator to join before other participants can.';
 $string['enable_analytics'] = 'Enable Analytics';
-$string['enable_analytics_help'] = 'Generate analytics for the session.';
+$string['enable_analytics_help'] = 'Generate analytics for the session. Note: This must be enabled if any Completion criteria are set.';
 $string['allow_virtual_bg'] = 'Allow Virtual Backgrounds';
 $string['allow_virtual_bg_help'] = 'Allow participants to use virtual backgrounds.';
 $string['auto_gen_user_id'] = 'Auto Generate User ID';
@@ -300,7 +301,7 @@ $string['guest_access_denied'] = 'Guest access is not enabled for this meeting.'
 $string['invalid_guest_token'] = 'Invalid or expired guest join token.';
 $string['guest_link_expired'] = 'This guest join link has expired.';
 $string['error_joining_session'] = 'There was an error joining the session: {$a}';
-$string['redirect_to_moodle_login'] = 'You are already logged into Moodle. Redirecting you to the activity page...';
+$string['already_logged_in'] = 'You are already logged into Moodle. You can join the session directly from this activity page.';
 
 // Events
 $string['event_room_started'] = 'Room started';
@@ -313,7 +314,8 @@ $string['event_artifact_created'] = 'Artifact created';
 $string['event_recording_proceeded'] = 'Recording ready';
 
 // Notifications
-$string['messageprovider:recording_artifact_notifications'] = 'Notifications for ready recordings and artifacts';
+$string['messageprovider:recording_ready'] = 'Notifications for ready recordings';
+$string['messageprovider:artifact_ready'] = 'Notifications for ready artifacts';
 $string['recording_ready_notification_subject'] = 'Recording ready: {$a}';
 $string['recording_ready_notification_fullmessage'] = 'The recording for the session "{$a->roomname}" is now ready and processed. You can view it here: {$a->url}';
 $string['recording_ready_notification_fullmessagehtml'] = '<p>The recording for the session <strong>"{$a->roomname}"</strong> is now ready and processed.</p><p><a href="{$a->url}">Click here to view the recording.</a></p>';
