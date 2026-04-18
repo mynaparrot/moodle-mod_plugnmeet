@@ -294,6 +294,7 @@ $string['allow_guest_help'] = 'اسمح للمستخدمين الخارجيين 
 $string['guest_join_link'] = 'رابط انضمام الضيف';
 $string['guest_join_link_help'] = 'شارك هذا الرابط مع المشاركين الخارجيين. سيظل هذا الرابط صالحا ل {$a} ساعات. كل إعادة تحميل صفحة تولد رابطا جديدا، لكن الروابط التي تم مشاركتها سابقا ستظل صالحة حتى انتهاء صلاحيتها الأصلية.';
 $string['copy_link'] = 'رابط النسخ.';
+$string['link_copied'] = 'Link copied to clipboard.';
 $string['guest_join_title'] = 'انضم إلى الاجتماع كضيف';
 $string['enter_display_name'] = 'أدخل اسم العرض الخاص بك';
 $string['join_as_guest'] = 'اجتماع الانضمام';
