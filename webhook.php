@@ -78,6 +78,8 @@ try {
     $context = context_module::instance($cm->id);
 
     $eventtype = $webhook->getEvent();
+    $sid = $webhook->getRoom()?->getSid();
+
     switch ($eventtype) {
         case 'participant_joined':
             $userid = $webhook->getParticipant()->getIdentity();
@@ -110,7 +112,10 @@ try {
         case 'artifact_created':
             $artifact = $webhook->getRoomArtifact();
             if ($artifact->getType() === RoomArtifactType::MEETING_ANALYTICS) {
-                CompletionHelper::update_completion_for_room($plugnmeet, $artifact->getArtifactId());
+                $success = CompletionHelper::update_completion_for_room($plugnmeet, $artifact->getArtifactId());
+                if ($success && $sid) {
+                    $DB->set_field('plugnmeet_sessions', 'analytics_processed', 1, ['sid' => $sid]);
+                }
             }
 
             // Trigger Moodle Event.
@@ -158,6 +163,11 @@ try {
             break;
 
         case 'session_ended':
+            if ($sid) {
+                $DB->set_field('plugnmeet_sessions', 'status', 0, ['sid' => $sid]);
+                $DB->set_field('plugnmeet_sessions', 'timemodified', time(), ['sid' => $sid]);
+            }
+
             // Trigger Moodle Session Ended Event.
             $event = \mod_plugnmeet\event\session_ended::create([
                 'context' => $context,

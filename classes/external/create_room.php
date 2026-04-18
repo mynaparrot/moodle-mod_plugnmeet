@@ -117,6 +117,25 @@ class create_room extends external_api {
             $extradata
         );
 
+        if ($res->getStatus() && !empty($res->getRoomInfo())) {
+            $sid = $res->getRoomInfo()->getSid();
+            if ($sid) {
+                // Track this session in our local database.
+                $record = $DB->get_record('plugnmeet_sessions', ['sid' => $sid]);
+                if (!$record) {
+                    $newsession = new \stdClass();
+                    $newsession->plugnmeetid = $instance->id;
+                    $newsession->sid = $sid;
+                    $newsession->roomid = $instance->roomid;
+                    $newsession->status = 1; // Active.
+                    $newsession->analytics_processed = 0;
+                    $newsession->timecreated = time();
+                    $newsession->timemodified = time();
+                    $DB->insert_record('plugnmeet_sessions', $newsession);
+                }
+            }
+        }
+
         return ['status' => $res->getStatus(), 'msg' => $res->getMsg()];
     }
 

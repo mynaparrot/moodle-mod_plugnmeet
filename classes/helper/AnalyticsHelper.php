@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,13 +12,14 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 namespace mod_plugnmeet\helper;
 
 use core\notification;
 use MoodleExcelWorkbook;
 use MoodleExcelFormat;
+use cache;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -79,32 +80,35 @@ class AnalyticsHelper {
     private \DateTimeZone $timezone;
 
     /**
-     * @var string
-     */
-    private string $fileid;
-
-    /**
      * Constructor.
      *
      * @param string $artifactid
      */
     public function __construct(string $artifactid) {
-        $this->fileid = $artifactid;
         $this->timezone = new \DateTimeZone(get_user_timezone());
 
-        $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
-        $res = $pnc->getArtifactDownloadToken($artifactid);
+        $cache = cache::make('mod_plugnmeet', 'analytics');
+        $cachedata = $cache->get($artifactid);
 
-        if ($res->getStatus()) {
-            $analyticsdata = $this->fetch_data($res->getToken());
-            if (!empty($analyticsdata)) {
-                $data = json_decode($analyticsdata, true);
-                if (!empty($data)) {
-                    $this->analyticsdata = $data;
-                }
-            }
+        if ($cachedata) {
+            $this->analyticsdata = $cachedata;
         } else {
-            notification::error($res->getMsg());
+            $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
+            $res = $pnc->getArtifactDownloadToken($artifactid);
+
+            if ($res->getStatus()) {
+                $analyticsdata = $this->fetch_data($res->getToken());
+                if (!empty($analyticsdata)) {
+                    $data = json_decode($analyticsdata, true);
+                    if (!empty($data)) {
+                        $this->analyticsdata = $data;
+                        // Cache the decoded data.
+                        $cache->set($artifactid, $data);
+                    }
+                }
+            } else {
+                notification::error($res->getMsg());
+            }
         }
 
         $this->format_room_data();
@@ -681,7 +685,7 @@ class AnalyticsHelper {
         }
 
         // Sort events by time ascending.
-        usort($events, function($a, $b) {
+        usort($events, function ($a, $b) {
             return (int)$a['time'] <=> (int)$b['time'];
         });
 

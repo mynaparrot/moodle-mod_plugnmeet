@@ -39,6 +39,25 @@
         <KEY NAME="usermodified" TYPE="foreign" FIELDS="usermodified" REFTABLE="user" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
+    <TABLE NAME="plugnmeet_sessions" COMMENT="Tracks every unique session (SID) created for a room.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="plugnmeetid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="FK to plugnmeet table."/>
+        <FIELD NAME="sid" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false" COMMENT="The unique Session ID from PlugNmeet."/>
+        <FIELD NAME="roomid" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false" COMMENT="The Room ID."/>
+        <FIELD NAME="status" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="1 = active, 0 = ended."/>
+        <FIELD NAME="analytics_processed" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Whether analytics have been fetched and processed."/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="plugnmeetid" TYPE="foreign" FIELDS="plugnmeetid" REFTABLE="plugnmeet" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="sid" UNIQUE="true" FIELDS="sid"/>
+      </INDEXES>
+    </TABLE>
     <TABLE NAME="plugnmeet_user_stats" COMMENT="Stores user statistics for completion evaluation.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>

@@ -15,20 +15,23 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
+ * Scheduled tasks for the plugnmeet module.
  *
- * @package     mod_plugnmeet
- * @author     Jibon L. Costa <jibon@mynaparrot.com>
+ * @package    mod_plugnmeet
  * @copyright  2026 MynaParrot
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-
-$plugin->component = 'mod_plugnmeet';
-// x-release-please-start-version
-$plugin->release = '2.1.0';
-// x-release-please-end
-$plugin->version   = 2026041403;
-$plugin->requires  = 2024051300;
-$plugin->maturity  = MATURITY_STABLE;
+$tasks = [
+    [
+        'classname' => 'mod_plugnmeet\task\fetch_analytics_task',
+        'blocking' => 0,
+        'minute' => '*/5',
+        'hour' => '*',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*',
+    ],
+];

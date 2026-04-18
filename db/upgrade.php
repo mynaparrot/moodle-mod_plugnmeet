@@ -59,7 +59,30 @@ function xmldb_plugnmeet_upgrade($oldversion) {
             }
         }
 
-        // 2. Create plugnmeet_user_stats table.
+        // 2. Create plugnmeet_sessions table.
+        $sessionstable = new xmldb_table('plugnmeet_sessions');
+
+        $sessionstable->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $sessionstable->add_field('plugnmeetid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $sessionstable->add_field('sid', XMLDB_TYPE_CHAR, '64', null, XMLDB_NOTNULL, null, null);
+        $sessionstable->add_field('roomid', XMLDB_TYPE_CHAR, '64', null, XMLDB_NOTNULL, null, null);
+        $sessionstable->add_field('status', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '1');
+        $sessionstable->add_field('analytics_processed', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0');
+        $sessionstable->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $sessionstable->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+
+        // Adding keys to table plugnmeet_sessions.
+        $sessionstable->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $sessionstable->add_key('plugnmeetid', XMLDB_KEY_FOREIGN, ['plugnmeetid'], 'plugnmeet', ['id']);
+
+        // Adding index to table plugnmeet_sessions.
+        $sessionstable->add_index('sid', XMLDB_INDEX_UNIQUE, ['sid']);
+
+        if (!$dbman->table_exists($sessionstable)) {
+            $dbman->create_table($sessionstable);
+        }
+
+        // 3. Create plugnmeet_user_stats table.
         $statstable = new xmldb_table('plugnmeet_user_stats');
 
         $statstable->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
