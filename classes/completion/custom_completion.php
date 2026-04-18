@@ -35,6 +35,26 @@ use core_completion\activity_custom_completion;
  */
 class custom_completion extends activity_custom_completion {
     /**
+     * Maps user stats fields to activity completion fields.
+     *
+     * @return array [stats_key => completion_field]
+     */
+    public static function get_field_mapping(): array {
+        return [
+            'duration' => 'completionminutes',
+            'raise_hand' => 'completionraisedhand',
+            'chat_messages' => 'completionchatmessages',
+            'webcam_status' => 'completionwebcam',
+            'webcam_duration' => 'completionwebcamduration',
+            'mic_status' => 'completionmic',
+            'mic_duration' => 'completionmicduration',
+            'talked_duration' => 'completiontalkduration',
+            'voted_poll' => 'completionpollvoted',
+            'whiteboard_annotated' => 'completionwhiteboardannotated',
+        ];
+    }
+
+    /**
      * Returns an associative array of the descriptions of custom completion rules.
      *
      * @return array
@@ -42,18 +62,19 @@ class custom_completion extends activity_custom_completion {
     public function get_custom_rule_descriptions(): array {
         $customdata = (array)$this->cm->customdata;
         $rules = $customdata['customcompletionrules'] ?? [];
+        $mapping = self::get_field_mapping();
 
         return [
-            'completionminutes' => get_string('completion_minutes_desc', 'mod_plugnmeet', $rules['completionminutes'] ?? 0),
-            'completionraisedhand' => get_string('completion_raised_hand', 'mod_plugnmeet'),
-            'completionchatmessages' => get_string('completion_chat_messages', 'mod_plugnmeet'),
-            'completionwebcam' => get_string('completion_webcam_enabled', 'mod_plugnmeet'),
-            'completionwebcamduration' => get_string('completion_webcam_duration_desc', 'mod_plugnmeet', $rules['completionwebcamduration'] ?? 0),
-            'completionmic' => get_string('completion_mic_enabled', 'mod_plugnmeet'),
-            'completionmicduration' => get_string('completion_mic_duration_desc', 'mod_plugnmeet', $rules['completionmicduration'] ?? 0),
-            'completiontalkduration' => get_string('completion_talk_duration_desc', 'mod_plugnmeet', $rules['completiontalkduration'] ?? 0),
-            'completionpollvoted' => get_string('completion_poll_voted', 'mod_plugnmeet'),
-            'completionwhiteboardannotated' => get_string('completion_whiteboard_annotated', 'mod_plugnmeet'),
+            $mapping['duration'] => get_string('completion_minutes_desc', 'mod_plugnmeet', $rules[$mapping['duration']] ?? 0),
+            $mapping['raise_hand'] => get_string('completion_raised_hand', 'mod_plugnmeet'),
+            $mapping['chat_messages'] => get_string('completion_chat_messages', 'mod_plugnmeet'),
+            $mapping['webcam_status'] => get_string('completion_webcam_enabled', 'mod_plugnmeet'),
+            $mapping['webcam_duration'] => get_string('completion_webcam_duration_desc', 'mod_plugnmeet', $rules[$mapping['webcam_duration']] ?? 0),
+            $mapping['mic_status'] => get_string('completion_mic_enabled', 'mod_plugnmeet'),
+            $mapping['mic_duration'] => get_string('completion_mic_duration_desc', 'mod_plugnmeet', $rules[$mapping['mic_duration']] ?? 0),
+            $mapping['talked_duration'] => get_string('completion_talk_duration_desc', 'mod_plugnmeet', $rules[$mapping['talked_duration']] ?? 0),
+            $mapping['voted_poll'] => get_string('completion_poll_voted', 'mod_plugnmeet'),
+            $mapping['whiteboard_annotated'] => get_string('completion_whiteboard_annotated', 'mod_plugnmeet'),
         ];
     }
 
@@ -82,45 +103,24 @@ class custom_completion extends activity_custom_completion {
 
         $customdata = (array)$this->cm->customdata;
         $rules = $customdata['customcompletionrules'] ?? [];
+        $mapping = array_flip(self::get_field_mapping());
 
-        switch ($rule) {
-            case 'completionminutes':
-                $required = (int)($rules['completionminutes'] ?? 0);
-                $actual = (int)($stats['minutes'] ?? 0);
-                return ($actual >= $required) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
-            case 'completionraisedhand':
-                $actual = (int)($stats['raisedhand'] ?? 0);
-                return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
-            case 'completionchatmessages':
-                $actual = (int)($stats['chatmessages'] ?? 0);
-                return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
-            case 'completionwebcam':
-                $actual = (int)($stats['webcam'] ?? 0);
-                return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
-            case 'completionwebcamduration':
-                $required = (int)($rules['completionwebcamduration'] ?? 0);
-                $actual = (int)($stats['webcamduration'] ?? 0);
-                return ($actual >= $required) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
-            case 'completionmic':
-                $actual = (int)($stats['mic'] ?? 0);
-                return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
-            case 'completionmicduration':
-                $required = (int)($rules['completionmicduration'] ?? 0);
-                $actual = (int)($stats['micduration'] ?? 0);
-                return ($actual >= $required) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
-            case 'completiontalkduration':
-                $required = (int)($rules['completiontalkduration'] ?? 0);
-                $actual = (int)($stats['talkduration'] ?? 0);
-                return ($actual >= $required) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
-            case 'completionpollvoted':
-                $actual = (int)($stats['pollvoted'] ?? 0);
-                return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
-            case 'completionwhiteboardannotated':
-                $actual = (int)($stats['whiteboardannotated'] ?? 0);
-                return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
+        if (!isset($mapping[$rule])) {
+            return COMPLETION_INCOMPLETE;
         }
 
-        return COMPLETION_INCOMPLETE;
+        $statskey = $mapping[$rule];
+        $actual = (int)($stats[$statskey] ?? 0);
+
+        // Handle duration-based rules (value is required minutes, actual is seconds).
+        $durationrules = ['completionminutes', 'completionwebcamduration', 'completionmicduration', 'completiontalkduration'];
+        if (in_array($rule, $durationrules)) {
+            $requiredseconds = (int)($rules[$rule] ?? 0) * 60;
+            return ($actual >= $requiredseconds) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
+        }
+
+        // Handle count-based or boolean rules (at least 1 is required).
+        return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
     }
 
     /**
@@ -129,18 +129,7 @@ class custom_completion extends activity_custom_completion {
      * @return array
      */
     public static function get_defined_custom_rules(): array {
-        return [
-            'completionminutes',
-            'completionraisedhand',
-            'completionchatmessages',
-            'completionwebcam',
-            'completionwebcamduration',
-            'completionmic',
-            'completionmicduration',
-            'completiontalkduration',
-            'completionpollvoted',
-            'completionwhiteboardannotated',
-        ];
+        return array_values(self::get_field_mapping());
     }
 
     /**
@@ -149,17 +138,6 @@ class custom_completion extends activity_custom_completion {
      * @return array
      */
     public function get_sort_order(): array {
-        return [
-            'completionminutes',
-            'completionraisedhand',
-            'completionchatmessages',
-            'completionwebcam',
-            'completionwebcamduration',
-            'completionmic',
-            'completionmicduration',
-            'completiontalkduration',
-            'completionpollvoted',
-            'completionwhiteboardannotated',
-        ];
+        return array_values(self::get_field_mapping());
     }
 }

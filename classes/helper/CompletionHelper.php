@@ -61,7 +61,6 @@ class CompletionHelper {
                 }
 
                 // Verify if $userid exists in Moodle before processing completion.
-                // This ensures we only process stats for Moodle users, not external guests.
                 if (!$DB->record_exists('user', ['id' => $userid])) {
                     continue;
                 }
@@ -73,18 +72,19 @@ class CompletionHelper {
                     $aggregatedstats = json_decode($statsrecord->statsdata, true) ?: [];
                 }
 
-                // 2. Prepare new session stats (convert raw analytics to minutes/counts).
+                // 2. Prepare new session stats (store durations in SECONDS).
+                // Use naming consistent with AnalyticsHelper and user fields.
                 $sessionstats = [
-                    'minutes' => (int)(($user['duration'] ?? 0) / 60),
-                    'raisedhand' => (int)($user['raise_hand'] ?? 0),
-                    'chatmessages' => (int)(($user['public_chat'] ?? 0) + ($user['private_chat'] ?? 0)),
-                    'webcam' => (int)(($user['webcam_status'] ?? 0) > 0 ? 1 : 0),
-                    'webcamduration' => (int)(($user['webcam_duration'] ?? 0) / 60),
-                    'mic' => (int)(($user['mic_status'] ?? 0) > 0 ? 1 : 0),
-                    'micduration' => (int)(($user['mic_duration'] ?? 0) / 60),
-                    'talkduration' => (int)(($user['talked_duration'] ?? 0) / 60),
-                    'pollvoted' => (int)($user['voted_poll'] ?? 0),
-                    'whiteboardannotated' => (int)($user['whiteboard_annotated'] ?? 0),
+                    'duration' => (int)($user['duration'] ?? 0),
+                    'raise_hand' => (int)($user['raise_hand'] ?? 0),
+                    'chat_messages' => (int)(($user['public_chat'] ?? 0) + ($user['private_chat'] ?? 0)),
+                    'webcam_status' => (int)(($user['webcam_status'] ?? 0) > 0 ? 1 : 0),
+                    'webcam_duration' => (int)($user['webcam_duration'] ?? 0),
+                    'mic_status' => (int)(($user['mic_status'] ?? 0) > 0 ? 1 : 0),
+                    'mic_duration' => (int)($user['mic_duration'] ?? 0),
+                    'talked_duration' => (int)($user['talked_duration'] ?? 0),
+                    'voted_poll' => (int)($user['voted_poll'] ?? 0),
+                    'whiteboard_annotated' => (int)($user['whiteboard_annotated'] ?? 0),
                 ];
 
                 // 3. Aggregate: Sum durations and counts.
@@ -107,7 +107,6 @@ class CompletionHelper {
                 }
 
                 if ($results['metcount'] > 0) {
-                    // cache clearing for this user and activity.
                     self::invalidate_completion_cache((int)$userid, $plugnmeet->course, (int)$cm->id);
                 }
             }
@@ -216,8 +215,8 @@ class CompletionHelper {
         }
 
         if (!empty($plugnmeet->completionminutes)) {
-            $requiredminutes = (int)$plugnmeet->completionminutes;
-            return (($aggregatedstats['minutes'] ?? 0) >= $requiredminutes) ? 1 : 0;
+            $requiredseconds = (int)$plugnmeet->completionminutes * 60;
+            return (($aggregatedstats['duration'] ?? 0) >= $requiredseconds) ? 1 : 0;
         }
 
         // If other criteria are set but not minutes, meet ANY/ALL criteria makes them present.
@@ -227,19 +226,19 @@ class CompletionHelper {
     /**
      * Evaluate criteria and return progress.
      *
-     * @param array $aggregatedstats Statistics already in minutes/counts format.
+     * @param array $aggregatedstats Statistics already in seconds/counts format.
      * @param \stdClass $plugnmeet
-     * @return array ['all_met' => bool, 'progress' => float]
+     * @return array ['all_met' => bool, 'progress' => float, 'metcount' => int]
      */
-    private static function evaluate_criteria(array $aggregatedstats, \stdClass $plugnmeet): array {
+    public static function evaluate_criteria(array $aggregatedstats, \stdClass $plugnmeet): array {
         $enabledcount = 0;
         $metcount = 0;
 
-        // 1. Check duration (minutes).
+        // 1. Check duration.
         if (!empty($plugnmeet->completionminutes)) {
             $enabledcount++;
-            $required = (int)$plugnmeet->completionminutes;
-            if (($aggregatedstats['minutes'] ?? 0) >= $required) {
+            $required = (int)$plugnmeet->completionminutes * 60;
+            if (($aggregatedstats['duration'] ?? 0) >= $required) {
                 $metcount++;
             }
         }
@@ -247,7 +246,7 @@ class CompletionHelper {
         // 2. Check raised hand.
         if (!empty($plugnmeet->completionraisedhand)) {
             $enabledcount++;
-            if (($aggregatedstats['raisedhand'] ?? 0) > 0) {
+            if (($aggregatedstats['raise_hand'] ?? 0) > 0) {
                 $metcount++;
             }
         }
@@ -255,7 +254,7 @@ class CompletionHelper {
         // 3. Check chat messages.
         if (!empty($plugnmeet->completionchatmessages)) {
             $enabledcount++;
-            if (($aggregatedstats['chatmessages'] ?? 0) > 0) {
+            if (($aggregatedstats['chat_messages'] ?? 0) > 0) {
                 $metcount++;
             }
         }
@@ -263,7 +262,7 @@ class CompletionHelper {
         // 4. Check webcam enabled.
         if (!empty($plugnmeet->completionwebcam)) {
             $enabledcount++;
-            if (($aggregatedstats['webcam'] ?? 0) > 0) {
+            if (($aggregatedstats['webcam_status'] ?? 0) > 0) {
                 $metcount++;
             }
         }
@@ -271,8 +270,8 @@ class CompletionHelper {
         // 5. Check webcam duration.
         if (!empty($plugnmeet->completionwebcamduration)) {
             $enabledcount++;
-            $required = (int)$plugnmeet->completionwebcamduration;
-            if (($aggregatedstats['webcamduration'] ?? 0) >= $required) {
+            $required = (int)$plugnmeet->completionwebcamduration * 60;
+            if (($aggregatedstats['webcam_duration'] ?? 0) >= $required) {
                 $metcount++;
             }
         }
@@ -280,7 +279,7 @@ class CompletionHelper {
         // 6. Check mic enabled.
         if (!empty($plugnmeet->completionmic)) {
             $enabledcount++;
-            if (($aggregatedstats['mic'] ?? 0) > 0) {
+            if (($aggregatedstats['mic_status'] ?? 0) > 0) {
                 $metcount++;
             }
         }
@@ -288,8 +287,8 @@ class CompletionHelper {
         // 7. Check mic duration.
         if (!empty($plugnmeet->completionmicduration)) {
             $enabledcount++;
-            $required = (int)$plugnmeet->completionmicduration;
-            if (($aggregatedstats['micduration'] ?? 0) >= $required) {
+            $required = (int)$plugnmeet->completionmicduration * 60;
+            if (($aggregatedstats['mic_duration'] ?? 0) >= $required) {
                 $metcount++;
             }
         }
@@ -297,8 +296,8 @@ class CompletionHelper {
         // 8. Check talk duration.
         if (!empty($plugnmeet->completiontalkduration)) {
             $enabledcount++;
-            $required = (int)$plugnmeet->completiontalkduration;
-            if (($aggregatedstats['talkduration'] ?? 0) >= $required) {
+            $required = (int)$plugnmeet->completiontalkduration * 60;
+            if (($aggregatedstats['talked_duration'] ?? 0) >= $required) {
                 $metcount++;
             }
         }
@@ -306,7 +305,7 @@ class CompletionHelper {
         // 9. Check poll voted.
         if (!empty($plugnmeet->completionpollvoted)) {
             $enabledcount++;
-            if (($aggregatedstats['pollvoted'] ?? 0) > 0) {
+            if (($aggregatedstats['voted_poll'] ?? 0) > 0) {
                 $metcount++;
             }
         }
@@ -314,13 +313,13 @@ class CompletionHelper {
         // 10. Check whiteboard annotated.
         if (!empty($plugnmeet->completionwhiteboardannotated)) {
             $enabledcount++;
-            if (($aggregatedstats['whiteboardannotated'] ?? 0) > 0) {
+            if (($aggregatedstats['whiteboard_annotated'] ?? 0) > 0) {
                 $metcount++;
             }
         }
 
         if ($enabledcount === 0) {
-            return ['all_met' => true, 'progress' => 100.0];
+            return ['all_met' => true, 'progress' => 100.0, 'metcount' => 0];
         }
 
         return [
