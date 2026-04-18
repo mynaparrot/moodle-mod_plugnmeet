@@ -34,7 +34,6 @@ require_login($course, true, $cm);
 
 $context = \context_module::instance($cm->id);
 $canmanage = has_capability('mod/plugnmeet:manage', $context);
-$description = format_module_intro('plugnmeet', $plugnmeet, $cm->id);
 
 $PAGE->set_url('/mod/plugnmeet/view.php', ['id' => $cm->id]);
 $PAGE->set_title(format_string($plugnmeet->name));
@@ -68,11 +67,6 @@ if ($plugnmeet->deadline && $timenow > $plugnmeet->deadline) {
 
 // Start Main Content Container.
 echo \html_writer::start_div('mod_plugnmeet_view_container');
-
-// Description section.
-if (!empty($description)) {
-    echo \html_writer::div($description, 'description mb-4');
-}
 
 // Card for availability and actions.
 echo \html_writer::start_div('card');
@@ -137,7 +131,7 @@ if ($canmanage && $allowglobal && !empty($plugnmeet->allow_guest) && !empty($plu
     echo \html_writer::tag('button', get_string('copy_link', 'mod_plugnmeet'), [
         'class' => 'btn btn-outline-secondary',
         'type' => 'button',
-        'onclick' => "navigator.clipboard.writeText('{$guestjoinurl->out(false)}'); alert('Link copied!');",
+        'onclick' => "navigator.clipboard.writeText('{$guestjoinurl->out(false)}'); alert('" . format_string(get_string('link_copied', 'mod_plugnmeet')) . "');",
     ]);
     echo \html_writer::end_div(); // End input-group-append.
     echo \html_writer::end_div(); // End input-group.

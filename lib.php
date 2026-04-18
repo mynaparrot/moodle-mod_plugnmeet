@@ -63,7 +63,7 @@ function plugnmeet_add_instance(stdClass $data, $mform = null) {
     $data->timemodified = time();
     $data->roomid = plugNmeetConnect::generateUuid4();
 
-    if (!empty($data->allow_guest)) {
+    if ($data->allow_guest == "1") {
         $data->guest_token = plugNmeetConnect::generateUuid4();
     }
 
@@ -97,7 +97,7 @@ function plugnmeet_update_instance(stdClass $data, $mform = null) {
     $data->timemodified = time();
     $data->id = $data->instance;
 
-    if (!empty($data->allow_guest)) {
+    if ($data->allow_guest == "1") {
         if (empty($data->guest_token)) {
             $data->guest_token = plugNmeetConnect::generateUuid4();
         }

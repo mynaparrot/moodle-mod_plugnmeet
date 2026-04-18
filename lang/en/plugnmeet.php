@@ -294,6 +294,7 @@ $string['allow_guest_help'] = 'Allow external users without a Moodle account to 
 $string['guest_join_link'] = 'Guest Join Link';
 $string['guest_join_link_help'] = 'Share this link with external participants. This link will remain valid for {$a} hours. Every page reload will generate a new link, but previously shared links will remain valid until their original expiration time.';
 $string['copy_link'] = 'Copy Link';
+$string['link_copied'] = 'Link copied to clipboard.';
 $string['guest_join_title'] = 'Join Meeting as Guest';
 $string['enter_display_name'] = 'Enter your display name';
 $string['join_as_guest'] = 'Join Meeting';

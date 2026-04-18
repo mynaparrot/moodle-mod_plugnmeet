@@ -57,6 +57,9 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             $mform->addElement('advcheckbox', 'allow_guest', get_string('allow_guest', 'mod_plugnmeet'));
             $mform->setDefault('allow_guest', 0);
             $mform->addHelpButton('allow_guest', 'allow_guest', 'mod_plugnmeet');
+
+            $mform->addElement('hidden', 'guest_token');
+            $mform->setType('guest_token', PARAM_RAW);
         } else {
             $mform->addElement('hidden', 'allow_guest', 0);
             $mform->setType('allow_guest', PARAM_INT);

@@ -87,17 +87,18 @@ echo html_writer::start_div('col-md-6');
 echo html_writer::start_div('card');
 echo html_writer::start_div('card-body text-center');
 
-echo html_writer::tag('p', get_string('welcome_message', 'mod_plugnmeet') . ': ' . format_string($plugnmeet->name));
+if (!empty($plugnmeet->welcomemessage)) {
+    echo html_writer::tag('p', get_string('welcome_message', 'mod_plugnmeet') . ': ' . format_string($plugnmeet->welcomemessage), ['class' => 'card-text mb-4']);
+}
 
-echo html_writer::start_div('mt-4');
 echo html_writer::start_div('form-group');
 echo html_writer::label(get_string('enter_display_name', 'mod_plugnmeet'), 'guestname');
 echo html_writer::empty_tag('input', [
     'type' => 'text',
     'name' => 'guestname',
     'id' => 'guestname',
-    'class' => 'form-control form-control-lg',
-    'placeholder' => 'Your Name',
+    'class' => 'form-control form-control-lg mt-2',
+    'placeholder' => get_string('fullname'),
     'required' => 'required',
     'autofocus' => 'autofocus',
 ]);
@@ -110,7 +111,6 @@ echo html_writer::tag('button', get_string('join_as_guest', 'mod_plugnmeet'), [
 
 echo html_writer::end_div();
 
-echo html_writer::end_div();
 echo html_writer::end_div();
 echo html_writer::end_div();
 echo html_writer::end_div();
