@@ -428,6 +428,7 @@ $string['status'] = 'الحالة';
 $string['present'] = 'الحاضر';
 $string['absent'] = 'غائب';
 $string['incomplete'] = 'Incomplete';
+$string['completed'] = 'Completed';
 $string['minutes_attended'] = 'الدقائق التي حضرها';
 $string['last_updated'] = 'آخر تحديث';
 $string['mic_duration'] = 'مدة الميكروفون';
