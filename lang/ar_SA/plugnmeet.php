@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Strings for component 'mod_plugnmeet', language 'en'
@@ -49,6 +49,11 @@ $string['api_key'] = 'مفتاح API';
 $string['api_key_desc'] = 'مفتاح API الذي يوفره خادم PlugNmeet الخاص بك.';
 $string['api_secret'] = 'سر API';
 $string['api_secret_desc'] = 'سر واجهة برمجة التطبيقات الذي يوفره خادم PlugNmeet الخاص بك.';
+$string['guest_access_hdr'] = 'إعدادات الوصول إلى الضيوف';
+$string['allow_guest_global'] = 'السماح بالوصول للضيوف عالميا';
+$string['allow_guest_global_desc'] = 'إذا كان الوضع معطلا، لا يمكن تفعيل انضمام الضيوف لأي غرفة اجتماع.';
+$string['guest_link_expiration'] = 'انتهاء صلاحية رابط الضيف (ساعات)';
+$string['guest_link_expiration_desc'] = 'كم من الوقت يبقى رابط انضمام الضيف صالحا بعد التوليد.';
 
 $string['defaults'] = 'الإعدادات الافتراضية التقنية';
 $string['defaults_desc'] = 'الإعدادات التقنية الافتراضية لجلسات PlugNmeet الجديدة.';
@@ -283,6 +288,18 @@ $string['session_available_from'] = 'متوفر من: {$a}';
 $string['session_available_until'] = 'متاح حتى: {$a}';
 $string['session_not_started_yet'] = 'هذه الجلسة لم تبدأ بعد.';
 $string['session_ended'] = 'انتهت هذه الجلسة.';
+$string['allow_guest'] = 'السماح للمستخدمين الضيوف';
+$string['allow_guest_help'] = 'اسمح للمستخدمين الخارجيين الذين ليس لديهم حساب في مودل بالانضمام إلى الجلسة عبر رابط قابل للمشاركة.';
+$string['guest_join_link'] = 'رابط انضمام الضيف';
+$string['guest_join_link_help'] = 'شارك هذا الرابط مع المشاركين الخارجيين. سيظل هذا الرابط صالحا ل {$a} ساعات. كل إعادة تحميل صفحة تولد رابطا جديدا، لكن الروابط التي تم مشاركتها سابقا ستظل صالحة حتى انتهاء صلاحيتها الأصلية.';
+$string['copy_link'] = 'رابط النسخ.';
+$string['guest_join_title'] = 'انضم إلى الاجتماع كضيف';
+$string['enter_display_name'] = 'أدخل اسم العرض الخاص بك';
+$string['join_as_guest'] = 'اجتماع الانضمام';
+$string['guest_access_denied'] = 'غير مفعل وصول الضيوف لهذا الاجتماع.';
+$string['invalid_guest_token'] = 'رمز انضمام ضيف غير صالح أو منتهية الصلاحية.';
+$string['guest_link_expired'] = 'رابط انضمام الضيوف هذا انتهى صلاحيته.';
+$string['error_joining_session'] = 'حدث خطأ في الانضمام إلى الجلسة: {$a}';
 
 // Events
 $string['event_room_started'] = 'بدأت الغرفة';

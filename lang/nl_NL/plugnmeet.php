@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Strings for component 'mod_plugnmeet', language 'en'
@@ -49,6 +49,11 @@ $string['api_key'] = 'API-sleutel';
 $string['api_key_desc'] = 'De API-sleutel die door je PlugNmeet-server wordt geleverd.';
 $string['api_secret'] = 'API Secret';
 $string['api_secret_desc'] = 'Het API-geheim dat door je PlugNmeet-server wordt verstrekt.';
+$string['guest_access_hdr'] = 'Gasttoegangsinstellingen';
+$string['allow_guest_global'] = 'Sta gasttoegang wereldwijd toe';
+$string['allow_guest_global_desc'] = 'Als het is uitgeschakeld, kan gastdeelname niet worden ingeschakeld voor een enkele vergaderruimte.';
+$string['guest_link_expiration'] = 'Vervaldatum van gastlinks (uren)';
+$string['guest_link_expiration_desc'] = 'Hoe lang een gastverbinding geldig blijft na generatie.';
 
 $string['defaults'] = 'Technische standaarden';
 $string['defaults_desc'] = 'Standaard technische instellingen voor nieuwe PlugNmeet-sessies.';
@@ -283,6 +288,18 @@ $string['session_available_from'] = 'Beschikbaar via: {$a}';
 $string['session_available_until'] = 'Beschikbaar tot: {$a}';
 $string['session_not_started_yet'] = 'Deze sessie is nog niet begonnen.';
 $string['session_ended'] = 'Deze sessie is afgelopen.';
+$string['allow_guest'] = 'Sta gastgebruikers toe';
+$string['allow_guest_help'] = 'Laat externe gebruikers zonder Moodle-account via een deelbare link deelen aan de sessie.';
+$string['guest_join_link'] = 'Link voor gast';
+$string['guest_join_link_help'] = 'Deel deze link met externe deelnemers. Deze link blijft geldig voor {$a} uren. Elke herlaadpagina genereert een nieuwe link, maar eerder gedeelde links blijven geldig tot hun oorspronkelijke vervaldatum.';
+$string['copy_link'] = 'Kopieer link';
+$string['guest_join_title'] = 'Sluit je aan bij de vergadering als gast';
+$string['enter_display_name'] = 'Voer je weergavenaam in';
+$string['join_as_guest'] = 'Sluit je aan bij de vergadering';
+$string['guest_access_denied'] = 'Gasttoegang is niet ingeschakeld voor deze vergadering.';
+$string['invalid_guest_token'] = 'Ongeldige of verlopen gast-aansluitingstoken.';
+$string['guest_link_expired'] = 'Deze link voor gastdeelname is verlopen.';
+$string['error_joining_session'] = 'Er was een foutmelding tijdens de sessie: {$a}';
 
 // Events
 $string['event_room_started'] = 'De kamer is begonnen';

@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Strings for component 'mod_plugnmeet', language 'en'
@@ -49,6 +49,11 @@ $string['api_key'] = 'API-Schlüssel';
 $string['api_key_desc'] = 'Der API-Schlüssel, der von deinem PlugNmeet-Server bereitgestellt wird.';
 $string['api_secret'] = 'API-Geheimnis';
 $string['api_secret_desc'] = 'Das API-Geheimnis, das von deinem PlugNmeet-Server bereitgestellt wird.';
+$string['guest_access_hdr'] = 'Gastzugriffseinstellungen';
+$string['allow_guest_global'] = 'Gastzugriff global erlauben';
+$string['allow_guest_global_desc'] = 'Wenn deaktiviert, kann der Gastbeitritt in keinem Besprechungsraum aktiviert werden.';
+$string['guest_link_expiration'] = 'Ablauf des Gastlinks (Stunden)';
+$string['guest_link_expiration_desc'] = 'Wie lange ein Gastbeitrittslink nach der Generierung gültig bleibt.';
 
 $string['defaults'] = 'Technische Standardeinstellungen';
 $string['defaults_desc'] = 'Standardtechnische Einstellungen für neue PlugNmeet-Sitzungen.';
@@ -283,6 +288,18 @@ $string['session_available_from'] = 'Verfügbar bei: {$a}';
 $string['session_available_until'] = 'Verfügbar bis: {$a}';
 $string['session_not_started_yet'] = 'Diese Sitzung hat noch nicht begonnen.';
 $string['session_ended'] = 'Diese Sitzung ist beendet.';
+$string['allow_guest'] = 'Gastnutzer erlauben';
+$string['allow_guest_help'] = 'Erlauben Sie externen Nutzern ohne Moodle-Konto, der Sitzung über einen teilbaren Link beizutreten.';
+$string['guest_join_link'] = 'Link zum Gastbeitritt';
+$string['guest_join_link_help'] = 'Teilen Sie diesen Link mit externen Teilnehmern. Dieser Link bleibt gültig für {$a} Stunden. Jede Neuladung der Seite generiert einen neuen Link, aber zuvor geteilte Links bleiben bis zu ihrem ursprünglichen Ablaufdatum gültig.';
+$string['copy_link'] = 'Link kopieren';
+$string['guest_join_title'] = 'Tritt als Gast dem Meeting bei';
+$string['enter_display_name'] = 'Gib deinen Anzeigenamen ein';
+$string['join_as_guest'] = 'Treffen Sie bei.';
+$string['guest_access_denied'] = 'Gastzugriff ist für dieses Treffen nicht aktiviert.';
+$string['invalid_guest_token'] = 'Ungültiges oder abgelaufenes Gast-Join-Token.';
+$string['guest_link_expired'] = 'Dieser Link zum Gastbeitritt ist abgelaufen.';
+$string['error_joining_session'] = 'Es gab einen Fehler beim Einstieg in die Sitzung: {$a}';
 
 // Events
 $string['event_room_started'] = 'Der Raum begann';

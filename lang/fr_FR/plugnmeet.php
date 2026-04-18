@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Strings for component 'mod_plugnmeet', language 'en'
@@ -49,6 +49,11 @@ $string['api_key'] = 'Clé API';
 $string['api_key_desc'] = 'La clé API fournie par votre serveur PlugNetet.';
 $string['api_secret'] = 'API Secret';
 $string['api_secret_desc'] = 'Le secret de l’API fourni par votre serveur PlugNmeet.';
+$string['guest_access_hdr'] = 'Paramètres d’accès invité';
+$string['allow_guest_global'] = 'Autoriser l’accès des invités à l’échelle mondiale';
+$string['allow_guest_global_desc'] = 'Si désactivé, la participation des invités ne peut être activée pour aucune salle de réunion.';
+$string['guest_link_expiration'] = 'Expiration du lien invité (heures)';
+$string['guest_link_expiration_desc'] = 'La durée d’un lien de rejoindisse invité reste valide après génération.';
 
 $string['defaults'] = 'Paramètres techniques par défaut';
 $string['defaults_desc'] = 'Paramètres techniques par défaut pour les nouvelles sessions PlugNetet.';
@@ -283,6 +288,18 @@ $string['session_available_from'] = 'Disponible sur : {$a}';
 $string['session_available_until'] = 'Disponible jusqu’à : {$a}';
 $string['session_not_started_yet'] = 'Cette séance n’a pas encore commencé.';
 $string['session_ended'] = 'Cette séance est terminée.';
+$string['allow_guest'] = 'Autoriser les utilisateurs invités';
+$string['allow_guest_help'] = 'Autorisez les utilisateurs externes sans compte Moodle à rejoindre la session via un lien partageable.';
+$string['guest_join_link'] = 'Lien de rejoindre les invités';
+$string['guest_join_link_help'] = 'Partagez ce lien avec des participants externes. Ce lien restera valable pour {$a} des heures. Chaque rechargement de page génère un nouveau lien, mais les liens précédemment partagés resteront valides jusqu’à leur expiration initiale.';
+$string['copy_link'] = 'Lien copié';
+$string['guest_join_title'] = 'Rejoignez la réunion en tant qu’invité';
+$string['enter_display_name'] = 'Saisissez votre nom d’affichage';
+$string['join_as_guest'] = 'Rejoindre la réunion';
+$string['guest_access_denied'] = 'L’accès des invités n’est pas activé pour cette réunion.';
+$string['invalid_guest_token'] = 'Jeton d’entrée invité invalide ou expiré.';
+$string['guest_link_expired'] = 'Ce lien de rejoindre les invités est expiré.';
+$string['error_joining_session'] = 'Il y a eu une erreur qui a rejoint la session : {$a}';
 
 // Events
 $string['event_room_started'] = 'La pièce a commencé';

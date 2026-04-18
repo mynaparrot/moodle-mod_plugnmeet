@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Strings for component 'mod_plugnmeet', language 'en'
@@ -49,6 +49,11 @@ $string['api_key'] = 'Ключ API';
 $string['api_key_desc'] = 'Ключ API, предоставляемый вашим сервером PlugNmeet.';
 $string['api_secret'] = 'API Secret';
 $string['api_secret_desc'] = 'Секрет API, предоставляемый вашим сервером PlugNmeet.';
+$string['guest_access_hdr'] = 'Настройки доступа для гостей';
+$string['allow_guest_global'] = 'Разрешить гостям доступ по всему миру';
+$string['allow_guest_global_desc'] = 'Если он отключён, гостевое присоединение нельзя включить ни в одной конференц-комнате.';
+$string['guest_link_expiration'] = 'Срок действия гостевой ссылки (часы)';
+$string['guest_link_expiration_desc'] = 'Как долго ссылка на гостевое присоединение остаётся действительной после генерации.';
 
 $string['defaults'] = 'Технические дефолты';
 $string['defaults_desc'] = 'Технические настройки по умолчанию для новых сессий PlugNmeet.';
@@ -283,6 +288,18 @@ $string['session_available_from'] = 'Доступно из: {$a}';
 $string['session_available_until'] = 'Доступно до: {$a}';
 $string['session_not_started_yet'] = 'Эта сессия ещё не началась.';
 $string['session_ended'] = 'Эта сессия окончена.';
+$string['allow_guest'] = 'Разрешить гостевым пользователям';
+$string['allow_guest_help'] = 'Разрешите внешним пользователям без аккаунта Moodle присоединяться к сессии через ссылку, которую можно поделиться.';
+$string['guest_join_link'] = 'Ссылка на гостевое присоединение';
+$string['guest_join_link_help'] = 'Поделитесь этой ссылкой с внешними участниками. Эта ссылка останется актуальной для {$a} часы. Каждая перезагрузка страницы генерирует новую ссылку, но ранее общие ссылки останутся действительными до истечения исходного срока действия.';
+$string['copy_link'] = 'Скопировать ссылку';
+$string['guest_join_title'] = 'Присоединяйтесь к встрече в качестве гостя';
+$string['enter_display_name'] = 'Введите своё отображаемое имя';
+$string['join_as_guest'] = 'Присоединяйтесь к собранию';
+$string['guest_access_denied'] = 'Гостевой доступ для этой встречи не включён.';
+$string['invalid_guest_token'] = 'Недействительный или истекший гостевой токен.';
+$string['guest_link_expired'] = 'Эта ссылка на присоединение к гостям истёкла.';
+$string['error_joining_session'] = 'В сессии произошла ошибка: {$a}';
 
 // Events
 $string['event_room_started'] = 'Комната началась';

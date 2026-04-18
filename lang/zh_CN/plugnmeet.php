@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Strings for component 'mod_plugnmeet', language 'en'
@@ -49,6 +49,11 @@ $string['api_key'] = 'API 密钥';
 $string['api_key_desc'] = '你的PlugMeet服务器提供的API密钥。';
 $string['api_secret'] = 'API 秘密';
 $string['api_secret_desc'] = '你的PlugMeet服务器提供的API秘密。';
+$string['guest_access_hdr'] = '访客访问设置';
+$string['allow_guest_global'] = '允许访客全球访问';
+$string['allow_guest_global_desc'] = '如果禁用，任何会议室都无法启用嘉宾加入功能。';
+$string['guest_link_expiration'] = '访客链接过期时间（小时）';
+$string['guest_link_expiration_desc'] = '访客加入链接在生成后有效的时间。';
 
 $string['defaults'] = '技术默认设置';
 $string['defaults_desc'] = '新 PlugNmeet 会话的默认技术设置。';
@@ -283,6 +288,18 @@ $string['session_available_from'] = '可从以下渠道获取： {$a}';
 $string['session_available_until'] = '可使用至： {$a}';
 $string['session_not_started_yet'] = '本次会议还没开始。';
 $string['session_ended'] = '本次会议结束。';
+$string['allow_guest'] = '允许访客用户';
+$string['allow_guest_help'] = '允许没有Moodle账号的外部用户通过可共享链接加入会话。';
+$string['guest_join_link'] = '嘉宾加入链接';
+$string['guest_join_link_help'] = '将此链接分享给外部参与者。此链接将持续有效 {$a} 几个小时。每次页面重新加载都会生成一个新链接，但之前分享的链接将有效至其原始到期时间。';
+$string['copy_link'] = '复制链接';
+$string['guest_join_title'] = '作为嘉宾加入会议';
+$string['enter_display_name'] = '输入你的显示名称';
+$string['join_as_guest'] = '加入会议';
+$string['guest_access_denied'] = '本次会议未启用访客访问。';
+$string['invalid_guest_token'] = '访客加入令牌无效或过期。';
+$string['guest_link_expired'] = '这个访客加入链接已过期。';
+$string['error_joining_session'] = '加入会话时出现了一个错误： {$a}';
 
 // Events
 $string['event_room_started'] = '房间开始了';
