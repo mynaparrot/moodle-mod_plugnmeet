@@ -300,7 +300,7 @@ $string['guest_access_denied'] = 'L’accès des invités n’est pas activé po
 $string['invalid_guest_token'] = 'Jeton d’entrée invité invalide ou expiré.';
 $string['guest_link_expired'] = 'Ce lien de rejoindre les invités est expiré.';
 $string['error_joining_session'] = 'Il y a eu une erreur qui a rejoint la session : {$a}';
-$string['redirect_to_moodle_login'] = 'You are already logged into Moodle. Redirecting you to the activity page...';
+$string['redirect_to_moodle_login'] = 'Vous êtes déjà connecté à Moodle. Je vous redirige vers la page d’activité...';
 
 // Events
 $string['event_room_started'] = 'La pièce a commencé';
