@@ -428,6 +428,7 @@ $string['status'] = 'Статус';
 $string['present'] = 'Сьогодення';
 $string['absent'] = 'Відсутній';
 $string['incomplete'] = 'Incomplete';
+$string['completed'] = 'Completed';
 $string['minutes_attended'] = 'Протоколи присутності';
 $string['last_updated'] = 'Останнє оновлення';
 $string['mic_duration'] = 'Тривалість увімкнення мікрофона';
