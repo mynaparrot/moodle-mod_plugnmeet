@@ -294,6 +294,7 @@ $string['allow_guest_help'] = 'Permitir que utilizadores externos sem conta Mood
 $string['guest_join_link'] = 'Link de Participação Convidada';
 $string['guest_join_link_help'] = 'Partilhe este link com participantes externos. Este link continuará válido para {$a} horas. Cada recarregamento da página gera um novo link, mas os links anteriormente partilhados permanecerão válidos até à sua expiração original.';
 $string['copy_link'] = 'Copiar o link';
+$string['link_copied'] = 'Link copied to clipboard.';
 $string['guest_join_title'] = 'Junte-se à Reunião como Convidado';
 $string['enter_display_name'] = 'Introduza o seu nome de exibição';
 $string['join_as_guest'] = 'Junta-te à Reunião';
