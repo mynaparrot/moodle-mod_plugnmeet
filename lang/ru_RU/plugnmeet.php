@@ -130,6 +130,7 @@ $string['advanced_completion'] = 'Продвинутое завершение';
 $string['available'] = 'Доступно от';
 $string['deadline'] = 'Доступно до';
 $string['err_deadline_before_available'] = 'Дата «Доступно до» не может быть раньше даты «Доступно с».';
+$string['error_analytics_required_for_completion'] = 'Enable Analytics must be checked if any completion criteria are set.';
 
 $string['allow_webcams'] = 'Разрешить веб-камеры';
 $string['allow_webcams_help'] = 'Разрешите участникам использовать свои веб-камеры.';
@@ -146,7 +147,7 @@ $string['room_duration_help'] = 'Максимальная продолжител
 $string['moderator_join_first'] = 'Модератор — присоединяйтесь первым';
 $string['moderator_join_first_help'] = 'Потребовать, чтобы модератор присоединился раньше других участников.';
 $string['enable_analytics'] = 'Включить аналитику';
-$string['enable_analytics_help'] = 'Генерируйте аналитику для сессии.';
+$string['enable_analytics_help'] = 'Generate analytics for the session. Note: This must be enabled if any Completion criteria are set.';
 $string['allow_virtual_bg'] = 'Разрешить виртуальные фоны';
 $string['allow_virtual_bg_help'] = 'Позволите участникам использовать виртуальные фоны.';
 $string['auto_gen_user_id'] = 'Автоматическая генерация идентификатора пользователя';
@@ -300,7 +301,7 @@ $string['guest_access_denied'] = 'Гостевой доступ для этой 
 $string['invalid_guest_token'] = 'Недействительный или истекший гостевой токен.';
 $string['guest_link_expired'] = 'Эта ссылка на присоединение к гостям истёкла.';
 $string['error_joining_session'] = 'В сессии произошла ошибка: {$a}';
-$string['redirect_to_moodle_login'] = 'Вы уже вошли в Moodle. Перенаправляю вас на страницу активности...';
+$string['already_logged_in'] = 'You are already logged into Moodle. You can join the session directly from this activity page.';
 
 // Events
 $string['event_room_started'] = 'Комната началась';
@@ -313,7 +314,8 @@ $string['event_artifact_created'] = 'Созданный артефакт';
 $string['event_recording_proceeded'] = 'Запись готова';
 
 // Notifications
-$string['messageprovider:recording_artifact_notifications'] = 'Уведомления о готовых записях и артефактах';
+$string['messageprovider:recording_ready'] = 'Notifications for ready recordings';
+$string['messageprovider:artifact_ready'] = 'Notifications for ready artifacts';
 $string['recording_ready_notification_subject'] = 'Запись готова: {$a}';
 $string['recording_ready_notification_fullmessage'] = 'Запись для сессии "{$a->roomname}" теперь готов и обработан. Вы можете посмотреть его здесь: {$a->url}';
 $string['recording_ready_notification_fullmessagehtml'] = '<p>Запись для сессии <strong>"{$a->roomname}"</strong> теперь готов и обработан.</p><p><a href="{$a->url}">Нажмите здесь, чтобы посмотреть запись.</a></p>';
