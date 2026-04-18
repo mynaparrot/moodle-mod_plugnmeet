@@ -427,6 +427,7 @@ $string['attendance_report'] = 'Informe de asistencia';
 $string['status'] = 'Estado';
 $string['present'] = 'Actualidad';
 $string['absent'] = 'Ausente';
+$string['incomplete'] = 'Incomplete';
 $string['minutes_attended'] = 'Actas atendidas';
 $string['last_updated'] = 'Última actualización';
 $string['mic_duration'] = 'Duración habilitada por micrófono';
