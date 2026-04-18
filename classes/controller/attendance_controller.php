@@ -130,15 +130,20 @@ class attendance_controller {
 
             // Determine Status.
             $statuskey = 'absent';
+            $hasjoined = $userstats && (($data['duration'] ?? 0) > 0 || $userstats->is_present);
+
             if ($this->completionenabled) {
+                // When completion is enabled, we strictly check against the defined criteria.
                 $results = CompletionHelper::evaluate_criteria($data, $this->plugnmeet);
                 if ($results['all_met']) {
-                    $statuskey = 'present';
-                } else if ($userstats && ($data['duration'] ?? 0) > 0) {
+                    $statuskey = 'completed';
+                } else if ($hasjoined) {
+                    // User has joined but hasn't finished criteria yet.
                     $statuskey = 'incomplete';
                 }
             } else {
-                if ($userstats && ($data['duration'] ?? 0) > 0) {
+                // When completion is disabled, presence is defined by having duration OR the manual join flag.
+                if ($hasjoined) {
                     $statuskey = 'present';
                 }
             }
@@ -206,6 +211,7 @@ class attendance_controller {
         $rows = $this->get_attendance_data_rows();
         foreach ($rows as $row) {
             $badgemap = [
+                'completed' => 'badge-success',
                 'present' => 'badge-success',
                 'incomplete' => 'badge-warning',
                 'absent' => 'badge-danger',
