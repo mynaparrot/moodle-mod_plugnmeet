@@ -294,6 +294,7 @@ $string['allow_guest_help'] = 'Autorisez les utilisateurs externes sans compte M
 $string['guest_join_link'] = 'Lien de rejoindre les invités';
 $string['guest_join_link_help'] = 'Partagez ce lien avec des participants externes. Ce lien restera valable pour {$a} des heures. Chaque rechargement de page génère un nouveau lien, mais les liens précédemment partagés resteront valides jusqu’à leur expiration initiale.';
 $string['copy_link'] = 'Lien copié';
+$string['link_copied'] = 'Link copied to clipboard.';
 $string['guest_join_title'] = 'Rejoignez la réunion en tant qu’invité';
 $string['enter_display_name'] = 'Saisissez votre nom d’affichage';
 $string['join_as_guest'] = 'Rejoindre la réunion';
