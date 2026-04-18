@@ -48,7 +48,12 @@ class custom_completion extends activity_custom_completion {
             'completionraisedhand' => get_string('completion_raised_hand', 'mod_plugnmeet'),
             'completionchatmessages' => get_string('completion_chat_messages', 'mod_plugnmeet'),
             'completionwebcam' => get_string('completion_webcam_enabled', 'mod_plugnmeet'),
+            'completionwebcamduration' => get_string('completion_webcam_duration_desc', 'mod_plugnmeet', $rules['completionwebcamduration'] ?? 0),
             'completionmic' => get_string('completion_mic_enabled', 'mod_plugnmeet'),
+            'completionmicduration' => get_string('completion_mic_duration_desc', 'mod_plugnmeet', $rules['completionmicduration'] ?? 0),
+            'completiontalkduration' => get_string('completion_talk_duration_desc', 'mod_plugnmeet', $rules['completiontalkduration'] ?? 0),
+            'completionpollvoted' => get_string('completion_poll_voted', 'mod_plugnmeet'),
+            'completionwhiteboardannotated' => get_string('completion_whiteboard_annotated', 'mod_plugnmeet'),
         ];
     }
 
@@ -92,8 +97,26 @@ class custom_completion extends activity_custom_completion {
             case 'completionwebcam':
                 $actual = (int)($stats['webcam'] ?? 0);
                 return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
+            case 'completionwebcamduration':
+                $required = (int)($rules['completionwebcamduration'] ?? 0);
+                $actual = (int)($stats['webcamduration'] ?? 0);
+                return ($actual >= $required) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
             case 'completionmic':
                 $actual = (int)($stats['mic'] ?? 0);
+                return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
+            case 'completionmicduration':
+                $required = (int)($rules['completionmicduration'] ?? 0);
+                $actual = (int)($stats['micduration'] ?? 0);
+                return ($actual >= $required) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
+            case 'completiontalkduration':
+                $required = (int)($rules['completiontalkduration'] ?? 0);
+                $actual = (int)($stats['talkduration'] ?? 0);
+                return ($actual >= $required) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
+            case 'completionpollvoted':
+                $actual = (int)($stats['pollvoted'] ?? 0);
+                return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
+            case 'completionwhiteboardannotated':
+                $actual = (int)($stats['whiteboardannotated'] ?? 0);
                 return ($actual > 0) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
         }
 
@@ -111,7 +134,12 @@ class custom_completion extends activity_custom_completion {
             'completionraisedhand',
             'completionchatmessages',
             'completionwebcam',
+            'completionwebcamduration',
             'completionmic',
+            'completionmicduration',
+            'completiontalkduration',
+            'completionpollvoted',
+            'completionwhiteboardannotated',
         ];
     }
 
@@ -126,7 +154,12 @@ class custom_completion extends activity_custom_completion {
             'completionraisedhand',
             'completionchatmessages',
             'completionwebcam',
+            'completionwebcamduration',
             'completionmic',
+            'completionmicduration',
+            'completiontalkduration',
+            'completionpollvoted',
+            'completionwhiteboardannotated',
         ];
     }
 }

@@ -23,6 +23,7 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use mod_plugnmeet\completion\custom_completion;
 use mod_plugnmeet\helper\plugNmeetConnect;
 
 defined('MOODLE_INTERNAL') || die();
@@ -144,22 +145,18 @@ function plugnmeet_delete_instance($id) {
 function plugnmeet_get_coursemodule_info($coursemodule) {
     global $DB;
 
-    $fields = 'id, name, completionminutes, completionraisedhand, completionchatmessages, completionwebcam, completionmic';
-    if (!$plugnmeet = $DB->get_record('plugnmeet', ['id' => $coursemodule->instance], $fields)) {
+    if (!$plugnmeet = $DB->get_record('plugnmeet', ['id' => $coursemodule->instance], "*", MUST_EXIST)) {
         return null;
     }
 
     $info = new cached_cm_info();
     $info->name = $plugnmeet->name;
 
+    $fields = custom_completion::get_defined_custom_rules();
     // Populate custom completion rules for the "To do" indicators.
-    $info->customdata['customcompletionrules'] = [
-        'completionminutes' => $plugnmeet->completionminutes,
-        'completionraisedhand' => $plugnmeet->completionraisedhand,
-        'completionchatmessages' => $plugnmeet->completionchatmessages,
-        'completionwebcam' => $plugnmeet->completionwebcam,
-        'completionmic' => $plugnmeet->completionmic,
-    ];
+    foreach ($fields as $field) {
+        $info->customdata['customcompletionrules'][$field] = $plugnmeet->$field;
+    }
 
     return $info;
 }

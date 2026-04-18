@@ -50,7 +50,7 @@ class AnalyticsHelper {
      */
     protected array $userfields = [
         "name", "ex_user_id", "is_admin", "duration", "joined", "left", "mic_status",
-        "mic_muted", "talked", "talked_duration", "webcam_status", "raise_hand",
+        "mic_muted", "mic_duration", "talked", "talked_duration", "webcam_status", "webcam_duration", "raise_hand",
         "voted_poll", "whiteboard_annotated", "whiteboard_files", "screen_share_status",
         "public_chat", "private_chat", "chat_files", "interface_invisible", "connection_quality",
     ];
@@ -264,8 +264,12 @@ class AnalyticsHelper {
                 case "mic_status":
                     $user[$event["name"]] = $this->count_status_start_type_event($event["values"]);
                     $user["mic_muted"]    = $this->count_status_start_type_event($event["values"], "ANALYTICS_STATUS_MUTED");
+                    $user['mic_duration'] = $this->get_duration_from_events($event['values']);
                     break;
                 case "webcam_status":
+                    $user[$event["name"]] = $this->count_status_start_type_event($event["values"]);
+                    $user['webcam_duration'] = $this->get_duration_from_events($event['values']);
+                    break;
                 case "screen_share_status":
                     $user[$event["name"]] = $this->count_status_start_type_event($event["values"]);
                     break;
@@ -555,7 +559,7 @@ class AnalyticsHelper {
             return implode("\n", $arr);
         }
 
-        if ($field === "duration" || $field === "talked_duration" || $field === "speech_service_total_usage") {
+        if ($field === "duration" || $field === "talked_duration" || $field === "speech_service_total_usage" || $field === "webcam_duration" || $field === "mic_duration") {
             return $this->format_seconds_to_time($data);
         }
 
@@ -661,5 +665,46 @@ class AnalyticsHelper {
         $sec = $s % 60;
 
         return sprintf("%02d:%02d:%02d", (int)$h, (int)$m, (int)$sec);
+    }
+
+    /**
+     * Calculate the total duration from status events.
+     *
+     * @param array $events
+     * @param string $startstatus
+     * @param string $endstatus
+     * @return int
+     */
+    protected function get_duration_from_events(array $events, string $startstatus = 'ANALYTICS_STATUS_STARTED', string $endstatus = 'ANALYTICS_STATUS_ENDED'): int {
+        if (empty($events)) {
+            return 0;
+        }
+
+        // Sort events by time ascending.
+        usort($events, function($a, $b) {
+            return (int)$a['time'] <=> (int)$b['time'];
+        });
+
+        $totalduration = 0;
+        $startedtime = 0;
+
+        foreach ($events as $event) {
+            if ($event['value'] === $startstatus) {
+                $startedtime = (float)$event['time'];
+            } else if ($event['value'] === $endstatus && $startedtime > 0) {
+                $totalduration += ((float)$event['time'] - $startedtime);
+                $startedtime = 0;
+            }
+        }
+
+        // If it's still started, use room ended time.
+        if ($startedtime > 0 && isset($this->analyticsdata["room"]["room_ended"])) {
+            $roomendedtimestamp = (float)$this->analyticsdata["room"]["room_ended"] * 1000;
+            if ($roomendedtimestamp > $startedtime) {
+                $totalduration += ($roomendedtimestamp - $startedtime);
+            }
+        }
+
+        return (int)ceil($totalduration / 1000);
     }
 }

@@ -132,7 +132,12 @@ class attendance_controller {
             $table->head[] = get_string('completion_raised_hand', 'mod_plugnmeet');
             $table->head[] = get_string('completion_chat_messages', 'mod_plugnmeet');
             $table->head[] = get_string('completion_webcam_enabled', 'mod_plugnmeet');
+            $table->head[] = get_string('completion_webcam_duration', 'mod_plugnmeet');
             $table->head[] = get_string('completion_mic_enabled', 'mod_plugnmeet');
+            $table->head[] = get_string('completion_mic_duration', 'mod_plugnmeet');
+            $table->head[] = get_string('completion_talk_duration', 'mod_plugnmeet');
+            $table->head[] = get_string('completion_poll_voted', 'mod_plugnmeet');
+            $table->head[] = get_string('completion_whiteboard_annotated', 'mod_plugnmeet');
         }
 
         $table->head[] = get_string('last_updated', 'mod_plugnmeet');
@@ -154,7 +159,12 @@ class attendance_controller {
                 $row[] = $data['raisedhand'] ?? 0;
                 $row[] = $data['chatmessages'] ?? 0;
                 $row[] = ($data['webcam'] ?? 0) ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet');
+                $row[] = $data['webcamduration'] ?? 0;
                 $row[] = ($data['mic'] ?? 0) ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet');
+                $row[] = $data['micduration'] ?? 0;
+                $row[] = $data['talkduration'] ?? 0;
+                $row[] = ($data['pollvoted'] ?? 0) ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet');
+                $row[] = ($data['whiteboardannotated'] ?? 0) ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet');
             }
 
             $row[] = $userstats ? userdate($userstats->timemodified) : '-';
@@ -184,7 +194,12 @@ class attendance_controller {
             $headers[] = get_string('completion_raised_hand', 'mod_plugnmeet');
             $headers[] = get_string('completion_chat_messages', 'mod_plugnmeet');
             $headers[] = get_string('completion_webcam_enabled', 'mod_plugnmeet');
+            $headers[] = get_string('completion_webcam_duration', 'mod_plugnmeet');
             $headers[] = get_string('completion_mic_enabled', 'mod_plugnmeet');
+            $headers[] = get_string('completion_mic_duration', 'mod_plugnmeet');
+            $headers[] = get_string('completion_talk_duration', 'mod_plugnmeet');
+            $headers[] = get_string('completion_poll_voted', 'mod_plugnmeet');
+            $headers[] = get_string('completion_whiteboard_annotated', 'mod_plugnmeet');
         }
         $headers[] = get_string('last_updated', 'mod_plugnmeet');
 
@@ -218,7 +233,14 @@ class attendance_controller {
                 $worksheet->write_number($rowidx, $col++, $data['chatmessages'] ?? 0);
                 $worksheet->write_string($rowidx, $col++, ($data['webcam'] ?? 0) ?
                     get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'));
+                $worksheet->write_number($rowidx, $col++, $data['webcamduration'] ?? 0);
                 $worksheet->write_string($rowidx, $col++, ($data['mic'] ?? 0) ?
+                    get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'));
+                $worksheet->write_number($rowidx, $col++, $data['micduration'] ?? 0);
+                $worksheet->write_number($rowidx, $col++, $data['talkduration'] ?? 0);
+                $worksheet->write_string($rowidx, $col++, ($data['pollvoted'] ?? 0) ?
+                    get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'));
+                $worksheet->write_string($rowidx, $col++, ($data['whiteboardannotated'] ?? 0) ?
                     get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'));
             }
 

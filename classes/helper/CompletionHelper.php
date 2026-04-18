@@ -16,6 +16,7 @@
 
 namespace mod_plugnmeet\helper;
 
+use cache;
 use coding_exception;
 
 defined('MOODLE_INTERNAL') || die();
@@ -41,6 +42,8 @@ class CompletionHelper {
      * @throws coding_exception
      */
     public static function update_completion_for_room(\stdClass $plugnmeet, string $artifactid): bool {
+        global $DB;
+
         $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id);
         if (!$cm) {
             return false;
@@ -57,18 +60,49 @@ class CompletionHelper {
                     continue;
                 }
 
-                // Check criteria and calculate progress.
-                $results = self::evaluate_criteria($user, $plugnmeet);
+                // 1. Get existing stats.
+                $statsrecord = $DB->get_record('plugnmeet_user_stats', ['plugnmeetid' => $plugnmeet->id, 'userid' => $userid]);
+                $aggregatedstats = [];
+                if ($statsrecord && !empty($statsrecord->statsdata)) {
+                    $aggregatedstats = json_decode($statsrecord->statsdata, true) ?: [];
+                }
 
-                // Save individual stats and attendance.
-                self::save_user_stats((int)$userid, $plugnmeet, $user, $results['all_met']);
+                // 2. Prepare new session stats (convert raw analytics to minutes/counts).
+                $sessionstats = [
+                    'minutes' => (int)(($user['duration'] ?? 0) / 60),
+                    'raisedhand' => (int)($user['raise_hand'] ?? 0),
+                    'chatmessages' => (int)(($user['public_chat'] ?? 0) + ($user['private_chat'] ?? 0)),
+                    'webcam' => (int)(($user['webcam_status'] ?? 0) > 0 ? 1 : 0),
+                    'webcamduration' => (int)(($user['webcam_duration'] ?? 0) / 60),
+                    'mic' => (int)(($user['mic_status'] ?? 0) > 0 ? 1 : 0),
+                    'micduration' => (int)(($user['mic_duration'] ?? 0) / 60),
+                    'talkduration' => (int)(($user['talked_duration'] ?? 0) / 60),
+                    'pollvoted' => (int)($user['voted_poll'] ?? 0),
+                    'whiteboardannotated' => (int)($user['whiteboard_annotated'] ?? 0),
+                ];
 
-                // Update Grade (Partial Progress).
+                // 3. Aggregate: Sum durations and counts.
+                foreach ($sessionstats as $key => $value) {
+                    $aggregatedstats[$key] = ($aggregatedstats[$key] ?? 0) + $value;
+                }
+
+                // 4. Evaluate criteria based on TOTALS.
+                $results = self::evaluate_criteria($aggregatedstats, $plugnmeet);
+
+                // 5. Save aggregated stats and attendance.
+                self::save_user_stats((int)$userid, $plugnmeet, $aggregatedstats, $results['all_met'], $statsrecord);
+
+                // 6. Update Grade (Partial Progress).
                 self::update_grade((int)$userid, $plugnmeet, $results['progress']);
 
-                // If ALL criteria met, mark as complete.
+                // 7. If ALL criteria met, mark as complete.
                 if ($results['all_met']) {
                     self::mark_as_complete((int)$userid, $cm);
+                }
+
+                if ($results['metcount'] > 0) {
+                    // cache clearing for this user and activity.
+                    self::invalidate_completion_cache((int)$userid, $plugnmeet->course, (int)$cm->id);
                 }
             }
         } catch (\Exception $e) {
@@ -127,38 +161,20 @@ class CompletionHelper {
      *
      * @param int $userid
      * @param \stdClass $plugnmeet
-     * @param array $userdata
+     * @param array $aggregatedstats
      * @param bool $allmet
+     * @param \stdClass|null $statsrecord
      */
-    private static function save_user_stats(int $userid, \stdClass $plugnmeet, array $userdata, bool $allmet): void {
+    private static function save_user_stats(int $userid, \stdClass $plugnmeet, array $aggregatedstats, bool $allmet, $statsrecord = null): void {
         global $DB;
 
-        $statsrecord = $DB->get_record('plugnmeet_user_stats', ['plugnmeetid' => $plugnmeet->id, 'userid' => $userid]);
-        $currentstats = [];
-        if ($statsrecord && !empty($statsrecord->statsdata)) {
-            $currentstats = json_decode($statsrecord->statsdata, true) ?: [];
-        }
-
-        $newstats = [
-            'minutes' => (int)(($userdata['duration'] ?? 0) / 60),
-            'raisedhand' => (int)($userdata['raise_hand'] ?? 0),
-            'chatmessages' => (int)(($userdata['public_chat'] ?? 0) + ($userdata['private_chat'] ?? 0)),
-            'webcam' => (int)(($userdata['webcam_status'] ?? 0) > 0 ? 1 : 0),
-            'mic' => (int)(($userdata['mic_status'] ?? 0) > 0 ? 1 : 0),
-        ];
-
-        // Merge stats using max values.
-        foreach ($newstats as $key => $value) {
-            $currentstats[$key] = max($value, ($currentstats[$key] ?? 0));
-        }
-
         // Attendance Logic.
-        $ispresent = self::calculate_is_present($plugnmeet, $userdata, $allmet);
+        $ispresent = self::calculate_is_present($plugnmeet, $aggregatedstats, $allmet);
 
         $data = new \stdClass();
         $data->plugnmeetid = $plugnmeet->id;
         $data->userid = $userid;
-        $data->statsdata = json_encode($currentstats);
+        $data->statsdata = json_encode($aggregatedstats);
         $data->is_present = $ispresent;
         $data->timemodified = time();
 
@@ -176,11 +192,11 @@ class CompletionHelper {
      * Calculate if the user is present.
      *
      * @param \stdClass $plugnmeet
-     * @param array $userdata
+     * @param array $aggregatedstats
      * @param bool $allmet
      * @return int
      */
-    private static function calculate_is_present(\stdClass $plugnmeet, array $userdata, bool $allmet): int {
+    private static function calculate_is_present(\stdClass $plugnmeet, array $aggregatedstats, bool $allmet): int {
         $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id);
         $completion = new \completion_info(get_course($cm->course));
 
@@ -189,8 +205,8 @@ class CompletionHelper {
         }
 
         if (!empty($plugnmeet->completionminutes)) {
-            $requiredseconds = (int)$plugnmeet->completionminutes * 60;
-            return (($userdata['duration'] ?? 0) >= $requiredseconds) ? 1 : 0;
+            $requiredminutes = (int)$plugnmeet->completionminutes;
+            return (($aggregatedstats['minutes'] ?? 0) >= $requiredminutes) ? 1 : 0;
         }
 
         // If other criteria are set but not minutes, meet ANY/ALL criteria makes them present.
@@ -200,19 +216,19 @@ class CompletionHelper {
     /**
      * Evaluate criteria and return progress.
      *
-     * @param array $userdata
+     * @param array $aggregatedstats Statistics already in minutes/counts format.
      * @param \stdClass $plugnmeet
      * @return array ['all_met' => bool, 'progress' => float]
      */
-    private static function evaluate_criteria(array $userdata, \stdClass $plugnmeet): array {
+    private static function evaluate_criteria(array $aggregatedstats, \stdClass $plugnmeet): array {
         $enabledcount = 0;
         $metcount = 0;
 
         // 1. Check duration (minutes).
         if (!empty($plugnmeet->completionminutes)) {
             $enabledcount++;
-            $requiredseconds = (int)$plugnmeet->completionminutes * 60;
-            if (($userdata['duration'] ?? 0) >= $requiredseconds) {
+            $required = (int)$plugnmeet->completionminutes;
+            if (($aggregatedstats['minutes'] ?? 0) >= $required) {
                 $metcount++;
             }
         }
@@ -220,7 +236,7 @@ class CompletionHelper {
         // 2. Check raised hand.
         if (!empty($plugnmeet->completionraisedhand)) {
             $enabledcount++;
-            if (($userdata['raise_hand'] ?? 0) > 0) {
+            if (($aggregatedstats['raisedhand'] ?? 0) > 0) {
                 $metcount++;
             }
         }
@@ -228,9 +244,7 @@ class CompletionHelper {
         // 3. Check chat messages.
         if (!empty($plugnmeet->completionchatmessages)) {
             $enabledcount++;
-            $publicchat = $userdata['public_chat'] ?? 0;
-            $privatechat = $userdata['private_chat'] ?? 0;
-            if (($publicchat + $privatechat) > 0) {
+            if (($aggregatedstats['chatmessages'] ?? 0) > 0) {
                 $metcount++;
             }
         }
@@ -238,15 +252,58 @@ class CompletionHelper {
         // 4. Check webcam enabled.
         if (!empty($plugnmeet->completionwebcam)) {
             $enabledcount++;
-            if (($userdata['webcam_status'] ?? 0) > 0) {
+            if (($aggregatedstats['webcam'] ?? 0) > 0) {
                 $metcount++;
             }
         }
 
-        // 5. Check mic enabled.
+        // 5. Check webcam duration.
+        if (!empty($plugnmeet->completionwebcamduration)) {
+            $enabledcount++;
+            $required = (int)$plugnmeet->completionwebcamduration;
+            if (($aggregatedstats['webcamduration'] ?? 0) >= $required) {
+                $metcount++;
+            }
+        }
+
+        // 6. Check mic enabled.
         if (!empty($plugnmeet->completionmic)) {
             $enabledcount++;
-            if (($userdata['mic_status'] ?? 0) > 0) {
+            if (($aggregatedstats['mic'] ?? 0) > 0) {
+                $metcount++;
+            }
+        }
+
+        // 7. Check mic duration.
+        if (!empty($plugnmeet->completionmicduration)) {
+            $enabledcount++;
+            $required = (int)$plugnmeet->completionmicduration;
+            if (($aggregatedstats['micduration'] ?? 0) >= $required) {
+                $metcount++;
+            }
+        }
+
+        // 8. Check talk duration.
+        if (!empty($plugnmeet->completiontalkduration)) {
+            $enabledcount++;
+            $required = (int)$plugnmeet->completiontalkduration;
+            if (($aggregatedstats['talkduration'] ?? 0) >= $required) {
+                $metcount++;
+            }
+        }
+
+        // 9. Check poll voted.
+        if (!empty($plugnmeet->completionpollvoted)) {
+            $enabledcount++;
+            if (($aggregatedstats['pollvoted'] ?? 0) > 0) {
+                $metcount++;
+            }
+        }
+
+        // 10. Check whiteboard annotated.
+        if (!empty($plugnmeet->completionwhiteboardannotated)) {
+            $enabledcount++;
+            if (($aggregatedstats['whiteboardannotated'] ?? 0) > 0) {
                 $metcount++;
             }
         }
@@ -258,6 +315,7 @@ class CompletionHelper {
         return [
             'all_met' => ($metcount === $enabledcount),
             'progress' => ($metcount / $enabledcount) * 100.0,
+            'metcount' => $metcount,
         ];
     }
 
@@ -289,6 +347,24 @@ class CompletionHelper {
         $completion = new \completion_info(get_course($cm->course));
         if ($completion->is_enabled($cm)) {
             $completion->update_state($cm, COMPLETION_COMPLETE, $userid);
+        }
+    }
+
+    /**
+     * Clears the completion cache for a specific user, course, and module.
+     *
+     * @param int $userid
+     * @param int $courseid
+     * @param int $cmid
+     */
+    private static function invalidate_completion_cache(int $userid, int $courseid, int $cmid): void {
+        $completioncache = cache::make('core', 'completion');
+        $cachekey = $userid . '_' . $courseid;
+        $completiondata = $completioncache->get($cachekey);
+
+        if ($completiondata !== false) {
+            unset($completiondata[$cmid]);
+            $completioncache->set($cachekey, $completiondata);
         }
     }
 }

@@ -540,10 +540,33 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('advcheckbox', 'completionwebcam', get_string('completion_webcam_enabled', 'mod_plugnmeet'));
         $mform->addHelpButton('completionwebcam', 'completion_webcam_enabled', 'mod_plugnmeet');
 
+        $mform->addElement('text', 'completionwebcamduration', get_string('completion_webcam_duration', 'mod_plugnmeet'));
+        $mform->setType('completionwebcamduration', PARAM_INT);
+        $mform->addHelpButton('completionwebcamduration', 'completion_webcam_duration', 'mod_plugnmeet');
+        $mform->disabledIf('completionwebcamduration', 'completionwebcam', 'eq', 0);
+
         $mform->addElement('advcheckbox', 'completionmic', get_string('completion_mic_enabled', 'mod_plugnmeet'));
         $mform->addHelpButton('completionmic', 'completion_mic_enabled', 'mod_plugnmeet');
 
-        return ['completionminutes', 'completionraisedhand', 'completionchatmessages', 'completionwebcam', 'completionmic'];
+        $mform->addElement('text', 'completionmicduration', get_string('completion_mic_duration', 'mod_plugnmeet'));
+        $mform->setType('completionmicduration', PARAM_INT);
+        $mform->addHelpButton('completionmicduration', 'completion_mic_duration', 'mod_plugnmeet');
+        $mform->disabledIf('completionmicduration', 'completionmic', 'eq', 0);
+
+        $mform->addElement('text', 'completiontalkduration', get_string('completion_talk_duration', 'mod_plugnmeet'));
+        $mform->setType('completiontalkduration', PARAM_INT);
+        $mform->addHelpButton('completiontalkduration', 'completion_talk_duration', 'mod_plugnmeet');
+        $mform->disabledIf('completiontalkduration', 'completionmic', 'eq', 0);
+
+        $mform->addElement('advcheckbox', 'completionpollvoted', get_string('completion_poll_voted', 'mod_plugnmeet'));
+        $mform->addHelpButton('completionpollvoted', 'completion_poll_voted', 'mod_plugnmeet');
+
+        $mform->addElement('advcheckbox', 'completionwhiteboardannotated', get_string('completion_whiteboard_annotated', 'mod_plugnmeet'));
+        $mform->addHelpButton('completionwhiteboardannotated', 'completion_whiteboard_annotated', 'mod_plugnmeet');
+
+        return ['completionminutes', 'completionraisedhand', 'completionchatmessages',
+            'completionwebcam', 'completionwebcamduration', 'completionmic', 'completionmicduration',
+            'completiontalkduration', 'completionpollvoted', 'completionwhiteboardannotated'];
     }
 
     /**
@@ -555,7 +578,9 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
     public function completion_rule_enabled($data) {
         return (!empty($data['completionminutes']) || !empty($data['completionraisedhand']) ||
             !empty($data['completionchatmessages']) || !empty($data['completionwebcam']) ||
-            !empty($data['completionmic']));
+            !empty($data['completionwebcamduration']) || !empty($data['completionmic']) ||
+            !empty($data['completionmicduration']) || !empty($data['completiontalkduration']) ||
+            !empty($data['completionpollvoted']) || !empty($data['completionwhiteboardannotated']));
     }
 
     /**

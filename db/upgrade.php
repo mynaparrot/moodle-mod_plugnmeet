@@ -44,7 +44,12 @@ function xmldb_plugnmeet_upgrade($oldversion) {
             'completionraisedhand' => new xmldb_field('completionraisedhand', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
             'completionchatmessages' => new xmldb_field('completionchatmessages', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
             'completionwebcam' => new xmldb_field('completionwebcam', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
+            'completionwebcamduration' => new xmldb_field('completionwebcamduration', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
             'completionmic' => new xmldb_field('completionmic', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
+            'completionmicduration' => new xmldb_field('completionmicduration', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
+            'completiontalkduration' => new xmldb_field('completiontalkduration', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
+            'completionpollvoted' => new xmldb_field('completionpollvoted', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
+            'completionwhiteboardannotated' => new xmldb_field('completionwhiteboardannotated', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
             'eventid' => new xmldb_field('eventid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
         ];
 
