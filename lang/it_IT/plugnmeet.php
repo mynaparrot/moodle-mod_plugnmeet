@@ -130,7 +130,7 @@ $string['advanced_completion'] = 'Completamento Avanzato';
 $string['available'] = 'Disponibile dal';
 $string['deadline'] = 'Disponibile fino a';
 $string['err_deadline_before_available'] = 'La data "Disponibile fino" non può essere precedente a quella "Disponibile da".';
-$string['error_analytics_required_for_completion'] = 'Enable Analytics must be checked if any completion criteria are set.';
+$string['error_analytics_required_for_completion'] = 'Abilita Analytics deve essere controllata se sono stati impostati criteri di completamento.';
 
 $string['allow_webcams'] = 'Permette le webcam';
 $string['allow_webcams_help'] = 'Permette ai partecipanti di usare le loro webcam.';
@@ -147,7 +147,7 @@ $string['room_duration_help'] = 'La durata massima della stanza in pochi minuti.
 $string['moderator_join_first'] = 'Moderatore: Iscriviti per primo';
 $string['moderator_join_first_help'] = 'Richiedi che un moderatore si unisca prima che altri partecipanti possano partecipare.';
 $string['enable_analytics'] = 'Abilita l\'analisi';
-$string['enable_analytics_help'] = 'Generate analytics for the session. Note: This must be enabled if any Completion criteria are set.';
+$string['enable_analytics_help'] = 'Genera analisi per la sessione. Nota: Questo deve essere abilitato se sono stati impostati criteri di completamento.';
 $string['allow_virtual_bg'] = 'Consentire sfondi virtuali';
 $string['allow_virtual_bg_help'] = 'Consentire ai partecipanti di utilizzare sfondi virtuali.';
 $string['auto_gen_user_id'] = 'Generazione automatica dell\'ID utente';
@@ -301,7 +301,7 @@ $string['guest_access_denied'] = 'L\'accesso agli ospiti non è abilitato per qu
 $string['invalid_guest_token'] = 'Token di ingresso ospite invalido o scaduto.';
 $string['guest_link_expired'] = 'Questo link per l\'iscrizione agli ospiti è scaduto.';
 $string['error_joining_session'] = 'C\'è stato un errore che si è aggiunto alla sessione: {$a}';
-$string['already_logged_in'] = 'You are already logged into Moodle. You can join the session directly from this activity page.';
+$string['already_logged_in'] = 'Sei già loggato su Moodle. Puoi partecipare direttamente alla sessione da questa pagina attività.';
 
 // Events
 $string['event_room_started'] = 'Stanza iniziata';
@@ -314,8 +314,8 @@ $string['event_artifact_created'] = 'Reperto creato';
 $string['event_recording_proceeded'] = 'Registrazione pronta';
 
 // Notifications
-$string['messageprovider:recording_ready'] = 'Notifications for ready recordings';
-$string['messageprovider:artifact_ready'] = 'Notifications for ready artifacts';
+$string['messageprovider:recording_ready'] = 'Notifiche per registrazioni pronte';
+$string['messageprovider:artifact_ready'] = 'Notifiche per artefatti pronti';
 $string['recording_ready_notification_subject'] = 'Registrazione pronta: {$a}';
 $string['recording_ready_notification_fullmessage'] = 'La registrazione per la sessione "{$a->roomname}" è ora pronta ed elaborata. Puoi vederlo qui: {$a->url}';
 $string['recording_ready_notification_fullmessagehtml'] = '<p>La registrazione della sessione <strong>"{$a->roomname}"</strong> ora è pronto e processato.</p><p><a href="{$a->url}">Clicca qui per visualizzare la registrazione.</a></p>';
