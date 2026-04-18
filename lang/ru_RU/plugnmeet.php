@@ -428,6 +428,7 @@ $string['status'] = 'Статус';
 $string['present'] = 'Настоящее время';
 $string['absent'] = 'Отсутствует';
 $string['incomplete'] = 'Incomplete';
+$string['completed'] = 'Completed';
 $string['minutes_attended'] = 'Протокол просмотра';
 $string['last_updated'] = 'Последнее обновление';
 $string['mic_duration'] = 'Длительность работы с микрофоном';
