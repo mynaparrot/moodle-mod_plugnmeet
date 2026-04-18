@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Plugin upgrade steps are defined here.
@@ -40,6 +40,9 @@ function xmldb_plugnmeet_upgrade($oldversion) {
         // 1. Add fields to plugnmeet table.
         $table = new xmldb_table('plugnmeet');
         $fields = [
+            'eventid' => new xmldb_field('eventid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
+            'allow_guest' => new xmldb_field('allow_guest', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
+            'guest_token' => new xmldb_field('guest_token', XMLDB_TYPE_CHAR, '64', null, null, null, null),
             'completionminutes' => new xmldb_field('completionminutes', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
             'completionraisedhand' => new xmldb_field('completionraisedhand', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
             'completionchatmessages' => new xmldb_field('completionchatmessages', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
@@ -50,7 +53,6 @@ function xmldb_plugnmeet_upgrade($oldversion) {
             'completiontalkduration' => new xmldb_field('completiontalkduration', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
             'completionpollvoted' => new xmldb_field('completionpollvoted', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
             'completionwhiteboardannotated' => new xmldb_field('completionwhiteboardannotated', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
-            'eventid' => new xmldb_field('eventid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
         ];
 
         foreach ($fields as $name => $field) {

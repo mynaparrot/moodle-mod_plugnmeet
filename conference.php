@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Local client loader
@@ -23,11 +23,14 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use mod_plugnmeet\helper\plugNmeetConnect;
-
+// We need to allow direct access for this file as guest user may need to access
+// phpcs:disable moodle.Files.MoodleInternal.MoodleInternalGlobalState,moodle.Files.RequireLogin.Missing
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
-global $CFG, $DB;
+
+use mod_plugnmeet\helper\plugNmeetConnect;
+
+global $CFG, $DB, $PAGE;
 
 $id = optional_param('id', 0, PARAM_INT);
 $cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
@@ -35,7 +38,13 @@ $course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
 $moduleinstance = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
 $context = context_module::instance($cm->id);
 
-require_login($course, true, $cm);
+$PAGE->set_url('/mod/plugnmeet/conference.php', ['id' => $cm->id]);
+$PAGE->set_context($context);
+
+// If guest access is NOT enabled, require standard Moodle login.
+if (empty($moduleinstance->allow_guest)) {
+    require_login($course, true, $cm);
+}
 
 $config = get_config('mod_plugnmeet');
 $connect = new plugNmeetConnect($config);

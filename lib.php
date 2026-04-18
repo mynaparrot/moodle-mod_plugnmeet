@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Library of functions and constants for module plugnmeet
@@ -63,6 +63,10 @@ function plugnmeet_add_instance(stdClass $data, $mform = null) {
     $data->timemodified = time();
     $data->roomid = plugNmeetConnect::generateUuid4();
 
+    if (!empty($data->allow_guest)) {
+        $data->guest_token = plugNmeetConnect::generateUuid4();
+    }
+
     // Handle metadata from the 'meta' form fields.
     if (isset($data->meta)) {
         $data->roommetadata = json_encode($data->meta);
@@ -92,6 +96,14 @@ function plugnmeet_update_instance(stdClass $data, $mform = null) {
 
     $data->timemodified = time();
     $data->id = $data->instance;
+
+    if (!empty($data->allow_guest)) {
+        if (empty($data->guest_token)) {
+            $data->guest_token = plugNmeetConnect::generateUuid4();
+        }
+    } else {
+        $data->guest_token = null;
+    }
 
     // Handle metadata from the 'meta' form fields.
     if (isset($data->meta)) {

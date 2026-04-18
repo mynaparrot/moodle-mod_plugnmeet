@@ -60,6 +60,12 @@ class CompletionHelper {
                     continue;
                 }
 
+                // Verify if $userid exists in Moodle before processing completion.
+                // This ensures we only process stats for Moodle users, not external guests.
+                if (!$DB->record_exists('user', ['id' => $userid])) {
+                    continue;
+                }
+
                 // 1. Get existing stats.
                 $statsrecord = $DB->get_record('plugnmeet_user_stats', ['plugnmeetid' => $plugnmeet->id, 'userid' => $userid]);
                 $aggregatedstats = [];
@@ -121,6 +127,11 @@ class CompletionHelper {
      */
     public static function record_participant_join(int $userid, \stdClass $plugnmeet): bool {
         global $DB;
+
+        // Skip recording join for external guests (they won't have a record in Moodle's user table).
+        if (!$DB->record_exists('user', ['id' => $userid])) {
+            return false;
+        }
 
         $statsrecord = $DB->get_record('plugnmeet_user_stats', ['plugnmeetid' => $plugnmeet->id, 'userid' => $userid]);
 

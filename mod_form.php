@@ -37,6 +37,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
      */
     public function definition() {
         $mform = $this->_form;
+        $config = get_config('mod_plugnmeet');
 
         // General settings
         $mform->addElement('header', 'general', get_string('general', 'form'));
@@ -50,6 +51,16 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
 
         $mform->addElement('text', 'maxparticipants', get_string("max_participants", "mod_plugnmeet"));
         $mform->setType('maxparticipants', PARAM_INT);
+
+        // Check if guest access is allowed globally.
+        if (!isset($config->allow_guest_global) || $config->allow_guest_global == 1) {
+            $mform->addElement('advcheckbox', 'allow_guest', get_string('allow_guest', 'mod_plugnmeet'));
+            $mform->setDefault('allow_guest', 0);
+            $mform->addHelpButton('allow_guest', 'allow_guest', 'mod_plugnmeet');
+        } else {
+            $mform->addElement('hidden', 'allow_guest', 0);
+            $mform->setType('allow_guest', PARAM_INT);
+        }
 
         // Room Features
         $mform->addElement('header', 'room_features_header', get_string('room_features', 'mod_plugnmeet'));

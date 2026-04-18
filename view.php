@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Main view
@@ -106,6 +106,44 @@ if ($canjoin) {
 
 echo \html_writer::end_div(); // End card-body.
 echo \html_writer::end_div(); // End card.
+
+// Guest Link Section for Managers.
+$config = get_config('mod_plugnmeet');
+$allowglobal = !isset($config->allow_guest_global) || $config->allow_guest_global == 1;
+
+if ($canmanage && $allowglobal && !empty($plugnmeet->allow_guest) && !empty($plugnmeet->guest_token)) {
+    $durationhours = (int)($config->guest_link_expiration ?? 3);
+    $expiry = time() + ($durationhours * 3600);
+    $sig = sha1($plugnmeet->guest_token . $expiry);
+
+    $guestjoinurl = new moodle_url('/mod/plugnmeet/guest_join.php', [
+        'id' => $plugnmeet->id,
+        'expiry' => $expiry,
+        'sig' => $sig,
+    ]);
+    echo \html_writer::start_div('card mt-4');
+    echo \html_writer::start_div('card-body');
+    echo \html_writer::tag('h5', get_string('guest_join_link', 'mod_plugnmeet'), ['class' => 'card-title']);
+    echo \html_writer::tag('p', get_string('guest_join_link_help', 'mod_plugnmeet', $durationhours), ['class' => 'card-text small text-muted']);
+    echo \html_writer::start_div('input-group');
+    echo \html_writer::empty_tag('input', [
+        'type' => 'text',
+        'class' => 'form-control',
+        'value' => $guestjoinurl->out(false),
+        'readonly' => 'readonly',
+        'onclick' => 'this.select();',
+    ]);
+    echo \html_writer::start_div('input-group-append');
+    echo \html_writer::tag('button', get_string('copy_link', 'mod_plugnmeet'), [
+        'class' => 'btn btn-outline-secondary',
+        'type' => 'button',
+        'onclick' => "navigator.clipboard.writeText('{$guestjoinurl->out(false)}'); alert('Link copied!');",
+    ]);
+    echo \html_writer::end_div(); // End input-group-append.
+    echo \html_writer::end_div(); // End input-group.
+    echo \html_writer::end_div(); // End card-body.
+    echo \html_writer::end_div(); // End card.
+}
 
 // Placeholder for live session info (handled by JS).
 echo \html_writer::div('', 'mt-4', ['id' => 'live_session_info']);

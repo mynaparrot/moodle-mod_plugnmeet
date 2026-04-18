@@ -6,11 +6,28 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                 const that = $(this);
                 that.attr('disabled', true);
 
+                let args = {
+                    cmid: options.cmid
+                };
+
+                if (options.is_guest) {
+                    const guestName = $('#guestname').val();
+                    if (!guestName) {
+                        notification.alert("Error", "Please enter your name.");
+                        that.attr('disabled', false);
+                        return;
+                    }
+                    args.guestname = guestName;
+
+                    // Parse expiry and sig from URL for guests.
+                    const urlParams = new URLSearchParams(window.location.search);
+                    args.expiry = parseInt(urlParams.get('expiry')) || 0;
+                    args.sig = urlParams.get('sig') || '';
+                }
+
                 ajax.call([{
                     methodname: 'mod_plugnmeet_get_join_token',
-                    args: {
-                        cmid: options.cmid
-                    },
+                    args: args,
                     done: function(data) {
                         that.attr('disabled', false);
                         if (!data.status) {

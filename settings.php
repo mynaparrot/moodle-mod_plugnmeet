@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Plugin administration pages are defined here.
@@ -205,5 +205,24 @@ if ($hassiteconfig) {
         get_string('client_load_des', 'mod_plugnmeet'),
         1,
         $loadclient
+    ));
+
+    // Guest Access Settings
+    $settings->add(new admin_setting_heading('mod_plugnmeet/guest_access_hdr', get_string('guest_access_hdr', 'mod_plugnmeet'), ''));
+
+    $settings->add(new admin_setting_configselect(
+        'mod_plugnmeet/allow_guest_global',
+        get_string('allow_guest_global', 'mod_plugnmeet'),
+        get_string('allow_guest_global_desc', 'mod_plugnmeet'),
+        0,
+        [1 => get_string('yes'), 0 => get_string('no')]
+    ));
+
+    $settings->add(new admin_setting_configtext(
+        'mod_plugnmeet/guest_link_expiration',
+        get_string('guest_link_expiration', 'mod_plugnmeet'),
+        get_string('guest_link_expiration_desc', 'mod_plugnmeet'),
+        3,
+        PARAM_INT
     ));
 }

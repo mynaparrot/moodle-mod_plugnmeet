@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Strings for component 'mod_plugnmeet', language 'en'
@@ -49,6 +49,11 @@ $string['api_key'] = 'API Key';
 $string['api_key_desc'] = 'The API key provided by your PlugNmeet server.';
 $string['api_secret'] = 'API Secret';
 $string['api_secret_desc'] = 'The API secret provided by your PlugNmeet server.';
+$string['guest_access_hdr'] = 'Guest Access Settings';
+$string['allow_guest_global'] = 'Allow Guest Access Globally';
+$string['allow_guest_global_desc'] = 'If disabled, guest joining cannot be enabled for any meeting room.';
+$string['guest_link_expiration'] = 'Guest Link Expiration (hours)';
+$string['guest_link_expiration_desc'] = 'How long a guest join link remains valid after generation.';
 
 $string['defaults'] = 'Technical Defaults';
 $string['defaults_desc'] = 'Default technical settings for new PlugNmeet sessions.';
@@ -283,6 +288,18 @@ $string['session_available_from'] = 'Available from: {$a}';
 $string['session_available_until'] = 'Available until: {$a}';
 $string['session_not_started_yet'] = 'This session has not started yet.';
 $string['session_ended'] = 'This session has ended.';
+$string['allow_guest'] = 'Allow Guest Users';
+$string['allow_guest_help'] = 'Allow external users without a Moodle account to join the session via a shareable link.';
+$string['guest_join_link'] = 'Guest Join Link';
+$string['guest_join_link_help'] = 'Share this link with external participants. This link will remain valid for {$a} hours. Every page reload will generate a new link, but previously shared links will remain valid until their original expiration time.';
+$string['copy_link'] = 'Copy Link';
+$string['guest_join_title'] = 'Join Meeting as Guest';
+$string['enter_display_name'] = 'Enter your display name';
+$string['join_as_guest'] = 'Join Meeting';
+$string['guest_access_denied'] = 'Guest access is not enabled for this meeting.';
+$string['invalid_guest_token'] = 'Invalid or expired guest join token.';
+$string['guest_link_expired'] = 'This guest join link has expired.';
+$string['error_joining_session'] = 'There was an error joining the session: {$a}';
 
 // Events
 $string['event_room_started'] = 'Room started';

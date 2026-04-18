@@ -48,27 +48,63 @@ class get_join_token extends external_api {
     public static function execute_parameters() {
         return new external_function_parameters([
             'cmid' => new external_value(PARAM_INT, 'Course module ID', VALUE_REQUIRED),
+            'guestname' => new external_value(PARAM_TEXT, 'Guest name', VALUE_DEFAULT, ''),
+            'expiry' => new external_value(PARAM_INT, 'Guest token expiry', VALUE_DEFAULT, 0),
+            'sig' => new external_value(PARAM_ALPHANUM, 'Guest token signature', VALUE_DEFAULT, ''),
         ]);
     }
 
     /**
      * Get a join token for the current user.
      * @param int $cmid The course module ID.
+     * @param string $guestname The guest name.
+     * @param int $expiry Guest token expiry.
+     * @param string $sig Guest token signature.
      * @return array
      * @throws \Exception
      */
-    public static function execute(int $cmid) {
+    public static function execute(int $cmid, string $guestname = '', int $expiry = 0, string $sig = '') {
         global $DB, $USER;
 
         $cm = get_coursemodule_from_id('plugnmeet', $cmid, 0, false, MUST_EXIST);
         $context = context_module::instance($cm->id);
-        self::validate_context($context);
-
         $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
+        $config = get_config('mod_plugnmeet');
+
+        $isguest = false;
+        if (!isloggedin() || isguestuser()) {
+            $isguest = true;
+
+            // 1. Global Security Check: Is guest access allowed site-wide?
+            if (isset($config->allow_guest_global) && $config->allow_guest_global == 0) {
+                return ['status' => false, 'msg' => get_string('guest_access_denied', 'mod_plugnmeet')];
+            }
+
+            if (empty($guestname) || empty($expiry) || empty($sig)) {
+                return ['status' => false, 'msg' => get_string('invalid_guest_token', 'mod_plugnmeet')];
+            }
+            if (empty($plugnmeet->allow_guest)) {
+                return ['status' => false, 'msg' => get_string('guest_access_denied', 'mod_plugnmeet')];
+            }
+
+            // 2. Validate Signature.
+            $expectedsig = sha1($plugnmeet->guest_token . $expiry);
+            if ($sig !== $expectedsig) {
+                return ['status' => false, 'msg' => get_string('invalid_guest_token', 'mod_plugnmeet')];
+            }
+
+            // 3. Check Expiration.
+            if (time() > $expiry) {
+                return ['status' => false, 'msg' => get_string('guest_link_expired', 'mod_plugnmeet')];
+            }
+        } else {
+            self::validate_context($context);
+            require_capability('mod/plugnmeet:view', $context);
+        }
 
         // Check availability.
         $timenow = time();
-        $isadmin = has_capability('mod/plugnmeet:manage', $context);
+        $isadmin = !$isguest && has_capability('mod/plugnmeet:manage', $context);
 
         if ($plugnmeet->available && $timenow < $plugnmeet->available && !$isadmin) {
             return [
@@ -84,7 +120,6 @@ class get_join_token extends external_api {
             ];
         }
 
-        $config = get_config('mod_plugnmeet');
         $connect = new plugNmeetConnect($config);
 
         // 1. Check if room is active.
@@ -98,6 +133,13 @@ class get_join_token extends external_api {
 
         if (!$isactiveres->getIsActive()) {
             // Room is not active.
+            if ($isguest) {
+                return [
+                    'status' => false,
+                    'msg' => get_string('moderator_not_joined', 'mod_plugnmeet'),
+                ];
+            }
+
             if (!$isadmin) {
                 // Not a moderator, check if moderator must join first.
                 $roommetadata = json_decode($plugnmeet->roommetadata, true) ?: [];
@@ -120,8 +162,15 @@ class get_join_token extends external_api {
         }
 
         // 2. Get join token.
-        $name = fullname($USER);
-        $res = $connect->getJoinToken($plugnmeet->roomid, $name, (string)$USER->id, $isadmin);
+        if ($isguest) {
+            $name = $guestname;
+            $userid = 'guest_' . sha1($guestname . time());
+        } else {
+            $name = fullname($USER);
+            $userid = (string)$USER->id;
+        }
+
+        $res = $connect->getJoinToken($plugnmeet->roomid, $name, $userid, $isadmin);
 
         $result = ['status' => $res->getStatus(), 'msg' => $res->getMsg()];
         if ($result['status']) {
