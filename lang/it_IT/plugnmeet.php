@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -300,6 +300,7 @@ $string['guest_access_denied'] = 'L\'accesso agli ospiti non è abilitato per qu
 $string['invalid_guest_token'] = 'Token di ingresso ospite invalido o scaduto.';
 $string['guest_link_expired'] = 'Questo link per l\'iscrizione agli ospiti è scaduto.';
 $string['error_joining_session'] = 'C\'è stato un errore che si è aggiunto alla sessione: {$a}';
+$string['redirect_to_moodle_login'] = 'Sei già loggato su Moodle. Ti reindirizzo alla pagina attività...';
 
 // Events
 $string['event_room_started'] = 'Stanza iniziata';

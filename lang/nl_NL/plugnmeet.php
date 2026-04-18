@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -300,6 +300,7 @@ $string['guest_access_denied'] = 'Gasttoegang is niet ingeschakeld voor deze ver
 $string['invalid_guest_token'] = 'Ongeldige of verlopen gast-aansluitingstoken.';
 $string['guest_link_expired'] = 'Deze link voor gastdeelname is verlopen.';
 $string['error_joining_session'] = 'Er was een foutmelding tijdens de sessie: {$a}';
+$string['redirect_to_moodle_login'] = 'Je bent al ingelogd bij Moodle. Ik wijs je door naar de activiteitenpagina...';
 
 // Events
 $string['event_room_started'] = 'De kamer is begonnen';

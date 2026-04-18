@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -300,6 +300,7 @@ $string['guest_access_denied'] = 'Gastzugriff ist für dieses Treffen nicht akti
 $string['invalid_guest_token'] = 'Ungültiges oder abgelaufenes Gast-Join-Token.';
 $string['guest_link_expired'] = 'Dieser Link zum Gastbeitritt ist abgelaufen.';
 $string['error_joining_session'] = 'Es gab einen Fehler beim Einstieg in die Sitzung: {$a}';
+$string['redirect_to_moodle_login'] = 'Du bist bereits bei Moodle eingeloggt. Ich leite Sie auf die Aktivitätsseite um...';
 
 // Events
 $string['event_room_started'] = 'Der Raum begann';

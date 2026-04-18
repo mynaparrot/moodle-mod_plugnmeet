@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -300,6 +300,7 @@ $string['guest_access_denied'] = 'Гостевой доступ для этой 
 $string['invalid_guest_token'] = 'Недействительный или истекший гостевой токен.';
 $string['guest_link_expired'] = 'Эта ссылка на присоединение к гостям истёкла.';
 $string['error_joining_session'] = 'В сессии произошла ошибка: {$a}';
+$string['redirect_to_moodle_login'] = 'Вы уже вошли в Moodle. Перенаправляю вас на страницу активности...';
 
 // Events
 $string['event_room_started'] = 'Комната началась';
