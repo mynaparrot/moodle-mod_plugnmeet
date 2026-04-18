@@ -428,6 +428,7 @@ $string['status'] = 'Status';
 $string['present'] = 'Heden';
 $string['absent'] = 'Afwezig';
 $string['incomplete'] = 'Incomplete';
+$string['completed'] = 'Completed';
 $string['minutes_attended'] = 'Notulen bijgewoond';
 $string['last_updated'] = 'Laatst bijgewerkt';
 $string['mic_duration'] = 'Duur van microfoon';
