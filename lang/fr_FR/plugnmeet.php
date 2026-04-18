@@ -427,6 +427,7 @@ $string['attendance_report'] = 'Rapport d’affluence';
 $string['status'] = 'Statut';
 $string['present'] = 'Présent';
 $string['absent'] = 'Absent';
+$string['incomplete'] = 'Incomplete';
 $string['minutes_attended'] = 'Procès-verbal observé';
 $string['last_updated'] = 'Dernière mise à jour';
 $string['mic_duration'] = 'Durée activée par le microphone';
