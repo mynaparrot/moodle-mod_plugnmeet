@@ -294,6 +294,7 @@ $string['allow_guest_help'] = 'Permite que usuarios externos sin cuenta de Moodl
 $string['guest_join_link'] = 'Enlace de Invitado';
 $string['guest_join_link_help'] = 'Comparte este enlace con participantes externos. Este enlace seguirá siendo válido para {$a} horas. Cada recarga de página generará un nuevo enlace, pero los enlaces previamente compartidos seguirán siendo válidos hasta su fecha de caducidad original.';
 $string['copy_link'] = 'Copiar enlace';
+$string['link_copied'] = 'Link copied to clipboard.';
 $string['guest_join_title'] = 'Únete a la reunión como invitado';
 $string['enter_display_name'] = 'Introduce tu nombre de visualización';
 $string['join_as_guest'] = 'Unirse a la reunión';
