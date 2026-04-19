@@ -313,6 +313,7 @@ $string['event_participant_joined'] = 'Participante incorporado';
 $string['event_participant_left'] = 'Participante a la izquierda';
 $string['event_artifact_created'] = 'Artefacto creado';
 $string['event_recording_proceeded'] = 'Grabación lista';
+$string['event_plugin_error'] = 'PlugNmeet error';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Notificaciones para grabaciones listas';
