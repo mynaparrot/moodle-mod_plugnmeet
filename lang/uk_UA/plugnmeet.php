@@ -313,6 +313,7 @@ $string['event_participant_joined'] = 'Учасники приєдналися';
 $string['event_participant_left'] = 'Учасник залишився';
 $string['event_artifact_created'] = 'Створений артефакт';
 $string['event_recording_proceeded'] = 'Запис готовий';
+$string['event_plugin_error'] = 'PlugNmeet error';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Сповіщення про готові записи';
