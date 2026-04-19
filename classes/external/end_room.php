@@ -64,7 +64,6 @@ class end_room extends external_api {
         $cm = get_coursemodule_from_id('plugnmeet', $cmid, 0, false, MUST_EXIST);
         $context = context_module::instance($cm->id);
         self::validate_context($context);
-        require_capability('mod/plugnmeet:manage', $context);
 
         $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
         $config = get_config('mod_plugnmeet');

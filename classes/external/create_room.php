@@ -59,7 +59,7 @@ class create_room extends external_api {
      * @throws dml_exception
      */
     public static function execute(int $instanceid) {
-        global $DB;
+        global $DB, $CFG;
 
         $cm = get_coursemodule_from_instance('plugnmeet', $instanceid, 0, false, MUST_EXIST);
         $context = context_module::instance($cm->id);
@@ -99,7 +99,7 @@ class create_room extends external_api {
         $logouturl = (new \moodle_url('/mod/plugnmeet/view.php', ['id' => $cm->id, 'returned' => 'true']))->out(false);
         $webhookurl = (new \moodle_url('/mod/plugnmeet/webhook.php', ['id' => $instanceid]))->out(false);
         $extradata = [
-            "platform" => "moodle",
+            "platform" => "moodle-" . $CFG->release,
             "php-version" => phpversion(),
             "plugin-version" => $config->version,
             "activity" => json_encode(["id" => $cm->id, "course" => $cm->course]),

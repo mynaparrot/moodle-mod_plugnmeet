@@ -44,6 +44,7 @@ $PAGE->set_context($context);
 // If guest access is NOT enabled, require standard Moodle login.
 if (empty($moduleinstance->allow_guest)) {
     require_login($course, true, $cm);
+    require_capability('mod/plugnmeet:view', $context);
 }
 
 $config = get_config('mod_plugnmeet');

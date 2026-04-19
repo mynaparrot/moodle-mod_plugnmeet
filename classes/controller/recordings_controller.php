@@ -44,7 +44,7 @@ class recordings_controller {
     /**
      * Constructor.
      *
-     * @param \cm_info $cm
+     * @param \stdClass $cm
      * @param \stdClass $course
      * @param \stdClass $plugnmeet
      */

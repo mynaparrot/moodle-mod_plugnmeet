@@ -57,7 +57,7 @@ function plugnmeet_supports($feature) {
  * @throws dml_exception
  */
 function plugnmeet_add_instance(stdClass $data, $mform = null) {
-    global $DB, $COURSE;
+    global $DB;
 
     $data->timecreated = time();
     $data->timemodified = time();
@@ -183,17 +183,22 @@ function plugnmeet_extend_settings_navigation(settings_navigation $settingsnav, 
     global $PAGE;
 
     $cm = $PAGE->cm;
+    $context = context_module::instance($cm->id);
 
-    if (has_capability('mod/plugnmeet:manage', context_module::instance($cm->id))) {
+    if (has_capability('mod/plugnmeet:viewattendance', $context)) {
         $attendanceurl = new moodle_url('/mod/plugnmeet/attendance.php', ['id' => $cm->id]);
         $plugnmeetnode->add(get_string('attendance', 'plugnmeet'), $attendanceurl, navigation_node::TYPE_SETTING, null, 'attendance');
     }
 
-    $recordingsurl = new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $cm->id]);
-    $plugnmeetnode->add(get_string('recordings', 'plugnmeet'), $recordingsurl, navigation_node::TYPE_SETTING, null, 'recordings');
+    if (has_capability('mod/plugnmeet:viewrecordings', $context)) {
+        $recordingsurl = new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $cm->id]);
+        $plugnmeetnode->add(get_string('recordings', 'plugnmeet'), $recordingsurl, navigation_node::TYPE_SETTING, null, 'recordings');
+    }
 
-    $artifactsurl = new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $cm->id]);
-    $plugnmeetnode->add(get_string('artifacts', 'plugnmeet'), $artifactsurl, navigation_node::TYPE_SETTING, null, 'artifacts');
+    if (has_capability('mod/plugnmeet:viewartifacts', $context)) {
+        $artifactsurl = new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $cm->id]);
+        $plugnmeetnode->add(get_string('artifacts', 'plugnmeet'), $artifactsurl, navigation_node::TYPE_SETTING, null, 'artifacts');
+    }
 }
 
 /**

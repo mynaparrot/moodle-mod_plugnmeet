@@ -66,7 +66,7 @@ class attendance_controller {
     /**
      * Constructor.
      *
-     * @param \cm_info $cm
+     * @param \stdClass $cm
      * @param \stdClass $course
      * @param \stdClass $plugnmeet
      */
@@ -280,8 +280,6 @@ class attendance_controller {
      */
     public function download_excel_report() {
         global $CFG;
-        require_capability('mod/plugnmeet:downloadattendance', $this->context);
-
         require_once($CFG->libdir . '/excellib.class.php');
 
         $filename = 'attendance_' . clean_filename($this->plugnmeet->name) . '_' . date('YmdHis') . '.xlsx';

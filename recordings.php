@@ -27,6 +27,8 @@ require_once(__DIR__ . '/../../config.php');
 
 use mod_plugnmeet\controller\recordings_controller;
 
+global $DB, $PAGE, $OUTPUT;
+
 $id = required_param('id', PARAM_INT);
 $cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
@@ -41,6 +43,7 @@ $controller = new recordings_controller($cm, $course, $plugnmeet);
 
 $action = optional_param('action', '', PARAM_ALPHA);
 if ($action === 'delete') {
+    require_capability('mod/plugnmeet:deleterecording', $context);
     $recordingid = required_param('recording_id', PARAM_TEXT);
     $controller->delete_recording($recordingid);
 }

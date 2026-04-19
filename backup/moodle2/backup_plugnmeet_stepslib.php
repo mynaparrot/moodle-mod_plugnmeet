@@ -18,7 +18,7 @@
  * Define all the backup steps for mod_plugnmeet.
  *
  * @package    mod_plugnmeet
- * @copyright  2024 MynaParrot
+ * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -40,23 +40,37 @@ class backup_plugnmeet_activity_structure_step extends backup_activity_structure
         $plugnmeet = new backup_nested_element('plugnmeet', ['id'], [
             'name', 'roomid', 'welcomemessage', 'maxparticipants', 'roommetadata',
             'timecreated', 'timemodified', 'intro', 'introformat',
-            'available', 'deadline', 'usermodified', 'grade',
+            'available', 'deadline', 'usermodified', 'grade', 'eventid',
+            'allow_guest', 'guest_token',
             'completionminutes', 'completionraisedhand', 'completionchatmessages',
-            'completionwebcam', 'completionmic',
+            'completionwebcam', 'completionwebcamduration', 'completionmic',
+            'completionmicduration', 'completiontalkduration', 'completionpollvoted',
+            'completionwhiteboardannotated',
+        ]);
+
+        $sessions = new backup_nested_element('sessions');
+
+        $session = new backup_nested_element('session', ['id'], [
+            'sid', 'roomid', 'status', 'analytics_processed',
+            'timecreated', 'timemodified',
         ]);
 
         $userstats = new backup_nested_element('user_stats');
 
         $userstat = new backup_nested_element('user_stat', ['id'], [
-            'userid', 'statsdata', 'timemodified',
+            'userid', 'statsdata', 'is_present', 'timemodified',
         ]);
 
         // Build the tree.
+        $plugnmeet->add_child($sessions);
+        $sessions->add_child($session);
+
         $plugnmeet->add_child($userstats);
         $userstats->add_child($userstat);
 
         // Define sources.
         $plugnmeet->set_source_table('plugnmeet', ['id' => backup::VAR_ACTIVITYID]);
+        $session->set_source_table('plugnmeet_sessions', ['plugnmeetid' => backup::VAR_PARENTID]);
 
         if ($userinfo) {
             $userstat->set_source_table('plugnmeet_user_stats', ['plugnmeetid' => backup::VAR_PARENTID]);
@@ -66,7 +80,7 @@ class backup_plugnmeet_activity_structure_step extends backup_activity_structure
         $plugnmeet->annotate_ids('user', 'usermodified');
         $userstat->annotate_ids('user', 'userid');
 
-        // Define file annotations (if you store files in intro).
+        // Define file annotations.
         $plugnmeet->annotate_files('mod_plugnmeet', 'intro', 'id');
 
         // Return the root element (plugnmeet).

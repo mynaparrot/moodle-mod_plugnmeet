@@ -25,8 +25,9 @@
 require_once(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
 
-$id = required_param('id', PARAM_INT); // Course ID.
+global $DB, $PAGE, $OUTPUT;
 
+$id = required_param('id', PARAM_INT); // Course ID.
 $course = $DB->get_record('course', ['id' => $id], '*', MUST_EXIST);
 
 require_login($course);

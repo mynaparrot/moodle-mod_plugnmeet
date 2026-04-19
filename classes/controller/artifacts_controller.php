@@ -375,11 +375,9 @@ class artifacts_controller {
      * @return void
      */
     public function delete_artifact($artifactid) {
-        // Redundant check for safety.
-        require_capability('mod/plugnmeet:deleteartifacts', $this->context);
-
         $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
         $artifactinfores = $pnc->getArtifactInfo($artifactid);
+
         $msg = get_string('delete_success', 'mod_plugnmeet');
         $msgtype = notification::NOTIFY_SUCCESS;
 
@@ -409,9 +407,6 @@ class artifacts_controller {
      * @return void
      */
     public function download_artifact($artifactid) {
-        // Redundant check for safety.
-        require_capability('mod/plugnmeet:downloadartifacts', $this->context);
-
         $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
         $downloadres = $pnc->getArtifactDownloadToken($artifactid);
 
@@ -439,9 +434,6 @@ class artifacts_controller {
      * @return void
      */
     public function download_excel_report($artifactid) {
-        // Redundant check for safety.
-        require_capability('mod/plugnmeet:downloadanalyticsreport', $this->context);
-
         try {
             $analyticshelper = new AnalyticsHelper($artifactid);
             $filename = 'plugnmeet_analytics_' . $artifactid . '.xlsx';
@@ -464,9 +456,6 @@ class artifacts_controller {
      * @return void
      */
     public function download_json_report($artifactid) {
-        // Redundant check for safety.
-        require_capability('mod/plugnmeet:downloadanalyticsreport', $this->context);
-
         try {
             $analyticshelper = new AnalyticsHelper($artifactid);
             $rawdata = $analyticshelper->get_raw_analytics_data();

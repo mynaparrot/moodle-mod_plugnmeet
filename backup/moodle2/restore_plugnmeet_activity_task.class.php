@@ -18,12 +18,13 @@
  * Activity task for mod_plugnmeet restore.
  *
  * @package    mod_plugnmeet
- * @copyright  2024 MynaParrot
+ * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
+global $CFG;
 require_once($CFG->dirroot . '/mod/plugnmeet/backup/moodle2/restore_plugnmeet_stepslib.php');
 
 /**

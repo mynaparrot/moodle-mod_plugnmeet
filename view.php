@@ -25,6 +25,8 @@
 
 require_once(__DIR__ . '/../../config.php');
 
+global $DB, $PAGE, $OUTPUT;
+
 $id = required_param('id', PARAM_INT);
 $cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
@@ -36,12 +38,16 @@ $context = \context_module::instance($cm->id);
 require_capability('mod/plugnmeet:view', $context);
 
 $canmanage = has_capability('mod/plugnmeet:manage', $context);
+$canviewlivesessioninfo = has_capability('mod/plugnmeet:viewlivesessioninfo', $context);
 
 $PAGE->set_url('/mod/plugnmeet/view.php', ['id' => $cm->id]);
 $PAGE->set_title(format_string($plugnmeet->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->requires->js_call_amd('mod_plugnmeet/join_button', 'init', [['cmid' => $cm->id]]);
-$PAGE->requires->js_call_amd('mod_plugnmeet/view_page', 'init', [['cmid' => $cm->id, 'can_manage' => $canmanage]]);
+
+if ($canviewlivesessioninfo) {
+    $PAGE->requires->js_call_amd('mod_plugnmeet/view_page', 'init', [['cmid' => $cm->id, 'can_view' => $canviewlivesessioninfo]]);
+}
 
 if ($canmanage) {
     $PAGE->requires->js_call_amd('mod_plugnmeet/end_room_button', 'init', [['cmid' => $cm->id]]);
@@ -141,8 +147,10 @@ if ($canmanage && $allowglobal && !empty($plugnmeet->allow_guest) && !empty($plu
     echo \html_writer::end_div(); // End card.
 }
 
-// Placeholder for live session info (handled by JS).
-echo \html_writer::div('', 'mt-4', ['id' => 'live_session_info']);
+if ($canviewlivesessioninfo) {
+    // Placeholder for live session info (handled by JS).
+    echo \html_writer::div('', 'mt-4', ['id' => 'live_session_info']);
+}
 
 echo \html_writer::end_div(); // End mod_plugnmeet_view_container.
 

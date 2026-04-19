@@ -31,13 +31,13 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function(
         });
     };
 
-    const pollForRoomInfo = function(cmid, canManage) {
-        if (!canManage) {
+    const pollForRoomInfo = function(cmid, canview) {
+        if (!canview) {
             return;
         }
         getRoomInfo(cmid).done(function(data) {
             if (data.room_info) {
-                renderRoomInfo(data, canManage);
+                renderRoomInfo(data, canview);
             } else {
                 $('#live_session_info').html('');
                 $('#end_room_button').hide();
@@ -45,7 +45,7 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function(
         }).fail(notification.exception);
 
         setTimeout(function() {
-            pollForRoomInfo(cmid, canManage);
+            pollForRoomInfo(cmid, canview);
         }, pollingInterval);
     };
 
@@ -56,7 +56,7 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function(
                 // This will only work if link opened with window.open()
                 window.close();
             }
-            pollForRoomInfo(params.cmid, params.can_manage);
+            pollForRoomInfo(params.cmid, params.can_view);
         }
     };
 });
