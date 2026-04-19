@@ -313,6 +313,7 @@ $string['event_participant_joined'] = 'شارك شارك';
 $string['event_participant_left'] = 'اليسار من المشاركين';
 $string['event_artifact_created'] = 'قطعة أثرية تم إنشاؤها';
 $string['event_recording_proceeded'] = 'التسجيل جاهز';
+$string['event_plugin_error'] = 'PlugNmeet error';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'إشعارات للتسجيلات الجاهزة';
