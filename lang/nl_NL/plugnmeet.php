@@ -313,6 +313,7 @@ $string['event_participant_joined'] = 'Deelnemer toegetreden';
 $string['event_participant_left'] = 'Deelnemer vertrok';
 $string['event_artifact_created'] = 'Artefact gemaakt';
 $string['event_recording_proceeded'] = 'Opnameklaar';
+$string['event_plugin_error'] = 'PlugNmeet error';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Meldingen voor gereedstaande opnames';
