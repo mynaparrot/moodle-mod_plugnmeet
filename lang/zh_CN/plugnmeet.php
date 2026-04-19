@@ -313,6 +313,7 @@ $string['event_participant_joined'] = '参与者加入';
 $string['event_participant_left'] = '参与者离开';
 $string['event_artifact_created'] = '神器制造';
 $string['event_recording_proceeded'] = '录音准备';
+$string['event_plugin_error'] = 'PlugNmeet error';
 
 // Notifications
 $string['messageprovider:recording_ready'] = '录制准备通知';
