@@ -33,6 +33,8 @@ $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXI
 require_login($course, true, $cm);
 
 $context = \context_module::instance($cm->id);
+require_capability('mod/plugnmeet:view', $context);
+
 $canmanage = has_capability('mod/plugnmeet:manage', $context);
 
 $PAGE->set_url('/mod/plugnmeet/view.php', ['id' => $cm->id]);

@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * To display room artifacts
@@ -34,12 +34,26 @@ $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXI
 
 require_login($course, true, $cm);
 
+$context = context_module::instance($cm->id);
+require_capability('mod/plugnmeet:viewartifacts', $context);
+
 $controller = new artifacts_controller($cm, $course, $plugnmeet);
 
-$action = optional_param('action', '', PARAM_ALPHA);
+$action = optional_param('action', '', PARAM_TEXT);
+$artifactid = optional_param('artifact_id', '', PARAM_TEXT);
+
 if ($action === 'delete') {
-    $artifactid = required_param('artifact_id', PARAM_TEXT);
+    require_capability('mod/plugnmeet:deleteartifacts', $context);
     $controller->delete_artifact($artifactid);
+} else if ($action === 'download') {
+    require_capability('mod/plugnmeet:downloadartifacts', $context);
+    $controller->download_artifact($artifactid);
+} else if ($action === 'download_excel') {
+    require_capability('mod/plugnmeet:downloadanalyticsreport', $context);
+    $controller->download_excel_report($artifactid);
+} else if ($action === 'download_json') {
+    require_capability('mod/plugnmeet:downloadanalyticsreport', $context);
+    $controller->download_json_report($artifactid);
 }
 
 $data = $controller->get_page_data();

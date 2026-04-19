@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,40 +12,48 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Attendance report for PlugNmeet.
+ * To display attendance report
  *
- * @package    mod_plugnmeet
- * @copyright  2026 MynaParrot
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     mod_plugnmeet
+ * @author      Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright   2026 MynaParrot
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-use mod_plugnmeet\controller\attendance_controller;
 
 require_once(__DIR__ . '/../../config.php');
 
-$id = required_param('id', PARAM_INT); // Course Module ID.
+use mod_plugnmeet\controller\attendance_controller;
 
+$id = required_param('id', PARAM_INT);
 $cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
 $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
 
 require_login($course, true, $cm);
+
 $context = context_module::instance($cm->id);
-require_capability('mod/plugnmeet:manage', $context);
+require_capability('mod/plugnmeet:viewattendance', $context);
 
 $controller = new attendance_controller($cm, $course, $plugnmeet);
+
+$action = optional_param('action', '', PARAM_TEXT);
+
+if ($action === 'download_excel') {
+    require_capability('mod/plugnmeet:downloadattendance', $context);
+    $controller->download_excel_report();
+    exit; // Important to exit after file download.
+}
+
 $data = $controller->get_page_data();
 
-$PAGE->set_url('/mod/plugnmeet/attendance.php', ['id' => $id]);
-$PAGE->set_title($plugnmeet->name . ' - ' . get_string('attendance_report', 'mod_plugnmeet'));
-$PAGE->set_heading($course->fullname);
-$PAGE->set_context($context);
+$PAGE->set_url('/mod/plugnmeet/attendance.php', ['id' => $cm->id]);
+$PAGE->set_title(format_string($plugnmeet->name));
+$PAGE->set_heading(format_string($course->fullname));
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('attendance_report', 'mod_plugnmeet'));
 
 echo $data['content'];
 

@@ -12,10 +12,11 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace mod_plugnmeet\controller;
 
+use core\output\notification;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use mod_plugnmeet\helper\AnalyticsHelper;
 use Mynaparrot\PlugnmeetProto\RoomArtifactType;
@@ -56,7 +57,7 @@ class artifacts_controller {
     /**
      * Constructor.
      *
-     * @param \cm_info $cm
+     * @param \stdClass $cm
      * @param \stdClass $course
      * @param \stdClass $plugnmeet
      */
@@ -73,22 +74,9 @@ class artifacts_controller {
      * @return array
      */
     public function get_page_data() {
-        if (!has_capability('mod/plugnmeet:viewartifacts', $this->context)) {
-            return ['content' => get_string('no_permission', 'mod_plugnmeet')];
-        }
-
         $artifactid = optional_param('artifact_id', '', PARAM_TEXT);
-        $action = optional_param('action', '', PARAM_TEXT);
 
         if (!empty($artifactid)) {
-            if ($action === 'download_excel') {
-                $this->download_excel_report($artifactid);
-                return ['content' => ''];
-            }
-            if ($action === 'download_json') {
-                $this->download_json_report($artifactid);
-                return ['content' => ''];
-            }
             return [
                 'content' => $this->render_single_artifact($artifactid),
             ];
@@ -126,7 +114,6 @@ class artifacts_controller {
         $info = $artifactinfores->getArtifactInfo();
         $metadata = $info->getMetadata();
         $isfilebased = ($metadata && $metadata->hasFileInfo());
-
         $page = optional_param('page', 0, PARAM_INT);
 
         $headerhtml = html_writer::start_div('d-flex justify-content-between align-items-center mb-3');
@@ -134,64 +121,43 @@ class artifacts_controller {
 
         $buttons = html_writer::start_div('btn-group');
 
+        // File download button (triggers action=download).
         if ($isfilebased && $info->getType() !== RoomArtifactType::MEETING_ANALYTICS) {
-            $downloadurl = '';
-            $downloadres = $pnc->getArtifactDownloadToken($artifactid);
-            if ($downloadres->getStatus()) {
-                $token = $downloadres->getToken();
-                $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
-                $downloadurl = $serverurl . '/download/artifact/' . $token;
-            }
-            if (!empty($downloadurl)) {
-                $buttons .= html_writer::link(
-                    $downloadurl,
-                    get_string('download', 'mod_plugnmeet'),
-                    ['class' => 'btn btn-primary', 'target' => '_blank']
-                );
+            if (has_capability('mod/plugnmeet:downloadartifacts', $this->context)) {
+                $downloadurl = new moodle_url('/mod/plugnmeet/artifacts.php', [
+                    'id' => $this->cm->id, 'artifact_id' => $artifactid, 'action' => 'download', 'page' => $page,
+                ]);
+                $buttons .= html_writer::link($downloadurl, get_string('download', 'mod_plugnmeet'), ['class' => 'btn btn-primary']);
             }
         }
 
+        // Analytics report buttons (triggers action=download_excel/json).
         if ($info->getType() === RoomArtifactType::MEETING_ANALYTICS) {
-            $exceldownloadurl = new moodle_url(
-                '/mod/plugnmeet/artifacts.php',
-                ['id' => $this->cm->id, 'artifact_id' => $artifactid, 'action' => 'download_excel', 'page' => $page]
-            );
-            $buttons .= html_writer::link(
-                $exceldownloadurl,
-                get_string('download_excel_report', 'mod_plugnmeet'),
-                ['class' => 'btn btn-success']
-            );
+            if (has_capability('mod/plugnmeet:downloadanalyticsreport', $this->context)) {
+                $buttons .= html_writer::link(new moodle_url('/mod/plugnmeet/artifacts.php', [
+                    'id' => $this->cm->id, 'artifact_id' => $artifactid, 'action' => 'download_excel', 'page' => $page,
+                ]), get_string('download_excel_report', 'mod_plugnmeet'), ['class' => 'btn btn-success']);
 
-            $jsondownloadurl = new moodle_url(
-                '/mod/plugnmeet/artifacts.php',
-                ['id' => $this->cm->id, 'artifact_id' => $artifactid, 'action' => 'download_json', 'page' => $page]
-            );
-            $buttons .= html_writer::link(
-                $jsondownloadurl,
-                get_string('download_raw_json', 'mod_plugnmeet'),
-                ['class' => 'btn btn-info']
-            );
+                $buttons .= html_writer::link(new moodle_url('/mod/plugnmeet/artifacts.php', [
+                    'id' => $this->cm->id, 'artifact_id' => $artifactid, 'action' => 'download_json', 'page' => $page,
+                ]), get_string('download_raw_json', 'mod_plugnmeet'), ['class' => 'btn btn-info']);
+            }
         }
 
-        if (has_capability('mod/plugnmeet:viewartifacts', $this->context) && $isfilebased) {
-            $deleteurl = new moodle_url(
-                '/mod/plugnmeet/artifacts.php',
-                ['id' => $this->cm->id,
-                    'action' => 'delete',
-                    'artifact_id' => $artifactid,
-                    'page' => $page,
-                ]
-            );
+        // Delete button.
+        if (has_capability('mod/plugnmeet:deleteartifacts', $this->context) && $isfilebased) {
+            $deleteurl = new moodle_url('/mod/plugnmeet/artifacts.php', [
+                'id' => $this->cm->id, 'action' => 'delete', 'artifact_id' => $artifactid, 'page' => $page,
+            ]);
             $buttons .= html_writer::link($deleteurl, get_string('delete', 'mod_plugnmeet'), [
                 'class' => 'btn btn-danger',
                 'onclick' => 'return confirm("' . get_string('delete_confirm', 'mod_plugnmeet') . '");',
             ]);
         }
 
-        $buttons .= html_writer::link(new moodle_url(
-            '/mod/plugnmeet/artifacts.php',
-            ['id' => $this->cm->id, 'page' => $page]
-        ), get_string('back_to_list', 'mod_plugnmeet'), ['class' => 'btn btn-secondary']);
+        $buttons .= html_writer::link(new moodle_url('/mod/plugnmeet/artifacts.php', [
+            'id' => $this->cm->id, 'page' => $page,
+        ]), get_string('back_to_list', 'mod_plugnmeet'), ['class' => 'btn btn-secondary']);
         $buttons .= html_writer::end_div();
 
         $headerhtml .= $buttons;
@@ -409,19 +375,23 @@ class artifacts_controller {
      * @return void
      */
     public function delete_artifact($artifactid) {
-        if (!has_capability('mod/plugnmeet:viewartifacts', $this->context)) {
-            return;
-        }
+        // Redundant check for safety.
+        require_capability('mod/plugnmeet:deleteartifacts', $this->context);
 
-        $page = optional_param('page', 0, PARAM_INT);
         $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
         $artifactinfores = $pnc->getArtifactInfo($artifactid);
+        $msg = get_string('delete_success', 'mod_plugnmeet');
+        $msgtype = notification::NOTIFY_SUCCESS;
 
         if ($artifactinfores->getStatus()) {
             $info = $artifactinfores->getArtifactInfo();
             $metadata = $info->getMetadata();
             if ($metadata && $metadata->hasFileInfo()) {
-                $pnc->deleteArtifact($artifactid);
+                $res = $pnc->deleteArtifact($artifactid);
+                if (!$res->getStatus()) {
+                    $msg = $res->getMsg();
+                    $msgtype = notification::NOTIFY_ERROR;
+                }
 
                 // Purge artifact info and list cache.
                 cache::make('mod_plugnmeet', 'artifact_info')->delete($artifactid);
@@ -429,7 +399,37 @@ class artifacts_controller {
             }
         }
 
-        redirect(new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $this->cm->id, 'page' => $page]));
+        redirect(new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $this->cm->id]), $msg, null, $msgtype);
+    }
+
+    /**
+     * Downloads artifact.
+     *
+     * @param string $artifactid
+     * @return void
+     */
+    public function download_artifact($artifactid) {
+        // Redundant check for safety.
+        require_capability('mod/plugnmeet:downloadartifacts', $this->context);
+
+        $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
+        $downloadres = $pnc->getArtifactDownloadToken($artifactid);
+
+        if ($downloadres->getStatus()) {
+            $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
+            $downloadurl = $serverurl . '/download/artifact/' . $downloadres->getToken();
+            redirect($downloadurl);
+        } else {
+            redirect(
+                new moodle_url(
+                    '/mod/plugnmeet/artifacts.php',
+                    ['id' => $this->cm->id, 'artifact_id' => $artifactid]
+                ),
+                $downloadres->getMsg(),
+                null,
+                notification::NOTIFY_ERROR
+            );
+        }
     }
 
     /**
@@ -438,7 +438,10 @@ class artifacts_controller {
      * @param string $artifactid
      * @return void
      */
-    private function download_excel_report($artifactid) {
+    public function download_excel_report($artifactid) {
+        // Redundant check for safety.
+        require_capability('mod/plugnmeet:downloadanalyticsreport', $this->context);
+
         try {
             $analyticshelper = new AnalyticsHelper($artifactid);
             $filename = 'plugnmeet_analytics_' . $artifactid . '.xlsx';
@@ -448,7 +451,7 @@ class artifacts_controller {
                 new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $this->cm->id, 'artifact_id' => $artifactid]),
                 get_string('error_generating_excel', 'mod_plugnmeet', $e->getMessage()),
                 null,
-                \core\output\notification::NOTIFY_ERROR
+                notification::NOTIFY_ERROR
             );
         }
         exit;
@@ -460,7 +463,10 @@ class artifacts_controller {
      * @param string $artifactid
      * @return void
      */
-    private function download_json_report($artifactid) {
+    public function download_json_report($artifactid) {
+        // Redundant check for safety.
+        require_capability('mod/plugnmeet:downloadanalyticsreport', $this->context);
+
         try {
             $analyticshelper = new AnalyticsHelper($artifactid);
             $rawdata = $analyticshelper->get_raw_analytics_data();
@@ -474,7 +480,7 @@ class artifacts_controller {
                 new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $this->cm->id, 'artifact_id' => $artifactid]),
                 get_string('error_generating_json', 'mod_plugnmeet', $e->getMessage()),
                 null,
-                \core\output\notification::NOTIFY_ERROR
+                notification::NOTIFY_ERROR
             );
         }
         exit;

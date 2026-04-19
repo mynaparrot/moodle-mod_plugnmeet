@@ -23,6 +23,8 @@ use MoodleExcelWorkbook;
 use MoodleExcelFormat;
 use mod_plugnmeet\helper\CompletionHelper;
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
  * Controller class for handling attendance reports.
  *
@@ -84,16 +86,6 @@ class attendance_controller {
      * @return array
      */
     public function get_page_data() {
-        if (!has_capability('mod/plugnmeet:manage', $this->context)) {
-            return ['content' => get_string('no_permission', 'plugnmeet')];
-        }
-
-        $action = optional_param('action', '', PARAM_TEXT);
-        if ($action === 'download_excel') {
-            $this->download_excel_report();
-            return ['content' => ''];
-        }
-
         return [
             'content' => $this->render_attendance_report(),
         ];
@@ -211,17 +203,19 @@ class attendance_controller {
         $totalcount = count_enrolled_users($this->context, 'mod/plugnmeet:view');
 
         // Download button.
-        $downloadurl = new moodle_url(
-            '/mod/plugnmeet/attendance.php',
-            ['id' => $this->cm->id, 'action' => 'download_excel']
-        );
-        $html .= html_writer::start_div('d-flex justify-content-end mb-3');
-        $html .= html_writer::link(
-            $downloadurl,
-            get_string('download_excel_report', 'mod_plugnmeet'),
-            ['class' => 'btn btn-success']
-        );
-        $html .= html_writer::end_div();
+        if (has_capability('mod/plugnmeet:downloadattendance', $this->context)) {
+            $downloadurl = new moodle_url(
+                '/mod/plugnmeet/attendance.php',
+                ['id' => $this->cm->id, 'action' => 'download_excel']
+            );
+            $html .= html_writer::start_div('d-flex justify-content-end mb-3');
+            $html .= html_writer::link(
+                $downloadurl,
+                get_string('download_excel_report', 'mod_plugnmeet'),
+                ['class' => 'btn btn-success']
+            );
+            $html .= html_writer::end_div();
+        }
 
         // Paging bar at the top.
         $baseurl = new moodle_url('/mod/plugnmeet/attendance.php', ['id' => $this->cm->id]);
@@ -284,8 +278,10 @@ class attendance_controller {
     /**
      * Downloads the attendance report in Excel format.
      */
-    private function download_excel_report() {
+    public function download_excel_report() {
         global $CFG;
+        require_capability('mod/plugnmeet:downloadattendance', $this->context);
+
         require_once($CFG->libdir . '/excellib.class.php');
 
         $filename = 'attendance_' . clean_filename($this->plugnmeet->name) . '_' . date('YmdHis') . '.xlsx';
@@ -337,6 +333,5 @@ class attendance_controller {
         }
 
         $workbook->close();
-        exit;
     }
 }

@@ -16,10 +16,13 @@
 
 namespace mod_plugnmeet\controller;
 
+use core\output\notification;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use html_writer;
 use moodle_url;
 use cache;
+
+defined('MOODLE_INTERNAL') || die();
 
 /**
  * Controller class for handling room recordings.
@@ -98,28 +101,28 @@ class recordings_controller {
 
         $info = $recordinginfores->getRecordingInfo();
         $roominfo = $recordinginfores->getRoomInfo();
+        $page = optional_param('page', 0, PARAM_INT);
 
         $downloadres = $pnc->getRecordingDownloadLink($recordid);
-
-        if (!$downloadres->getStatus()) {
-            return $OUTPUT->notification($downloadres->getMsg(), 'error');
+        $downloadurl = '';
+        if ($downloadres->getStatus()) {
+            $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
+            $downloadurl = $serverurl . '/download/recording/' . $downloadres->getToken();
         }
-
-        $token = $downloadres->getToken();
-        $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
-        $downloadurl = $serverurl . '/download/recording/' . $token;
-
-        $page = optional_param('page', 0, PARAM_INT);
 
         $headerhtml = html_writer::start_div('d-flex justify-content-between align-items-center mb-3');
         $headerhtml .= html_writer::tag('h3', get_string('recording_details', 'mod_plugnmeet'), ['class' => 'm-0']);
 
         $buttons = html_writer::start_div('btn-group');
-        $buttons .= html_writer::link(
-            $downloadurl,
-            get_string('download', 'mod_plugnmeet'),
-            ['class' => 'btn btn-primary', 'target' => '_blank']
-        );
+
+        // Only show download button if user has capability.
+        if (!empty($downloadurl) && has_capability('mod/plugnmeet:downloadrecordings', $this->context)) {
+            $buttons .= html_writer::link(
+                $downloadurl,
+                get_string('download', 'mod_plugnmeet'),
+                ['class' => 'btn btn-primary', 'target' => '_blank']
+            );
+        }
 
         if (has_capability('mod/plugnmeet:deleterecording', $this->context)) {
             $deleteurl = new moodle_url('/mod/plugnmeet/recordings.php', [
@@ -145,17 +148,21 @@ class recordings_controller {
 
         $html = $headerhtml;
 
-        $videohtml = html_writer::start_tag('video', [
-            'controls' => 'controls',
-            'width' => '100%',
-            'height' => 'auto',
-            'style' => 'max-width: 800px; display: block; margin-bottom: 20px;',
-        ]);
-        $videohtml .= html_writer::empty_tag('source', ['src' => $downloadurl, 'type' => 'video/mp4']);
-        $videohtml .= get_string('browser_not_support_video', 'mod_plugnmeet');
-        $videohtml .= html_writer::end_tag('video');
-
-        $html .= $videohtml;
+        // Video player (always shown if we have a URL, since viewrecordings is already checked).
+        if (!empty($downloadurl)) {
+            $videohtml = html_writer::start_tag('video', [
+                'controls' => 'controls',
+                'width' => '100%',
+                'height' => 'auto',
+                'style' => 'max-width: 800px; display: block; margin-bottom: 20px;',
+            ]);
+            $videohtml .= html_writer::empty_tag('source', ['src' => $downloadurl, 'type' => 'video/mp4']);
+            $videohtml .= get_string('browser_not_support_video', 'mod_plugnmeet');
+            $videohtml .= html_writer::end_tag('video');
+            $html .= $videohtml;
+        } else {
+            $html .= $OUTPUT->notification(get_string('error'), 'error');
+        }
 
         $details = [
             get_string('recording_id', 'mod_plugnmeet') => $info->getRecordId(),
@@ -268,15 +275,21 @@ class recordings_controller {
             return;
         }
 
-        $page = optional_param('page', 0, PARAM_INT);
         $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
-        $pnc->deleteRecording($recordingid);
+        $res = $pnc->deleteRecording($recordingid);
+        $msg = get_string('delete_success', 'mod_plugnmeet');
+        $msgtype = notification::NOTIFY_SUCCESS;
+
+        if (!$res->getStatus()) {
+            $msg = $res->getMsg();
+            $msgtype = notification::NOTIFY_ERROR;
+        }
 
         // Purge recording info and list cache.
         cache::make('mod_plugnmeet', 'recording_info')->delete($recordingid);
         cache::make('mod_plugnmeet', 'recordings_list')->purge();
 
-        redirect(new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $this->cm->id, 'page' => $page]));
+        redirect(new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $this->cm->id]), $msg, null, $msgtype);
     }
 
     /**
