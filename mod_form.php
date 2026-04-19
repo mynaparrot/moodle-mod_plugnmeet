@@ -48,9 +48,16 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
 
         $mform->addElement('textarea', 'welcomemessage', get_string("welcome_message", "mod_plugnmeet"), 'wrap="virtual" rows="5" cols="50"');
         $mform->setType('welcomemessage', PARAM_CLEANHTML);
+        $mform->addHelpButton('welcomemessage', 'welcome_message', 'mod_plugnmeet');
 
         $mform->addElement('text', 'maxparticipants', get_string("max_participants", "mod_plugnmeet"));
         $mform->setType('maxparticipants', PARAM_INT);
+        $mform->addHelpButton('maxparticipants', 'max_participants', 'mod_plugnmeet');
+
+        $mform->addElement('text', 'meta[room_features][room_duration]', get_string('room_duration', 'mod_plugnmeet'));
+        $mform->setType('meta[room_features][room_duration]', PARAM_INT);
+        $mform->setDefault('meta[room_features][room_duration]', 0);
+        $mform->addHelpButton('meta[room_features][room_duration]', 'room_duration', 'mod_plugnmeet');
 
         // Check if guest access is allowed globally.
         if (!isset($config->allow_guest_global) || $config->allow_guest_global == 1) {
@@ -121,10 +128,9 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
     private function add_room_features() {
         $mform = $this->_form;
 
-        $mform->addElement('text', 'meta[room_features][room_duration]', get_string('room_duration', 'mod_plugnmeet'));
-        $mform->setType('meta[room_features][room_duration]', PARAM_INT);
-        $mform->setDefault('meta[room_features][room_duration]', 0);
-        $mform->addHelpButton('meta[room_features][room_duration]', 'room_duration', 'mod_plugnmeet');
+        $mform->addElement('advcheckbox', 'meta[room_features][moderator_join_first]', get_string('moderator_join_first', 'mod_plugnmeet'));
+        $mform->setDefault('meta[room_features][moderator_join_first]', 0);
+        $mform->addHelpButton('meta[room_features][moderator_join_first]', 'moderator_join_first', 'mod_plugnmeet');
 
         $mform->addElement('advcheckbox', 'meta[room_features][allow_webcams]', get_string('allow_webcams', 'mod_plugnmeet'));
         $mform->setDefault('meta[room_features][allow_webcams]', 1);
@@ -145,10 +151,6 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('advcheckbox', 'meta[room_features][admin_only_webcams]', get_string('admin_only_webcams', 'mod_plugnmeet'));
         $mform->setDefault('meta[room_features][admin_only_webcams]', 0);
         $mform->addHelpButton('meta[room_features][admin_only_webcams]', 'admin_only_webcams', 'mod_plugnmeet');
-
-        $mform->addElement('advcheckbox', 'meta[room_features][moderator_join_first]', get_string('moderator_join_first', 'mod_plugnmeet'));
-        $mform->setDefault('meta[room_features][moderator_join_first]', 0);
-        $mform->addHelpButton('meta[room_features][moderator_join_first]', 'moderator_join_first', 'mod_plugnmeet');
 
         $mform->addElement('advcheckbox', 'meta[room_features][enable_analytics]', get_string('enable_analytics', 'mod_plugnmeet'));
         $mform->setDefault('meta[room_features][enable_analytics]', 1);
@@ -245,29 +247,6 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
      */
     private function add_other_features() {
         $mform = $this->_form;
-        $mform->addElement(
-            'advcheckbox',
-            'meta[shared_note_pad_features][is_allow]',
-            get_string('allow_shared_notepad', 'mod_plugnmeet')
-        );
-        $mform->setDefault('meta[shared_note_pad_features][is_allow]', 1);
-        $mform->addHelpButton('meta[shared_note_pad_features][is_allow]', 'allow_shared_notepad', 'mod_plugnmeet');
-
-        $mform->addElement(
-            'advcheckbox',
-            'meta[whiteboard_features][is_allow]',
-            get_string('allow_whiteboard', 'mod_plugnmeet')
-        );
-        $mform->setDefault('meta[whiteboard_features][is_allow]', 1);
-        $mform->addHelpButton('meta[whiteboard_features][is_allow]', 'allow_whiteboard', 'mod_plugnmeet');
-
-        $mform->addElement(
-            'advcheckbox',
-            'meta[external_media_player_features][is_allow]',
-            get_string('allowed_external_media_player', 'mod_plugnmeet')
-        );
-        $mform->setDefault('meta[external_media_player_features][is_allow]', 1);
-        $mform->addHelpButton('meta[external_media_player_features][is_allow]', 'allowed_external_media_player', 'mod_plugnmeet');
 
         $mform->addElement(
             'advcheckbox',
@@ -283,6 +262,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             get_string('waiting_room_msg', 'mod_plugnmeet'),
             'wrap="virtual" rows="5" cols="50"'
         );
+        $mform->addHelpButton('meta[waiting_room_features][waiting_room_msg]', 'waiting_room_msg', 'mod_plugnmeet');
         $mform->disabledIf(
             'meta[waiting_room_features][waiting_room_msg]',
             'meta[waiting_room_features][is_active]',
@@ -311,6 +291,30 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             'eq',
             0
         );
+
+        $mform->addElement(
+            'advcheckbox',
+            'meta[shared_note_pad_features][is_allow]',
+            get_string('allow_shared_notepad', 'mod_plugnmeet')
+        );
+        $mform->setDefault('meta[shared_note_pad_features][is_allow]', 1);
+        $mform->addHelpButton('meta[shared_note_pad_features][is_allow]', 'allow_shared_notepad', 'mod_plugnmeet');
+
+        $mform->addElement(
+            'advcheckbox',
+            'meta[whiteboard_features][is_allow]',
+            get_string('allow_whiteboard', 'mod_plugnmeet')
+        );
+        $mform->setDefault('meta[whiteboard_features][is_allow]', 1);
+        $mform->addHelpButton('meta[whiteboard_features][is_allow]', 'allow_whiteboard', 'mod_plugnmeet');
+
+        $mform->addElement(
+            'advcheckbox',
+            'meta[external_media_player_features][is_allow]',
+            get_string('allowed_external_media_player', 'mod_plugnmeet')
+        );
+        $mform->setDefault('meta[external_media_player_features][is_allow]', 1);
+        $mform->addHelpButton('meta[external_media_player_features][is_allow]', 'allowed_external_media_player', 'mod_plugnmeet');
 
         $mform->addElement('advcheckbox', 'meta[display_external_link_features][is_allow]', get_string('allow_display_external_link_features', 'mod_plugnmeet'));
         $mform->setDefault('meta[display_external_link_features][is_allow]', 1);
