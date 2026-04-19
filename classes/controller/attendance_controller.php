@@ -57,6 +57,11 @@ class attendance_controller {
     private $completionenabled;
 
     /**
+     * Default records per page.
+     */
+    const PER_PAGE = 20;
+
+    /**
      * Constructor.
      *
      * @param \cm_info $cm
@@ -110,15 +115,37 @@ class attendance_controller {
     /**
      * Centralized helper to build attendance data rows for both table and Excel.
      *
+     * @param int $page The current page (0-indexed).
+     * @param int $perpage Number of records per page (0 for all).
      * @return array
      */
-    private function get_attendance_data_rows(): array {
+    private function get_attendance_data_rows(int $page = 0, int $perpage = 0): array {
         global $DB;
 
-        $users = get_enrolled_users($this->context, 'mod/plugnmeet:view', 0, 'u.*', 'u.lastname, u.firstname');
-        $stats = $DB->get_records(
+        $limitfrom = $page * $perpage;
+        $users = get_enrolled_users(
+            $this->context,
+            'mod/plugnmeet:view',
+            0,
+            'u.*',
+            'u.lastname, u.firstname',
+            $limitfrom,
+            $perpage
+        );
+
+        if (empty($users)) {
+            return [];
+        }
+
+        $userids = array_keys($users);
+        [$insql, $inparams] = $DB->get_in_or_equal($userids);
+        $select = "plugnmeetid = ? AND userid $insql";
+        $params = array_merge([$this->plugnmeet->id], $inparams);
+
+        $stats = $DB->get_records_select(
             'plugnmeet_user_stats',
-            ['plugnmeetid' => $this->plugnmeet->id],
+            $select,
+            $params,
             '',
             'userid, is_present, statsdata, timemodified'
         );
@@ -174,7 +201,14 @@ class attendance_controller {
      * @return string
      */
     private function render_attendance_report() {
+        global $OUTPUT;
         $html = '';
+
+        $page = optional_param('page', 0, PARAM_INT);
+        $perpage = self::PER_PAGE;
+
+        // Total count for paging bar.
+        $totalcount = count_enrolled_users($this->context, 'mod/plugnmeet:view');
 
         // Download button.
         $downloadurl = new moodle_url(
@@ -188,6 +222,10 @@ class attendance_controller {
             ['class' => 'btn btn-success']
         );
         $html .= html_writer::end_div();
+
+        // Paging bar at the top.
+        $baseurl = new moodle_url('/mod/plugnmeet/attendance.php', ['id' => $this->cm->id]);
+        $html .= $OUTPUT->paging_bar($totalcount, $page, $perpage, $baseurl);
 
         $table = new html_table();
         $table->head = [
@@ -206,9 +244,9 @@ class attendance_controller {
             get_string('last_updated', 'mod_plugnmeet'),
         ];
 
-        $table->attributes['class'] = 'generaltable attendance-table';
+        $table->attributes['class'] = 'generaltable attendance-table mt-2 mb-2';
 
-        $rows = $this->get_attendance_data_rows();
+        $rows = $this->get_attendance_data_rows($page, $perpage);
         foreach ($rows as $row) {
             $badgemap = [
                 'completed' => 'badge-success',
@@ -236,6 +274,10 @@ class attendance_controller {
         }
 
         $html .= html_writer::table($table);
+
+        // Paging bar at the bottom.
+        $html .= $OUTPUT->paging_bar($totalcount, $page, $perpage, $baseurl);
+
         return $html;
     }
 
@@ -273,7 +315,7 @@ class attendance_controller {
             $worksheet->write_string(0, $col++, $header, $headerformat);
         }
 
-        $rows = $this->get_attendance_data_rows();
+        $rows = $this->get_attendance_data_rows(); // Fetch all for Excel.
         $rowidx = 1;
         foreach ($rows as $row) {
             $col = 0;

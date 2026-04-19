@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,7 +26,34 @@
 defined('MOODLE_INTERNAL') || die();
 
 $definitions = [
-    'analytics' => [
+    'analytics_data' => [
         'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => false,
+        'simpledata' => true,
+        'ttl' => 86400, // 24 hours
+    ],
+    'artifact_info' => [
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => false,
+        'simpledata' => true,
+        'ttl' => 86400, // 24 hours
+    ],
+    'artifacts_list' => [
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => false,
+        'simpledata' => true,
+        'ttl' => 600, // 10 minutes
+    ],
+    'recording_info' => [
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => false,
+        'simpledata' => true,
+        'ttl' => 86400, // 24 hours
+    ],
+    'recordings_list' => [
+        'mode' => cache_store::MODE_APPLICATION,
+        'simplekeys' => false,
+        'simpledata' => true,
+        'ttl' => 3600, // 1 hour
     ],
 ];

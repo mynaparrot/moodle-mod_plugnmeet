@@ -16,7 +16,9 @@
 
 namespace mod_plugnmeet\helper;
 
+use context_system;
 use core\notification;
+use mod_plugnmeet\event\plugin_error;
 use MoodleExcelWorkbook;
 use MoodleExcelFormat;
 use cache;
@@ -87,7 +89,7 @@ class AnalyticsHelper {
     public function __construct(string $artifactid) {
         $this->timezone = new \DateTimeZone(get_user_timezone());
 
-        $cache = cache::make('mod_plugnmeet', 'analytics');
+        $cache = cache::make('mod_plugnmeet', 'analytics_data');
         $cachedata = $cache->get($artifactid);
 
         if ($cachedata) {
@@ -135,8 +137,20 @@ class AnalyticsHelper {
                 'ignoresecurity' => $ignoresecurity,
             ]);
         $result = $curl->get($host);
+
         if ($curl->get_errno()) {
             notification::error("Error: " . $curl->get_errno());
+
+            $event = plugin_error::create([
+                'context' => $context ?? context_system::instance(),
+                'objectid' => $plugnmeet->id ?? null,
+                'other' => [
+                    'type' => 'AnalyticsHelper',
+                    'message' => "Error during fetching report by CURL: " . $curl->get_errno(),
+                ],
+            ]);
+            $event->trigger();
+
             return null;
         }
         return $result;

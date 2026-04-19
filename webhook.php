@@ -27,6 +27,15 @@
 // phpcs:disable moodle.Files.MoodleInternal.MoodleInternalGlobalState,moodle.Files.RequireLogin.Missing
 require_once(__DIR__ . '/../../config.php');
 
+use mod_plugnmeet\event\artifact_created;
+use mod_plugnmeet\event\participant_joined;
+use mod_plugnmeet\event\participant_left;
+use mod_plugnmeet\event\plugin_error;
+use mod_plugnmeet\event\recording_proceeded;
+use mod_plugnmeet\event\room_created;
+use mod_plugnmeet\event\room_ended;
+use mod_plugnmeet\event\room_started;
+use mod_plugnmeet\event\session_ended;
 use mod_plugnmeet\helper\CompletionHelper;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use Mynaparrot\PlugnmeetProto\CommonNotifyEvent;
@@ -54,6 +63,16 @@ try {
         return;
     }
 } catch (Exception $e) {
+    $event = plugin_error::create([
+        'context' => context_system::instance(),
+        'other' => [
+            'type' => 'webhook',
+            'message' => 'JWT Decode Error: ' . $e->getMessage(),
+        ],
+    ]);
+    $event->trigger();
+
+    debugging("PlugNmeet Webhook JWT Error: " . $e->getMessage());
     http_response_code(500);
     return;
 }
@@ -81,13 +100,54 @@ try {
     $sid = $webhook->getRoom()?->getSid();
 
     switch ($eventtype) {
+        case 'room_created':
+            // Trigger Moodle Event.
+            $event = room_created::create([
+                'context' => $context,
+                'objectid' => $plugnmeet->id,
+            ]);
+            $event->trigger();
+            break;
+
+        case 'room_started':
+            // Trigger Moodle Event.
+            $event = room_started::create([
+                'context' => $context,
+                'objectid' => $plugnmeet->id,
+            ]);
+            $event->trigger();
+            break;
+
+        case 'session_ended':
+            if ($sid) {
+                $DB->set_field('plugnmeet_sessions', 'status', 0, ['sid' => $sid]);
+                $DB->set_field('plugnmeet_sessions', 'timemodified', time(), ['sid' => $sid]);
+            }
+
+            // Trigger Moodle Session Ended Event.
+            $event = session_ended::create([
+                'context' => $context,
+                'objectid' => $plugnmeet->id,
+            ]);
+            $event->trigger();
+            break;
+
+        case 'room_ended':
+            // Trigger Moodle Room Ended Event.
+            $event = room_ended::create([
+                'context' => $context,
+                'objectid' => $plugnmeet->id,
+            ]);
+            $event->trigger();
+            break;
+
         case 'participant_joined':
             $userid = $webhook->getParticipant()->getIdentity();
             if (is_numeric($userid)) {
                 CompletionHelper::record_participant_join((int)$userid, $plugnmeet);
 
                 // Trigger Moodle Event.
-                $event = \mod_plugnmeet\event\participant_joined::create([
+                $event = participant_joined::create([
                     'context' => $context,
                     'objectid' => $plugnmeet->id,
                     'userid' => (int)$userid,
@@ -100,7 +160,7 @@ try {
             $userid = $webhook->getParticipant()->getIdentity();
             if (is_numeric($userid)) {
                 // Trigger Moodle Event.
-                $event = \mod_plugnmeet\event\participant_left::create([
+                $event = participant_left::create([
                     'context' => $context,
                     'objectid' => $plugnmeet->id,
                     'userid' => (int)$userid,
@@ -118,8 +178,11 @@ try {
                 }
             }
 
+            // Purge artifacts list cache only.
+            cache::make('mod_plugnmeet', 'artifacts_list')->purge();
+
             // Trigger Moodle Event.
-            $event = \mod_plugnmeet\event\artifact_created::create([
+            $event = artifact_created::create([
                 'context' => $context,
                 'objectid' => $plugnmeet->id,
                 'other' => [
@@ -133,8 +196,11 @@ try {
         case 'recording_proceeded':
             $recording = $webhook->getRecordingInfo();
 
+            // Purge recordings list cache only.
+            cache::make('mod_plugnmeet', 'recordings_list')->purge();
+
             // Trigger Moodle Event.
-            $event = \mod_plugnmeet\event\recording_proceeded::create([
+            $event = recording_proceeded::create([
                 'context' => $context,
                 'objectid' => $plugnmeet->id,
                 'other' => [
@@ -143,49 +209,19 @@ try {
             ]);
             $event->trigger();
             break;
-
-        case 'room_created':
-            // Trigger Moodle Event.
-            $event = \mod_plugnmeet\event\room_created::create([
-                'context' => $context,
-                'objectid' => $plugnmeet->id,
-            ]);
-            $event->trigger();
-            break;
-
-        case 'room_started':
-            // Trigger Moodle Event.
-            $event = \mod_plugnmeet\event\room_started::create([
-                'context' => $context,
-                'objectid' => $plugnmeet->id,
-            ]);
-            $event->trigger();
-            break;
-
-        case 'session_ended':
-            if ($sid) {
-                $DB->set_field('plugnmeet_sessions', 'status', 0, ['sid' => $sid]);
-                $DB->set_field('plugnmeet_sessions', 'timemodified', time(), ['sid' => $sid]);
-            }
-
-            // Trigger Moodle Session Ended Event.
-            $event = \mod_plugnmeet\event\session_ended::create([
-                'context' => $context,
-                'objectid' => $plugnmeet->id,
-            ]);
-            $event->trigger();
-            break;
-
-        case 'room_ended':
-            // Trigger Moodle Room Ended Event.
-            $event = \mod_plugnmeet\event\room_ended::create([
-                'context' => $context,
-                'objectid' => $plugnmeet->id,
-            ]);
-            $event->trigger();
-            break;
     }
 } catch (Exception $e) {
+    $event = plugin_error::create([
+        'context' => $context ?? context_system::instance(),
+        'objectid' => $plugnmeet->id ?? null,
+        'other' => [
+            'type' => 'webhook',
+            'message' => $e->getMessage(),
+        ],
+    ]);
+    $event->trigger();
+
+    debugging("PlugNmeet Webhook Exception: " . $e->getMessage());
     http_response_code(500);
     return;
 }

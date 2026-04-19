@@ -19,6 +19,7 @@ namespace mod_plugnmeet\controller;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use html_writer;
 use moodle_url;
+use cache;
 
 /**
  * Controller class for handling room recordings.
@@ -80,10 +81,19 @@ class recordings_controller {
         global $OUTPUT;
 
         $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
-        $recordinginfores = $pnc->getRecordingInfo($recordid);
+        $cache = cache::make('mod_plugnmeet', 'recording_info');
 
-        if (!$recordinginfores->getStatus()) {
-            return $OUTPUT->notification($recordinginfores->getMsg(), 'error');
+        $recordinginfores = $cache->get($recordid);
+
+        if ($recordinginfores === false) {
+            $recordinginfores = $pnc->getRecordingInfo($recordid);
+            if ($recordinginfores->getStatus()) {
+                $cache->set($recordid, $recordinginfores);
+            }
+        }
+
+        if (!$recordinginfores || !$recordinginfores->getStatus()) {
+            return $OUTPUT->notification($recordinginfores ? $recordinginfores->getMsg() : get_string('error'), 'error');
         }
 
         $info = $recordinginfores->getRecordingInfo();
@@ -102,12 +112,12 @@ class recordings_controller {
         $page = optional_param('page', 0, PARAM_INT);
 
         $headerhtml = html_writer::start_div('d-flex justify-content-between align-items-center mb-3');
-        $headerhtml .= html_writer::tag('h3', get_string('recording_details', 'plugnmeet'), ['class' => 'm-0']);
+        $headerhtml .= html_writer::tag('h3', get_string('recording_details', 'mod_plugnmeet'), ['class' => 'm-0']);
 
         $buttons = html_writer::start_div('btn-group');
         $buttons .= html_writer::link(
             $downloadurl,
-            get_string('download', 'plugnmeet'),
+            get_string('download', 'mod_plugnmeet'),
             ['class' => 'btn btn-primary', 'target' => '_blank']
         );
 
@@ -118,16 +128,16 @@ class recordings_controller {
                 'recording_id' => $recordid,
                 'page' => $page,
             ]);
-            $buttons .= html_writer::link($deleteurl, get_string('delete', 'plugnmeet'), [
+            $buttons .= html_writer::link($deleteurl, get_string('delete', 'mod_plugnmeet'), [
                 'class' => 'btn btn-danger',
-                'onclick' => 'return confirm("' . get_string('delete_confirm', 'plugnmeet') . '");',
+                'onclick' => 'return confirm("' . get_string('delete_confirm', 'mod_plugnmeet') . '");',
             ]);
         }
 
         $buttons .= html_writer::link(new moodle_url(
             '/mod/plugnmeet/recordings.php',
             ['id' => $this->cm->id, 'page' => $page]
-        ), get_string('back_to_list', 'plugnmeet'), ['class' => 'btn btn-secondary']);
+        ), get_string('back_to_list', 'mod_plugnmeet'), ['class' => 'btn btn-secondary']);
         $buttons .= html_writer::end_div();
 
         $headerhtml .= $buttons;
@@ -142,25 +152,25 @@ class recordings_controller {
             'style' => 'max-width: 800px; display: block; margin-bottom: 20px;',
         ]);
         $videohtml .= html_writer::empty_tag('source', ['src' => $downloadurl, 'type' => 'video/mp4']);
-        $videohtml .= get_string('browser_not_support_video', 'plugnmeet');
+        $videohtml .= get_string('browser_not_support_video', 'mod_plugnmeet');
         $videohtml .= html_writer::end_tag('video');
 
         $html .= $videohtml;
 
         $details = [
-            get_string('recording_id', 'plugnmeet') => $info->getRecordId(),
-            get_string('room_id', 'plugnmeet') => $info->getRoomId(),
-            get_string('room_sid', 'plugnmeet') => $info->getRoomSid(),
-            get_string('file_size', 'plugnmeet') => $this->format_mb($info->getFileSize()),
-            get_string('recording_creation_time', 'plugnmeet') => userdate($info->getCreationTime()),
+            get_string('recording_id', 'mod_plugnmeet') => $info->getRecordId(),
+            get_string('room_id', 'mod_plugnmeet') => $info->getRoomId(),
+            get_string('room_sid', 'mod_plugnmeet') => $info->getRoomSid(),
+            get_string('file_size', 'mod_plugnmeet') => $this->format_mb($info->getFileSize()),
+            get_string('recording_creation_time', 'mod_plugnmeet') => userdate($info->getCreationTime()),
         ];
 
         if ($roominfo) {
-            $details[get_string('room_title', 'plugnmeet')] = $roominfo->getRoomTitle();
-            $details[get_string('session_started_at', 'plugnmeet')] = userdate(strtotime($roominfo->getCreated()));
-            $details[get_string('session_ended_at', 'plugnmeet')] = userdate(strtotime($roominfo->getEnded()));
+            $details[get_string('room_title', 'mod_plugnmeet')] = $roominfo->getRoomTitle();
+            $details[get_string('session_started_at', 'mod_plugnmeet')] = userdate(strtotime($roominfo->getCreated()));
+            $details[get_string('session_ended_at', 'mod_plugnmeet')] = userdate(strtotime($roominfo->getEnded()));
         } else {
-            $details[get_string('room_creation_time', 'plugnmeet')] = userdate($info->getRoomCreationTime());
+            $details[get_string('room_creation_time', 'mod_plugnmeet')] = userdate($info->getRoomCreationTime());
         }
 
         $table = new \html_table();
@@ -185,30 +195,40 @@ class recordings_controller {
         $limit = 20;
         $from = $page * $limit;
 
-        $response = $pnc->getRecordings([$this->plugnmeet->roomid], null, $from, $limit);
+        $cache = cache::make('mod_plugnmeet', 'recordings_list');
+        $cachekey = $this->plugnmeet->roomid . '_' . $from . '_' . $limit;
 
-        if (!$response->getStatus()) {
-            return $OUTPUT->notification($response->getMsg(), 'error');
+        $response = $cache->get($cachekey);
+
+        if ($response === false) {
+            $response = $pnc->getRecordings([$this->plugnmeet->roomid], null, $from, $limit);
+            if ($response->getStatus()) {
+                $cache->set($cachekey, $response);
+            }
+        }
+
+        if (!$response || !$response->getStatus()) {
+            return $OUTPUT->notification($response ? $response->getMsg() : get_string('error'), 'error');
         }
 
         $result = $response->getResult();
         if (!$result) {
-             return $OUTPUT->notification(get_string('no_recordings', 'plugnmeet'), 'info');
+             return $OUTPUT->notification(get_string('no_recordings', 'mod_plugnmeet'), 'info');
         }
 
         $recordings = $result->getRecordingsList();
 
         if (empty($recordings)) {
-            return $OUTPUT->notification(get_string('no_recordings', 'plugnmeet'), 'info');
+            return $OUTPUT->notification(get_string('no_recordings', 'mod_plugnmeet'), 'info');
         }
 
         $table = new \html_table();
         $table->head = [
-            get_string('recording_id', 'plugnmeet'),
-            get_string('recording_creation_time', 'plugnmeet'),
-            get_string('room_creation_time', 'plugnmeet'),
-            get_string('file_size', 'plugnmeet'),
-            get_string('actions', 'plugnmeet'),
+            get_string('recording_id', 'mod_plugnmeet'),
+            get_string('recording_creation_time', 'mod_plugnmeet'),
+            get_string('room_creation_time', 'mod_plugnmeet'),
+            get_string('file_size', 'mod_plugnmeet'),
+            get_string('actions', 'mod_plugnmeet'),
         ];
 
         foreach ($recordings as $recording) {
@@ -216,7 +236,7 @@ class recordings_controller {
                 '/mod/plugnmeet/recordings.php',
                 ['id' => $this->cm->id, 'record_id' => $recording->getRecordId(), 'page' => $page]
             );
-            $actions = html_writer::link($viewurl, get_string('view', 'plugnmeet'), ['class' => 'btn btn-sm btn-info']);
+            $actions = html_writer::link($viewurl, get_string('view', 'mod_plugnmeet'), ['class' => 'btn btn-sm btn-info']);
 
             $table->data[] = [
                 $recording->getRecordId(),
@@ -251,6 +271,10 @@ class recordings_controller {
         $page = optional_param('page', 0, PARAM_INT);
         $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
         $pnc->deleteRecording($recordingid);
+
+        // Purge recording info and list cache.
+        cache::make('mod_plugnmeet', 'recording_info')->delete($recordingid);
+        cache::make('mod_plugnmeet', 'recordings_list')->purge();
 
         redirect(new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $this->cm->id, 'page' => $page]));
     }
