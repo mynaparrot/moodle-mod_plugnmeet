@@ -313,6 +313,12 @@ $string['invalid_guest_token'] = 'Token de entrada de invitado inválido o caduc
 $string['guest_link_expired'] = 'Este enlace de invitado para unirse ha caducado.';
 $string['error_joining_session'] = 'Apareció un error al unirse a la sesión: {$a}';
 $string['already_logged_in'] = 'Ya has iniciado sesión en Moodle. Puedes unirte directamente a la sesión desde esta página de actividades.';
+$string['total_webcams'] = 'Total Webcams';
+$string['total_mics'] = 'Total Mics';
+$string['total_screen_shares'] = 'Total Screen Shares';
+$string['webcams'] = 'Webcams';
+$string['mics'] = 'Mics';
+$string['screenshares'] = 'Screen Shares';
 
 // Events
 $string['event_room_started'] = 'Inicio de la habitación';
@@ -324,6 +330,8 @@ $string['event_participant_left'] = 'Participante a la izquierda';
 $string['event_artifact_created'] = 'Artefacto creado';
 $string['event_recording_proceeded'] = 'Grabación lista';
 $string['event_plugin_error'] = 'Error PlugNmeet';
+$string['event_track_published'] = 'Track published';
+$string['event_track_unpublished'] = 'Track unpublished';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Notificaciones para grabaciones listas';
