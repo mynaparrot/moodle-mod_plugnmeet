@@ -84,7 +84,7 @@ class plugNmeetConnect {
             $config->plugnmeet_secret,
             60,
             true,
-            new MoodleHttpClient($config->plugnmeet_server_url)
+            new MoodleHttpClient()
         );
     }
 

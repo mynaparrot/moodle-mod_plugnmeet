@@ -136,6 +136,11 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->setDefault('meta[room_features][allow_webcams]', 1);
         $mform->addHelpButton('meta[room_features][allow_webcams]', 'allow_webcams', 'mod_plugnmeet');
 
+        $mform->addElement('advcheckbox', 'meta[room_features][admin_only_webcams]', get_string('admin_only_webcams', 'mod_plugnmeet'));
+        $mform->setDefault('meta[room_features][admin_only_webcams]', 0);
+        $mform->addHelpButton('meta[room_features][admin_only_webcams]', 'admin_only_webcams', 'mod_plugnmeet');
+        $mform->disabledIf('meta[room_features][admin_only_webcams]', 'meta[room_features][allow_webcams]', 'eq', 0);
+
         $mform->addElement('advcheckbox', 'meta[room_features][mute_on_start]', get_string('mute_on_start', 'mod_plugnmeet'));
         $mform->setDefault('meta[room_features][mute_on_start]', 0);
         $mform->addHelpButton('meta[room_features][mute_on_start]', 'mute_on_start', 'mod_plugnmeet');
@@ -148,9 +153,19 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->setDefault('meta[room_features][allow_rtmp]', 1);
         $mform->addHelpButton('meta[room_features][allow_rtmp]', 'allow_rtmp', 'mod_plugnmeet');
 
-        $mform->addElement('advcheckbox', 'meta[room_features][admin_only_webcams]', get_string('admin_only_webcams', 'mod_plugnmeet'));
-        $mform->setDefault('meta[room_features][admin_only_webcams]', 0);
-        $mform->addHelpButton('meta[room_features][admin_only_webcams]', 'admin_only_webcams', 'mod_plugnmeet');
+        $mform->addElement('advcheckbox', 'meta[room_features][allow_raise_hand]', get_string('allow_raise_hand', 'mod_plugnmeet'));
+        $mform->setDefault('meta[room_features][allow_raise_hand]', 1);
+        $mform->addHelpButton('meta[room_features][allow_raise_hand]', 'allow_raise_hand', 'mod_plugnmeet');
+
+        $mform->addElement('advcheckbox', 'meta[room_features][allow_view_other_webcams]', get_string('allow_view_other_webcams', 'mod_plugnmeet'));
+        $mform->setDefault('meta[room_features][allow_view_other_webcams]', 1);
+        $mform->addHelpButton('meta[room_features][allow_view_other_webcams]', 'allow_view_other_webcams', 'mod_plugnmeet');
+        $mform->disabledIf('meta[room_features][allow_view_other_webcams]', 'meta[room_features][allow_webcams]', 'eq', 0);
+        $mform->disabledIf('meta[room_features][allow_view_other_webcams]', 'meta[room_features][admin_only_webcams]', 'eq', 1);
+
+        $mform->addElement('advcheckbox', 'meta[room_features][allow_view_other_users_list]', get_string('allow_view_other_users_list', 'mod_plugnmeet'));
+        $mform->setDefault('meta[room_features][allow_view_other_users_list]', 1);
+        $mform->addHelpButton('meta[room_features][allow_view_other_users_list]', 'allow_view_other_users_list', 'mod_plugnmeet');
 
         $mform->addElement('advcheckbox', 'meta[room_features][enable_analytics]', get_string('enable_analytics', 'mod_plugnmeet'));
         $mform->setDefault('meta[room_features][enable_analytics]', 1);
@@ -202,25 +217,6 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->setDefault('meta[recording_features][is_allow_local]', 1);
         $mform->addHelpButton('meta[recording_features][is_allow_local]', 'allow_local_recording', 'mod_plugnmeet');
         $mform->disabledIf('meta[recording_features][is_allow_local]', 'meta[recording_features][is_allow]', 'eq', 0);
-
-        $mform->addElement(
-            'advcheckbox',
-            'meta[recording_features][is_allow_view_recording]',
-            get_string('is_allow_view_recording', 'mod_plugnmeet')
-        );
-        $mform->setDefault('meta[recording_features][is_allow_view_recording]', 1);
-        $mform->addHelpButton('meta[recording_features][is_allow_view_recording]', 'is_allow_view_recording', 'mod_plugnmeet');
-        $mform->disabledIf('meta[recording_features][is_allow_view_recording]', 'meta[recording_features][is_allow]', 'eq', 0);
-
-        $mform->addElement('advcheckbox', 'meta[recording_features][is_allow_download_recording]', get_string('is_allow_download_recording', 'mod_plugnmeet'));
-        $mform->setDefault('meta[recording_features][is_allow_download_recording]', 1);
-        $mform->addHelpButton('meta[recording_features][is_allow_download_recording]', 'is_allow_download_recording', 'mod_plugnmeet');
-        $mform->disabledIf(
-            'meta[recording_features][is_allow_download_recording]',
-            'meta[recording_features][is_allow]',
-            'eq',
-            0
-        );
     }
 
     /**
@@ -383,8 +379,12 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             'included_e2ee_whiteboard',
             'mod_plugnmeet'
         );
-        $mform->disabledIf('meta[end_to_end_encryption_features][included_whiteboard]', '
-        meta[end_to_end_encryption_features][is_enabled]', 'eq', 0);
+        $mform->disabledIf(
+            'meta[end_to_end_encryption_features][included_whiteboard]',
+            'meta[end_to_end_encryption_features][is_enabled]',
+            'eq',
+            0
+        );
     }
 
     /**
