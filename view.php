@@ -44,10 +44,8 @@ $PAGE->set_url('/mod/plugnmeet/view.php', ['id' => $cm->id]);
 $PAGE->set_title(format_string($plugnmeet->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->requires->js_call_amd('mod_plugnmeet/join_button', 'init', [['cmid' => $cm->id]]);
-
-if ($canviewlivesessioninfo) {
-    $PAGE->requires->js_call_amd('mod_plugnmeet/view_page', 'init', [['cmid' => $cm->id, 'can_view' => $canviewlivesessioninfo]]);
-}
+// we'll load this for everyone, further restriction was set in JS code
+$PAGE->requires->js_call_amd('mod_plugnmeet/view_page', 'init', [['cmid' => $cm->id, 'can_view' => $canviewlivesessioninfo]]);
 
 if ($canmanage) {
     $PAGE->requires->js_call_amd('mod_plugnmeet/end_room_button', 'init', [['cmid' => $cm->id]]);

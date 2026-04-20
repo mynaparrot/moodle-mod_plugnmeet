@@ -112,18 +112,24 @@ class attendance_controller {
      * @return array
      */
     private function get_attendance_data_rows(int $page = 0, int $perpage = 0): array {
-        global $DB;
+        global $DB, $USER;
 
-        $limitfrom = $page * $perpage;
-        $users = get_enrolled_users(
-            $this->context,
-            'mod/plugnmeet:view',
-            0,
-            'u.*',
-            'u.lastname, u.firstname',
-            $limitfrom,
-            $perpage
-        );
+        $canviewlist = has_capability('mod/plugnmeet:viewattendancelist', $this->context);
+
+        if ($canviewlist) {
+            $limitfrom = $page * $perpage;
+            $users = get_enrolled_users(
+                $this->context,
+                'mod/plugnmeet:view',
+                0,
+                'u.*',
+                'u.lastname, u.firstname',
+                $limitfrom,
+                $perpage
+            );
+        } else {
+            $users = [$USER->id => $USER];
+        }
 
         if (empty($users)) {
             return [];
@@ -196,11 +202,16 @@ class attendance_controller {
         global $OUTPUT;
         $html = '';
 
+        $canviewlist = has_capability('mod/plugnmeet:viewattendancelist', $this->context);
         $page = optional_param('page', 0, PARAM_INT);
         $perpage = self::PER_PAGE;
 
         // Total count for paging bar.
-        $totalcount = count_enrolled_users($this->context, 'mod/plugnmeet:view');
+        if ($canviewlist) {
+            $totalcount = count_enrolled_users($this->context, 'mod/plugnmeet:view');
+        } else {
+            $totalcount = 1;
+        }
 
         // Download button.
         if (has_capability('mod/plugnmeet:downloadattendance', $this->context)) {
@@ -217,9 +228,11 @@ class attendance_controller {
             $html .= html_writer::end_div();
         }
 
-        // Paging bar at the top.
+        // Paging bar at the top (only if more than 1 page).
         $baseurl = new moodle_url('/mod/plugnmeet/attendance.php', ['id' => $this->cm->id]);
-        $html .= $OUTPUT->paging_bar($totalcount, $page, $perpage, $baseurl);
+        if ($totalcount > $perpage) {
+            $html .= $OUTPUT->paging_bar($totalcount, $page, $perpage, $baseurl);
+        }
 
         $table = new html_table();
         $table->head = [
@@ -269,8 +282,10 @@ class attendance_controller {
 
         $html .= html_writer::table($table);
 
-        // Paging bar at the bottom.
-        $html .= $OUTPUT->paging_bar($totalcount, $page, $perpage, $baseurl);
+        // Paging bar at the bottom (only if more than 1 page).
+        if ($totalcount > $perpage) {
+            $html .= $OUTPUT->paging_bar($totalcount, $page, $perpage, $baseurl);
+        }
 
         return $html;
     }
@@ -309,7 +324,7 @@ class attendance_controller {
             $worksheet->write_string(0, $col++, $header, $headerformat);
         }
 
-        $rows = $this->get_attendance_data_rows(); // Fetch all for Excel.
+        $rows = $this->get_attendance_data_rows(); // Fetch all for Excel (or just the user's data).
         $rowidx = 1;
         foreach ($rows as $row) {
             $col = 0;
