@@ -313,6 +313,12 @@ $string['invalid_guest_token'] = '访客加入令牌无效或过期。';
 $string['guest_link_expired'] = '这个访客加入链接已过期。';
 $string['error_joining_session'] = '加入会话时出现了一个错误： {$a}';
 $string['already_logged_in'] = '你已经登录了Moodle。你可以直接从这个活动页面加入本次活动。';
+$string['total_webcams'] = 'Total Webcams';
+$string['total_mics'] = 'Total Mics';
+$string['total_screen_shares'] = 'Total Screen Shares';
+$string['webcams'] = 'Webcams';
+$string['mics'] = 'Mics';
+$string['screenshares'] = 'Screen Shares';
 
 // Events
 $string['event_room_started'] = '房间开始了';
@@ -324,6 +330,8 @@ $string['event_participant_left'] = '参与者离开';
 $string['event_artifact_created'] = '神器制造';
 $string['event_recording_proceeded'] = '录音准备';
 $string['event_plugin_error'] = 'PlugNmeet 错误';
+$string['event_track_published'] = 'Track published';
+$string['event_track_unpublished'] = 'Track unpublished';
 
 // Notifications
 $string['messageprovider:recording_ready'] = '录制准备通知';
