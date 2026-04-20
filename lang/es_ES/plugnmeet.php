@@ -315,10 +315,10 @@ $string['error_joining_session'] = 'Apareció un error al unirse a la sesión: {
 $string['already_logged_in'] = 'Ya has iniciado sesión en Moodle. Puedes unirte directamente a la sesión desde esta página de actividades.';
 $string['total_webcams'] = 'Total Webcams';
 $string['total_mics'] = 'Total Mics';
-$string['total_screen_shares'] = 'Total Screen Shares';
+$string['total_screen_shares'] = 'Total de composiciones de pantalla';
 $string['webcams'] = 'Webcams';
-$string['mics'] = 'Mics';
-$string['screenshares'] = 'Screen Shares';
+$string['mics'] = 'Micrófonos';
+$string['screenshares'] = 'Pantallas compartidas';
 
 // Events
 $string['event_room_started'] = 'Inicio de la habitación';
@@ -330,8 +330,8 @@ $string['event_participant_left'] = 'Participante a la izquierda';
 $string['event_artifact_created'] = 'Artefacto creado';
 $string['event_recording_proceeded'] = 'Grabación lista';
 $string['event_plugin_error'] = 'Error PlugNmeet';
-$string['event_track_published'] = 'Track published';
-$string['event_track_unpublished'] = 'Track unpublished';
+$string['event_track_published'] = 'Tema publicado';
+$string['event_track_unpublished'] = 'Pista inédita';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Notificaciones para grabaciones listas';
