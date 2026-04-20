@@ -313,6 +313,12 @@ $string['invalid_guest_token'] = 'Jeton d’entrée invité invalide ou expiré.
 $string['guest_link_expired'] = 'Ce lien de rejoindre les invités est expiré.';
 $string['error_joining_session'] = 'Il y a eu une erreur qui a rejoint la session : {$a}';
 $string['already_logged_in'] = 'Vous êtes déjà connecté à Moodle. Vous pouvez rejoindre la session directement depuis cette page d’activité.';
+$string['total_webcams'] = 'Total Webcams';
+$string['total_mics'] = 'Total Mics';
+$string['total_screen_shares'] = 'Total Screen Shares';
+$string['webcams'] = 'Webcams';
+$string['mics'] = 'Mics';
+$string['screenshares'] = 'Screen Shares';
 
 // Events
 $string['event_room_started'] = 'La pièce a commencé';
@@ -324,6 +330,8 @@ $string['event_participant_left'] = 'Participant à gauche';
 $string['event_artifact_created'] = 'Artefact créé';
 $string['event_recording_proceeded'] = 'Enregistrement prêt';
 $string['event_plugin_error'] = 'Erreur PlugNmeet';
+$string['event_track_published'] = 'Track published';
+$string['event_track_unpublished'] = 'Track unpublished';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Notifications pour les enregistrements prêts';
