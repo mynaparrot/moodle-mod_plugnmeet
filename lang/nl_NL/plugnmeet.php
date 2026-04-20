@@ -313,12 +313,12 @@ $string['invalid_guest_token'] = 'Ongeldige of verlopen gast-aansluitingstoken.'
 $string['guest_link_expired'] = 'Deze link voor gastdeelname is verlopen.';
 $string['error_joining_session'] = 'Er was een foutmelding tijdens de sessie: {$a}';
 $string['already_logged_in'] = 'Je bent al ingelogd bij Moodle. Je kunt direct deelnemen aan de sessie vanaf deze activiteitenpagina.';
-$string['total_webcams'] = 'Total Webcams';
-$string['total_mics'] = 'Total Mics';
-$string['total_screen_shares'] = 'Total Screen Shares';
+$string['total_webcams'] = 'Totaal aantal webcams';
+$string['total_mics'] = 'Totaal aantal microfoons';
+$string['total_screen_shares'] = 'Totaal aantal schermdelen';
 $string['webcams'] = 'Webcams';
-$string['mics'] = 'Mics';
-$string['screenshares'] = 'Screen Shares';
+$string['mics'] = 'Microfoons';
+$string['screenshares'] = 'Schermdelen';
 
 // Events
 $string['event_room_started'] = 'De kamer is begonnen';
@@ -330,8 +330,8 @@ $string['event_participant_left'] = 'Deelnemer vertrok';
 $string['event_artifact_created'] = 'Artefact gemaakt';
 $string['event_recording_proceeded'] = 'Opnameklaar';
 $string['event_plugin_error'] = 'PlugNmeet-fout';
-$string['event_track_published'] = 'Track published';
-$string['event_track_unpublished'] = 'Track unpublished';
+$string['event_track_published'] = 'Track gepubliceerd';
+$string['event_track_unpublished'] = 'Track ongepubliceerd';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Meldingen voor gereedstaande opnames';
