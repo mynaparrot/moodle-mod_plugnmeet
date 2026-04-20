@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
+class ComposerStaticInit85afec30a002738a7522d97226a46190
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -14,26 +14,26 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
     );
 
     public static $prefixLengthsPsr4 = array (
-        'R' =>
+        'R' => 
         array (
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
         ),
-        'M' =>
+        'M' => 
         array (
             'Mynaparrot\\Plugnmeet\\' => 21,
             'Mynaparrot\\PlugnmeetProto\\' => 26,
         ),
-        'L' =>
+        'L' => 
         array (
             'Livekit\\' => 8,
         ),
-        'G' =>
+        'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
@@ -42,75 +42,75 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
             'GPBMetadata\\Google\\Protobuf\\' => 28,
             'GPBMetadata\\' => 12,
         ),
-        'F' =>
+        'F' => 
         array (
             'Firebase\\JWT\\' => 13,
         ),
-        'B' =>
+        'B' => 
         array (
             'Brick\\Math\\' => 11,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Ramsey\\Uuid\\' =>
+        'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
         ),
-        'Ramsey\\Collection\\' =>
+        'Ramsey\\Collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
-        'Psr\\Http\\Message\\' =>
+        'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
-        'Psr\\Http\\Client\\' =>
+        'Psr\\Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Mynaparrot\\Plugnmeet\\' =>
+        'Mynaparrot\\Plugnmeet\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'Mynaparrot\\PlugnmeetProto\\' =>
+        'Mynaparrot\\PlugnmeetProto\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto',
         ),
-        'Livekit\\' =>
+        'Livekit\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/gen/Livekit',
         ),
-        'GuzzleHttp\\Psr7\\' =>
+        'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' =>
+        'GuzzleHttp\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' =>
+        'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Google\\Protobuf\\' =>
+        'Google\\Protobuf\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf',
         ),
-        'GPBMetadata\\Google\\Protobuf\\' =>
+        'GPBMetadata\\Google\\Protobuf\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/protobuf/src/GPBMetadata/Google/Protobuf',
         ),
-        'GPBMetadata\\' =>
+        'GPBMetadata\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/gen/GPBMetadata',
         ),
-        'Firebase\\JWT\\' =>
+        'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
-        'Brick\\Math\\' =>
+        'Brick\\Math\\' => 
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
@@ -157,6 +157,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'GPBMetadata\\Google\\Protobuf\\Wrappers' => __DIR__ . '/..' . '/google/protobuf/src/GPBMetadata/Google/Protobuf/Wrappers.php',
         'GPBMetadata\\LivekitAgent' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitAgent.php',
         'GPBMetadata\\LivekitAgentDispatch' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitAgentDispatch.php',
+        'GPBMetadata\\LivekitAgentSimulation' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitAgentSimulation.php',
         'GPBMetadata\\LivekitAnalytics' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitAnalytics.php',
         'GPBMetadata\\LivekitCloudAgent' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitCloudAgent.php',
         'GPBMetadata\\LivekitConnector' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitConnector.php',
@@ -210,8 +211,6 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Google\\Protobuf\\FieldMask' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/FieldMask.php',
         'Google\\Protobuf\\Field\\Cardinality' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Field/Cardinality.php',
         'Google\\Protobuf\\Field\\Kind' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Field/Kind.php',
-        'Google\\Protobuf\\Field_Cardinality' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Field_Cardinality.php',
-        'Google\\Protobuf\\Field_Kind' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Field_Kind.php',
         'Google\\Protobuf\\FloatValue' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/FloatValue.php',
         'Google\\Protobuf\\GPBEmpty' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/GPBEmpty.php',
         'Google\\Protobuf\\Int32Value' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Int32Value.php',
@@ -289,7 +288,6 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Google\\Protobuf\\Internal\\OneofField' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/OneofField.php',
         'Google\\Protobuf\\Internal\\OneofOptions' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/OneofOptions.php',
         'Google\\Protobuf\\Internal\\RawInputStream' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/RawInputStream.php',
-        'Google\\Protobuf\\Internal\\RepeatedField' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/RepeatedField.php',
         'Google\\Protobuf\\Internal\\RepeatedFieldIter' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/RepeatedFieldIter.php',
         'Google\\Protobuf\\Internal\\ServiceDescriptorProto' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/ServiceDescriptorProto.php',
         'Google\\Protobuf\\Internal\\ServiceOptions' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/ServiceOptions.php',
@@ -429,8 +427,11 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\AnalyticsStats' => __DIR__ . '/../..' . '/src/gen/Livekit/AnalyticsStats.php',
         'Livekit\\AnalyticsStream' => __DIR__ . '/../..' . '/src/gen/Livekit/AnalyticsStream.php',
         'Livekit\\AnalyticsVideoLayer' => __DIR__ . '/../..' . '/src/gen/Livekit/AnalyticsVideoLayer.php',
+        'Livekit\\AudioChannel' => __DIR__ . '/../..' . '/src/gen/Livekit/AudioChannel.php',
         'Livekit\\AudioCodec' => __DIR__ . '/../..' . '/src/gen/Livekit/AudioCodec.php',
+        'Livekit\\AudioConfig' => __DIR__ . '/../..' . '/src/gen/Livekit/AudioConfig.php',
         'Livekit\\AudioMixing' => __DIR__ . '/../..' . '/src/gen/Livekit/AudioMixing.php',
+        'Livekit\\AudioRoute' => __DIR__ . '/../..' . '/src/gen/Livekit/AudioRoute.php',
         'Livekit\\AudioTrackFeature' => __DIR__ . '/../..' . '/src/gen/Livekit/AudioTrackFeature.php',
         'Livekit\\AutoParticipantEgress' => __DIR__ . '/../..' . '/src/gen/Livekit/AutoParticipantEgress.php',
         'Livekit\\AutoTrackEgress' => __DIR__ . '/../..' . '/src/gen/Livekit/AutoTrackEgress.php',
@@ -446,6 +447,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\ClientInfo\\SDK' => __DIR__ . '/../..' . '/src/gen/Livekit/ClientInfo/SDK.php',
         'Livekit\\ClientSettingsRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ClientSettingsRequest.php',
         'Livekit\\ClientSettingsResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/ClientSettingsResponse.php',
+        'Livekit\\ClosePlaybackRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ClosePlaybackRequest.php',
         'Livekit\\Codec' => __DIR__ . '/../..' . '/src/gen/Livekit/Codec.php',
         'Livekit\\ConnectTwilioCallRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ConnectTwilioCallRequest.php',
         'Livekit\\ConnectTwilioCallRequest\\TwilioCallDirection' => __DIR__ . '/../..' . '/src/gen/Livekit/ConnectTwilioCallRequest/TwilioCallDirection.php',
@@ -461,6 +463,9 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\CreateAgentRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateAgentRequest.php',
         'Livekit\\CreateAgentResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateAgentResponse.php',
         'Livekit\\CreateIngressRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateIngressRequest.php',
+        'Livekit\\CreatePrivateLinkRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreatePrivateLinkRequest.php',
+        'Livekit\\CreatePrivateLinkRequest\\AWSCreateConfig' => __DIR__ . '/../..' . '/src/gen/Livekit/CreatePrivateLinkRequest/AWSCreateConfig.php',
+        'Livekit\\CreatePrivateLinkResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/CreatePrivateLinkResponse.php',
         'Livekit\\CreateRoomRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateRoomRequest.php',
         'Livekit\\CreateSIPDispatchRuleRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateSIPDispatchRuleRequest.php',
         'Livekit\\CreateSIPInboundTrunkRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateSIPInboundTrunkRequest.php',
@@ -469,8 +474,10 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\CreateSIPTrunkRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateSIPTrunkRequest.php',
         'Livekit\\DataChannelInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/DataChannelInfo.php',
         'Livekit\\DataChannelReceiveState' => __DIR__ . '/../..' . '/src/gen/Livekit/DataChannelReceiveState.php',
+        'Livekit\\DataConfig' => __DIR__ . '/../..' . '/src/gen/Livekit/DataConfig.php',
         'Livekit\\DataPacket' => __DIR__ . '/../..' . '/src/gen/Livekit/DataPacket.php',
         'Livekit\\DataPacket\\Kind' => __DIR__ . '/../..' . '/src/gen/Livekit/DataPacket/Kind.php',
+        'Livekit\\DataSelector' => __DIR__ . '/../..' . '/src/gen/Livekit/DataSelector.php',
         'Livekit\\DataStream' => __DIR__ . '/../..' . '/src/gen/Livekit/DataStream.php',
         'Livekit\\DataStream\\ByteHeader' => __DIR__ . '/../..' . '/src/gen/Livekit/DataStream/ByteHeader.php',
         'Livekit\\DataStream\\Chunk' => __DIR__ . '/../..' . '/src/gen/Livekit/DataStream/Chunk.php',
@@ -488,6 +495,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\DeleteAgentRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DeleteAgentRequest.php',
         'Livekit\\DeleteAgentResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/DeleteAgentResponse.php',
         'Livekit\\DeleteIngressRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DeleteIngressRequest.php',
+        'Livekit\\DeleteReplayRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DeleteReplayRequest.php',
         'Livekit\\DeleteRoomRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DeleteRoomRequest.php',
         'Livekit\\DeleteRoomResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/DeleteRoomResponse.php',
         'Livekit\\DeleteSIPDispatchRuleRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DeleteSIPDispatchRuleRequest.php',
@@ -495,6 +503,8 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\DeployAgentRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DeployAgentRequest.php',
         'Livekit\\DeployAgentResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/DeployAgentResponse.php',
         'Livekit\\Destination' => __DIR__ . '/../..' . '/src/gen/Livekit/Destination.php',
+        'Livekit\\DestroyPrivateLinkRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DestroyPrivateLinkRequest.php',
+        'Livekit\\DestroyPrivateLinkResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/DestroyPrivateLinkResponse.php',
         'Livekit\\DialWhatsAppCallRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DialWhatsAppCallRequest.php',
         'Livekit\\DialWhatsAppCallResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/DialWhatsAppCallResponse.php',
         'Livekit\\DirectFileOutput' => __DIR__ . '/../..' . '/src/gen/Livekit/DirectFileOutput.php',
@@ -515,15 +525,19 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\Encryption' => __DIR__ . '/../..' . '/src/gen/Livekit/Encryption.php',
         'Livekit\\Encryption\\Type' => __DIR__ . '/../..' . '/src/gen/Livekit/Encryption/Type.php',
         'Livekit\\EventMetric' => __DIR__ . '/../..' . '/src/gen/Livekit/EventMetric.php',
+        'Livekit\\ExportReplayRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ExportReplayRequest.php',
         'Livekit\\FeatureUsageInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/FeatureUsageInfo.php',
         'Livekit\\FeatureUsageInfo\\Feature' => __DIR__ . '/../..' . '/src/gen/Livekit/FeatureUsageInfo/Feature.php',
         'Livekit\\FileInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/FileInfo.php',
+        'Livekit\\FileOutput' => __DIR__ . '/../..' . '/src/gen/Livekit/FileOutput.php',
         'Livekit\\FilterParams' => __DIR__ . '/../..' . '/src/gen/Livekit/FilterParams.php',
         'Livekit\\ForwardParticipantRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ForwardParticipantRequest.php',
         'Livekit\\ForwardParticipantResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/ForwardParticipantResponse.php',
         'Livekit\\GCPUpload' => __DIR__ . '/../..' . '/src/gen/Livekit/GCPUpload.php',
         'Livekit\\GetPhoneNumberRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/GetPhoneNumberRequest.php',
         'Livekit\\GetPhoneNumberResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/GetPhoneNumberResponse.php',
+        'Livekit\\GetPrivateLinkStatusRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/GetPrivateLinkStatusRequest.php',
+        'Livekit\\GetPrivateLinkStatusResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/GetPrivateLinkStatusResponse.php',
         'Livekit\\GetSIPInboundTrunkRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/GetSIPInboundTrunkRequest.php',
         'Livekit\\GetSIPInboundTrunkResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/GetSIPInboundTrunkResponse.php',
         'Livekit\\GetSIPOutboundTrunkRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/GetSIPOutboundTrunkRequest.php',
@@ -549,6 +563,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\InputVideoState' => __DIR__ . '/../..' . '/src/gen/Livekit/InputVideoState.php',
         'Livekit\\Job' => __DIR__ . '/../..' . '/src/gen/Livekit/Job.php',
         'Livekit\\JobAssignment' => __DIR__ . '/../..' . '/src/gen/Livekit/JobAssignment.php',
+        'Livekit\\JobRestartPolicy' => __DIR__ . '/../..' . '/src/gen/Livekit/JobRestartPolicy.php',
         'Livekit\\JobState' => __DIR__ . '/../..' . '/src/gen/Livekit/JobState.php',
         'Livekit\\JobStatus' => __DIR__ . '/../..' . '/src/gen/Livekit/JobStatus.php',
         'Livekit\\JobTermination' => __DIR__ . '/../..' . '/src/gen/Livekit/JobTermination.php',
@@ -573,6 +588,10 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\ListParticipantsResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/ListParticipantsResponse.php',
         'Livekit\\ListPhoneNumbersRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ListPhoneNumbersRequest.php',
         'Livekit\\ListPhoneNumbersResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/ListPhoneNumbersResponse.php',
+        'Livekit\\ListPrivateLinksRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ListPrivateLinksRequest.php',
+        'Livekit\\ListPrivateLinksResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/ListPrivateLinksResponse.php',
+        'Livekit\\ListReplaysRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ListReplaysRequest.php',
+        'Livekit\\ListReplaysResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/ListReplaysResponse.php',
         'Livekit\\ListRoomsRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ListRoomsRequest.php',
         'Livekit\\ListRoomsResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/ListRoomsResponse.php',
         'Livekit\\ListSIPDispatchRuleRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ListSIPDispatchRuleRequest.php',
@@ -585,6 +604,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\ListSIPTrunkResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/ListSIPTrunkResponse.php',
         'Livekit\\ListUpdate' => __DIR__ . '/../..' . '/src/gen/Livekit/ListUpdate.php',
         'Livekit\\MediaSectionsRequirement' => __DIR__ . '/../..' . '/src/gen/Livekit/MediaSectionsRequirement.php',
+        'Livekit\\MediaSource' => __DIR__ . '/../..' . '/src/gen/Livekit/MediaSource.php',
         'Livekit\\MetricLabel' => __DIR__ . '/../..' . '/src/gen/Livekit/MetricLabel.php',
         'Livekit\\MetricSample' => __DIR__ . '/../..' . '/src/gen/Livekit/MetricSample.php',
         'Livekit\\MetricsBatch' => __DIR__ . '/../..' . '/src/gen/Livekit/MetricsBatch.php',
@@ -600,6 +620,8 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\NodeStats' => __DIR__ . '/../..' . '/src/gen/Livekit/NodeStats.php',
         'Livekit\\NodeStatsRate' => __DIR__ . '/../..' . '/src/gen/Livekit/NodeStatsRate.php',
         'Livekit\\NodeType' => __DIR__ . '/../..' . '/src/gen/Livekit/NodeType.php',
+        'Livekit\\Output' => __DIR__ . '/../..' . '/src/gen/Livekit/Output.php',
+        'Livekit\\PacketTrailerFeature' => __DIR__ . '/../..' . '/src/gen/Livekit/PacketTrailerFeature.php',
         'Livekit\\Pagination' => __DIR__ . '/../..' . '/src/gen/Livekit/Pagination.php',
         'Livekit\\ParticipantEgressRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ParticipantEgressRequest.php',
         'Livekit\\ParticipantInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/ParticipantInfo.php',
@@ -609,15 +631,22 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\ParticipantPermission' => __DIR__ . '/../..' . '/src/gen/Livekit/ParticipantPermission.php',
         'Livekit\\ParticipantTracks' => __DIR__ . '/../..' . '/src/gen/Livekit/ParticipantTracks.php',
         'Livekit\\ParticipantUpdate' => __DIR__ . '/../..' . '/src/gen/Livekit/ParticipantUpdate.php',
+        'Livekit\\ParticipantVideo' => __DIR__ . '/../..' . '/src/gen/Livekit/ParticipantVideo.php',
         'Livekit\\PerformRpcRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/PerformRpcRequest.php',
         'Livekit\\PerformRpcResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/PerformRpcResponse.php',
         'Livekit\\PhoneNumber' => __DIR__ . '/../..' . '/src/gen/Livekit/PhoneNumber.php',
         'Livekit\\PhoneNumberStatus' => __DIR__ . '/../..' . '/src/gen/Livekit/PhoneNumberStatus.php',
         'Livekit\\PhoneNumberType' => __DIR__ . '/../..' . '/src/gen/Livekit/PhoneNumberType.php',
         'Livekit\\Ping' => __DIR__ . '/../..' . '/src/gen/Livekit/Ping.php',
+        'Livekit\\PlaybackRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/PlaybackRequest.php',
+        'Livekit\\PlaybackResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/PlaybackResponse.php',
         'Livekit\\PlayoutDelay' => __DIR__ . '/../..' . '/src/gen/Livekit/PlayoutDelay.php',
         'Livekit\\Pong' => __DIR__ . '/../..' . '/src/gen/Livekit/Pong.php',
         'Livekit\\PresignedPostRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/PresignedPostRequest.php',
+        'Livekit\\PrivateLink' => __DIR__ . '/../..' . '/src/gen/Livekit/PrivateLink.php',
+        'Livekit\\PrivateLinkStatus' => __DIR__ . '/../..' . '/src/gen/Livekit/PrivateLinkStatus.php',
+        'Livekit\\PrivateLinkStatus\\Status' => __DIR__ . '/../..' . '/src/gen/Livekit/PrivateLinkStatus/Status.php',
+        'Livekit\\PrivateLink\\AWSConfig' => __DIR__ . '/../..' . '/src/gen/Livekit/PrivateLink/AWSConfig.php',
         'Livekit\\ProviderInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/ProviderInfo.php',
         'Livekit\\ProviderType' => __DIR__ . '/../..' . '/src/gen/Livekit/ProviderType.php',
         'Livekit\\ProxyConfig' => __DIR__ . '/../..' . '/src/gen/Livekit/ProxyConfig.php',
@@ -625,7 +654,6 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\PublishDataTrackResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/PublishDataTrackResponse.php',
         'Livekit\\PurchasePhoneNumberRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/PurchasePhoneNumberRequest.php',
         'Livekit\\PurchasePhoneNumberResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/PurchasePhoneNumberResponse.php',
-        'Livekit\\PushTextRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/PushTextRequest.php',
         'Livekit\\RTCPSenderReportState' => __DIR__ . '/../..' . '/src/gen/Livekit/RTCPSenderReportState.php',
         'Livekit\\RTPDrift' => __DIR__ . '/../..' . '/src/gen/Livekit/RTPDrift.php',
         'Livekit\\RTPForwarderState' => __DIR__ . '/../..' . '/src/gen/Livekit/RTPForwarderState.php',
@@ -640,6 +668,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\ReleasePhoneNumbersRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ReleasePhoneNumbersRequest.php',
         'Livekit\\ReleasePhoneNumbersResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/ReleasePhoneNumbersResponse.php',
         'Livekit\\RemoveParticipantResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/RemoveParticipantResponse.php',
+        'Livekit\\ReplayInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/ReplayInfo.php',
         'Livekit\\ReportInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/ReportInfo.php',
         'Livekit\\RequestResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/RequestResponse.php',
         'Livekit\\RequestResponse\\Reason' => __DIR__ . '/../..' . '/src/gen/Livekit/RequestResponse/Reason.php',
@@ -688,8 +717,36 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\SIPTrunkInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPTrunkInfo.php',
         'Livekit\\SIPTrunkInfo\\TrunkKind' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPTrunkInfo/TrunkKind.php',
         'Livekit\\SIPUri' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPUri.php',
+        'Livekit\\Scenario' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario.php',
+        'Livekit\\ScenarioGroup' => __DIR__ . '/../..' . '/src/gen/Livekit/ScenarioGroup.php',
+        'Livekit\\ScenarioGroup\\Create' => __DIR__ . '/../..' . '/src/gen/Livekit/ScenarioGroup/Create.php',
+        'Livekit\\ScenarioGroup\\Create\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/ScenarioGroup/Create/Request.php',
+        'Livekit\\ScenarioGroup\\Create\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/ScenarioGroup/Create/Response.php',
+        'Livekit\\ScenarioGroup\\Delete' => __DIR__ . '/../..' . '/src/gen/Livekit/ScenarioGroup/Delete.php',
+        'Livekit\\ScenarioGroup\\Delete\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/ScenarioGroup/Delete/Request.php',
+        'Livekit\\ScenarioGroup\\Delete\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/ScenarioGroup/Delete/Response.php',
+        'Livekit\\ScenarioGroup\\PBList' => __DIR__ . '/../..' . '/src/gen/Livekit/ScenarioGroup/PBList.php',
+        'Livekit\\ScenarioGroup\\PBList\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/ScenarioGroup/PBList/Request.php',
+        'Livekit\\ScenarioGroup\\PBList\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/ScenarioGroup/PBList/Response.php',
+        'Livekit\\Scenario\\Create' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/Create.php',
+        'Livekit\\Scenario\\CreateFromSession' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/CreateFromSession.php',
+        'Livekit\\Scenario\\CreateFromSession\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/CreateFromSession/Request.php',
+        'Livekit\\Scenario\\CreateFromSession\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/CreateFromSession/Response.php',
+        'Livekit\\Scenario\\Create\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/Create/Request.php',
+        'Livekit\\Scenario\\Create\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/Create/Response.php',
+        'Livekit\\Scenario\\Delete' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/Delete.php',
+        'Livekit\\Scenario\\Delete\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/Delete/Request.php',
+        'Livekit\\Scenario\\Delete\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/Delete/Response.php',
+        'Livekit\\Scenario\\PBList' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/PBList.php',
+        'Livekit\\Scenario\\PBList\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/PBList/Request.php',
+        'Livekit\\Scenario\\PBList\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/PBList/Response.php',
+        'Livekit\\Scenario\\Status' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/Status.php',
+        'Livekit\\Scenario\\Update' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/Update.php',
+        'Livekit\\Scenario\\Update\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/Update/Request.php',
+        'Livekit\\Scenario\\Update\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/Scenario/Update/Response.php',
         'Livekit\\SearchPhoneNumbersRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/SearchPhoneNumbersRequest.php',
         'Livekit\\SearchPhoneNumbersResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/SearchPhoneNumbersResponse.php',
+        'Livekit\\SeekRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/SeekRequest.php',
         'Livekit\\SegmentedFileOutput' => __DIR__ . '/../..' . '/src/gen/Livekit/SegmentedFileOutput.php',
         'Livekit\\SegmentedFileProtocol' => __DIR__ . '/../..' . '/src/gen/Livekit/SegmentedFileProtocol.php',
         'Livekit\\SegmentedFileSuffix' => __DIR__ . '/../..' . '/src/gen/Livekit/SegmentedFileSuffix.php',
@@ -706,13 +763,38 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\SignalTarget' => __DIR__ . '/../..' . '/src/gen/Livekit/SignalTarget.php',
         'Livekit\\SimulateJobRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulateJobRequest.php',
         'Livekit\\SimulateScenario' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulateScenario.php',
+        'Livekit\\SimulationRun' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun.php',
+        'Livekit\\SimulationRunSummary' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRunSummary.php',
+        'Livekit\\SimulationRunSummary\\Issue' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRunSummary/Issue.php',
+        'Livekit\\SimulationRun\\Cancel' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Cancel.php',
+        'Livekit\\SimulationRun\\Cancel\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Cancel/Request.php',
+        'Livekit\\SimulationRun\\Cancel\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Cancel/Response.php',
+        'Livekit\\SimulationRun\\ConfirmSourceUpload' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/ConfirmSourceUpload.php',
+        'Livekit\\SimulationRun\\ConfirmSourceUpload\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/ConfirmSourceUpload/Request.php',
+        'Livekit\\SimulationRun\\ConfirmSourceUpload\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/ConfirmSourceUpload/Response.php',
+        'Livekit\\SimulationRun\\Create' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Create.php',
+        'Livekit\\SimulationRun\\Create\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Create/Request.php',
+        'Livekit\\SimulationRun\\Create\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Create/Response.php',
+        'Livekit\\SimulationRun\\Create\\Scenario' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Create/Scenario.php',
+        'Livekit\\SimulationRun\\Create\\Scenarios' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Create/Scenarios.php',
+        'Livekit\\SimulationRun\\Get' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Get.php',
+        'Livekit\\SimulationRun\\Get\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Get/Request.php',
+        'Livekit\\SimulationRun\\Get\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Get/Response.php',
+        'Livekit\\SimulationRun\\Job' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Job.php',
+        'Livekit\\SimulationRun\\Job\\Status' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Job/Status.php',
+        'Livekit\\SimulationRun\\PBList' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/PBList.php',
+        'Livekit\\SimulationRun\\PBList\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/PBList/Request.php',
+        'Livekit\\SimulationRun\\PBList\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/PBList/Response.php',
+        'Livekit\\SimulationRun\\Status' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Status.php',
         'Livekit\\SimulcastCodec' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulcastCodec.php',
         'Livekit\\SimulcastCodecInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulcastCodecInfo.php',
         'Livekit\\SipDTMF' => __DIR__ . '/../..' . '/src/gen/Livekit/SipDTMF.php',
         'Livekit\\SpeakerInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/SpeakerInfo.php',
         'Livekit\\SpeakersChanged' => __DIR__ . '/../..' . '/src/gen/Livekit/SpeakersChanged.php',
+        'Livekit\\StartEgressRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/StartEgressRequest.php',
         'Livekit\\StartSession' => __DIR__ . '/../..' . '/src/gen/Livekit/StartSession.php',
         'Livekit\\StopEgressRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/StopEgressRequest.php',
+        'Livekit\\StorageConfig' => __DIR__ . '/../..' . '/src/gen/Livekit/StorageConfig.php',
         'Livekit\\StreamInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/StreamInfo.php',
         'Livekit\\StreamInfoList' => __DIR__ . '/../..' . '/src/gen/Livekit/StreamInfoList.php',
         'Livekit\\StreamInfo\\Status' => __DIR__ . '/../..' . '/src/gen/Livekit/StreamInfo/Status.php',
@@ -732,8 +814,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\SubscriptionPermissionUpdate' => __DIR__ . '/../..' . '/src/gen/Livekit/SubscriptionPermissionUpdate.php',
         'Livekit\\SubscriptionResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/SubscriptionResponse.php',
         'Livekit\\SyncState' => __DIR__ . '/../..' . '/src/gen/Livekit/SyncState.php',
-        'Livekit\\TextMessageRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/TextMessageRequest.php',
-        'Livekit\\TextMessageResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/TextMessageResponse.php',
+        'Livekit\\TemplateSource' => __DIR__ . '/../..' . '/src/gen/Livekit/TemplateSource.php',
         'Livekit\\TimeRange' => __DIR__ . '/../..' . '/src/gen/Livekit/TimeRange.php',
         'Livekit\\TimeSeriesMetric' => __DIR__ . '/../..' . '/src/gen/Livekit/TimeSeriesMetric.php',
         'Livekit\\TimedVersion' => __DIR__ . '/../..' . '/src/gen/Livekit/TimedVersion.php',
@@ -761,6 +842,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\UpdateAgentSecretsResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/UpdateAgentSecretsResponse.php',
         'Livekit\\UpdateDataSubscription' => __DIR__ . '/../..' . '/src/gen/Livekit/UpdateDataSubscription.php',
         'Livekit\\UpdateDataSubscription\\Update' => __DIR__ . '/../..' . '/src/gen/Livekit/UpdateDataSubscription/Update.php',
+        'Livekit\\UpdateEgressRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/UpdateEgressRequest.php',
         'Livekit\\UpdateIngressRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/UpdateIngressRequest.php',
         'Livekit\\UpdateJobStatus' => __DIR__ . '/../..' . '/src/gen/Livekit/UpdateJobStatus.php',
         'Livekit\\UpdateLayoutRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/UpdateLayoutRequest.php',
@@ -789,6 +871,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Livekit\\VideoLayer\\Mode' => __DIR__ . '/../..' . '/src/gen/Livekit/VideoLayer/Mode.php',
         'Livekit\\VideoQuality' => __DIR__ . '/../..' . '/src/gen/Livekit/VideoQuality.php',
         'Livekit\\WebEgressRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/WebEgressRequest.php',
+        'Livekit\\WebSource' => __DIR__ . '/../..' . '/src/gen/Livekit/WebSource.php',
         'Livekit\\WebhookConfig' => __DIR__ . '/../..' . '/src/gen/Livekit/WebhookConfig.php',
         'Livekit\\WebhookEvent' => __DIR__ . '/../..' . '/src/gen/Livekit/WebhookEvent.php',
         'Livekit\\WebhookInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/WebhookInfo.php',
@@ -862,6 +945,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Mynaparrot\\PlugnmeetProto\\ExternalMediaPlayerFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ExternalMediaPlayerFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\ExternalMediaPlayerReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ExternalMediaPlayerReq.php',
         'Mynaparrot\\PlugnmeetProto\\ExternalMediaPlayerTask' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ExternalMediaPlayerTask.php',
+        'Mynaparrot\\PlugnmeetProto\\FallbackOnFlapping' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/FallbackOnFlapping.php',
         'Mynaparrot\\PlugnmeetProto\\FetchAnalyticsReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/FetchAnalyticsReq.php',
         'Mynaparrot\\PlugnmeetProto\\FetchAnalyticsRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/FetchAnalyticsRes.php',
         'Mynaparrot\\PlugnmeetProto\\FetchAnalyticsResult' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/FetchAnalyticsResult.php',
@@ -945,6 +1029,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Mynaparrot\\PlugnmeetProto\\PollResponsesResultOptions' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollResponsesResultOptions.php',
         'Mynaparrot\\PlugnmeetProto\\PollsFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollsFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\PollsStats' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollsStats.php',
+        'Mynaparrot\\PlugnmeetProto\\PrivateDataDelivery' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PrivateDataDelivery.php',
         'Mynaparrot\\PlugnmeetProto\\RecorderInfoKeys' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecorderInfoKeys.php',
         'Mynaparrot\\PlugnmeetProto\\RecorderToPlugNmeet' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecorderToPlugNmeet.php',
         'Mynaparrot\\PlugnmeetProto\\RecordingFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecordingFeatures.php',
@@ -982,6 +1067,7 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Mynaparrot\\PlugnmeetProto\\SwitchPresenterReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SwitchPresenterReq.php',
         'Mynaparrot\\PlugnmeetProto\\SwitchPresenterTask' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SwitchPresenterTask.php',
         'Mynaparrot\\PlugnmeetProto\\TranscodingTask' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/TranscodingTask.php',
+        'Mynaparrot\\PlugnmeetProto\\TurnCredentials' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/TurnCredentials.php',
         'Mynaparrot\\PlugnmeetProto\\UpdateRecordingMetadataReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/UpdateRecordingMetadataReq.php',
         'Mynaparrot\\PlugnmeetProto\\UpdateRecordingMetadataRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/UpdateRecordingMetadataRes.php',
         'Mynaparrot\\PlugnmeetProto\\UpdateUserLockSettingsReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/UpdateUserLockSettingsReq.php',
@@ -996,6 +1082,8 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
         'Mynaparrot\\PlugnmeetProto\\VerifyTokenRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/VerifyTokenRes.php',
         'Mynaparrot\\PlugnmeetProto\\WaitingRoomFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/WaitingRoomFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\WhiteboardFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/WhiteboardFeatures.php',
+        'Mynaparrot\\Plugnmeet\\GuzzleHttpClient' => __DIR__ . '/../..' . '/src/GuzzleHttpClient.php',
+        'Mynaparrot\\Plugnmeet\\HttpClientInterface' => __DIR__ . '/../..' . '/src/HttpClientInterface.php',
         'Mynaparrot\\Plugnmeet\\PlugNmeet' => __DIR__ . '/../..' . '/src/PlugNmeet.php',
         'Psr\\Http\\Client\\ClientExceptionInterface' => __DIR__ . '/..' . '/psr/http-client/src/ClientExceptionInterface.php',
         'Psr\\Http\\Client\\ClientInterface' => __DIR__ . '/..' . '/psr/http-client/src/ClientInterface.php',
@@ -1161,9 +1249,9 @@ class ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit9672f43f4daa851ac3d2ccadd2109456::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit85afec30a002738a7522d97226a46190::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit85afec30a002738a7522d97226a46190::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit85afec30a002738a7522d97226a46190::$classMap;
 
         }, null, ClassLoader::class);
     }
