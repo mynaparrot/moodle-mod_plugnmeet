@@ -42,6 +42,7 @@ $string['plugnmeet:manage'] = 'Beheer PlugNmeet-instellingen';
 $string['plugnmeet:view'] = 'Bekijk de activiteit van PlugNmeet';
 $string['plugnmeet:viewartifacts'] = 'Bekijk artefacten';
 $string['plugnmeet:viewattendance'] = 'Bekijk het aanwezigheidsrapport';
+$string['plugnmeet:viewattendancelist'] = 'View attendance list';
 $string['plugnmeet:viewlivesessioninfo'] = 'Bekijk live sessie-informatie';
 $string['plugnmeet:viewrecordings'] = 'Bekijk opnames';
 $string['plugnmeetfieldset'] = 'Aangepaste voorbeeldfieldset';
