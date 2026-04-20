@@ -30,27 +30,6 @@ use curl;
 class MoodleHttpClient implements HttpClientInterface
 {
     /**
-     * @var curl
-     */
-    protected curl $curl;
-
-    /**
-     * Constructor.
-     *
-     * @param string $serverurl
-     */
-    public function __construct(string $serverurl) {
-        $ignoresecurity = false;
-        if (str_contains($serverurl, 'http://')) {
-            $ignoresecurity = true;
-        }
-
-        $this->curl = new curl([
-            'ignoresecurity' => $ignoresecurity,
-        ]);
-    }
-
-    /**
      * Sends a POST request to the specified URL with the given data.
      *
      * @param string $fullurl The URL to send the request to.
@@ -60,13 +39,23 @@ class MoodleHttpClient implements HttpClientInterface
      * @throws Exception If the request fails.
      */
     public function post(string $fullurl, string $body, array $headers = []): string {
-        foreach ($headers as $key => $val) {
-            $this->curl->setHeader("$key: $val");
+        $ignoresecurity = false;
+        if (str_contains($fullurl, 'http://')) {
+            $ignoresecurity = true;
         }
-        $response = $this->curl->post($fullurl, $body);
 
-        if ($this->curl->get_errno()) {
-            throw new Exception('cURL Error: ' . $this->curl->error);
+        // we should initialized curl everytime otherwise it will make conflict with header value + signature
+        $curl = new curl([
+            'ignoresecurity' => $ignoresecurity,
+        ]);
+
+        foreach ($headers as $key => $val) {
+            $curl->setHeader("$key: $val");
+        }
+        $response = $curl->post($fullurl, $body);
+
+        if ($curl->get_errno()) {
+            throw new Exception('cURL Error: ' . $curl->error);
         }
 
         return $response;
