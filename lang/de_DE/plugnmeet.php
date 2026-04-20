@@ -313,6 +313,12 @@ $string['invalid_guest_token'] = 'Ungültiges oder abgelaufenes Gast-Join-Token.
 $string['guest_link_expired'] = 'Dieser Link zum Gastbeitritt ist abgelaufen.';
 $string['error_joining_session'] = 'Es gab einen Fehler beim Einstieg in die Sitzung: {$a}';
 $string['already_logged_in'] = 'Du bist bereits bei Moodle eingeloggt. Sie können der Sitzung direkt über diese Aktivitätsseite beitreten.';
+$string['total_webcams'] = 'Total Webcams';
+$string['total_mics'] = 'Total Mics';
+$string['total_screen_shares'] = 'Total Screen Shares';
+$string['webcams'] = 'Webcams';
+$string['mics'] = 'Mics';
+$string['screenshares'] = 'Screen Shares';
 
 // Events
 $string['event_room_started'] = 'Der Raum begann';
@@ -324,6 +330,8 @@ $string['event_participant_left'] = 'Teilnehmer verließ';
 $string['event_artifact_created'] = 'Artefakt erstellt';
 $string['event_recording_proceeded'] = 'Aufnahmebereit';
 $string['event_plugin_error'] = 'PlugNmeet-Fehler';
+$string['event_track_published'] = 'Track published';
+$string['event_track_unpublished'] = 'Track unpublished';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Benachrichtigungen für fertige Aufnahmen';
