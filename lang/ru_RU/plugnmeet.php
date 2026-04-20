@@ -313,12 +313,12 @@ $string['invalid_guest_token'] = 'Недействительный или ист
 $string['guest_link_expired'] = 'Эта ссылка на присоединение к гостям истёкла.';
 $string['error_joining_session'] = 'В сессии произошла ошибка: {$a}';
 $string['already_logged_in'] = 'Вы уже вошли в Moodle. Вы можете присоединиться к сессии напрямую с этой страницы активности.';
-$string['total_webcams'] = 'Total Webcams';
+$string['total_webcams'] = 'Общее количество веб-камер';
 $string['total_mics'] = 'Total Mics';
-$string['total_screen_shares'] = 'Total Screen Shares';
-$string['webcams'] = 'Webcams';
-$string['mics'] = 'Mics';
-$string['screenshares'] = 'Screen Shares';
+$string['total_screen_shares'] = 'Общее количество просмотров экранов';
+$string['webcams'] = 'Веб-камеры';
+$string['mics'] = 'Микрофоны';
+$string['screenshares'] = 'Прокат экрана';
 
 // Events
 $string['event_room_started'] = 'Комната началась';
@@ -330,8 +330,8 @@ $string['event_participant_left'] = 'Участник ушёл';
 $string['event_artifact_created'] = 'Созданный артефакт';
 $string['event_recording_proceeded'] = 'Запись готова';
 $string['event_plugin_error'] = 'Ошибка PlugNmeet';
-$string['event_track_published'] = 'Track published';
-$string['event_track_unpublished'] = 'Track unpublished';
+$string['event_track_published'] = 'Опубликованный трек';
+$string['event_track_unpublished'] = 'Трек, не опубликованный';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Уведомления о готовых записях';
