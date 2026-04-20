@@ -32,6 +32,7 @@ use context_module;
 use dml_exception;
 use core_external\external_single_structure;
 use core_external\external_multiple_structure;
+use Livekit\TrackSource;
 use mod_plugnmeet\helper\plugNmeetConnect;
 
 defined('MOODLE_INTERNAL') || die();
@@ -75,6 +76,9 @@ class get_active_room_info extends external_api {
 
         $response = [];
         $participantsinfo = [];
+        $totalwebcams = 0;
+        $totalmics = 0;
+        $totalscreenshares = 0;
 
         if ($res->getStatus() && $res->getRoom()) {
             $room = $res->getRoom();
@@ -92,6 +96,25 @@ class get_active_room_info extends external_api {
             if ($participants) {
                 foreach ($participants as $participant) {
                     $metadata = $participant->getMetadata();
+                    $webcams = 0;
+                    $mics = 0;
+                    $screenshares = 0;
+
+                    $tracks = $participant->getTracks();
+                    foreach ($tracks as $track) {
+                        if ($track->getSource() === TrackSource::CAMERA) {
+                            $webcams++;
+                        } else if ($track->getSource() === TrackSource::MICROPHONE) {
+                            $mics++;
+                        } else if ($track->getSource() === TrackSource::SCREEN_SHARE) {
+                            $screenshares++;
+                        }
+                    }
+
+                    $totalwebcams += $webcams;
+                    $totalmics += $mics;
+                    $totalscreenshares += $screenshares;
+
                     if (!empty($metadata)) {
                         $userinfo = json_decode($metadata);
                         $participantsinfo[] = [
@@ -100,9 +123,17 @@ class get_active_room_info extends external_api {
                             'is_admin' => $userinfo->is_admin,
                             'is_presenter' => $userinfo->is_presenter,
                             'joined_at' => $participant->getJoinedAt(),
+                            'webcams' => $webcams,
+                            'mics' => $mics,
+                            'screenshares' => $screenshares,
                         ];
                     }
                 }
+            }
+            if (isset($response['room_info'])) {
+                $response['room_info']['total_webcams'] = $totalwebcams;
+                $response['room_info']['total_mics'] = $totalmics;
+                $response['room_info']['total_screen_shares'] = $totalscreenshares;
             }
         }
         $response['participants_info'] = $participantsinfo;
@@ -121,6 +152,9 @@ class get_active_room_info extends external_api {
                 'is_recording' => new external_value(PARAM_BOOL, 'Is recording'),
                 'joined_participants' => new external_value(PARAM_INT, 'Joined participants'),
                 'creation_time' => new external_value(PARAM_INT, 'Creation time'),
+                'total_webcams' => new external_value(PARAM_INT, 'Total webcams'),
+                'total_mics' => new external_value(PARAM_INT, 'Total mics'),
+                'total_screen_shares' => new external_value(PARAM_INT, 'Total screen shares'),
             ], 'Room info', VALUE_OPTIONAL),
             'participants_info' => new external_multiple_structure(
                 new external_single_structure([
@@ -129,6 +163,9 @@ class get_active_room_info extends external_api {
                     'is_admin' => new external_value(PARAM_BOOL, 'Is admin'),
                     'is_presenter' => new external_value(PARAM_BOOL, 'Is presenter'),
                     'joined_at' => new external_value(PARAM_INT, 'Joined at'),
+                    'webcams' => new external_value(PARAM_INT, 'Number of webcams'),
+                    'mics' => new external_value(PARAM_INT, 'Number of mics'),
+                    'screenshares' => new external_value(PARAM_INT, 'Number of screen shares'),
                 ]),
                 'Participants info',
                 VALUE_OPTIONAL

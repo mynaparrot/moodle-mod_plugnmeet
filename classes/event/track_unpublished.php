@@ -17,13 +17,13 @@
 namespace mod_plugnmeet\event;
 
 /**
- * The room_started event class.
+ * The track_unpublished event class.
  *
  * @package    mod_plugnmeet
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class room_started extends \core\event\base {
+class track_unpublished extends \core\event\base {
     /**
      * Init method.
      */
@@ -39,7 +39,8 @@ class room_started extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "The room for the plugnmeet activity with course module id '$this->contextinstanceid' has been started.";
+        $tracksource = $this->other['track_source'] ?? 'unknown';
+        return "The user with id '$this->userid' unpublished a {$tracksource} track in the room for the plugnmeet activity with course module id '$this->contextinstanceid'.";
     }
 
     /**
@@ -48,7 +49,7 @@ class room_started extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return get_string('event_room_started', 'mod_plugnmeet');
+        return get_string('event_track_unpublished', 'mod_plugnmeet');
     }
 
     /**

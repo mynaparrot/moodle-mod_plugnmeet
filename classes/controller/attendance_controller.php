@@ -238,7 +238,7 @@ class attendance_controller {
             get_string('last_updated', 'mod_plugnmeet'),
         ];
 
-        $table->attributes['class'] = 'generaltable attendance-table mt-2 mb-2';
+        $table->attributes['class'] = 'generaltable attendance-table mt-2 mb-2 text-center';
 
         $rows = $this->get_attendance_data_rows($page, $perpage);
         foreach ($rows as $row) {

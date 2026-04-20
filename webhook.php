@@ -27,6 +27,8 @@
 // phpcs:disable moodle.Files.MoodleInternal.MoodleInternalGlobalState,moodle.Files.RequireLogin.Missing
 require_once(__DIR__ . '/../../config.php');
 
+use Livekit\TrackSource;
+use Livekit\TrackType;
 use mod_plugnmeet\event\artifact_created;
 use mod_plugnmeet\event\participant_joined;
 use mod_plugnmeet\event\participant_left;
@@ -36,6 +38,8 @@ use mod_plugnmeet\event\room_created;
 use mod_plugnmeet\event\room_ended;
 use mod_plugnmeet\event\room_started;
 use mod_plugnmeet\event\session_ended;
+use mod_plugnmeet\event\track_published;
+use mod_plugnmeet\event\track_unpublished;
 use mod_plugnmeet\helper\CompletionHelper;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use Mynaparrot\PlugnmeetProto\CommonNotifyEvent;
@@ -164,6 +168,40 @@ try {
                     'context' => $context,
                     'objectid' => $plugnmeet->id,
                     'userid' => (int)$userid,
+                ]);
+                $event->trigger();
+            }
+            break;
+
+        case 'track_published':
+            $userid = $webhook->getParticipant()->getIdentity();
+            if ($webhook->getTrack() && is_numeric($userid)) {
+                // Trigger Moodle Event.
+                $event = track_published::create([
+                    'context' => $context,
+                    'objectid' => $plugnmeet->id,
+                    'userid' => (int)$userid,
+                    'other' => [
+                        'track_type' => TrackType::name($webhook->getTrack()->getType()),
+                        'track_source' => TrackSource::name($webhook->getTrack()->getSource()),
+                    ],
+                ]);
+                $event->trigger();
+            }
+            break;
+
+        case 'track_unpublished':
+            $userid = $webhook->getParticipant()->getIdentity();
+            if ($webhook->getTrack() && is_numeric($userid)) {
+                // Trigger Moodle Event.
+                $event = track_unpublished::create([
+                    'context' => $context,
+                    'objectid' => $plugnmeet->id,
+                    'userid' => (int)$userid,
+                    'other' => [
+                        'track_type' => TrackType::name($webhook->getTrack()->getType()),
+                        'track_source' => TrackSource::name($webhook->getTrack()->getSource()),
+                    ],
                 ]);
                 $event->trigger();
             }

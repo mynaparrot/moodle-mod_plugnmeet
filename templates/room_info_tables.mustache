@@ -23,7 +23,10 @@
             "room_id": "room123",
             "is_recording": true,
             "joined_participants": 5,
-            "creation_time": 1678912345
+            "creation_time": 1678912345,
+            "total_webcams": 2,
+            "total_mics": 3,
+            "total_screen_shares": 1
         },
         "has_participants": true,
         "participants_info": [
@@ -32,7 +35,10 @@
                 "user_id": "user1",
                 "is_admin": true,
                 "is_presenter": false,
-                "joined_at": 1678912400
+                "joined_at": 1678912400,
+                "webcams": 1,
+                "mics": 1,
+                "screenshares": 0
             }
         ]
     }
@@ -54,6 +60,18 @@
                 <td>{{joined_participants}}</td>
             </tr>
             <tr>
+                <td>{{#str}}total_webcams, mod_plugnmeet{{/str}}</td>
+                <td>{{total_webcams}}</td>
+            </tr>
+            <tr>
+                <td>{{#str}}total_mics, mod_plugnmeet{{/str}}</td>
+                <td>{{total_mics}}</td>
+            </tr>
+            <tr>
+                <td>{{#str}}total_screen_shares, mod_plugnmeet{{/str}}</td>
+                <td>{{total_screen_shares}}</td>
+            </tr>
+            <tr>
                 <td>{{#str}}creation_time, mod_plugnmeet{{/str}}</td>
                 <td>{{#userdate}} {{creation_time}}, {{#str}} strftimedaydatetime, core_langconfig {{/str}} {{/userdate}}</td>
             </tr>
@@ -66,21 +84,27 @@
     <table class="generaltable">
         <thead>
             <tr>
-                <th>{{#str}}name, mod_plugnmeet{{/str}}</th>
-                <th>{{#str}}user_id, mod_plugnmeet{{/str}}</th>
-                <th>{{#str}}is_admin, mod_plugnmeet{{/str}}</th>
-                <th>{{#str}}is_presenter, mod_plugnmeet{{/str}}</th>
-                <th>{{#str}}joined_at, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}name, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}user_id, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}is_admin, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}is_presenter, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}webcams, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}mics, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}screenshares, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}joined_at, mod_plugnmeet{{/str}}</th>
             </tr>
         </thead>
         <tbody>
             {{#participants_info}}
                 <tr>
-                    <td>{{name}}</td>
-                    <td>{{user_id}}</td>
-                    <td>{{#is_admin}}{{#str}}yes{{/str}}{{/is_admin}}{{^is_admin}}{{#str}}no{{/str}}{{/is_admin}}</td>
-                    <td>{{#is_presenter}}{{#str}}yes{{/str}}{{/is_presenter}}{{^is_presenter}}{{#str}}no{{/str}}{{/is_presenter}}</td>
-                    <td>{{#userdate}} {{joined_at}}, {{#str}} strftimedaydatetime, core_langconfig {{/str}} {{/userdate}}</td>
+                    <td class="text-center">{{name}}</td>
+                    <td class="text-center">{{user_id}}</td>
+                    <td class="text-center">{{#is_admin}}{{#str}}yes{{/str}}{{/is_admin}}{{^is_admin}}{{#str}}no{{/str}}{{/is_admin}}</td>
+                    <td class="text-center">{{#is_presenter}}{{#str}}yes{{/str}}{{/is_presenter}}{{^is_presenter}}{{#str}}no{{/str}}{{/is_presenter}}</td>
+                    <td class="text-center">{{#webcams}}{{#str}}yes{{/str}}{{/webcams}}{{^webcams}}{{#str}}no{{/str}}{{/webcams}}</td>
+                    <td class="text-center">{{#mics}}{{#str}}yes{{/str}}{{/mics}}{{^mics}}{{#str}}no{{/str}}{{/mics}}</td>
+                    <td class="text-center">{{#screenshares}}{{#str}}yes{{/str}}{{/screenshares}}{{^screenshares}}{{#str}}no{{/str}}{{/screenshares}}</td>
+                    <td class="text-center">{{#userdate}} {{joined_at}}, {{#str}} strftimedaydatetime, core_langconfig {{/str}} {{/userdate}}</td>
                 </tr>
             {{/participants_info}}
         </tbody>

@@ -313,6 +313,12 @@ $string['invalid_guest_token'] = 'Invalid or expired guest join token.';
 $string['guest_link_expired'] = 'This guest join link has expired.';
 $string['error_joining_session'] = 'There was an error joining the session: {$a}';
 $string['already_logged_in'] = 'You are already logged into Moodle. You can join the session directly from this activity page.';
+$string['total_webcams'] = 'Total Webcams';
+$string['total_mics'] = 'Total Mics';
+$string['total_screen_shares'] = 'Total Screen Shares';
+$string['webcams'] = 'Webcams';
+$string['mics'] = 'Mics';
+$string['screenshares'] = 'Screen Shares';
 
 // Events
 $string['event_room_started'] = 'Room started';
@@ -324,6 +330,8 @@ $string['event_participant_left'] = 'Participant left';
 $string['event_artifact_created'] = 'Artifact created';
 $string['event_recording_proceeded'] = 'Recording ready';
 $string['event_plugin_error'] = 'PlugNmeet error';
+$string['event_track_published'] = 'Track published';
+$string['event_track_unpublished'] = 'Track unpublished';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Notifications for ready recordings';
