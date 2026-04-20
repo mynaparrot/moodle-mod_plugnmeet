@@ -42,6 +42,7 @@ $string['plugnmeet:manage'] = '管理 PlugNmeet 设置';
 $string['plugnmeet:view'] = '查看PlugNmeet 活动';
 $string['plugnmeet:viewartifacts'] = '查看文物';
 $string['plugnmeet:viewattendance'] = '查看观众人数报告';
+$string['plugnmeet:viewattendancelist'] = 'View attendance list';
 $string['plugnmeet:viewlivesessioninfo'] = '查看现场录音信息';
 $string['plugnmeet:viewrecordings'] = '查看录音';
 $string['plugnmeetfieldset'] = '自定义示例字段集';
