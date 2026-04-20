@@ -42,6 +42,7 @@ $string['plugnmeet:manage'] = 'Управление настройками PlugN
 $string['plugnmeet:view'] = 'Просмотр активности PlugNmeet';
 $string['plugnmeet:viewartifacts'] = 'Просмотр артефактов';
 $string['plugnmeet:viewattendance'] = 'Просмотр отчёта о посещаемости';
+$string['plugnmeet:viewattendancelist'] = 'View attendance list';
 $string['plugnmeet:viewlivesessioninfo'] = 'Просмотр информации о живых сессиях';
 $string['plugnmeet:viewrecordings'] = 'Просмотр записей';
 $string['plugnmeetfieldset'] = 'Пользовательский набор примеров поля';
