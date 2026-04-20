@@ -16,6 +16,11 @@
 
 namespace mod_plugnmeet\helper;
 
+defined('MOODLE_INTERNAL') || die();
+
+global $CFG;
+require_once($CFG->libdir . '/filelib.php');
+
 use Exception;
 use Mynaparrot\Plugnmeet\HttpClientInterface;
 use curl;
