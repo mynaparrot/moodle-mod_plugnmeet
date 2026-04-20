@@ -42,6 +42,7 @@ $string['plugnmeet:manage'] = 'Gestisci le impostazioni di PlugNmeet';
 $string['plugnmeet:view'] = 'Visualizza l\'attività PlugNmeet';
 $string['plugnmeet:viewartifacts'] = 'Visualizza i reperti';
 $string['plugnmeet:viewattendance'] = 'Visualizza il rapporto di presenze';
+$string['plugnmeet:viewattendancelist'] = 'View attendance list';
 $string['plugnmeet:viewlivesessioninfo'] = 'Visualizza le informazioni della sessione live';
 $string['plugnmeet:viewrecordings'] = 'Visualizza le registrazioni';
 $string['plugnmeetfieldset'] = 'Campo di esempio personalizzato';
