@@ -313,12 +313,12 @@ $string['invalid_guest_token'] = 'Token de entrada de convidado inválido ou exp
 $string['guest_link_expired'] = 'Este link de entrada de convidados expirou.';
 $string['error_joining_session'] = 'Houve um erro na entrada da sessão: {$a}';
 $string['already_logged_in'] = 'Já está ligado ao Moodle. Pode juntar-se diretamente à sessão a partir desta página de atividades.';
-$string['total_webcams'] = 'Total Webcams';
+$string['total_webcams'] = 'Webcams totais';
 $string['total_mics'] = 'Total Mics';
-$string['total_screen_shares'] = 'Total Screen Shares';
+$string['total_screen_shares'] = 'Total de Partilhas de Ecrã';
 $string['webcams'] = 'Webcams';
-$string['mics'] = 'Mics';
-$string['screenshares'] = 'Screen Shares';
+$string['mics'] = 'Microfones';
+$string['screenshares'] = 'Partilhas de Ecrã';
 
 // Events
 $string['event_room_started'] = 'A sala começou';
@@ -330,8 +330,8 @@ $string['event_participant_left'] = 'Participante à esquerda';
 $string['event_artifact_created'] = 'Artefacto criado';
 $string['event_recording_proceeded'] = 'Gravação pronta';
 $string['event_plugin_error'] = 'Erro PlugNmeet';
-$string['event_track_published'] = 'Track published';
-$string['event_track_unpublished'] = 'Track unpublished';
+$string['event_track_published'] = 'Faixa publicada';
+$string['event_track_unpublished'] = 'Faixa não publicada';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Notificações para gravações prontas';
