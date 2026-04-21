@@ -119,12 +119,12 @@ $string['update_client_btn_label'] = 'Atualizar agora';
 $string['yes'] = 'Sim';
 $string['no'] = 'Não';
 $string['recordings'] = "Gravações";
-$string['recording'] = "Recording";
+$string['recording'] = "Gravação";
 $string['artifacts'] = "Artefactos da Sala";
 $string['attendance'] = "Relatório de Assiduidade";
 $string['artifact'] = "Artefacto";
-$string['room_subject'] = 'room';
-$string['user_subject'] = 'user';
+$string['room_subject'] = 'Quarto';
+$string['user_subject'] = 'utilizador';
 
 // mod_form.php
 $string['roomtitle'] = 'Título da Sala';
@@ -475,17 +475,17 @@ $string['met'] = 'Met';
 $string['required'] = 'Obrigatório';
 
 // Status codes
-$string['status_unknown_status'] = 'An unknown status was returned from the server.';
-$string['status_success'] = 'Operation completed successfully.';
-$string['status_permission_denied'] = 'Permission denied.';
-$string['status_not_found'] = 'No {$a} found.';
-$string['status_conflict'] = 'This action could not be completed because of a conflict (e.g., the room may already exist).';
-$string['status_invalid_token_or_signature'] = 'The request token or signature is invalid.';
-$string['status_invalid_api_key'] = 'The API key provided is invalid. Please check your plugin settings.';
-$string['status_internal_server_error'] = 'The PlugNmeet server encountered an internal error.';
-$string['status_invalid_parameters'] = 'The information provided is invalid.';
-$string['status_missing_required_parameter'] = 'Some required information is missing.';
-$string['status_room_not_found'] = 'The specified room was not found.';
-$string['status_user_not_found'] = 'User account not found. Please ensure your API credentials are correct and your subscription is active.';
-$string['status_user_blocked'] = 'User account is blocked. Please contact support.';
-$string['status_user_not_active'] = 'User account is not active. This is likely due to an inactive or expired subscription.';
+$string['status_unknown_status'] = 'Um estado desconhecido foi reportado pelo servidor.';
+$string['status_success'] = 'Operação concluída com sucesso.';
+$string['status_permission_denied'] = 'Permissão negada.';
+$string['status_not_found'] = 'Não {$a} encontrado.';
+$string['status_conflict'] = 'Esta ação não podia ser concluída devido a um conflito (por exemplo, a sala pode já existir).';
+$string['status_invalid_token_or_signature'] = 'O token ou assinatura do pedido é inválido.';
+$string['status_invalid_api_key'] = 'A chave API fornecida é inválida. Por favor, verifica as definições do plugin.';
+$string['status_internal_server_error'] = 'O servidor PlugNmeet encontrou um erro interno.';
+$string['status_invalid_parameters'] = 'A informação fornecida é inválida.';
+$string['status_missing_required_parameter'] = 'Falta alguma informação necessária.';
+$string['status_room_not_found'] = 'A sala especificada não foi encontrada.';
+$string['status_user_not_found'] = 'Conta de utilizador não encontrada. Por favor, certifique-se de que as suas credenciais da API estão corretas e que a sua subscrição está ativa.';
+$string['status_user_blocked'] = 'Conta de utilizador está bloqueada. Por favor, contacte o suporte.';
+$string['status_user_not_active'] = 'A conta de utilizador não está ativa. Isto deve-se provavelmente a uma subscrição inativa ou expirada.';
