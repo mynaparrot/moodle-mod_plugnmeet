@@ -70,7 +70,7 @@ class is_room_active extends external_api {
         $connect = new plugNmeetConnect($config);
         $res = $connect->isRoomActive($instance->roomid);
 
-        return ['status' => $res->getStatus(), 'is_active' => $res->getIsActive()];
+        return ['status' => $res->getStatus(), 'is_active' => $res->getIsActive(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];
     }
 
     /**
@@ -81,6 +81,7 @@ class is_room_active extends external_api {
         return new external_single_structure([
             'status' => new external_value(PARAM_BOOL, 'Status of the request'),
             'is_active' => new external_value(PARAM_BOOL, 'Whether the room is active'),
+            'msg' => new external_value(PARAM_TEXT, 'Status message', VALUE_OPTIONAL),
         ]);
     }
 }

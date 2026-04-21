@@ -96,7 +96,7 @@ class recordings_controller {
         }
 
         if (!$recordinginfores || !$recordinginfores->getStatus()) {
-            return $OUTPUT->notification($recordinginfores ? $recordinginfores->getMsg() : get_string('error'), 'error');
+            return $OUTPUT->notification($pnc->getResponseError($recordinginfores, get_string('recording', 'mod_plugnmeet')), 'error');
         }
 
         $info = $recordinginfores->getRecordingInfo();
@@ -104,11 +104,12 @@ class recordings_controller {
         $page = optional_param('page', 0, PARAM_INT);
 
         $downloadres = $pnc->getRecordingDownloadLink($recordid);
-        $downloadurl = '';
-        if ($downloadres->getStatus()) {
-            $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
-            $downloadurl = $serverurl . '/download/recording/' . $downloadres->getToken();
+        if (!$downloadres->getStatus()) {
+            return $OUTPUT->notification($pnc->getResponseError($downloadres, get_string('recording', 'mod_plugnmeet')), 'error');
         }
+
+        $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
+        $downloadurl = $serverurl . '/download/recording/' . $downloadres->getToken();
 
         $headerhtml = html_writer::start_div('d-flex justify-content-between align-items-center mb-3');
         $headerhtml .= html_writer::tag('h3', get_string('recording_details', 'mod_plugnmeet'), ['class' => 'm-0']);
@@ -160,8 +161,6 @@ class recordings_controller {
             $videohtml .= get_string('browser_not_support_video', 'mod_plugnmeet');
             $videohtml .= html_writer::end_tag('video');
             $html .= $videohtml;
-        } else {
-            $html .= $OUTPUT->notification(get_string('error'), 'error');
         }
 
         $details = [
@@ -215,7 +214,7 @@ class recordings_controller {
         }
 
         if (!$response || !$response->getStatus()) {
-            return $OUTPUT->notification($response ? $response->getMsg() : get_string('error'), 'error');
+            return $OUTPUT->notification($pnc->getResponseError($response, get_string('recordings', 'mod_plugnmeet')), 'error');
         }
 
         $result = $response->getResult();
@@ -281,7 +280,7 @@ class recordings_controller {
         $msgtype = notification::NOTIFY_SUCCESS;
 
         if (!$res->getStatus()) {
-            $msg = $res->getMsg();
+            $msg = $pnc->getResponseError($res, get_string('recording', 'mod_plugnmeet'));
             $msgtype = notification::NOTIFY_ERROR;
         }
 

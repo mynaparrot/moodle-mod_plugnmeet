@@ -99,7 +99,7 @@ class AnalyticsHelper {
             $res = $pnc->getArtifactDownloadToken($artifactid);
 
             if ($res->getStatus()) {
-                $analyticsdata = $this->fetch_data($res->getToken());
+                $analyticsdata = $this->fetch_data($artifactid, $res->getToken());
                 if (!empty($analyticsdata)) {
                     $data = json_decode($analyticsdata, true);
                     if (!empty($data)) {
@@ -109,7 +109,17 @@ class AnalyticsHelper {
                     }
                 }
             } else {
-                notification::error($res->getMsg());
+                $event = plugin_error::create([
+                    'context' => context_system::instance(),
+                    'objectid' => $artifactid,
+                    'other' => [
+                        'type' => 'AnalyticsHelper',
+                        'message' => "Error during fetching report download token: " . $res->getMsg(),
+                    ],
+                ]);
+                $event->trigger();
+
+                debugging("Error during fetching report download token: " . $res->getMsg());
             }
         }
 
@@ -124,7 +134,7 @@ class AnalyticsHelper {
      * @return bool|string|null
      * @throws \dml_exception
      */
-    private function fetch_data(string $token) {
+    private function fetch_data(string $artifactid, string $token) {
         $ignoresecurity = false;
 
         $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
@@ -139,11 +149,9 @@ class AnalyticsHelper {
         $result = $curl->get($host);
 
         if ($curl->get_errno()) {
-            notification::error("Error: " . $curl->get_errno());
-
             $event = plugin_error::create([
-                'context' => $context ?? context_system::instance(),
-                'objectid' => $plugnmeet->id ?? null,
+                'context' => context_system::instance(),
+                'objectid' => $artifactid,
                 'other' => [
                     'type' => 'AnalyticsHelper',
                     'message' => "Error during fetching report by CURL: " . $curl->get_errno(),
@@ -151,6 +159,7 @@ class AnalyticsHelper {
             ]);
             $event->trigger();
 
+            debugging("AnalyticsHelper Error during fetching report by CURL: " . $curl->get_errno());
             return null;
         }
         return $result;

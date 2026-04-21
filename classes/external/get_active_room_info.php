@@ -80,6 +80,9 @@ class get_active_room_info extends external_api {
         $totalmics = 0;
         $totalscreenshares = 0;
 
+        $response['status'] = $res->getStatus();
+        $response['msg'] = $pnc->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'));
+
         if ($res->getStatus() && $res->getRoom()) {
             $room = $res->getRoom();
             $info = $room->getRoomInfo();
@@ -147,6 +150,8 @@ class get_active_room_info extends external_api {
      */
     public static function execute_returns() {
         return new external_single_structure([
+            'status' => new external_value(PARAM_BOOL, 'Status of the request'),
+            'msg' => new external_value(PARAM_TEXT, 'Status message', VALUE_OPTIONAL),
             'room_info' => new external_single_structure([
                 'room_id' => new external_value(PARAM_TEXT, 'Room ID'),
                 'is_recording' => new external_value(PARAM_BOOL, 'Is recording'),

@@ -127,7 +127,7 @@ class get_join_token extends external_api {
         if (!$isactiveres->getStatus()) {
             return [
                 'status' => false,
-                'msg' => $isactiveres->getMsg(),
+                'msg' => $connect->getResponseError($isactiveres, get_string('room_subject', 'mod_plugnmeet')),
             ];
         }
 
@@ -173,7 +173,7 @@ class get_join_token extends external_api {
 
         $res = $connect->getJoinToken($plugnmeet->roomid, $name, $userid, $isadmin);
 
-        $result = ['status' => $res->getStatus(), 'msg' => $res->getMsg()];
+        $result = ['status' => $res->getStatus(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];
         if ($result['status']) {
             // Generate meeting URL.
             $serverurl = rtrim($config->plugnmeet_server_url, '/');

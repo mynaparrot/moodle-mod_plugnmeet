@@ -108,7 +108,7 @@ class artifacts_controller {
         }
 
         if (!$artifactinfores || !$artifactinfores->getStatus()) {
-            return $OUTPUT->notification($artifactinfores ? $artifactinfores->getMsg() : get_string('error'), 'error');
+            return $OUTPUT->notification($pnc->getResponseError($artifactinfores, get_string('artifact', 'mod_plugnmeet')), 'error');
         }
 
         $info = $artifactinfores->getArtifactInfo();
@@ -321,7 +321,7 @@ class artifacts_controller {
         }
 
         if (!$response || !$response->getStatus()) {
-            return $OUTPUT->notification($response ? $response->getMsg() : get_string('error'), 'error');
+            return $OUTPUT->notification($pnc->getResponseError($response, get_string('artifacts', 'mod_plugnmeet')), 'error');
         }
 
         $result = $response->getResult();
@@ -387,7 +387,7 @@ class artifacts_controller {
             if ($metadata && $metadata->hasFileInfo()) {
                 $res = $pnc->deleteArtifact($artifactid);
                 if (!$res->getStatus()) {
-                    $msg = $res->getMsg();
+                    $msg = $pnc->getResponseError($res, get_string('artifact', 'mod_plugnmeet'));
                     $msgtype = notification::NOTIFY_ERROR;
                 }
 
@@ -420,7 +420,7 @@ class artifacts_controller {
                     '/mod/plugnmeet/artifacts.php',
                     ['id' => $this->cm->id, 'artifact_id' => $artifactid]
                 ),
-                $downloadres->getMsg(),
+                $pnc->getResponseError($downloadres, get_string('artifact', 'mod_plugnmeet')),
                 null,
                 notification::NOTIFY_ERROR
             );

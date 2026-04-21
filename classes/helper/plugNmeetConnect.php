@@ -64,6 +64,7 @@ use Mynaparrot\PlugnmeetProto\RoomCreateFeatures;
 use Mynaparrot\PlugnmeetProto\RoomEndReq;
 use Mynaparrot\PlugnmeetProto\RoomEndRes;
 use Mynaparrot\PlugnmeetProto\RoomMetadata;
+use Mynaparrot\PlugnmeetProto\StatusCode;
 use Mynaparrot\PlugnmeetProto\UpdateRecordingMetadataReq;
 use Mynaparrot\PlugnmeetProto\UpdateRecordingMetadataRes;
 use Mynaparrot\PlugnmeetProto\UserInfo;
@@ -86,6 +87,42 @@ class plugNmeetConnect {
             true,
             new MoodleHttpClient()
         );
+    }
+
+    /**
+     * Get error message based on status code.
+     *
+     * @param mixed $response
+     * @param string $subject Subject for 'not found' message.
+     * @param string $default Default error message.
+     * @return string
+     */
+    public function getResponseError($response, string $subject = "", string $default = ""): string {
+        if (!$response) {
+            return !empty($default) ? $default : get_string('status_unknown_status', 'mod_plugnmeet');
+        }
+
+        if ($response->getStatus()) {
+            return "";
+        }
+
+        $code = $response->getStatusCode();
+        if ($code === StatusCode::UNKNOWN_STATUS || $code === 0) {
+            return $response->getMsg();
+        }
+
+        try {
+            $name = strtolower(StatusCode::name($code));
+            $stringkey = 'status_' . $name;
+            $msg = get_string($stringkey, 'mod_plugnmeet', $subject);
+            if (str_contains($msg, '[[')) {
+                // language string not found return the original message
+                return $response->getMsg();
+            }
+            return $msg;
+        } catch (\Exception $e) {
+            return $response->getMsg();
+        }
     }
 
     /**
@@ -447,6 +484,7 @@ class plugNmeetConnect {
     /**
      * @param array $roomIds
      * @param string|null $roomSid
+     * @param int|null $artifactsType
      * @param int $from
      * @param int $limit
      * @param string $orderBy
