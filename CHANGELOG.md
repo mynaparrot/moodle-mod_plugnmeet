@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.0...v3.0.1) (2026-04-21)
+
+
+### Bug Fixes
+
+* changed maturity to `MATURITY_STABLE` ([85c8151](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/85c8151d856472a03787767ef8c277574be003b8))
+
 ## [3.0.0](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v2.1.0...v3.0.0) (2026-04-21)
 
 
