@@ -119,12 +119,12 @@ $string['update_client_btn_label'] = 'Nu updaten';
 $string['yes'] = 'Ja';
 $string['no'] = 'Nee';
 $string['recordings'] = "Opnamen";
-$string['recording'] = "Recording";
+$string['recording'] = "Opname";
 $string['artifacts'] = "Kamerartefacten";
 $string['attendance'] = "Aanwezigheidsrapport";
 $string['artifact'] = "Artefact";
-$string['room_subject'] = 'room';
-$string['user_subject'] = 'user';
+$string['room_subject'] = 'kamer';
+$string['user_subject'] = 'Gebruiker';
 
 // mod_form.php
 $string['roomtitle'] = 'Kamertitel';
@@ -475,17 +475,17 @@ $string['met'] = 'Met';
 $string['required'] = 'Verplicht';
 
 // Status codes
-$string['status_unknown_status'] = 'An unknown status was returned from the server.';
-$string['status_success'] = 'Operation completed successfully.';
-$string['status_permission_denied'] = 'Permission denied.';
-$string['status_not_found'] = 'No {$a} found.';
-$string['status_conflict'] = 'This action could not be completed because of a conflict (e.g., the room may already exist).';
-$string['status_invalid_token_or_signature'] = 'The request token or signature is invalid.';
-$string['status_invalid_api_key'] = 'The API key provided is invalid. Please check your plugin settings.';
-$string['status_internal_server_error'] = 'The PlugNmeet server encountered an internal error.';
-$string['status_invalid_parameters'] = 'The information provided is invalid.';
-$string['status_missing_required_parameter'] = 'Some required information is missing.';
-$string['status_room_not_found'] = 'The specified room was not found.';
-$string['status_user_not_found'] = 'User account not found. Please ensure your API credentials are correct and your subscription is active.';
-$string['status_user_blocked'] = 'User account is blocked. Please contact support.';
-$string['status_user_not_active'] = 'User account is not active. This is likely due to an inactive or expired subscription.';
+$string['status_unknown_status'] = 'Er werd een onbekende status teruggegeven van de server.';
+$string['status_success'] = 'Operatie succesvol voltooid.';
+$string['status_permission_denied'] = 'Toestemming geweigerd.';
+$string['status_not_found'] = 'Nee {$a} gevonden.';
+$string['status_conflict'] = 'Deze actie kon niet worden uitgevoerd vanwege een conflict (bijvoorbeeld de kamer kan al bestaan).';
+$string['status_invalid_token_or_signature'] = 'Het verzoektoken of de handtekening is ongeldig.';
+$string['status_invalid_api_key'] = 'De verstrekte API-sleutel is ongeldig. Controleer alsjeblieft je plugin-instellingen.';
+$string['status_internal_server_error'] = 'De PlugNmeet-server kreeg een interne fout.';
+$string['status_invalid_parameters'] = 'De verstrekte informatie is ongeldig.';
+$string['status_missing_required_parameter'] = 'Er ontbreekt een deel van de benodigde informatie.';
+$string['status_room_not_found'] = 'De opgegeven kamer werd niet gevonden.';
+$string['status_user_not_found'] = 'Gebruikersaccount niet gevonden. Zorg ervoor dat uw API-gegevens correct zijn en uw abonnement actief is.';
+$string['status_user_blocked'] = 'Gebruikersaccount is geblokkeerd. Neem contact op met de support.';
+$string['status_user_not_active'] = 'Het gebruikersaccount is niet actief. Dit komt waarschijnlijk door een inactief of verlopen abonnement.';
