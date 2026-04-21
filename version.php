@@ -31,4 +31,4 @@ $plugin->release = '3.0.0';
 // x-release-please-end
 $plugin->version   = 2026042100;
 $plugin->requires  = 2024051300;
-$plugin->maturity  = MATURITY_RC;
+$plugin->maturity  = MATURITY_STABLE;
