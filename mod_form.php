@@ -44,6 +44,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('text', 'name', get_string('roomtitle', 'mod_plugnmeet'), ['size' => '64']);
         $mform->setType('name', PARAM_TEXT);
         $mform->addRule('name', null, 'required', null, 'client');
+        $mform->addHelpButton('name', 'roomtitle', 'mod_plugnmeet');
         $this->standard_intro_elements();
 
         $mform->addElement('textarea', 'welcomemessage', get_string("welcome_message", "mod_plugnmeet"), 'wrap="virtual" rows="5" cols="50"');
@@ -111,8 +112,10 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('header', 'availabilityhdr', get_string('availability'));
         $mform->addElement('date_time_selector', 'available', get_string('available', 'mod_plugnmeet'), ['optional' => true]);
         $mform->setDefault('available', 0);
+        $mform->addHelpButton('available', 'available', 'mod_plugnmeet');
         $mform->addElement('date_time_selector', 'deadline', get_string('deadline', 'mod_plugnmeet'), ['optional' => true]);
         $mform->setDefault('deadline', 0);
+        $mform->addHelpButton('deadline', 'deadline', 'mod_plugnmeet');
 
         // Standard grading elements.
         $this->standard_grading_coursemodule_elements();
@@ -281,6 +284,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         );
         $mform->setType('meta[breakout_room_features][allowed_number_rooms]', PARAM_INT);
         $mform->setDefault('meta[breakout_room_features][allowed_number_rooms]', 6);
+        $mform->addHelpButton('meta[breakout_room_features][allowed_number_rooms]', 'allowed_number_rooms', 'mod_plugnmeet');
         $mform->disabledIf(
             'meta[breakout_room_features][allowed_number_rooms]',
             'meta[breakout_room_features][is_allow]',
