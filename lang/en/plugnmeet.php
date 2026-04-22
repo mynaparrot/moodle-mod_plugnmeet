@@ -40,6 +40,7 @@ $string['plugnmeet:downloadattendance'] = 'Download attendance report';
 $string['plugnmeet:downloadrecordings'] = 'Download recordings';
 $string['plugnmeet:manage'] = 'Manage PlugNmeet settings';
 $string['plugnmeet:view'] = 'View PlugNmeet activity';
+$string['plugnmeet:viewactiveroomsreport'] = 'View active rooms report';
 $string['plugnmeet:viewartifacts'] = 'View artifacts';
 $string['plugnmeet:viewattendance'] = 'View attendance report';
 $string['plugnmeet:viewattendancelist'] = 'View attendance list';
@@ -114,6 +115,10 @@ $string['attendance'] = "Attendance Report";
 $string['artifact'] = "Artifact";
 $string['room_subject'] = 'room';
 $string['user_subject'] = 'user';
+$string['activeroomsreport'] = 'Active Rooms Report';
+$string['noactiverooms'] = 'There are no active rooms at the moment.';
+$string['activerooms'] = 'Active Rooms';
+$string['loading'] = 'Loading...';
 
 // mod_form.php
 $string['roomtitle'] = 'Room Title';

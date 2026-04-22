@@ -32,8 +32,8 @@ use context_module;
 use dml_exception;
 use core_external\external_single_structure;
 use core_external\external_multiple_structure;
-use Livekit\TrackSource;
 use mod_plugnmeet\helper\plugNmeetConnect;
+use mod_plugnmeet\helper\RoomHelper;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -75,71 +75,29 @@ class get_active_room_info extends external_api {
         $res = $pnc->getActiveRoomInfo($plugnmeet->roomid);
 
         $response = [];
-        $participantsinfo = [];
-        $totalwebcams = 0;
-        $totalmics = 0;
-        $totalscreenshares = 0;
-
         $response['status'] = $res->getStatus();
         $response['msg'] = $pnc->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'));
 
         if ($res->getStatus() && $res->getRoom()) {
             $room = $res->getRoom();
-            $info = $room->getRoomInfo();
-            if ($info) {
+            $data = RoomHelper::process_room_data($room);
+            if (!empty($data)) {
                 $response['room_info'] = [
-                    'room_id' => $info->getRoomId(),
-                    'is_recording' => $info->getIsRecording(),
-                    'joined_participants' => $info->getJoinedParticipants(),
-                    'creation_time' => $info->getCreationTime(),
+                    'room_id' => $data['room_id'],
+                    'is_recording' => $data['is_recording'],
+                    'joined_participants' => $data['joined_participants'],
+                    'creation_time' => $data['creation_time'],
+                    'total_webcams' => $data['webcams'],
+                    'total_mics' => $data['mics'],
+                    'total_screen_shares' => $data['screenshares'],
                 ];
-            }
-
-            $participants = $room->getParticipantsInfo();
-            if ($participants) {
-                foreach ($participants as $participant) {
-                    $metadata = $participant->getMetadata();
-                    $webcams = 0;
-                    $mics = 0;
-                    $screenshares = 0;
-
-                    $tracks = $participant->getTracks();
-                    foreach ($tracks as $track) {
-                        if ($track->getSource() === TrackSource::CAMERA) {
-                            $webcams++;
-                        } else if ($track->getSource() === TrackSource::MICROPHONE) {
-                            $mics++;
-                        } else if ($track->getSource() === TrackSource::SCREEN_SHARE) {
-                            $screenshares++;
-                        }
-                    }
-
-                    $totalwebcams += $webcams;
-                    $totalmics += $mics;
-                    $totalscreenshares += $screenshares;
-
-                    if (!empty($metadata)) {
-                        $userinfo = json_decode($metadata);
-                        $participantsinfo[] = [
-                            'name' => $participant->getName(),
-                            'user_id' => $participant->getIdentity(),
-                            'is_admin' => $userinfo->is_admin,
-                            'is_presenter' => $userinfo->is_presenter,
-                            'joined_at' => $participant->getJoinedAt(),
-                            'webcams' => $webcams,
-                            'mics' => $mics,
-                            'screenshares' => $screenshares,
-                        ];
-                    }
-                }
-            }
-            if (isset($response['room_info'])) {
-                $response['room_info']['total_webcams'] = $totalwebcams;
-                $response['room_info']['total_mics'] = $totalmics;
-                $response['room_info']['total_screen_shares'] = $totalscreenshares;
+                $response['participants_info'] = $data['participants_info'];
             }
         }
-        $response['participants_info'] = $participantsinfo;
+
+        if (!isset($response['participants_info'])) {
+            $response['participants_info'] = [];
+        }
 
         return $response;
     }

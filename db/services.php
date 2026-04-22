@@ -66,4 +66,12 @@ $functions = [
         'ajax'        => true,
         'capability'  => 'mod/plugnmeet:viewlivesessioninfo',
     ],
+    'mod_plugnmeet_get_active_rooms_report' => [
+        'classname'   => 'mod_plugnmeet\external\get_active_rooms_report',
+        'methodname'  => 'execute',
+        'description' => 'Gets active rooms report for administrators.',
+        'type'        => 'read',
+        'ajax'        => true,
+        'capability'  => 'mod/plugnmeet:viewactiveroomsreport',
+    ],
 ];

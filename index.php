@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This page lists all the instances of plugnmeet in a particular course.
+ * This page lists all the instances of plugnmeet in a particular course,
+ * or displays a site-wide report of active rooms for administrators.
  *
  * @package    mod_plugnmeet
  * @copyright  2026 MynaParrot
@@ -27,11 +28,35 @@ require_once(__DIR__ . '/lib.php');
 
 global $DB, $PAGE, $OUTPUT;
 
-$id = required_param('id', PARAM_INT); // Course ID.
+$id = optional_param('id', 0, PARAM_INT);
+$systemcontext = context_system::instance();
+
+// Display site-wide report for administrators if no course ID is provided.
+if ($id === 0 && has_capability('mod/plugnmeet:viewactiveroomsreport', $systemcontext)) {
+    $PAGE->set_url('/mod/plugnmeet/index.php');
+    $PAGE->set_context($systemcontext);
+    $PAGE->set_title(get_string('activeroomsreport', 'mod_plugnmeet'));
+    $PAGE->set_heading(get_string('activeroomsreport', 'mod_plugnmeet'));
+
+    $PAGE->requires->js_call_amd('mod_plugnmeet/active_rooms_report', 'init');
+
+    echo $OUTPUT->header();
+
+    // Render initial loading state.
+    echo $OUTPUT->render_from_template('mod_plugnmeet/active_rooms_report', ['loading' => true]);
+
+    echo $OUTPUT->footer();
+    exit;
+}
+
+// Standard view: require a valid course ID.
+if ($id === 0) {
+    // If no ID and not an admin viewing the report, redirect to home or show error.
+    redirect(new moodle_url('/'));
+}
+
 $course = $DB->get_record('course', ['id' => $id], '*', MUST_EXIST);
-
 require_login($course);
-
 $context = context_course::instance($course->id);
 
 $event = \mod_plugnmeet\event\course_module_instance_list_viewed::create([
@@ -43,9 +68,9 @@ $event->trigger();
 $strplugnmeets = get_string('modulenameplural', 'mod_plugnmeet');
 
 $PAGE->set_url('/mod/plugnmeet/index.php', ['id' => $id]);
+$PAGE->set_context($context);
 $PAGE->set_title($strplugnmeets);
 $PAGE->set_heading($course->fullname);
-$PAGE->set_context($context);
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading($strplugnmeets);

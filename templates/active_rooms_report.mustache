@@ -1,0 +1,124 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_plugnmeet/active_rooms_report
+
+    Example context (json):
+    {
+        "loading": false,
+        "status": true,
+        "summary": {
+            "total_rooms": 1,
+            "total_participants": 5,
+            "total_webcams": 2,
+            "total_mics": 3,
+            "total_screenshares": 1
+        },
+        "rooms": [
+            {
+                "room_title": "Team Meeting",
+                "room_id": "room123",
+                "course_url": "http://example.com/course/1",
+                "course_name": "My First Course",
+                "activity_url": "http://example.com/mod/plugnmeet/view.php?id=1",
+                "activity_name": "Weekly Sync",
+                "participants": 5,
+                "webcams": 2,
+                "mics": 3,
+                "screenshares": 1,
+                "creation_time": 1678912345
+            }
+        ]
+    }
+}}
+<div id="active_rooms_report_container">
+    {{#loading}}
+        <div class="text-center p-5">
+            {{#pix}}i/loading_small, core, {{#str}}loading, mod_plugnmeet{{/str}}{{/pix}}
+        </div>
+    {{/loading}}
+    {{^loading}}
+        {{#status}}
+            {{#summary.total_rooms}}
+                <h5 class="mt-4">{{#str}}summary, core{{/str}}</h5>
+                <table class="generaltable w-100 mb-4">
+                    <tbody>
+                        <tr>
+                            <td><strong>{{#str}}activerooms, mod_plugnmeet{{/str}}</strong></td>
+                            <td>{{summary.total_rooms}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{#str}}participants, mod_plugnmeet{{/str}}</strong></td>
+                            <td>{{summary.total_participants}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{#str}}webcams, mod_plugnmeet{{/str}}</strong></td>
+                            <td>{{summary.total_webcams}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{#str}}mics, mod_plugnmeet{{/str}}</strong></td>
+                            <td>{{summary.total_mics}}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{#str}}screenshares, mod_plugnmeet{{/str}}</strong></td>
+                            <td>{{summary.total_screenshares}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h5 class="mt-4">{{#str}}activerooms, mod_plugnmeet{{/str}}</h5>
+                <div class="table-responsive">
+                    <table class="generaltable table-hover w-100">
+                        <thead>
+                            <tr>
+                                <th>{{#str}}room_title, mod_plugnmeet{{/str}}</th>
+                                <th>{{#str}}room_id, mod_plugnmeet{{/str}}</th>
+                                <th>{{#str}}course{{/str}}</th>
+                                <th class="text-center">{{#str}}participants, mod_plugnmeet{{/str}}</th>
+                                <th class="text-center">{{#str}}webcams, mod_plugnmeet{{/str}}</th>
+                                <th class="text-center">{{#str}}mics, mod_plugnmeet{{/str}}</th>
+                                <th class="text-center">{{#str}}screenshares, mod_plugnmeet{{/str}}</th>
+                                <th class="text-center">{{#str}}session_started_at, mod_plugnmeet{{/str}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#rooms}}
+                            <tr>
+                                <td><a href="{{activity_url}}">{{room_title}}</a></td>
+                                <td><div style="word-break: break-all;">{{room_id}}</div></td>
+                                <td><a href="{{course_url}}">{{course_name}}</a></td>
+                                <td class="text-center">{{participants}}</td>
+                                <td class="text-center">{{webcams}}</td>
+                                <td class="text-center">{{mics}}</td>
+                                <td class="text-center">{{screenshares}}</td>
+                                <td class="text-center">{{#userdate}} {{creation_time}}, {{#str}} strftimedaydatetime, core_langconfig {{/str}} {{/userdate}}</td>
+                            </tr>
+                            {{/rooms}}
+                        </tbody>
+                    </table>
+                </div>
+                <div id="active_rooms_pagination"></div>
+            {{/summary.total_rooms}}
+            {{^summary.total_rooms}}
+                <div class="alert alert-info">{{#str}}noactiverooms, mod_plugnmeet{{/str}}</div>
+            {{/summary.total_rooms}}
+        {{/status}}
+        {{^status}}
+            <div class="alert alert-danger">{{msg}}</div>
+        {{/status}}
+    {{/loading}}
+</div>

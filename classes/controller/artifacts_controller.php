@@ -19,6 +19,7 @@ namespace mod_plugnmeet\controller;
 use core\output\notification;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use mod_plugnmeet\helper\AnalyticsHelper;
+use mod_plugnmeet\helper\RoomHelper;
 use Mynaparrot\PlugnmeetProto\RoomArtifactType;
 use html_writer;
 use moodle_url;
@@ -166,13 +167,13 @@ class artifacts_controller {
             get_string('artifact_id', 'mod_plugnmeet') => $info->getArtifactId(),
             get_string('room_id', 'mod_plugnmeet') => $info->getRoomId(),
             get_string('type', 'mod_plugnmeet') => $this->format_type_name($info->getType()),
-            get_string('created_at', 'mod_plugnmeet') => $this->format_iso_to_moodle_time($info->getCreated()),
+            get_string('created_at', 'mod_plugnmeet') => RoomHelper::format_iso_to_moodle_time($info->getCreated()),
         ];
 
         if ($metadata) {
             if ($metadata->hasFileInfo()) {
                 $fileinfo = $metadata->getFileInfo();
-                $details[get_string('file_size', 'mod_plugnmeet')] = $this->format_bytes($fileinfo->getFileSize());
+                $details[get_string('file_size', 'mod_plugnmeet')] = RoomHelper::format_bytes($fileinfo->getFileSize());
                 $details[get_string('mime_type', 'mod_plugnmeet')] = $fileinfo->getMimeType();
             }
             if ($metadata->hasTokenUsage()) {
@@ -315,11 +316,12 @@ class artifacts_controller {
             $context['artifacts'][] = [
                 'artifact_id' => $artifact->getArtifactId(),
                 'type' => $this->format_type_name($artifact->getType()),
-                'created' => $this->format_iso_to_moodle_time($artifact->getCreated()),
+                'created' => RoomHelper::format_iso_to_moodle_time($artifact->getCreated()),
                 'view_url' => (new moodle_url('/mod/plugnmeet/artifacts.php', [
                     'id' => $this->cm->id,
                     'artifact_id' => $artifact->getArtifactId(),
-                    'page' => $page]))->out(false),
+                    'page' => $page,
+                ]))->out(false),
             ];
         }
 
@@ -379,10 +381,10 @@ class artifacts_controller {
             redirect($downloadurl);
         } else {
             redirect(
-                new moodle_url(
-                    '/mod/plugnmeet/artifacts.php',
-                    ['id' => $this->cm->id, 'artifact_id' => $artifactid]
-                ),
+                new moodle_url('/mod/plugnmeet/artifacts.php', [
+                    'id' => $this->cm->id,
+                    'artifact_id' => $artifactid,
+                ]),
                 $pnc->getResponseError($downloadres, get_string('artifact', 'mod_plugnmeet')),
                 null,
                 notification::NOTIFY_ERROR
@@ -403,7 +405,10 @@ class artifacts_controller {
             $analyticshelper->generate_xlsx_file($filename);
         } catch (\Exception $e) {
             redirect(
-                new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $this->cm->id, 'artifact_id' => $artifactid]),
+                new moodle_url('/mod/plugnmeet/artifacts.php', [
+                    'id' => $this->cm->id,
+                    'artifact_id' => $artifactid,
+                ]),
                 get_string('error_generating_excel', 'mod_plugnmeet', $e->getMessage()),
                 null,
                 notification::NOTIFY_ERROR
@@ -429,7 +434,10 @@ class artifacts_controller {
             echo json_encode($rawdata, JSON_PRETTY_PRINT);
         } catch (\Exception $e) {
             redirect(
-                new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $this->cm->id, 'artifact_id' => $artifactid]),
+                new moodle_url('/mod/plugnmeet/artifacts.php', [
+                    'id' => $this->cm->id,
+                    'artifact_id' => $artifactid,
+                ]),
                 get_string('error_generating_json', 'mod_plugnmeet', $e->getMessage()),
                 null,
                 notification::NOTIFY_ERROR
@@ -447,30 +455,5 @@ class artifacts_controller {
     private function format_type_name($type) {
         $name = RoomArtifactType::name($type);
         return ucwords(strtolower(str_replace('_', ' ', $name)));
-    }
-
-    /**
-     * Formats bytes to human-readable format.
-     *
-     * @param int $bytes
-     * @param int $precision
-     * @return string
-     */
-    private function format_bytes($bytes, $precision = 2) {
-        return display_size($bytes, $precision);
-    }
-
-    /**
-     * Formats ISO time to Moodle format.
-     *
-     * @param string $isotime
-     * @return string
-     */
-    private function format_iso_to_moodle_time($isotime) {
-        $timestamp = strtotime($isotime);
-        if ($timestamp === false) {
-            return $isotime;
-        }
-        return userdate($timestamp, get_string('strftimedatetimeshort', 'langconfig'));
     }
 }

@@ -19,6 +19,7 @@ namespace mod_plugnmeet\controller;
 use core\output\notification;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use html_writer;
+use mod_plugnmeet\helper\RoomHelper;
 use moodle_url;
 use cache;
 
@@ -117,8 +118,8 @@ class recordings_controller {
             'can_delete' => has_capability('mod/plugnmeet:deleterecording', $this->context),
             'delete_url' => (new moodle_url('/mod/plugnmeet/recordings.php', [
                 'id' => $this->cm->id,
-                'action' => 'delete', '
-                recording_id' => $recordid,
+                'action' => 'delete',
+                'recording_id' => $recordid,
                 'page' => $page,
             ]))->out(false),
             'back_url' => (new moodle_url('/mod/plugnmeet/recordings.php', [
@@ -132,7 +133,7 @@ class recordings_controller {
             get_string('recording_id', 'mod_plugnmeet') => $info->getRecordId(),
             get_string('room_id', 'mod_plugnmeet') => $info->getRoomId(),
             get_string('room_sid', 'mod_plugnmeet') => $info->getRoomSid(),
-            get_string('file_size', 'mod_plugnmeet') => $this->format_mb($info->getFileSize()),
+            get_string('file_size', 'mod_plugnmeet') => RoomHelper::format_mb($info->getFileSize()),
             get_string('recording_creation_time', 'mod_plugnmeet') => userdate($info->getCreationTime()),
         ];
 
@@ -196,8 +197,12 @@ class recordings_controller {
                 'record_id' => $recording->getRecordId(),
                 'creation_time' => userdate($recording->getCreationTime()),
                 'room_creation_time' => userdate($recording->getRoomCreationTime()),
-                'file_size' => $this->format_mb($recording->getFileSize()),
-                'view_url' => (new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $this->cm->id, 'record_id' => $recording->getRecordId(), 'page' => $page]))->out(false),
+                'file_size' => RoomHelper::format_mb($recording->getFileSize()),
+                'view_url' => (new moodle_url('/mod/plugnmeet/recordings.php', [
+                    'id' => $this->cm->id,
+                    'record_id' => $recording->getRecordId(),
+                    'page' => $page,
+                ]))->out(false),
             ];
         }
 
@@ -234,20 +239,5 @@ class recordings_controller {
         cache::make('mod_plugnmeet', 'recordings_list')->purge();
 
         redirect(new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $this->cm->id]), $msg, null, $msgtype);
-    }
-
-    /**
-     * Formats MB to readable size.
-     *
-     * @param float $mb
-     * @param int $precision
-     * @return string
-     */
-    private function format_mb($mb, $precision = 2) {
-        if ($mb < 1024) {
-            return round($mb, $precision) . ' MB';
-        }
-        $gb = $mb / 1024;
-        return round($gb, $precision) . ' GB';
     }
 }
