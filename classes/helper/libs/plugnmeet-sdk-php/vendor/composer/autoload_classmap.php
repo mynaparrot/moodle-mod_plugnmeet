@@ -952,6 +952,7 @@ return array(
     'Mynaparrot\\PlugnmeetProto\\SipDialInFeatures' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/SipDialInFeatures.php',
     'Mynaparrot\\PlugnmeetProto\\SpeechServiceEvent' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/SpeechServiceEvent.php',
     'Mynaparrot\\PlugnmeetProto\\SpeechToTextTranslationFeatures' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/SpeechToTextTranslationFeatures.php',
+    'Mynaparrot\\PlugnmeetProto\\StatusCode' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/StatusCode.php',
     'Mynaparrot\\PlugnmeetProto\\SubmitPollResponseReq' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/SubmitPollResponseReq.php',
     'Mynaparrot\\PlugnmeetProto\\SwitchPresenterReq' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/SwitchPresenterReq.php',
     'Mynaparrot\\PlugnmeetProto\\SwitchPresenterTask' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/SwitchPresenterTask.php',

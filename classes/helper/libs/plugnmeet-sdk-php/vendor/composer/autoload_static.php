@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5b8a0d9f1329fb5409ac4c3d0fa3eb28
+class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -1063,6 +1063,7 @@ class ComposerStaticInit5b8a0d9f1329fb5409ac4c3d0fa3eb28
         'Mynaparrot\\PlugnmeetProto\\SipDialInFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SipDialInFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\SpeechServiceEvent' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SpeechServiceEvent.php',
         'Mynaparrot\\PlugnmeetProto\\SpeechToTextTranslationFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SpeechToTextTranslationFeatures.php',
+        'Mynaparrot\\PlugnmeetProto\\StatusCode' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/StatusCode.php',
         'Mynaparrot\\PlugnmeetProto\\SubmitPollResponseReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SubmitPollResponseReq.php',
         'Mynaparrot\\PlugnmeetProto\\SwitchPresenterReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SwitchPresenterReq.php',
         'Mynaparrot\\PlugnmeetProto\\SwitchPresenterTask' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SwitchPresenterTask.php',
@@ -1249,9 +1250,9 @@ class ComposerStaticInit5b8a0d9f1329fb5409ac4c3d0fa3eb28
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5b8a0d9f1329fb5409ac4c3d0fa3eb28::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5b8a0d9f1329fb5409ac4c3d0fa3eb28::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5b8a0d9f1329fb5409ac4c3d0fa3eb28::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit20c4be0a14681fda586551ee0cffb60e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit20c4be0a14681fda586551ee0cffb60e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit20c4be0a14681fda586551ee0cffb60e::$classMap;
 
         }, null, ClassLoader::class);
     }
