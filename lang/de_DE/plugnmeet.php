@@ -40,6 +40,7 @@ $string['plugnmeet:downloadattendance'] = 'Anwesenheitsbericht herunterladen';
 $string['plugnmeet:downloadrecordings'] = 'Aufnahmen herunterladen';
 $string['plugnmeet:manage'] = 'PlugNmeet-Einstellungen verwalten';
 $string['plugnmeet:view'] = 'PlugNmeet-Aktivitäten ansehen';
+$string['plugnmeet:viewactiveroomsreport'] = 'View active rooms report';
 $string['plugnmeet:viewartifacts'] = 'Artefakte ansehen';
 $string['plugnmeet:viewattendance'] = 'Anwesenheitsbericht ansehen';
 $string['plugnmeet:viewattendancelist'] = 'Besucherliste anzeigen';
@@ -114,6 +115,10 @@ $string['attendance'] = "Anwesenheitsbericht";
 $string['artifact'] = "Artefakt";
 $string['room_subject'] = 'Zimmer';
 $string['user_subject'] = 'Nutzer';
+$string['activeroomsreport'] = 'Active Rooms Report';
+$string['noactiverooms'] = 'There are no active rooms at the moment.';
+$string['activerooms'] = 'Active Rooms';
+$string['loading'] = 'Loading...';
 
 // mod_form.php
 $string['roomtitle'] = 'Raumtitel';
