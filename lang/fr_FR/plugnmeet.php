@@ -40,6 +40,7 @@ $string['plugnmeet:downloadattendance'] = 'Télécharger le rapport d’affluenc
 $string['plugnmeet:downloadrecordings'] = 'Télécharger des enregistrements';
 $string['plugnmeet:manage'] = 'Gérer les paramètres de PlugNmeet';
 $string['plugnmeet:view'] = 'Voir l’activité PlugNmeet';
+$string['plugnmeet:viewactiveroomsreport'] = 'View active rooms report';
 $string['plugnmeet:viewartifacts'] = 'Voir les artefacts';
 $string['plugnmeet:viewattendance'] = 'Voir le rapport d’affluence';
 $string['plugnmeet:viewattendancelist'] = 'Voir la liste des fréquentations';
@@ -114,6 +115,10 @@ $string['attendance'] = "Rapport d’affluence";
 $string['artifact'] = "Artefact";
 $string['room_subject'] = 'Chambre';
 $string['user_subject'] = 'utilisateur';
+$string['activeroomsreport'] = 'Active Rooms Report';
+$string['noactiverooms'] = 'There are no active rooms at the moment.';
+$string['activerooms'] = 'Active Rooms';
+$string['loading'] = 'Loading...';
 
 // mod_form.php
 $string['roomtitle'] = 'Titre de la salle';
