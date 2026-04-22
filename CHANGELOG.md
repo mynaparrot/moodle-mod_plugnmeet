@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.2](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.1...v3.0.2) (2026-04-22)
+
+
+### Bug Fixes
+
+* added clear text messages ([8e260b9](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/8e260b907bcf5ac107757cc61e5eb6a69bcb3b16))
+* added more help texts ([d6f8263](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/d6f82631cec56a3a0db530523bca8f859d35b1e4))
+* bump SDK ([07cc626](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/07cc62619022a4da2c0bda3b4901a301fb70e721))
+* **locale:** new Crowdin updates ([005f5ff](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/005f5ffdec8879921804d4f9ddc0bf6d946e5cc0))
+* migrate views to use `mustache` templating ([dea4392](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/dea439201970dde3596844b1b69e710535ec19d6))
+* new formated error messages ([5ace281](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/5ace281c3b1998cad96faaa74bedcfcfd0d56c3d))
+
 ## [3.0.1](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.0...v3.0.1) (2026-04-21)
 
 
