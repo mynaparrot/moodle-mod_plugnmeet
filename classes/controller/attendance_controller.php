@@ -210,94 +210,50 @@ class attendance_controller {
      */
     private function render_attendance_report() {
         global $OUTPUT;
-        $html = '';
 
-        $canviewlist = has_capability('mod/plugnmeet:viewattendancelist', $this->context);
         $page = optional_param('page', 0, PARAM_INT);
         $perpage = self::PER_PAGE;
-
-        // Total count for paging bar.
-        if ($canviewlist) {
-            $totalcount = count_enrolled_users($this->context, 'mod/plugnmeet:view');
-        } else {
-            $totalcount = 1;
-        }
-
-        // Download button.
-        if (has_capability('mod/plugnmeet:downloadattendance', $this->context)) {
-            $downloadurl = new moodle_url(
-                '/mod/plugnmeet/attendance.php',
-                ['id' => $this->cm->id, 'action' => 'download_excel']
-            );
-            $html .= html_writer::start_div('d-flex justify-content-end mb-3');
-            $html .= html_writer::link(
-                $downloadurl,
-                get_string('download_excel_report', 'mod_plugnmeet'),
-                ['class' => 'btn btn-success']
-            );
-            $html .= html_writer::end_div();
-        }
-
-        // Paging bar at the top (only if more than 1 page).
+        $totalcount = count_enrolled_users($this->context, 'mod/plugnmeet:view');
         $baseurl = new moodle_url('/mod/plugnmeet/attendance.php', ['id' => $this->cm->id]);
-        if ($totalcount > $perpage) {
-            $html .= $OUTPUT->paging_bar($totalcount, $page, $perpage, $baseurl);
-        }
 
-        $table = new html_table();
-        $table->head = [
-            get_string('name'),
-            get_string('status', 'mod_plugnmeet'),
-            get_string('minutes_attended', 'mod_plugnmeet'),
-            get_string('attendance_raise_hand', 'mod_plugnmeet'),
-            get_string('attendance_chat_messages', 'mod_plugnmeet'),
-            get_string('attendance_webcam_status', 'mod_plugnmeet'),
-            get_string('attendance_webcam_duration', 'mod_plugnmeet'),
-            get_string('attendance_mic_status', 'mod_plugnmeet'),
-            get_string('attendance_mic_duration', 'mod_plugnmeet'),
-            get_string('attendance_talked_duration', 'mod_plugnmeet'),
-            get_string('attendance_voted_poll', 'mod_plugnmeet'),
-            get_string('attendance_whiteboard_annotated', 'mod_plugnmeet'),
-            get_string('last_updated', 'mod_plugnmeet'),
+        $context = [
+            'can_download' => has_capability('mod/plugnmeet:downloadattendance', $this->context),
+            'download_url' => (new moodle_url('/mod/plugnmeet/attendance.php', [
+                'id' => $this->cm->id,
+                'action' => 'download_excel',
+            ]))->out(false),
+            'paging_bar' => $totalcount > $perpage ? $OUTPUT->paging_bar($totalcount, $page, $perpage, $baseurl) : '',
+            'rows' => [],
         ];
 
-        $table->attributes['class'] = 'generaltable attendance-table mt-2 mb-2 text-center';
+        $badgemap = [
+            'completed' => 'badge-success',
+            'present' => 'badge-success',
+            'incomplete' => 'badge-warning',
+            'absent' => 'badge-danger',
+        ];
 
         $rows = $this->get_attendance_data_rows($page, $perpage);
         foreach ($rows as $row) {
-            $badgemap = [
-                'completed' => 'badge-success',
-                'present' => 'badge-success',
-                'incomplete' => 'badge-warning',
-                'absent' => 'badge-danger',
-            ];
-            $statusstr = html_writer::span(get_string($row['status_key'], 'mod_plugnmeet'), 'badge ' . $badgemap[$row['status_key']]);
-
-            $table->data[] = [
-                fullname($row['user']),
-                $statusstr,
-                $this->format_seconds_to_time($row['duration']),
-                $row['raise_hand'] > 0 ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'),
-                $row['chat_messages'] > 0 ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'),
-                $row['webcam_status'] ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'),
-                $this->format_seconds_to_time($row['webcam_duration']),
-                $row['mic_status'] ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'),
-                $this->format_seconds_to_time($row['mic_duration']),
-                $this->format_seconds_to_time($row['talked_duration']),
-                $row['voted_poll'] ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'),
-                $row['whiteboard_annotated'] ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'),
-                $row['timemodified'] ? userdate($row['timemodified']) : '-',
+            $context['rows'][] = [
+                'fullname' => fullname($row['user']),
+                'status_string' => get_string($row['status_key'], 'mod_plugnmeet'),
+                'badge_class' => $badgemap[$row['status_key']],
+                'duration' => $this->format_seconds_to_time($row['duration']),
+                'raise_hand' => $row['raise_hand'] > 0,
+                'chat_messages' => $row['chat_messages'] > 0,
+                'webcam_status' => $row['webcam_status'],
+                'webcam_duration' => $this->format_seconds_to_time($row['webcam_duration']),
+                'mic_status' => $row['mic_status'],
+                'mic_duration' => $this->format_seconds_to_time($row['mic_duration']),
+                'talked_duration' => $this->format_seconds_to_time($row['talked_duration']),
+                'voted_poll' => $row['voted_poll'],
+                'whiteboard_annotated' => $row['whiteboard_annotated'],
+                'timemodified' => $row['timemodified'],
             ];
         }
 
-        $html .= html_writer::table($table);
-
-        // Paging bar at the bottom (only if more than 1 page).
-        if ($totalcount > $perpage) {
-            $html .= $OUTPUT->paging_bar($totalcount, $page, $perpage, $baseurl);
-        }
-
-        return $html;
+        return $OUTPUT->render_from_template('mod_plugnmeet/attendance_report', $context);
     }
 
     /**
@@ -306,67 +262,37 @@ class attendance_controller {
      * @return string
      */
     private function render_self_reporting_view(): string {
-        global $DB;
+        global $DB, $OUTPUT;
+
         $rows = $this->get_attendance_data_rows();
-        if (empty($rows)) {
-            return html_writer::div(get_string('no_recordings', 'mod_plugnmeet'), 'alert alert-info');
-        }
-
         $row = $rows[0];
-        $html = html_writer::start_div('container-fluid self-reporting-dashboard');
 
-        // Header Card: Summary.
-        $html .= html_writer::start_div('card mb-4');
-        $html .= html_writer::start_div('card-body');
-        $html .= html_writer::start_div('row align-items-center');
-
-        // Left side: User Info.
-        $html .= html_writer::start_div('col-md-6');
-        $html .= html_writer::tag('h3', fullname($row['user']), ['class' => 'mb-1']);
-        $html .= html_writer::tag('p', get_string('attendance_report', 'mod_plugnmeet'), ['class' => 'text-muted']);
-        $html .= html_writer::end_div();
-
-        // Right side: Status and Time.
-        $html .= html_writer::start_div('col-md-6 text-md-right');
         $badgemap = [
             'completed' => 'badge-success',
             'present' => 'badge-success',
             'incomplete' => 'badge-warning',
             'absent' => 'badge-danger',
         ];
-        $statusstr = html_writer::span(get_string($row['status_key'], 'mod_plugnmeet'), 'badge badge-lg ' . $badgemap[$row['status_key']]);
-        $html .= html_writer::div($statusstr, 'mb-2');
-        if ($row['timemodified']) {
-            $html .= html_writer::div(
-                html_writer::tag('strong', get_string('last_updated', 'mod_plugnmeet') . ': ') .
-                userdate($row['timemodified']),
-                'small text-muted'
-            );
-        }
-        $html .= html_writer::end_div();
 
-        $html .= html_writer::end_div(); // End row.
-        $html .= html_writer::end_div(); // End card-body.
-        $html .= html_writer::end_div(); // End card.
-
-        // Participation Progress Section.
-        $html .= html_writer::tag('h4', get_string('participation_progress', 'mod_plugnmeet'), ['class' => 'mb-3']);
-        $html .= html_writer::start_div('row');
+        $context = [
+            'fullname' => fullname($row['user']),
+            'status_string' => get_string($row['status_key'], 'mod_plugnmeet'),
+            'badge_class' => $badgemap[$row['status_key']],
+            'timemodified' => $row['timemodified'],
+            'progress_items' => [],
+        ];
 
         $mapping = custom_completion::get_field_mapping();
-
-        // Direct DB Query for completion rules.
         $plugnmeet = $DB->get_record('plugnmeet', ['id' => $this->cm->instance], '*', MUST_EXIST);
 
         foreach ($mapping as $statskey => $rule) {
             $value = $row['raw_stats'][$statskey] ?? 0;
             $required = $plugnmeet->$rule ?? 0;
 
-            // Determine if met.
             $ismet = false;
             $displayvalue = '';
-
             $durationrules = ['duration', 'webcam_duration', 'mic_duration', 'talked_duration'];
+
             if (in_array($statskey, $durationrules)) {
                 $displayvalue = $this->format_seconds_to_time((int)$value);
                 if ($required > 0) {
@@ -377,13 +303,9 @@ class attendance_controller {
                 }
             } else {
                 $ismet = (int)$value > 0;
-                $displayvalue = (int)$value > 0 ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet');
+                $displayvalue = $ismet ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet');
             }
 
-            // Map statskey to language string using the new attendance_ prefix.
-            $labelkey = 'attendance_' . $statskey;
-
-            // Visual feedback logic.
             $cardclass = 'bg-light border-secondary';
             $icon = 'fa-info-circle text-info';
             $badge = '';
@@ -400,24 +322,16 @@ class attendance_controller {
                 }
             }
 
-            $html .= html_writer::start_div('col-md-4 mb-3');
-            $html .= html_writer::start_div('card h-100 ' . $cardclass);
-            $html .= html_writer::start_div('card-body d-flex align-items-center');
-            $html .= html_writer::tag('i', '', ['class' => 'fa fa-2x mr-3 ' . $icon]);
-            $html .= html_writer::start_div();
-            $html .= html_writer::div(get_string($labelkey, 'mod_plugnmeet'), 'font-weight-bold');
-            $html .= html_writer::div($displayvalue, 'text-muted small');
-            $html .= html_writer::end_div();
-            $html .= $badge;
-            $html .= html_writer::end_div(); // End card-body.
-            $html .= html_writer::end_div(); // End card.
-            $html .= html_writer::end_div(); // End column.
+            $context['progress_items'][] = [
+                'label' => get_string('attendance_' . $statskey, 'mod_plugnmeet'),
+                'display_value' => $displayvalue,
+                'card_class' => $cardclass,
+                'icon' => $icon,
+                'badge' => $badge,
+            ];
         }
 
-        $html .= html_writer::end_div(); // End row.
-        $html .= html_writer::end_div(); // End container.
-
-        return $html;
+        return $OUTPUT->render_from_template('mod_plugnmeet/self_attendance_report', $context);
     }
 
     /**

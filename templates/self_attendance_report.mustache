@@ -1,0 +1,83 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_plugnmeet/self_attendance_report
+
+    Example context (json):
+    {
+        "fullname": "John Doe",
+        "status_string": "Completed",
+        "badge_class": "badge-success",
+        "timemodified": 1678912345,
+        "progress_items": [
+            {
+                "label": "Minutes Attended",
+                "display_value": "00:45:10 / 01:00:00",
+                "card_class": "alert-warning border-warning",
+                "icon": "fa-clock text-warning",
+                "badge": "<span class=\"badge badge-warning ml-auto\">Required</span>"
+            },
+            {
+                "label": "Raised Hand",
+                "display_value": "Yes",
+                "card_class": "alert-success border-success",
+                "icon": "fa-check-circle text-success",
+                "badge": "<span class=\"badge badge-success ml-auto\">Met</span>"
+            }
+        ]
+    }
+}}
+<div class="container-fluid self-reporting-dashboard">
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h3 class="mb-1">{{fullname}}</h3>
+                    <p class="text-muted">{{#str}}attendance_report, mod_plugnmeet{{/str}}</p>
+                </div>
+                <div class="col-md-6 text-md-right">
+                    <div class="mb-2">
+                        <span class="badge badge-lg {{badge_class}}">{{status_string}}</span>
+                    </div>
+                    {{#timemodified}}
+                    <div class="small text-muted">
+                        <strong>{{#str}}last_updated, mod_plugnmeet{{/str}}:</strong> {{#userdate}}{{timemodified}}, {{#str}}strftimedatetimeshort, core_langconfig{{/str}}{{/userdate}}
+                    </div>
+                    {{/timemodified}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mb-3">{{#str}}participation_progress, mod_plugnmeet{{/str}}</h4>
+    <div class="row">
+        {{#progress_items}}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 {{card_class}}">
+                <div class="card-body d-flex align-items-center">
+                    <i class="fa fa-2x mr-3 {{icon}}"></i>
+                    <div>
+                        <div class="font-weight-bold">{{label}}</div>
+                        <div class="text-muted small">{{display_value}}</div>
+                    </div>
+                    {{{badge}}}
+                </div>
+            </div>
+        </div>
+        {{/progress_items}}
+    </div>
+</div>

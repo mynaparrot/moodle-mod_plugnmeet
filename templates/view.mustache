@@ -1,0 +1,69 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_plugnmeet/view
+
+    Example context (json):
+    {
+        "availability_message": "<div class=\"alert alert-warning\">Session has not started.</div>",
+        "can_join": true,
+        "can_manage": true,
+        "guest_link": true,
+        "guest_link_url": "http://example.com/guest",
+        "guest_link_help": "Share this link with guests.",
+        "can_view_live_info": true
+    }
+}}
+<div class="mod_plugnmeet_view_container">
+    <div class="card">
+        <div class="card-body text-center">
+            {{#availability_message}}
+            <div class="availability_container mb-4">
+                {{{availability_message}}}
+            </div>
+            {{/availability_message}}
+
+            {{#can_join}}
+            <div class="action_buttons">
+                <button id="join_button" class="btn btn-primary btn-lg">{{#str}}join_session, plugnmeet{{/str}}</button>
+                {{#can_manage}}
+                <button id="end_room_button" class="btn btn-danger btn-lg ml-2" style="display:none;">{{#str}}end_session, plugnmeet{{/str}}</button>
+                {{/can_manage}}
+            </div>
+            {{/can_join}}
+        </div>
+    </div>
+
+    {{#guest_link}}
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">{{#str}}guest_join_link, plugnmeet{{/str}}</h5>
+            <p class="card-text small text-muted">{{{guest_link_help}}}</p>
+            <div class="input-group">
+                <input type="text" class="form-control" value="{{{guest_link_url}}}" readonly="readonly" onclick="this.select();">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" onclick="navigator.clipboard.writeText('{{{guest_link_url}}}'); alert('{{#str}}link_copied, plugnmeet{{/str}}');">{{#str}}copy_link, plugnmeet{{/str}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/guest_link}}
+
+    {{#can_view_live_info}}
+    <div id="live_session_info" class="mt-4"></div>
+    {{/can_view_live_info}}
+</div>

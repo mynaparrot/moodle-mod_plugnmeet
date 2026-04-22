@@ -71,41 +71,18 @@ if ($plugnmeet->deadline && $timenow > $plugnmeet->deadline) {
     $availabilitymsg .= \html_writer::div(get_string('session_ended', 'mod_plugnmeet'), 'alert alert-danger');
 }
 
-// Start Main Content Container.
-echo \html_writer::start_div('mod_plugnmeet_view_container');
+$contextdata = [
+    'availability_message' => $availabilitymsg,
+    'can_join' => $available,
+    'can_manage' => $canmanage,
+    'guest_link' => false,
+    'can_view_live_info' => $canviewlivesessioninfo,
+];
 
-// Card for availability and actions.
-echo \html_writer::start_div('card');
-echo \html_writer::start_div('card-body text-center');
-
-// Availability messages.
-if (!empty($availabilitymsg)) {
-    echo \html_writer::div($availabilitymsg, 'availability_container mb-4');
-}
-
-// Action buttons.
-$canjoin = $available;
 // Managers can join even if session has not started, but not if it has ended.
 if ($canmanage && ($plugnmeet->deadline == 0 || $timenow <= $plugnmeet->deadline)) {
-    $canjoin = true;
+    $contextdata['can_join'] = true;
 }
-
-if ($canjoin) {
-    echo \html_writer::start_div('action_buttons');
-    echo \html_writer::tag('button', get_string('join_session', 'plugnmeet'), ['id' => 'join_button', 'class' => 'btn btn-primary btn-lg']);
-
-    if ($canmanage) {
-        echo \html_writer::tag('button', get_string('end_session', 'plugnmeet'), [
-            'id' => 'end_room_button',
-            'class' => 'btn btn-danger btn-lg ml-2',
-            'style' => 'display:none;',
-        ]);
-    }
-    echo \html_writer::end_div(); // End action_buttons.
-}
-
-echo \html_writer::end_div(); // End card-body.
-echo \html_writer::end_div(); // End card.
 
 // Guest Link Section for Managers.
 $config = get_config('mod_plugnmeet');
@@ -121,35 +98,12 @@ if ($canmanage && $allowglobal && !empty($plugnmeet->allow_guest) && !empty($plu
         'expiry' => $expiry,
         'sig' => $sig,
     ]);
-    echo \html_writer::start_div('card mt-4');
-    echo \html_writer::start_div('card-body');
-    echo \html_writer::tag('h5', get_string('guest_join_link', 'mod_plugnmeet'), ['class' => 'card-title']);
-    echo \html_writer::tag('p', get_string('guest_join_link_help', 'mod_plugnmeet', $durationhours), ['class' => 'card-text small text-muted']);
-    echo \html_writer::start_div('input-group');
-    echo \html_writer::empty_tag('input', [
-        'type' => 'text',
-        'class' => 'form-control',
-        'value' => $guestjoinurl->out(false),
-        'readonly' => 'readonly',
-        'onclick' => 'this.select();',
-    ]);
-    echo \html_writer::start_div('input-group-append');
-    echo \html_writer::tag('button', get_string('copy_link', 'mod_plugnmeet'), [
-        'class' => 'btn btn-outline-secondary',
-        'type' => 'button',
-        'onclick' => "navigator.clipboard.writeText('{$guestjoinurl->out(false)}'); alert('" . format_string(get_string('link_copied', 'mod_plugnmeet')) . "');",
-    ]);
-    echo \html_writer::end_div(); // End input-group-append.
-    echo \html_writer::end_div(); // End input-group.
-    echo \html_writer::end_div(); // End card-body.
-    echo \html_writer::end_div(); // End card.
+
+    $contextdata['guest_link'] = true;
+    $contextdata['guest_link_url'] = $guestjoinurl->out(false);
+    $contextdata['guest_link_help'] = get_string('guest_join_link_help', 'mod_plugnmeet', $durationhours);
 }
 
-if ($canviewlivesessioninfo) {
-    // Placeholder for live session info (handled by JS).
-    echo \html_writer::div('', 'mt-4', ['id' => 'live_session_info']);
-}
-
-echo \html_writer::end_div(); // End mod_plugnmeet_view_container.
+echo $OUTPUT->render_from_template('mod_plugnmeet/view', $contextdata);
 
 echo $OUTPUT->footer();

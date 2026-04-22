@@ -64,6 +64,7 @@ _*Note: Cloud recording and live broadcasting capabilities must be enabled on yo
 
 ### Analytics, Reports & Moodle Integration
 *   **Cumulative Attendance Reporting:** Go beyond single-session reports. The plugin provides a consolidated attendance view for each Moodle activity, summarizing a student's total participation (time attended, etc.) across all sessions held within that activity.
+*   **Student Self-Attendance View:** By default, students can view their own detailed attendance report for each `plugNmeet` activity. This personal dashboard shows their status (completed, present, or absent), total time attended, and a checklist of their participation, such as whether they raised their hand, sent a chat message, or enabled their webcam. This empowers students to track their own engagement without needing to ask the teacher.
 *   **Advanced Completion Tracking:** Leverage Moodle's activity completion system like never before. The plugin adds custom rules that track cumulative user engagement across all sessions in an activity. Mark activities complete based on:
     *   Total minutes attended
     *   Raised hand at least once
@@ -78,11 +79,11 @@ _*Note: Cloud recording and live broadcasting capabilities must be enabled on yo
 *   **Artifact Management in Moodle:** Access and manage session-generated files directly from the Moodle activity page. This includes AI-generated summaries, transcription files, token usage, cost and detailed per-session analytics reports, all governed by Moodle's roles and permissions.
 
 ### Branding & Technical Administration
-*   **100% White-Label Experience:** Use the `local` client load mode to deliver a seamless, native experience. The classroom loads directly within your Moodle layout—no redirects, no third-party branding. To your users, it feels like just another page in your Moodle site, but behind the scenes, plugNmeet is powering everything.
+*   **100% White-Label Experience:** Use the **Remote (Embedded)** client loading method to deliver a seamless, native experience. The classroom loads directly within your Moodle layout—no redirects, no third-party branding. To your users, it feels like just another page in your Moodle site. The alternative is the **Redirect** method, which sends users to the default plugNmeet interface, navigating them away from your site where custom branding may not apply.
 *   **Deep Branding & Customization:** When using the local client, you have full control over the classroom's appearance. Customize it with your own logo, colors, background image, and even a custom CSS file to perfectly match your school's branding.
 *   **Global Settings:** Configure default settings for all rooms from the Moodle admin panel.
 *   **Role-Based Permissions:** Granular control over who can manage sessions, view recordings, and access reports.
-*   **Webhook & Events API:** The plugin uses webhooks to receive real-time events from the plugNmeet server (like room creation, participant joins, new recordings, etc.). These are then immediately re-broadcast as standard Moodle events. This allows other Moodle plugins and custom scripts to easily hook into plugNmeet's events for further customization and integration.
+*   **Webhook & Events API:** The plugin uses webhooks to receive real-time events from the plugnmeet server (like room creation, participant joins, new recordings, etc.). These are then immediately re-broadcast as standard Moodle events. This allows other Moodle plugins and custom scripts to easily hook into plugnmeet's events for further customization and integration.
 
 ## Translation
 Please help us to translate moodle-mod_plugnmeet into your language. We're using [crowdin](https://crowdin.com/project/moodle-modplugnmeet) to translate the interface. You can translate directly there. If you don't find your language then please open an issue & we'll add your language ASAP.

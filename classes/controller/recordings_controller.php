@@ -111,57 +111,22 @@ class recordings_controller {
         $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
         $downloadurl = $serverurl . '/download/recording/' . $downloadres->getToken();
 
-        $headerhtml = html_writer::start_div('d-flex justify-content-between align-items-center mb-3');
-        $headerhtml .= html_writer::tag('h3', get_string('recording_details', 'mod_plugnmeet'), ['class' => 'm-0']);
-
-        $buttons = html_writer::start_div('btn-group');
-
-        // Only show download button if user has capability.
-        if (!empty($downloadurl) && has_capability('mod/plugnmeet:downloadrecordings', $this->context)) {
-            $buttons .= html_writer::link(
-                $downloadurl,
-                get_string('download', 'mod_plugnmeet'),
-                ['class' => 'btn btn-primary', 'target' => '_blank']
-            );
-        }
-
-        if (has_capability('mod/plugnmeet:deleterecording', $this->context)) {
-            $deleteurl = new moodle_url('/mod/plugnmeet/recordings.php', [
+        $context = [
+            'can_download' => !empty($downloadurl) && has_capability('mod/plugnmeet:downloadrecordings', $this->context),
+            'download_url' => $downloadurl,
+            'can_delete' => has_capability('mod/plugnmeet:deleterecording', $this->context),
+            'delete_url' => (new moodle_url('/mod/plugnmeet/recordings.php', [
                 'id' => $this->cm->id,
-                'action' => 'delete',
-                'recording_id' => $recordid,
+                'action' => 'delete', '
+                recording_id' => $recordid,
                 'page' => $page,
-            ]);
-            $buttons .= html_writer::link($deleteurl, get_string('delete', 'mod_plugnmeet'), [
-                'class' => 'btn btn-danger',
-                'onclick' => 'return confirm("' . get_string('delete_confirm', 'mod_plugnmeet') . '");',
-            ]);
-        }
-
-        $buttons .= html_writer::link(new moodle_url(
-            '/mod/plugnmeet/recordings.php',
-            ['id' => $this->cm->id, 'page' => $page]
-        ), get_string('back_to_list', 'mod_plugnmeet'), ['class' => 'btn btn-secondary']);
-        $buttons .= html_writer::end_div();
-
-        $headerhtml .= $buttons;
-        $headerhtml .= html_writer::end_div();
-
-        $html = $headerhtml;
-
-        // Video player (always shown if we have a URL, since viewrecordings is already checked).
-        if (!empty($downloadurl)) {
-            $videohtml = html_writer::start_tag('video', [
-                'controls' => 'controls',
-                'width' => '100%',
-                'height' => 'auto',
-                'style' => 'max-width: 800px; display: block; margin-bottom: 20px;',
-            ]);
-            $videohtml .= html_writer::empty_tag('source', ['src' => $downloadurl, 'type' => 'video/mp4']);
-            $videohtml .= get_string('browser_not_support_video', 'mod_plugnmeet');
-            $videohtml .= html_writer::end_tag('video');
-            $html .= $videohtml;
-        }
+            ]))->out(false),
+            'back_url' => (new moodle_url('/mod/plugnmeet/recordings.php', [
+                'id' => $this->cm->id,
+                'page' => $page,
+            ]))->out(false),
+            'details' => [],
+        ];
 
         $details = [
             get_string('recording_id', 'mod_plugnmeet') => $info->getRecordId(),
@@ -179,13 +144,11 @@ class recordings_controller {
             $details[get_string('room_creation_time', 'mod_plugnmeet')] = userdate($info->getRoomCreationTime());
         }
 
-        $table = new \html_table();
         foreach ($details as $label => $value) {
-            $table->data[] = [html_writer::tag('strong', $label), $value];
+            $context['details'][] = ['label' => $label, 'value' => $value];
         }
-        $html .= html_writer::table($table);
 
-        return $html;
+        return $OUTPUT->render_from_template('mod_plugnmeet/recording_details', $context);
     }
 
     /**
@@ -218,50 +181,32 @@ class recordings_controller {
         }
 
         $result = $response->getResult();
-        if (!$result) {
+        if (!$result || empty($result->getRecordingsList())) {
              return $OUTPUT->notification(get_string('no_recordings', 'mod_plugnmeet'), 'info');
         }
 
         $recordings = $result->getRecordingsList();
-
-        if (empty($recordings)) {
-            return $OUTPUT->notification(get_string('no_recordings', 'mod_plugnmeet'), 'info');
-        }
-
-        $table = new \html_table();
-        $table->head = [
-            get_string('recording_id', 'mod_plugnmeet'),
-            get_string('recording_creation_time', 'mod_plugnmeet'),
-            get_string('room_creation_time', 'mod_plugnmeet'),
-            get_string('file_size', 'mod_plugnmeet'),
-            get_string('actions', 'mod_plugnmeet'),
+        $context = [
+            'recordings' => [],
+            'paging_bar' => '',
         ];
 
         foreach ($recordings as $recording) {
-            $viewurl = new moodle_url(
-                '/mod/plugnmeet/recordings.php',
-                ['id' => $this->cm->id, 'record_id' => $recording->getRecordId(), 'page' => $page]
-            );
-            $actions = html_writer::link($viewurl, get_string('view', 'mod_plugnmeet'), ['class' => 'btn btn-sm btn-info']);
-
-            $table->data[] = [
-                $recording->getRecordId(),
-                userdate($recording->getCreationTime()),
-                userdate($recording->getRoomCreationTime()),
-                $this->format_mb($recording->getFileSize()),
-                $actions,
+            $context['recordings'][] = [
+                'record_id' => $recording->getRecordId(),
+                'creation_time' => userdate($recording->getCreationTime()),
+                'room_creation_time' => userdate($recording->getRoomCreationTime()),
+                'file_size' => $this->format_mb($recording->getFileSize()),
+                'view_url' => (new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $this->cm->id, 'record_id' => $recording->getRecordId(), 'page' => $page]))->out(false),
             ];
         }
 
-        $html = html_writer::table($table);
-
-        // Pagination.
         if ($result->getTotalRecordings() > $limit) {
             $baseurl = new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $this->cm->id]);
-            $html .= html_writer::div($OUTPUT->paging_bar($result->getTotalRecordings(), $page, $limit, $baseurl), 'mt-2');
+            $context['paging_bar'] = $OUTPUT->paging_bar($result->getTotalRecordings(), $page, $limit, $baseurl);
         }
 
-        return $html;
+        return $OUTPUT->render_from_template('mod_plugnmeet/recordings_list', $context);
     }
 
     /**

@@ -116,54 +116,51 @@ class artifacts_controller {
         $isfilebased = ($metadata && $metadata->hasFileInfo());
         $page = optional_param('page', 0, PARAM_INT);
 
-        $headerhtml = html_writer::start_div('d-flex justify-content-between align-items-center mb-3');
-        $headerhtml .= html_writer::tag('h3', get_string('artifact_details', 'mod_plugnmeet'), ['class' => 'm-0']);
+        $context = [
+            'can_download' => $isfilebased && $info->getType() !== RoomArtifactType::MEETING_ANALYTICS &&
+                has_capability('mod/plugnmeet:downloadartifacts', $this->context),
+            'download_url' => (new moodle_url('/mod/plugnmeet/artifacts.php', [
+                'id' => $this->cm->id,
+                'artifact_id' => $artifactid,
+                'action' => 'download',
+                'page' => $page,
+            ]))->out(false),
 
-        $buttons = html_writer::start_div('btn-group');
+            'is_analytics' => $info->getType() === RoomArtifactType::MEETING_ANALYTICS,
+            'can_download_analytics' => $info->getType() === RoomArtifactType::MEETING_ANALYTICS &&
+                has_capability('mod/plugnmeet:downloadanalyticsreport', $this->context),
+            'download_excel_url' => (new moodle_url('/mod/plugnmeet/artifacts.php', [
+                'id' => $this->cm->id,
+                'artifact_id' => $artifactid,
+                'action' => 'download_excel',
+                'page' => $page,
+            ]))->out(false),
+            'download_json_url' => (new moodle_url('/mod/plugnmeet/artifacts.php', [
+                'id' => $this->cm->id,
+                'artifact_id' => $artifactid,
+                'action' => 'download_json',
+                'page' => $page,
+            ]))->out(false),
 
-        // File download button (triggers action=download).
-        if ($isfilebased && $info->getType() !== RoomArtifactType::MEETING_ANALYTICS) {
-            if (has_capability('mod/plugnmeet:downloadartifacts', $this->context)) {
-                $downloadurl = new moodle_url('/mod/plugnmeet/artifacts.php', [
-                    'id' => $this->cm->id, 'artifact_id' => $artifactid, 'action' => 'download', 'page' => $page,
-                ]);
-                $buttons .= html_writer::link($downloadurl, get_string('download', 'mod_plugnmeet'), ['class' => 'btn btn-primary']);
-            }
-        }
+            'can_delete' => $isfilebased &&
+                has_capability('mod/plugnmeet:deleteartifacts', $this->context),
+            'delete_url' => (new moodle_url('/mod/plugnmeet/artifacts.php', [
+                'id' => $this->cm->id,
+                'action' => 'delete',
+                'artifact_id' => $artifactid,
+                'page' => $page,
+            ]))->out(false),
 
-        // Analytics report buttons (triggers action=download_excel/json).
-        if ($info->getType() === RoomArtifactType::MEETING_ANALYTICS) {
-            if (has_capability('mod/plugnmeet:downloadanalyticsreport', $this->context)) {
-                $buttons .= html_writer::link(new moodle_url('/mod/plugnmeet/artifacts.php', [
-                    'id' => $this->cm->id, 'artifact_id' => $artifactid, 'action' => 'download_excel', 'page' => $page,
-                ]), get_string('download_excel_report', 'mod_plugnmeet'), ['class' => 'btn btn-success']);
-
-                $buttons .= html_writer::link(new moodle_url('/mod/plugnmeet/artifacts.php', [
-                    'id' => $this->cm->id, 'artifact_id' => $artifactid, 'action' => 'download_json', 'page' => $page,
-                ]), get_string('download_raw_json', 'mod_plugnmeet'), ['class' => 'btn btn-info']);
-            }
-        }
-
-        // Delete button.
-        if (has_capability('mod/plugnmeet:deleteartifacts', $this->context) && $isfilebased) {
-            $deleteurl = new moodle_url('/mod/plugnmeet/artifacts.php', [
-                'id' => $this->cm->id, 'action' => 'delete', 'artifact_id' => $artifactid, 'page' => $page,
-            ]);
-            $buttons .= html_writer::link($deleteurl, get_string('delete', 'mod_plugnmeet'), [
-                'class' => 'btn btn-danger',
-                'onclick' => 'return confirm("' . get_string('delete_confirm', 'mod_plugnmeet') . '");',
-            ]);
-        }
-
-        $buttons .= html_writer::link(new moodle_url('/mod/plugnmeet/artifacts.php', [
-            'id' => $this->cm->id, 'page' => $page,
-        ]), get_string('back_to_list', 'mod_plugnmeet'), ['class' => 'btn btn-secondary']);
-        $buttons .= html_writer::end_div();
-
-        $headerhtml .= $buttons;
-        $headerhtml .= html_writer::end_div();
-
-        $html = $headerhtml;
+            'back_url' => (new moodle_url('/mod/plugnmeet/artifacts.php', [
+                'id' => $this->cm->id,
+                'page' => $page,
+            ]))->out(false),
+            'details' => [],
+            'room_details' => [],
+            'has_users' => false,
+            'user_headers' => [],
+            'user_rows' => [],
+        ];
 
         $details = [
             get_string('artifact_id', 'mod_plugnmeet') => $info->getArtifactId(),
@@ -195,104 +192,83 @@ class artifacts_controller {
             }
         }
 
-        $table = new \html_table();
         foreach ($details as $label => $value) {
-            $table->data[] = [html_writer::tag('strong', $label), $value];
-        }
-        $html .= html_writer::table($table);
-
-        if ($info->getType() === RoomArtifactType::MEETING_ANALYTICS) {
-            $html .= $this->render_meeting_analytics_details($artifactid);
+            $context['details'][] = ['label' => $label, 'value' => $value];
         }
 
-        return $html;
+        if ($context['is_analytics']) {
+            $this->populate_analytics_context($artifactid, $context);
+        }
+
+        return $OUTPUT->render_from_template('mod_plugnmeet/artifact_details', $context);
     }
 
     /**
-     * Renders meeting analytics details.
+     * Populates the context array with meeting analytics details.
      *
      * @param string $artifactid
-     * @return string
+     * @param array &$context
      */
-    private function render_meeting_analytics_details($artifactid) {
+    private function populate_analytics_context($artifactid, &$context) {
         global $OUTPUT;
-        $html = '';
         try {
             $analyticshelper = new AnalyticsHelper($artifactid);
             $formatteddata = $analyticshelper->get_formatted_event_data();
             $roomfields = $analyticshelper->get_room_fields();
             $userfields = $analyticshelper->get_user_fields();
 
-            $html .= html_writer::tag('h5', get_string('room_summary', 'mod_plugnmeet'), ['class' => 'mt-4']);
-            $roomtable = new \html_table();
             foreach ($roomfields as $field) {
-                // Default to 0 if missing.
                 $value = $formatteddata['room'][$field] ?? 0;
-
                 if (is_array($value)) {
                     continue;
                 }
+
                 if ($field === "room_duration" || $field === "speech_service_total_usage") {
                     $value = $analyticshelper->format_seconds_to_time($value);
                 } else if ($field === "enabled_e2ee") {
                     $value = $value ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet');
                 }
-                $roomtable->data[] = [html_writer::tag('strong', get_string('analytics_room_' . $field, 'mod_plugnmeet')), $value];
+                $context['room_details'][] = ['label' => get_string('analytics_room_' . $field, 'mod_plugnmeet'), 'value' => $value];
             }
-            $html .= html_writer::table($roomtable);
 
             if (!empty($formatteddata['users'])) {
-                $html .= html_writer::tag('h5', get_string('users_summary', 'mod_plugnmeet'), ['class' => 'mt-4']);
-                $usertable = new \html_table();
-
-                $usertable->head = array_map(function ($field) {
+                $context['has_users'] = true;
+                $context['user_headers'] = array_map(function ($field) {
                     return get_string('analytics_user_' . str_replace("user_", "", $field), 'mod_plugnmeet');
                 }, $userfields);
 
                 foreach ($formatteddata['users'] as $userrow) {
                     $rowdata = [];
                     foreach ($userfields as $field) {
-                        // Default to 0 if missing.
                         $value = $userrow[$field] ?? 0;
-
                         if (is_bool($value)) {
                             $value = $value ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet');
                         } else if (is_array($value)) {
                             if ($field === "joined" || $field === "left") {
-                                if (empty($value)) {
-                                    $value = 0;
-                                } else {
-                                    $arr = array_map(function ($d) use ($analyticshelper) {
-                                        return $analyticshelper->format_timestamp($d);
-                                    }, $value);
-                                    $value = implode("<br><br>", $arr);
-                                }
+                                $arr = array_map(function ($d) use ($analyticshelper) {
+                                    return $analyticshelper->format_timestamp($d);
+                                }, empty($value) ? [] : $value);
+                                $value = implode("<br><br>", $arr);
                             } else if ($field === "connection_quality") {
-                                if (empty($value)) {
-                                    $value = 0;
-                                } else {
-                                    $arr = array_map(function ($k, $v) {
-                                        $title = get_string('analytics_user_connection_quality_' . $k, 'mod_plugnmeet');
-                                        return $title . ": " . $v;
-                                    }, array_keys($value), array_values($value));
-                                    $value = implode("<br>", $arr);
-                                }
+                                $arr = array_map(function ($k, $v) {
+                                    return get_string('analytics_user_connection_quality_' . $k, 'mod_plugnmeet') . ": " . $v;
+                                }, array_keys(empty($value) ? [] : $value), array_values(empty($value) ? [] : $value));
+                                $value = implode("<br>", $arr);
                             } else {
                                 $value = get_string('see_excel_report', 'mod_plugnmeet');
                             }
                         } else if ($field === "duration" || $field === "talked_duration" || $field === "speech_service_total_usage") {
                             $value = $analyticshelper->format_seconds_to_time($value);
                         }
-                        $rowdata[] = $value;
+                        $rowdata[] = ['value' => $value];
                     }
-                    $usertable->data[] = $rowdata;
+                    $context['user_rows'][] = $rowdata;
                 }
-                $html .= html_writer::table($usertable);
             }
         } catch (\Exception $e) {
-            $html .= $OUTPUT->notification(get_string('error_loading_analytics', 'mod_plugnmeet', $e->getMessage()), 'error');
+            $context['is_analytics'] = false; // Prevent rendering analytics section on error.
+            echo $OUTPUT->notification(get_string('error_loading_analytics', 'mod_plugnmeet', $e->getMessage()), 'error');
         }
-        return $html;
     }
 
     /**
@@ -325,47 +301,34 @@ class artifacts_controller {
         }
 
         $result = $response->getResult();
-        if (!$result) {
+        if (!$result || empty($result->getArtifactsList())) {
             return $OUTPUT->notification(get_string('no_artifacts', 'mod_plugnmeet'), 'info');
         }
 
         $artifacts = $result->getArtifactsList();
-
-        if (empty($artifacts)) {
-            return $OUTPUT->notification(get_string('no_artifacts', 'mod_plugnmeet'), 'info');
-        }
-
-        $table = new \html_table();
-        $table->head = [
-            get_string('artifact_id', 'mod_plugnmeet'),
-            get_string('type', 'mod_plugnmeet'),
-            get_string('created_at', 'mod_plugnmeet'),
-            get_string('actions', 'mod_plugnmeet'),
+        $context = [
+            'artifacts' => [],
+            'paging_bar' => '',
         ];
 
         foreach ($artifacts as $artifact) {
-            $viewurl = new moodle_url(
-                '/mod/plugnmeet/artifacts.php',
-                ['id' => $this->cm->id, 'artifact_id' => $artifact->getArtifactId(), 'page' => $page]
-            );
-            $actions = html_writer::link($viewurl, get_string('view', 'mod_plugnmeet'), ['class' => 'btn btn-sm btn-info']);
-
-            $table->data[] = [
-                $artifact->getArtifactId(),
-                $this->format_type_name($artifact->getType()),
-                $this->format_iso_to_moodle_time($artifact->getCreated()),
-                $actions,
+            $context['artifacts'][] = [
+                'artifact_id' => $artifact->getArtifactId(),
+                'type' => $this->format_type_name($artifact->getType()),
+                'created' => $this->format_iso_to_moodle_time($artifact->getCreated()),
+                'view_url' => (new moodle_url('/mod/plugnmeet/artifacts.php', [
+                    'id' => $this->cm->id,
+                    'artifact_id' => $artifact->getArtifactId(),
+                    'page' => $page]))->out(false),
             ];
         }
 
-        $html = html_writer::table($table);
-
         if ($result->getTotalArtifacts() > $limit) {
             $baseurl = new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $this->cm->id]);
-            $html .= html_writer::div($OUTPUT->paging_bar($result->getTotalArtifacts(), $page, $limit, $baseurl), 'mt-2');
+            $context['paging_bar'] = $OUTPUT->paging_bar($result->getTotalArtifacts(), $page, $limit, $baseurl);
         }
 
-        return $html;
+        return $OUTPUT->render_from_template('mod_plugnmeet/artifacts_list', $context);
     }
 
     /**

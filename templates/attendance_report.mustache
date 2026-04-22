@@ -1,0 +1,92 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_plugnmeet/attendance_report
+
+    Example context (json):
+    {
+        "can_download": true,
+        "download_url": "http://example.com/download",
+        "paging_bar": "<nav>Paging bar HTML</nav>",
+        "rows": [
+            {
+                "fullname": "John Doe",
+                "status_string": "Present",
+                "badge_class": "badge-success",
+                "duration": "00:45:10",
+                "raise_hand": true,
+                "chat_messages": true,
+                "webcam_status": true,
+                "webcam_duration": "00:20:05",
+                "mic_status": true,
+                "mic_duration": "00:30:15",
+                "talked_duration": "00:10:00",
+                "voted_poll": true,
+                "whiteboard_annotated": false,
+                "timemodified": 1678912345
+            }
+        ]
+    }
+}}
+{{#can_download}}
+<div class="d-flex justify-content-end mb-3">
+    <a href="{{{download_url}}}" class="btn btn-success">{{#str}}download_excel_report, mod_plugnmeet{{/str}}</a>
+</div>
+{{/can_download}}
+
+{{{paging_bar}}}
+
+<table class="generaltable attendance-table mt-2 mb-2 text-center">
+    <thead>
+        <tr>
+            <th>{{#str}}name{{/str}}</th>
+            <th>{{#str}}status, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}minutes_attended, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}attendance_raise_hand, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}attendance_chat_messages, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}attendance_webcam_status, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}attendance_webcam_duration, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}attendance_mic_status, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}attendance_mic_duration, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}attendance_talked_duration, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}attendance_voted_poll, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}attendance_whiteboard_annotated, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}last_updated, mod_plugnmeet{{/str}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#rows}}
+        <tr>
+            <td>{{fullname}}</td>
+            <td><span class="badge {{badge_class}}">{{status_string}}</span></td>
+            <td>{{duration}}</td>
+            <td>{{#raise_hand}}{{#str}}yes, mod_plugnmeet{{/str}}{{/raise_hand}}{{^raise_hand}}{{#str}}no, mod_plugnmeet{{/str}}{{/raise_hand}}</td>
+            <td>{{#chat_messages}}{{#str}}yes, mod_plugnmeet{{/str}}{{/chat_messages}}{{^chat_messages}}{{#str}}no, mod_plugnmeet{{/str}}{{/chat_messages}}</td>
+            <td>{{#webcam_status}}{{#str}}yes, mod_plugnmeet{{/str}}{{/webcam_status}}{{^webcam_status}}{{#str}}no, mod_plugnmeet{{/str}}{{/webcam_status}}</td>
+            <td>{{webcam_duration}}</td>
+            <td>{{#mic_status}}{{#str}}yes, mod_plugnmeet{{/str}}{{/mic_status}}{{^mic_status}}{{#str}}no, mod_plugnmeet{{/str}}{{/mic_status}}</td>
+            <td>{{mic_duration}}</td>
+            <td>{{talked_duration}}</td>
+            <td>{{#voted_poll}}{{#str}}yes, mod_plugnmeet{{/str}}{{/voted_poll}}{{^voted_poll}}{{#str}}no, mod_plugnmeet{{/str}}{{/voted_poll}}</td>
+            <td>{{#whiteboard_annotated}}{{#str}}yes, mod_plugnmeet{{/str}}{{/whiteboard_annotated}}{{^whiteboard_annotated}}{{#str}}no, mod_plugnmeet{{/str}}{{/whiteboard_annotated}}</td>
+            <td>{{#timemodified}}{{#userdate}}{{timemodified}}, {{#str}}strftimedatetimeshort, core_langconfig{{/str}}{{/userdate}}{{/timemodified}}{{^timemodified}}-{{/timemodified}}</td>
+        </tr>
+        {{/rows}}
+    </tbody>
+</table>
+
+{{{paging_bar}}}

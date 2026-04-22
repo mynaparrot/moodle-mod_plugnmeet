@@ -1,0 +1,105 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_plugnmeet/artifact_details
+
+    Example context (json):
+    {
+        "can_download": true,
+        "download_url": "http://example.com/download",
+        "is_analytics": true,
+        "can_download_analytics": true,
+        "download_excel_url": "http://example.com/excel",
+        "download_json_url": "http://example.com/json",
+        "can_delete": true,
+        "delete_url": "http://example.com/delete",
+        "back_url": "http://example.com/back",
+        "details": [
+            {"label": "Artifact ID", "value": "artifact123"},
+            {"label": "Type", "value": "Meeting Analytics"}
+        ],
+        "room_details": [
+            {"label": "Room Duration", "value": "01:30:00"}
+        ],
+        "has_users": true,
+        "user_headers": ["Name", "Duration"],
+        "user_rows": [
+            [{"value": "John Doe"}, {"value": "01:20:00"}]
+        ]
+    }
+}}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="m-0">{{#str}}artifact_details, mod_plugnmeet{{/str}}</h3>
+    <div class="btn-group">
+        {{#can_download}}
+            <a href="{{download_url}}" class="btn btn-primary">{{#str}}download, mod_plugnmeet{{/str}}</a>
+        {{/can_download}}
+        {{#can_download_analytics}}
+            <a href="{{download_excel_url}}" class="btn btn-success">{{#str}}download_excel_report, mod_plugnmeet{{/str}}</a>
+            <a href="{{download_json_url}}" class="btn btn-info">{{#str}}download_raw_json, mod_plugnmeet{{/str}}</a>
+        {{/can_download_analytics}}
+        {{#can_delete}}
+            <a href="{{delete_url}}" class="btn btn-danger" onclick="return confirm('{{#str}}delete_confirm, mod_plugnmeet{{/str}}');">{{#str}}delete, mod_plugnmeet{{/str}}</a>
+        {{/can_delete}}
+        <a href="{{back_url}}" class="btn btn-secondary">{{#str}}back_to_list, mod_plugnmeet{{/str}}</a>
+    </div>
+</div>
+
+<table class="generaltable">
+    {{#details}}
+    <tr>
+        <td><strong>{{label}}</strong></td>
+        <td>{{value}}</td>
+    </tr>
+    {{/details}}
+</table>
+
+{{#is_analytics}}
+    <h5 class="mt-4">{{#str}}room_summary, mod_plugnmeet{{/str}}</h5>
+    <table class="generaltable">
+        {{#room_details}}
+        <tr>
+            <td><strong>{{label}}</strong></td>
+            <td>{{{value}}}</td>
+        </tr>
+        {{/room_details}}
+    </table>
+
+    {{#has_users}}
+        <h5 class="mt-4">{{#str}}users_summary, mod_plugnmeet{{/str}}</h5>
+        <div class="table-responsive">
+            <table class="generaltable">
+                <thead>
+                    <tr>
+                        {{#user_headers}}
+                        <th>{{.}}</th>
+                        {{/user_headers}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#user_rows}}
+                    <tr>
+                        {{#.}}
+                        <td>{{{value}}}</td>
+                        {{/.}}
+                    </tr>
+                    {{/user_rows}}
+                </tbody>
+            </table>
+        </div>
+    {{/has_users}}
+{{/is_analytics}}
