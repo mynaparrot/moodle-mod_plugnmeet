@@ -40,6 +40,7 @@ $string['plugnmeet:downloadattendance'] = 'Скачать отчёт о посе
 $string['plugnmeet:downloadrecordings'] = 'Скачать записи';
 $string['plugnmeet:manage'] = 'Управление настройками PlugNmeet';
 $string['plugnmeet:view'] = 'Просмотр активности PlugNmeet';
+$string['plugnmeet:viewactiveroomsreport'] = 'View active rooms report';
 $string['plugnmeet:viewartifacts'] = 'Просмотр артефактов';
 $string['plugnmeet:viewattendance'] = 'Просмотр отчёта о посещаемости';
 $string['plugnmeet:viewattendancelist'] = 'Просмотр списка посещаемости';
@@ -114,6 +115,10 @@ $string['attendance'] = "Отчёт о посещаемости";
 $string['artifact'] = "Артефакт";
 $string['room_subject'] = 'комната';
 $string['user_subject'] = 'Пользователь';
+$string['activeroomsreport'] = 'Active Rooms Report';
+$string['noactiverooms'] = 'There are no active rooms at the moment.';
+$string['activerooms'] = 'Active Rooms';
+$string['loading'] = 'Loading...';
 
 // mod_form.php
 $string['roomtitle'] = 'Название комнаты';
