@@ -40,6 +40,7 @@ $string['plugnmeet:downloadattendance'] = '下载出勤报告';
 $string['plugnmeet:downloadrecordings'] = '下载录音';
 $string['plugnmeet:manage'] = '管理 PlugNmeet 设置';
 $string['plugnmeet:view'] = '查看PlugNmeet 活动';
+$string['plugnmeet:viewactiveroomsreport'] = 'View active rooms report';
 $string['plugnmeet:viewartifacts'] = '查看文物';
 $string['plugnmeet:viewattendance'] = '查看观众人数报告';
 $string['plugnmeet:viewattendancelist'] = '查看观众名单';
@@ -114,6 +115,10 @@ $string['attendance'] = "出勤报告";
 $string['artifact'] = "文物";
 $string['room_subject'] = '房间';
 $string['user_subject'] = '用户';
+$string['activeroomsreport'] = 'Active Rooms Report';
+$string['noactiverooms'] = 'There are no active rooms at the moment.';
+$string['activerooms'] = 'Active Rooms';
+$string['loading'] = 'Loading...';
 
 // mod_form.php
 $string['roomtitle'] = '房间标题';
