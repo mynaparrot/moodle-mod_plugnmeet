@@ -196,8 +196,8 @@ if ($hassiteconfig) {
     ));
 
     $loadclient = [
-        1 => get_string('local', 'mod_plugnmeet'),
-        2 => get_string('remote', 'mod_plugnmeet'),
+        1 => get_string('remote', 'mod_plugnmeet'),
+        2 => get_string('redirect', 'mod_plugnmeet'),
     ];
     $settings->add(new admin_setting_configselect(
         'mod_plugnmeet/client_load',
