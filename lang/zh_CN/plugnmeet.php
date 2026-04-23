@@ -40,7 +40,7 @@ $string['plugnmeet:downloadattendance'] = '下载出勤报告';
 $string['plugnmeet:downloadrecordings'] = '下载录音';
 $string['plugnmeet:manage'] = '管理 PlugNmeet 设置';
 $string['plugnmeet:view'] = '查看PlugNmeet 活动';
-$string['plugnmeet:viewactiveroomsreport'] = 'View active rooms report';
+$string['plugnmeet:viewactiveroomsreport'] = '查看活跃房间报告';
 $string['plugnmeet:viewartifacts'] = '查看文物';
 $string['plugnmeet:viewattendance'] = '查看观众人数报告';
 $string['plugnmeet:viewattendancelist'] = '查看观众名单';
@@ -115,10 +115,10 @@ $string['attendance'] = "出勤报告";
 $string['artifact'] = "文物";
 $string['room_subject'] = '房间';
 $string['user_subject'] = '用户';
-$string['activeroomsreport'] = 'Active Rooms Report';
-$string['noactiverooms'] = 'There are no active rooms at the moment.';
-$string['activerooms'] = 'Active Rooms';
-$string['loading'] = 'Loading...';
+$string['activeroomsreport'] = '活跃房间报告';
+$string['noactiverooms'] = '目前没有活动房间。';
+$string['activerooms'] = '活动房间';
+$string['loading'] = '加载中......';
 
 // mod_form.php
 $string['roomtitle'] = '房间标题';
@@ -344,10 +344,10 @@ $string['event_recording_proceeded'] = '录音准备';
 $string['event_plugin_error'] = 'PlugNmeet 错误';
 $string['event_track_published'] = '赛道已发布';
 $string['event_track_unpublished'] = '未发布曲目';
-$string['event_recording_started'] = 'Recording started';
-$string['event_recording_ended'] = 'Recording ended';
-$string['event_rtmp_started'] = 'RTMP stream started';
-$string['event_rtmp_ended'] = 'RTMP stream ended';
+$string['event_recording_started'] = '录制开始';
+$string['event_recording_ended'] = '录音结束';
+$string['event_rtmp_started'] = 'RTMP流开始';
+$string['event_rtmp_ended'] = 'RTMP流终止';
 
 // Notifications
 $string['messageprovider:recording_ready'] = '录制准备通知';
