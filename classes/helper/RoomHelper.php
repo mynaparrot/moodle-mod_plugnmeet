@@ -117,7 +117,7 @@ class RoomHelper {
         $roommetadatajson = $roominfo->getMetadata();
         if (!empty($roommetadatajson)) {
             $metadata = new RoomMetadata();
-            $metadata->mergeFromJsonString($roommetadatajson);
+            $metadata->mergeFromJsonString($roommetadatajson, true);
             $activity = json_decode($metadata->getExtraData()->offsetGet('activity'), true);
 
             if ($activity && isset($activity['id']) && isset($activity['course'])) {

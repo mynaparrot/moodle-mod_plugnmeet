@@ -1,0 +1,45 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_plugnmeet/guest_join
+
+    Example context (json):
+    {
+        "welcomemessage": "Welcome to our meeting!"
+    }
+}}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body text-center">
+                <h3>{{#str}}guest_join_title, mod_plugnmeet{{/str}}</h3>
+                {{#welcomemessage}}
+                    <p class="card-text mb-4">{{#str}}welcome_message, mod_plugnmeet{{/str}}: {{welcomemessage}}</p>
+                {{/welcomemessage}}
+
+                <div class="form-group text-left">
+                    <label for="guestname">{{#str}}enter_display_name, mod_plugnmeet{{/str}}</label>
+                    <input type="text" name="guestname" id="guestname" class="form-control form-control-lg mt-2" placeholder="{{#str}}fullname{{/str}}" required="required" autofocus="autofocus">
+                </div>
+
+                <button id="join_button" class="btn btn-primary btn-lg btn-block mt-3">
+                    {{#str}}join_as_guest, mod_plugnmeet{{/str}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

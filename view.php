@@ -91,7 +91,7 @@ $allowglobal = !isset($config->allow_guest_global) || $config->allow_guest_globa
 if ($canmanage && $allowglobal && !empty($plugnmeet->allow_guest) && !empty($plugnmeet->guest_token)) {
     $durationhours = (int)($config->guest_link_expiration ?? 3);
     $expiry = time() + ($durationhours * 3600);
-    $sig = sha1($plugnmeet->guest_token . $expiry);
+    $sig = sha1($cm->id . $plugnmeet->guest_token . $expiry);
 
     $guestjoinurl = new moodle_url('/mod/plugnmeet/guest_join.php', [
         'id' => $cm->id,

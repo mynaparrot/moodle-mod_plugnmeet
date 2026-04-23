@@ -88,7 +88,7 @@ class get_join_token extends external_api {
             }
 
             // 2. Validate Signature.
-            $expectedsig = sha1($plugnmeet->guest_token . $expiry);
+            $expectedsig = sha1($cm->id . $plugnmeet->guest_token . $expiry);
             if ($sig !== $expectedsig) {
                 return ['status' => false, 'msg' => get_string('invalid_guest_token', 'mod_plugnmeet')];
             }

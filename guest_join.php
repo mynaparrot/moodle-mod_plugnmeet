@@ -56,7 +56,7 @@ if (empty($plugnmeet->allow_guest)) {
 }
 
 // 3. Validate Signature.
-$expectedsig = sha1($plugnmeet->guest_token . $expiry);
+$expectedsig = sha1($cm->id . $plugnmeet->guest_token . $expiry);
 if ($sig !== $expectedsig) {
     throw new moodle_exception('invalid_guest_token', 'mod_plugnmeet');
 }
@@ -81,39 +81,11 @@ $PAGE->requires->js_call_amd('mod_plugnmeet/join_button', 'init', [
 // Render UI.
 echo $OUTPUT->header();
 
-echo $OUTPUT->heading(get_string('guest_join_title', 'mod_plugnmeet'));
-
-echo html_writer::start_div('row justify-content-center mt-5');
-echo html_writer::start_div('col-md-6');
-echo html_writer::start_div('card');
-echo html_writer::start_div('card-body text-center');
-
+$templatecontext = [];
 if (!empty($plugnmeet->welcomemessage)) {
-    echo html_writer::tag('p', get_string('welcome_message', 'mod_plugnmeet') . ': ' . format_string($plugnmeet->welcomemessage), ['class' => 'card-text mb-4']);
+    $templatecontext['welcomemessage'] = format_string($plugnmeet->welcomemessage);
 }
 
-echo html_writer::start_div('form-group');
-echo html_writer::label(get_string('enter_display_name', 'mod_plugnmeet'), 'guestname');
-echo html_writer::empty_tag('input', [
-    'type' => 'text',
-    'name' => 'guestname',
-    'id' => 'guestname',
-    'class' => 'form-control form-control-lg mt-2',
-    'placeholder' => get_string('fullname'),
-    'required' => 'required',
-    'autofocus' => 'autofocus',
-]);
-echo html_writer::end_div();
-
-echo html_writer::tag('button', get_string('join_as_guest', 'mod_plugnmeet'), [
-    'id' => 'join_button',
-    'class' => 'btn btn-primary btn-lg btn-block mt-3',
-]);
-
-echo html_writer::end_div();
-
-echo html_writer::end_div();
-echo html_writer::end_div();
-echo html_writer::end_div();
+echo $OUTPUT->render_from_template('mod_plugnmeet/guest_join', $templatecontext);
 
 echo $OUTPUT->footer();

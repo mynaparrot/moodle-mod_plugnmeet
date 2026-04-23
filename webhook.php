@@ -33,10 +33,14 @@ use mod_plugnmeet\event\artifact_created;
 use mod_plugnmeet\event\participant_joined;
 use mod_plugnmeet\event\participant_left;
 use mod_plugnmeet\event\plugin_error;
+use mod_plugnmeet\event\recording_ended;
 use mod_plugnmeet\event\recording_proceeded;
+use mod_plugnmeet\event\recording_started;
 use mod_plugnmeet\event\room_created;
 use mod_plugnmeet\event\room_ended;
 use mod_plugnmeet\event\room_started;
+use mod_plugnmeet\event\rtmp_ended;
+use mod_plugnmeet\event\rtmp_started;
 use mod_plugnmeet\event\session_ended;
 use mod_plugnmeet\event\track_published;
 use mod_plugnmeet\event\track_unpublished;
@@ -93,7 +97,7 @@ if ($our !== $senthash) {
 try {
     global $DB;
     $webhook = new CommonNotifyEvent();
-    $webhook->mergeFromJsonString($entitybody);
+    $webhook->mergeFromJsonString($entitybody, true);
 
     $id = required_param('id', PARAM_INT);
     $plugnmeet = $DB->get_record('plugnmeet', ['id' => $id], '*', MUST_EXIST);
@@ -244,6 +248,38 @@ try {
                 'other' => [
                     'recording_id' => $recording->getRecordId(),
                 ],
+            ]);
+            $event->trigger();
+            break;
+
+        case 'start_recording':
+            $event = recording_started::create([
+                'context' => $context,
+                'objectid' => $plugnmeet->id,
+            ]);
+            $event->trigger();
+            break;
+
+        case 'end_recording':
+            $event = recording_ended::create([
+                'context' => $context,
+                'objectid' => $plugnmeet->id,
+            ]);
+            $event->trigger();
+            break;
+
+        case 'start_rtmp':
+            $event = rtmp_started::create([
+                'context' => $context,
+                'objectid' => $plugnmeet->id,
+            ]);
+            $event->trigger();
+            break;
+
+        case 'end_rtmp':
+            $event = rtmp_ended::create([
+                'context' => $context,
+                'objectid' => $plugnmeet->id,
             ]);
             $event->trigger();
             break;

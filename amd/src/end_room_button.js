@@ -16,6 +16,10 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                             // Refresh the page to reflect the change
                             location.reload();
                         } else {
+                            notification.addNotification({
+                                message: response.msg,
+                                type: "info"
+                            });
                             that.attr('disabled', false);
                         }
                     },
