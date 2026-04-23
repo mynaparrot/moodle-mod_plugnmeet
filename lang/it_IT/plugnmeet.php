@@ -40,6 +40,7 @@ $string['plugnmeet:downloadattendance'] = 'Scarica il rapporto sulle presenze';
 $string['plugnmeet:downloadrecordings'] = 'Scarica le registrazioni';
 $string['plugnmeet:manage'] = 'Gestisci le impostazioni di PlugNmeet';
 $string['plugnmeet:view'] = 'Visualizza l\'attività PlugNmeet';
+$string['plugnmeet:viewactiveroomsreport'] = 'Visualizza il rapporto sulle stanze attive';
 $string['plugnmeet:viewartifacts'] = 'Visualizza i reperti';
 $string['plugnmeet:viewattendance'] = 'Visualizza il rapporto di presenze';
 $string['plugnmeet:viewattendancelist'] = 'Visualizza l\'elenco delle presenze';
@@ -114,6 +115,10 @@ $string['attendance'] = "Rapporto di presenze";
 $string['artifact'] = "Reperto";
 $string['room_subject'] = 'Stanza';
 $string['user_subject'] = 'Utente';
+$string['activeroomsreport'] = 'Rapporto sulle Stanze Attive';
+$string['noactiverooms'] = 'Al momento non ci sono stanze attive.';
+$string['activerooms'] = 'Stanze Attive';
+$string['loading'] = 'Caricamento...';
 
 // mod_form.php
 $string['roomtitle'] = 'Titolo della stanza';
@@ -339,6 +344,10 @@ $string['event_recording_proceeded'] = 'Registrazione pronta';
 $string['event_plugin_error'] = 'Errore PlugNmeet';
 $string['event_track_published'] = 'Traccia pubblicata';
 $string['event_track_unpublished'] = 'Traccia inedita';
+$string['event_recording_started'] = 'Inizio delle registrazioni';
+$string['event_recording_ended'] = 'Fine delle registrazioni';
+$string['event_rtmp_started'] = 'Stream RTMP avviato';
+$string['event_rtmp_ended'] = 'Flusso RTMP terminato';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Notifiche per registrazioni pronte';
