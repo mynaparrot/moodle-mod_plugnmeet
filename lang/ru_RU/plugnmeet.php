@@ -344,6 +344,10 @@ $string['event_recording_proceeded'] = 'Запись готова';
 $string['event_plugin_error'] = 'Ошибка PlugNmeet';
 $string['event_track_published'] = 'Опубликованный трек';
 $string['event_track_unpublished'] = 'Трек, не опубликованный';
+$string['event_recording_started'] = 'Recording started';
+$string['event_recording_ended'] = 'Recording ended';
+$string['event_rtmp_started'] = 'RTMP stream started';
+$string['event_rtmp_ended'] = 'RTMP stream ended';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Уведомления о готовых записях';
