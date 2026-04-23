@@ -40,7 +40,7 @@ $string['plugnmeet:downloadattendance'] = 'تحميل تقرير الحضور';
 $string['plugnmeet:downloadrecordings'] = 'تحميل التسجيلات';
 $string['plugnmeet:manage'] = 'إدارة إعدادات PlugNmeet';
 $string['plugnmeet:view'] = 'عرض نشاط PlugNmeet';
-$string['plugnmeet:viewactiveroomsreport'] = 'View active rooms report';
+$string['plugnmeet:viewactiveroomsreport'] = 'عرض تقرير الغرف النشطة';
 $string['plugnmeet:viewartifacts'] = 'عرض القطع الأثرية';
 $string['plugnmeet:viewattendance'] = 'عرض تقرير الحضور';
 $string['plugnmeet:viewattendancelist'] = 'عرض قائمة الحضور';
@@ -115,10 +115,10 @@ $string['attendance'] = "تقرير الحضور";
 $string['artifact'] = "قطعة أثرية";
 $string['room_subject'] = 'الغرفة';
 $string['user_subject'] = 'المستخدم';
-$string['activeroomsreport'] = 'Active Rooms Report';
-$string['noactiverooms'] = 'There are no active rooms at the moment.';
-$string['activerooms'] = 'Active Rooms';
-$string['loading'] = 'Loading...';
+$string['activeroomsreport'] = 'تقرير الغرف النشطة';
+$string['noactiverooms'] = 'لا توجد غرف نشطة في الوقت الحالي.';
+$string['activerooms'] = 'الغرف النشطة';
+$string['loading'] = 'جار التحميل...';
 
 // mod_form.php
 $string['roomtitle'] = 'عنوان الغرفة';
@@ -344,10 +344,10 @@ $string['event_recording_proceeded'] = 'التسجيل جاهز';
 $string['event_plugin_error'] = 'خطأ PlugNmeet';
 $string['event_track_published'] = 'الأغنية المنشورة';
 $string['event_track_unpublished'] = 'الأغنية غير منشورة';
-$string['event_recording_started'] = 'Recording started';
-$string['event_recording_ended'] = 'Recording ended';
-$string['event_rtmp_started'] = 'RTMP stream started';
-$string['event_rtmp_ended'] = 'RTMP stream ended';
+$string['event_recording_started'] = 'بدأ التسجيل';
+$string['event_recording_ended'] = 'انتهى التسجيل';
+$string['event_rtmp_started'] = 'بدأ بث RTMP';
+$string['event_rtmp_ended'] = 'انتهى بث RTMP';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'إشعارات للتسجيلات الجاهزة';
