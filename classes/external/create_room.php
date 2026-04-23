@@ -32,6 +32,7 @@ use context_module;
 use dml_exception;
 use core_external\external_single_structure;
 use mod_plugnmeet\helper\plugNmeetConnect;
+use moodle_url;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -93,6 +94,28 @@ class create_room extends external_api {
                 "display" => (bool)$config->copyright_display,
                 "text" => $config->copyright_text,
             ];
+        }
+
+        // Handle preloaded file for whiteboard.
+        // Only add if whiteboard is allowed and a file is actually present in storage.
+        if (isset($roommetadata['whiteboard_features']['is_allow']) && $roommetadata['whiteboard_features']['is_allow']) {
+            $fs = get_file_storage();
+            // We always use the instance ID as the itemid for files in the 'preload_file' area.
+            $files = $fs->get_area_files($context->id, 'mod_plugnmeet', 'preload_file', $instance->id, 'itemid, filepath, filename', false);
+            if ($files) {
+                $file = reset($files);
+                $url = moodle_url::make_pluginfile_url(
+                    $file->get_contextid(),
+                    $file->get_component(),
+                    $file->get_filearea(),
+                    $file->get_itemid(),
+                    $file->get_filepath(),
+                    $file->get_filename(),
+                    false, // Forcedownload.
+                    true  // Offline.
+                );
+                $roommetadata['whiteboard_features']['preload_file'] = $url->out(false);
+            }
         }
 
         $connect = new plugNmeetConnect($config);

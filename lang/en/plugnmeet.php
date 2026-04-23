@@ -186,8 +186,11 @@ $string['allow_file_upload_help'] = 'Enables the ability to share files within t
 $string['allow_shared_notepad'] = 'Allow Shared Notepad';
 $string['allow_shared_notepad_help'] = 'Enables a collaborative text editor where students and teachers can take real-time notes together. This is perfect for brainstorming, co-writing, or building a shared class summary.';
 
+$string['whiteboard_features'] = 'Whiteboard Features';
 $string['allow_whiteboard'] = 'Allow Whiteboard';
 $string['allow_whiteboard_help'] = 'Unlocks an interactive drawing space for the session. Use it for sketching diagrams, solving math problems visually, or letting students annotate shared content.';
+$string['preload_file'] = 'Preload Presentation File';
+$string['preload_file_help'] = 'Allows you to upload a PDF or Office document that will be automatically loaded on the whiteboard when the session starts. This ensures your presentation material is ready for the class immediately. <strong>Max file size: 5Mb</strong>';
 
 $string['allowed_external_media_player'] = 'Allow External Media Player';
 $string['allowed_external_media_player_help'] = 'Allows moderators to sync and play videos from sources like YouTube or Vimeo for the whole class. Ideal for analyzing educational clips or watching documentaries together without bandwidth lag.';

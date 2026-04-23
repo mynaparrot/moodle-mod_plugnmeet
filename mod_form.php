@@ -78,6 +78,11 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->setExpanded('room_features_header', false);
         $this->add_room_features();
 
+        // Whiteboard Features
+        $mform->addElement('header', 'whiteboard_features_header', get_string('whiteboard_features', 'mod_plugnmeet'));
+        $mform->setExpanded('whiteboard_features_header', false);
+        $this->add_whiteboard_features();
+
         // Recording Features
         $mform->addElement('header', 'recording_features_header', get_string('recording_features', 'mod_plugnmeet'));
         $mform->setExpanded('recording_features_header', false);
@@ -181,6 +186,37 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('advcheckbox', 'meta[room_features][auto_gen_user_id]', get_string('auto_gen_user_id', 'mod_plugnmeet'));
         $mform->setDefault('meta[room_features][auto_gen_user_id]', 0);
         $mform->addHelpButton('meta[room_features][auto_gen_user_id]', 'auto_gen_user_id', 'mod_plugnmeet');
+    }
+
+    /**
+     * Add whiteboard features.
+     * The preload_file field was added only to allow file uploads.
+     * In Moodle, the preload_file draft file ID will be used as the table ID, so nothing needs to be stored in the database.
+     * Please check the data_preprocessing method below in the file.
+     */
+    private function add_whiteboard_features() {
+        $mform = $this->_form;
+
+        $mform->addElement(
+            'advcheckbox',
+            'meta[whiteboard_features][is_allow]',
+            get_string('allow_whiteboard', 'mod_plugnmeet')
+        );
+        $mform->setDefault('meta[whiteboard_features][is_allow]', 1);
+        $mform->addHelpButton('meta[whiteboard_features][is_allow]', 'allow_whiteboard', 'mod_plugnmeet');
+
+        $mform->addElement(
+            'filepicker',
+            'preload_file',
+            get_string('preload_file', 'mod_plugnmeet'),
+            null,
+            [
+                'maxbytes' => 5242880,
+                'accepted_types' => ['document'],
+            ]
+        );
+        $mform->addHelpButton('preload_file', 'preload_file', 'mod_plugnmeet');
+        $mform->disabledIf('preload_file', 'meta[whiteboard_features][is_allow]', 'eq', 0);
     }
 
     /**
@@ -299,14 +335,6 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         );
         $mform->setDefault('meta[shared_note_pad_features][is_allow]', 1);
         $mform->addHelpButton('meta[shared_note_pad_features][is_allow]', 'allow_shared_notepad', 'mod_plugnmeet');
-
-        $mform->addElement(
-            'advcheckbox',
-            'meta[whiteboard_features][is_allow]',
-            get_string('allow_whiteboard', 'mod_plugnmeet')
-        );
-        $mform->setDefault('meta[whiteboard_features][is_allow]', 1);
-        $mform->addHelpButton('meta[whiteboard_features][is_allow]', 'allow_whiteboard', 'mod_plugnmeet');
 
         $mform->addElement(
             'advcheckbox',
@@ -630,6 +658,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
      */
     public function data_preprocessing(&$defaultvalues) {
         parent::data_preprocessing($defaultvalues);
+
         if (isset($this->current->id) && $this->current->id) {
             // Handle metadata
             $metadata = json_decode($this->current->roommetadata, true);
@@ -650,6 +679,18 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
                     }
                 }
             }
+
+            // Handle existing preload_file.
+            // The itemid for the file area 'preload_file' is the instance ID itself.
+            $defaultvalues['preload_file'] = $this->current->id;
+        } else {
+            // For new instances, ensure preload_file is initialized to 0.
+            $defaultvalues['preload_file'] = 0;
         }
+
+        // Prepare draft area for filepicker.
+        $draftitemid = file_get_submitted_draft_itemid('preload_file');
+        file_prepare_draft_area($draftitemid, $this->context->id, 'mod_plugnmeet', 'preload_file', $defaultvalues['preload_file'], ['subdirs' => 0, 'maxfiles' => 1]);
+        $defaultvalues['preload_file'] = $draftitemid;
     }
 }

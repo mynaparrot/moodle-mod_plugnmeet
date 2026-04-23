@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Library of functions and constants for module plugnmeet
@@ -73,7 +73,17 @@ function plugnmeet_add_instance(stdClass $data, $mform = null) {
         unset($data->meta);
     }
 
+    // Temporarily save the draft ID.
+    $draftitemid = $data->preload_file ?? 0;
+    unset($data->preload_file); // Field no longer exists in DB, just temporary field.
+
+    // Insert record first to get the ID.
     $data->id = $DB->insert_record('plugnmeet', $data);
+
+    // Handle preloaded file using the instance ID as itemid.
+    if ($draftitemid) {
+        file_save_draft_area_files($draftitemid, context_module::instance($data->coursemodule)->id, 'mod_plugnmeet', 'preload_file', $data->id, ['subdirs' => 0, 'maxfiles' => 1]);
+    }
 
     plugnmeet_grade_item_update($data);
 
@@ -111,6 +121,19 @@ function plugnmeet_update_instance(stdClass $data, $mform = null) {
         unset($data->meta);
     }
 
+    // Handle preloaded file.
+    if (isset($data->preload_file)) {
+        file_save_draft_area_files(
+            $data->preload_file,
+            context_module::instance($data->coursemodule)->id,
+            'mod_plugnmeet',
+            'preload_file',
+            $data->id,
+            ['subdirs' => 0, 'maxfiles' => 1]
+        );
+        unset($data->preload_file); // Field no longer exists in DB, just temporary field.
+    }
+
     $result = $DB->update_record('plugnmeet', $data);
 
     plugnmeet_grade_item_update($data);
@@ -144,6 +167,13 @@ function plugnmeet_delete_instance($id) {
     }
 
     plugnmeet_grade_item_delete($plugnmeet);
+
+    // Delete associated files.
+    $fs = get_file_storage();
+    $cm = get_coursemodule_from_instance('plugnmeet', $id);
+    if ($cm) {
+        $fs->delete_area_files(context_module::instance($cm->id)->id, 'mod_plugnmeet', 'preload_file', $id);
+    }
 
     return $DB->delete_records('plugnmeet', ['id' => $plugnmeet->id]);
 }
@@ -331,7 +361,7 @@ function plugnmeet_update_calendar_event($plugnmeet) {
  *
  * @param stdClass $course The course object.
  * @param stdClass $cm The course module object.
- * @param int $userid The user ID.
+ * @param int $userid $userid.
  * @param bool $type The type of completion (usually COMPLETION_AND).
  * @return int The completion state (COMPLETION_COMPLETE, COMPLETION_INCOMPLETE, etc.)
  */
@@ -351,12 +381,51 @@ function plugnmeet_get_completion_state($course, $cm, $userid, $type) {
     return $data->completionstate;
 }
 
+
+/**
+ * Serves the files from the mod_plugnmeet file areas.
+ *
+ * @param stdClass $course The course object.
+ * @param stdClass $cm The course module object.
+ * @param context $context The context object.
+ * @param string $filearea The file area to serve.
+ * @param array $args The path arguments.
+ * @param bool $forcedownload Whether to force download.
+ * @param array $options Additional options.
+ * @return bool False if the file was not found.
+ */
+function plugnmeet_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = []) {
+    if ($context->contextlevel != CONTEXT_MODULE && $context->contextlevel != CONTEXT_SYSTEM) {
+        return false;
+    }
+
+    // For preloaded files, background images, and custom logos, we MUST skip require_login
+    // because the PlugNmeet server or unauthenticated users (e.g. on guest join)
+    // might need to download them directly without a Moodle session.
+    $publicareas = ['preload_file', 'background_image', 'custom_logo'];
+    if (!in_array($filearea, $publicareas)) {
+        require_login($course, false, $cm);
+    }
+
+    $itemid = (int)array_shift($args);
+    $filename = array_pop($args);
+    $filepath = '/' . implode('/', $args) . '/';
+
+    $fs = get_file_storage();
+    $file = $fs->get_file($context->id, 'mod_plugnmeet', $filearea, $itemid, $filepath, $filename);
+
+    if (!$file || $file->is_directory()) {
+        return false;
+    }
+
+    send_stored_file($file, 0, 0, $forcedownload, $options);
+    return true;
+}
+
 /**
  * Build client config
  */
 function get_plugnmeet_config() {
-    global $DB;
-
     $config = get_config('mod_plugnmeet');
     $assetspath = $config->plugnmeet_server_url . "/assets";
 
@@ -372,23 +441,29 @@ function get_plugnmeet_config() {
         'stopMicTrackOnMute' => (bool)$config->stop_mic_track_on_mute,
     ];
 
-    if ($config->custom_logo) {
-        $filename = str_replace("/", "", $config->custom_logo);
-        $tablefiles = "files";
-        $results = $DB->get_record($tablefiles, [
-            'filename' => $filename,
-            'component' => 'mod_plugnmeet',
-            'filearea' => 'custom_logo',
-        ]);
+    $fs = get_file_storage();
+    $systemcontext = context_system::instance();
 
-        if ($results) {
+    // Handle custom logo.
+    // $config->custom_logo holds the itemid for the file.
+    if (!empty($config->custom_logo)) {
+        $file = $fs->get_file($systemcontext->id, 'mod_plugnmeet', 'custom_logo', $config->custom_logo, '/', 'logo.png'); // 'logo.png' is a placeholder
+        if (!$file) {
+            // Fallback: try to find any file in the area if specific itemid fails.
+            $files = $fs->get_area_files($systemcontext->id, 'mod_plugnmeet', 'custom_logo', 0, 'id', false);
+            if ($files) {
+                $file = reset($files);
+            }
+        }
+
+        if ($file) {
             $url = moodle_url::make_pluginfile_url(
-                $results->contextid,
-                $results->component,
-                $results->filearea,
-                $results->itemid,
-                $results->filepath,
-                $filename,
+                $file->get_contextid(),
+                $file->get_component(),
+                $file->get_filearea(),
+                $file->get_itemid(),
+                $file->get_filepath(),
+                $file->get_filename(),
                 false,
                 true
             );
@@ -409,26 +484,26 @@ function get_plugnmeet_config() {
     if (!empty($config->background_color)) {
         $designcustomization['background_color'] = $config->background_color;
     }
+    // Handle background image.
+    // $config->background_image holds the itemid for the file.
     if (!empty($config->background_image)) {
-        $filename = str_replace("/", "", $config->background_image);
-        $tablefiles = "files";
-        $results = $DB->get_record(
-            $tablefiles,
-            [
-                'filename' => $filename,
-                'component' => 'mod_plugnmeet',
-                'filearea' => 'background_image',
-            ]
-        );
+        $file = $fs->get_file($systemcontext->id, 'mod_plugnmeet', 'background_image', $config->background_image, '/', 'background.png'); // 'background.png' is a placeholder
+        if (!$file) {
+            // Fallback.
+            $files = $fs->get_area_files($systemcontext->id, 'mod_plugnmeet', 'background_image', 0, 'id', false);
+            if ($files) {
+                $file = reset($files);
+            }
+        }
 
-        if ($results) {
+        if ($file) {
             $url = moodle_url::make_pluginfile_url(
-                $results->contextid,
-                $results->component,
-                $results->filearea,
-                $results->itemid,
-                $results->filepath,
-                $filename,
+                $file->get_contextid(),
+                $file->get_component(),
+                $file->get_filearea(),
+                $file->get_itemid(),
+                $file->get_filepath(),
+                $file->get_filename(),
                 false,
                 true
             );
