@@ -40,7 +40,7 @@ $string['plugnmeet:downloadattendance'] = 'Anwesenheitsbericht herunterladen';
 $string['plugnmeet:downloadrecordings'] = 'Aufnahmen herunterladen';
 $string['plugnmeet:manage'] = 'PlugNmeet-Einstellungen verwalten';
 $string['plugnmeet:view'] = 'PlugNmeet-Aktivitäten ansehen';
-$string['plugnmeet:viewactiveroomsreport'] = 'View active rooms report';
+$string['plugnmeet:viewactiveroomsreport'] = 'Bericht über aktive Räume ansehen';
 $string['plugnmeet:viewartifacts'] = 'Artefakte ansehen';
 $string['plugnmeet:viewattendance'] = 'Anwesenheitsbericht ansehen';
 $string['plugnmeet:viewattendancelist'] = 'Besucherliste anzeigen';
@@ -115,10 +115,10 @@ $string['attendance'] = "Anwesenheitsbericht";
 $string['artifact'] = "Artefakt";
 $string['room_subject'] = 'Zimmer';
 $string['user_subject'] = 'Nutzer';
-$string['activeroomsreport'] = 'Active Rooms Report';
-$string['noactiverooms'] = 'There are no active rooms at the moment.';
-$string['activerooms'] = 'Active Rooms';
-$string['loading'] = 'Loading...';
+$string['activeroomsreport'] = 'Bericht über aktive Räume';
+$string['noactiverooms'] = 'Im Moment gibt es keine aktiven Räume.';
+$string['activerooms'] = 'Aktive Räume';
+$string['loading'] = 'Lädt...';
 
 // mod_form.php
 $string['roomtitle'] = 'Raumtitel';
@@ -344,10 +344,10 @@ $string['event_recording_proceeded'] = 'Aufnahmebereit';
 $string['event_plugin_error'] = 'PlugNmeet-Fehler';
 $string['event_track_published'] = 'Veröffentlichter Titel';
 $string['event_track_unpublished'] = 'Track unveröffentlicht';
-$string['event_recording_started'] = 'Recording started';
-$string['event_recording_ended'] = 'Recording ended';
-$string['event_rtmp_started'] = 'RTMP stream started';
-$string['event_rtmp_ended'] = 'RTMP stream ended';
+$string['event_recording_started'] = 'Beginn der Aufnahmen';
+$string['event_recording_ended'] = 'Aufnahme beendet';
+$string['event_rtmp_started'] = 'RTMP-Stream gestartet';
+$string['event_rtmp_ended'] = 'RTMP-Stream beendet';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Benachrichtigungen für fertige Aufnahmen';
