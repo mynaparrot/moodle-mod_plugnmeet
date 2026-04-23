@@ -344,6 +344,10 @@ $string['event_recording_proceeded'] = '录音准备';
 $string['event_plugin_error'] = 'PlugNmeet 错误';
 $string['event_track_published'] = '赛道已发布';
 $string['event_track_unpublished'] = '未发布曲目';
+$string['event_recording_started'] = 'Recording started';
+$string['event_recording_ended'] = 'Recording ended';
+$string['event_rtmp_started'] = 'RTMP stream started';
+$string['event_rtmp_ended'] = 'RTMP stream ended';
 
 // Notifications
 $string['messageprovider:recording_ready'] = '录制准备通知';
