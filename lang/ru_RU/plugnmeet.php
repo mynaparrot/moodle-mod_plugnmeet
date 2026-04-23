@@ -40,7 +40,7 @@ $string['plugnmeet:downloadattendance'] = 'Скачать отчёт о посе
 $string['plugnmeet:downloadrecordings'] = 'Скачать записи';
 $string['plugnmeet:manage'] = 'Управление настройками PlugNmeet';
 $string['plugnmeet:view'] = 'Просмотр активности PlugNmeet';
-$string['plugnmeet:viewactiveroomsreport'] = 'View active rooms report';
+$string['plugnmeet:viewactiveroomsreport'] = 'Просмотр отчета об активных комнатах';
 $string['plugnmeet:viewartifacts'] = 'Просмотр артефактов';
 $string['plugnmeet:viewattendance'] = 'Просмотр отчёта о посещаемости';
 $string['plugnmeet:viewattendancelist'] = 'Просмотр списка посещаемости';
@@ -115,10 +115,10 @@ $string['attendance'] = "Отчёт о посещаемости";
 $string['artifact'] = "Артефакт";
 $string['room_subject'] = 'комната';
 $string['user_subject'] = 'Пользователь';
-$string['activeroomsreport'] = 'Active Rooms Report';
-$string['noactiverooms'] = 'There are no active rooms at the moment.';
-$string['activerooms'] = 'Active Rooms';
-$string['loading'] = 'Loading...';
+$string['activeroomsreport'] = 'Отчет о активных комнатах';
+$string['noactiverooms'] = 'Сейчас активных комнат нет.';
+$string['activerooms'] = 'Активные комнаты';
+$string['loading'] = 'Загрузка...';
 
 // mod_form.php
 $string['roomtitle'] = 'Название комнаты';
@@ -344,10 +344,10 @@ $string['event_recording_proceeded'] = 'Запись готова';
 $string['event_plugin_error'] = 'Ошибка PlugNmeet';
 $string['event_track_published'] = 'Опубликованный трек';
 $string['event_track_unpublished'] = 'Трек, не опубликованный';
-$string['event_recording_started'] = 'Recording started';
-$string['event_recording_ended'] = 'Recording ended';
-$string['event_rtmp_started'] = 'RTMP stream started';
-$string['event_rtmp_ended'] = 'RTMP stream ended';
+$string['event_recording_started'] = 'Начало записи';
+$string['event_recording_ended'] = 'Запись завершена';
+$string['event_rtmp_started'] = 'Запуск трансляции RTMP';
+$string['event_rtmp_ended'] = 'RTMP-стрим завершился';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Уведомления о готовых записях';
