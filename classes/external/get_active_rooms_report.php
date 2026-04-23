@@ -114,7 +114,7 @@ class get_active_rooms_report extends external_api {
                 'webcams' => $data['webcams'],
                 'mics' => $data['mics'],
                 'screenshares' => $data['screenshares'],
-                'creation_time' => $data['creation_time_formatted'],
+                'creation_time' => $data['creation_time'],
             ];
         }
 
@@ -152,7 +152,7 @@ class get_active_rooms_report extends external_api {
                     'webcams' => new external_value(PARAM_INT, 'Webcams'),
                     'mics' => new external_value(PARAM_INT, 'Mics'),
                     'screenshares' => new external_value(PARAM_INT, 'Screenshares'),
-                    'creation_time' => new external_value(PARAM_TEXT, 'Creation time'),
+                    'creation_time' => new external_value(PARAM_INT, 'Room creation timestamp'),
                 ])
             ),
         ]);
