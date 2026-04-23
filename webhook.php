@@ -253,6 +253,7 @@ try {
             break;
 
         case 'start_recording':
+            // Trigger Moodle Event.
             $event = recording_started::create([
                 'context' => $context,
                 'objectid' => $plugnmeet->id,
@@ -261,6 +262,7 @@ try {
             break;
 
         case 'end_recording':
+            // Trigger Moodle Event.
             $event = recording_ended::create([
                 'context' => $context,
                 'objectid' => $plugnmeet->id,
@@ -269,6 +271,7 @@ try {
             break;
 
         case 'start_rtmp':
+            // Trigger Moodle Event.
             $event = rtmp_started::create([
                 'context' => $context,
                 'objectid' => $plugnmeet->id,
@@ -277,6 +280,7 @@ try {
             break;
 
         case 'end_rtmp':
+            // Trigger Moodle Event.
             $event = rtmp_ended::create([
                 'context' => $context,
                 'objectid' => $plugnmeet->id,
