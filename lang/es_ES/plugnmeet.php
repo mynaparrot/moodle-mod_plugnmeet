@@ -344,6 +344,10 @@ $string['event_recording_proceeded'] = 'Grabación lista';
 $string['event_plugin_error'] = 'Error PlugNmeet';
 $string['event_track_published'] = 'Tema publicado';
 $string['event_track_unpublished'] = 'Pista inédita';
+$string['event_recording_started'] = 'Recording started';
+$string['event_recording_ended'] = 'Recording ended';
+$string['event_rtmp_started'] = 'RTMP stream started';
+$string['event_rtmp_ended'] = 'RTMP stream ended';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Notificaciones para grabaciones listas';
