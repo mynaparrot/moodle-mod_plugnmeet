@@ -35,7 +35,7 @@ $expiry = required_param('expiry', PARAM_INT);
 $sig = required_param('sig', PARAM_ALPHANUM);
 
 // If user is already logged in, redirect them to the regular view page with a message.
-if (isloggedin() && !isguestuser()) {
+if (isloggedin()) {
     \core\notification::info(get_string('already_logged_in', 'mod_plugnmeet'));
     redirect(new moodle_url('/mod/plugnmeet/view.php', ['id' => $id]));
 }

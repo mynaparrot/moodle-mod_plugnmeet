@@ -464,8 +464,6 @@ function get_plugnmeet_config() {
                 $file->get_itemid(),
                 $file->get_filepath(),
                 $file->get_filename(),
-                false,
-                true
             );
             $plugnmeetconfig['customLogo'] = [
                 'main_logo_light' => $url->out(false),
@@ -504,8 +502,6 @@ function get_plugnmeet_config() {
                 $file->get_itemid(),
                 $file->get_filepath(),
                 $file->get_filename(),
-                false,
-                true
             );
             $designcustomization['background_image'] = $url->out(false);
         }

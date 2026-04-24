@@ -112,8 +112,6 @@ class create_room extends external_api {
                     $file->get_itemid(),
                     $file->get_filepath(),
                     $file->get_filename(),
-                    false, // Forcedownload.
-                    true  // Offline.
                 );
                 $roommetadata['whiteboard_features']['preload_file'] = $url->out(false);
             }
