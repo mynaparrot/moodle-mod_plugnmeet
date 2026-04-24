@@ -186,8 +186,11 @@ $string['allow_file_upload_help'] = 'Permet de partager des fichiers dans le cha
 $string['allow_shared_notepad'] = 'Autoriser le bloc-notes partagé';
 $string['allow_shared_notepad_help'] = 'Permet un éditeur de texte collaboratif où élèves et enseignants peuvent prendre des notes en temps réel ensemble. C’est parfait pour le brainstorming, la co-écriture ou la création d’un résumé de cours partagé.';
 
+$string['whiteboard_features'] = 'Fonctionnalités du tableau blanc';
 $string['allow_whiteboard'] = 'Autoriser le tableau blanc';
 $string['allow_whiteboard_help'] = 'Cela débloque un espace de dessin interactif pour la session. Utilisez-le pour esquisser des diagrammes, résoudre visuellement des problèmes de mathématiques ou laisser les élèves annoter le contenu partagé.';
+$string['preload_file'] = 'Fichier de présentation de préchargement';
+$string['preload_file_help'] = 'Cela vous permet de télécharger un document PDF ou Office qui sera automatiquement chargé sur le tableau blanc au début de la session. Cela garantit que votre matériel de présentation est prêt immédiatement pour le cours. <strong>Taille maximale du fichier : 5 Mo</strong>';
 
 $string['allowed_external_media_player'] = 'Autoriser le lecteur multimédia externe';
 $string['allowed_external_media_player_help'] = 'Permet aux modérateurs de synchroniser et de lire des vidéos issues de sources comme YouTube ou Vimeo pour toute la classe. Idéal pour analyser des extraits éducatifs ou regarder des documentaires ensemble sans délai de bande passante.';
