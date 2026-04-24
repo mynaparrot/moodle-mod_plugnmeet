@@ -186,8 +186,11 @@ $string['allow_file_upload_help'] = 'Maakt het mogelijk om bestanden te delen bi
 $string['allow_shared_notepad'] = 'Sta gedeeld notitieblok toe';
 $string['allow_shared_notepad_help'] = 'Maakt een samenwerkende teksteditor mogelijk waarin leerlingen en docenten samen realtime aantekeningen kunnen maken. Dit is perfect om te brainstormen, samen te schrijven of een gedeelde klasoverzicht te maken.';
 
+$string['whiteboard_features'] = 'Whiteboard-functies';
 $string['allow_whiteboard'] = 'Whiteboard toestaan';
 $string['allow_whiteboard_help'] = 'Ontgrendelt een interactieve tekenruimte voor de sessie. Gebruik het voor het schetsen van diagrammen, het visueel oplossen van wiskundeproblemen of het laten annoteren van gedeelde inhoud.';
+$string['preload_file'] = 'Preload Presentatiebestand';
+$string['preload_file_help'] = 'Hiermee kun je een PDF of Office-document uploaden dat automatisch op het whiteboard wordt geladen wanneer de sessie begint. Dit zorgt ervoor dat je presentatiemateriaal direct klaar is voor de les. <strong>Maximale bestandsgrootte: 5Mb</strong>';
 
 $string['allowed_external_media_player'] = 'Externe mediaspeler toestaan';
 $string['allowed_external_media_player_help'] = 'Maakt het mogelijk dat moderators video\'s van bronnen zoals YouTube of Vimeo voor de hele klas kunnen synchroniseren en afspelen. Ideaal om educatieve clips te analyseren of samen documentaires te kijken zonder bandbreedtevertraging.';
