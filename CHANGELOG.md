@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.0.3](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.2...v3.0.3) (2026-04-24)
+
+
+### Bug Fixes
+
+* added `guest_join` template + missing webhooks ([16530ba](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/16530ba19a6fbffbec1a817bd0bcc6912584824d))
+* bump version ([55d23d0](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/55d23d060c1b65cec0fa21bbcf69196b1620ec0c))
+* error accessing files during guest user join ([d6b779e](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/d6b779e18f54aea6c12c87e42752ac42dc0eaaea))
+* **feat:** added missing whiteboard `preload_file` file option ([3fcbcd1](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/3fcbcd1a48c3b65cd2f20bf3b7ab626ad66c60d7))
+* **feat:** added view to display all live active rooms ([7ddc261](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/7ddc261136f14a81e4ef6954e771d2dbd5d42e74))
+* invalid type of `creation_time` ([5eb38b5](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/5eb38b560ebb0ab6e63112ee4174630c7ff2d799))
+* **locale:** new Crowdin updates ([18d6d80](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/18d6d80ac9eaab8b3b6ea1c601637a901213a72c))
+* notification type ([a939d94](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/a939d94707a7ae6992e8c61c1aef2e291b5c6616))
+* write logs using moodle event ([a0e421d](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/a0e421d97a11f2effc07ea563c0103c0365b06cd))
+
 ## [3.0.2](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.1...v3.0.2) (2026-04-22)
 
 
