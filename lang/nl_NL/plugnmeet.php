@@ -40,6 +40,7 @@ $string['plugnmeet:downloadattendance'] = 'Download het aanwezigheidsrapport';
 $string['plugnmeet:downloadrecordings'] = 'Download opnames';
 $string['plugnmeet:manage'] = 'Beheer PlugNmeet-instellingen';
 $string['plugnmeet:view'] = 'Bekijk de activiteit van PlugNmeet';
+$string['plugnmeet:viewactiveroomsreport'] = 'Bekijk het rapport van actieve kamers';
 $string['plugnmeet:viewartifacts'] = 'Bekijk artefacten';
 $string['plugnmeet:viewattendance'] = 'Bekijk het aanwezigheidsrapport';
 $string['plugnmeet:viewattendancelist'] = 'Bekijk bezoekerslijst';
@@ -114,6 +115,10 @@ $string['attendance'] = "Aanwezigheidsrapport";
 $string['artifact'] = "Artefact";
 $string['room_subject'] = 'kamer';
 $string['user_subject'] = 'Gebruiker';
+$string['activeroomsreport'] = 'Rapport Actieve Kamers';
+$string['noactiverooms'] = 'Er zijn momenteel geen actieve kamers.';
+$string['activerooms'] = 'Actieve Kamers';
+$string['loading'] = 'Laden...';
 
 // mod_form.php
 $string['roomtitle'] = 'Kamertitel';
@@ -339,6 +344,10 @@ $string['event_recording_proceeded'] = 'Opnameklaar';
 $string['event_plugin_error'] = 'PlugNmeet-fout';
 $string['event_track_published'] = 'Track gepubliceerd';
 $string['event_track_unpublished'] = 'Track ongepubliceerd';
+$string['event_recording_started'] = 'Opnamestart';
+$string['event_recording_ended'] = 'Opname beëindigd';
+$string['event_rtmp_started'] = 'RTMP-stream gestart';
+$string['event_rtmp_ended'] = 'RTMP-stream beëindigd';
 
 // Notifications
 $string['messageprovider:recording_ready'] = 'Meldingen voor gereedstaande opnames';
