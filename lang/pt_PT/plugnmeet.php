@@ -186,8 +186,11 @@ $string['allow_file_upload_help'] = 'Permite partilhar ficheiros dentro do chat.
 $string['allow_shared_notepad'] = 'Permitir bloco de notas partilhado';
 $string['allow_shared_notepad_help'] = 'Permite um editor de texto colaborativo onde alunos e professores podem tirar notas em tempo real em conjunto. Isto é perfeito para brainstorming, co-escrita ou para construir um resumo partilhado da aula.';
 
+$string['whiteboard_features'] = 'Funcionalidades do Quadro Branco';
 $string['allow_whiteboard'] = 'Permitir Quadro de Comunicações';
 $string['allow_whiteboard_help'] = 'Desbloqueia um espaço de desenho interativo para a sessão. Use-o para esboçar diagramas, resolver problemas de matemática visualmente ou deixar os alunos anotarem conteúdos partilhados.';
+$string['preload_file'] = 'Ficheiro de Pré-Carregamento da Apresentação';
+$string['preload_file_help'] = 'Permite-lhe carregar um PDF ou documento do Office que será carregado automaticamente no quadro branco quando a sessão começar. Isto garante que o seu material de apresentação está pronto para a aula imediatamente. <strong>Tamanho máximo do ficheiro: 5Mb</strong>';
 
 $string['allowed_external_media_player'] = 'Permitir Leitor Multimédia Externo';
 $string['allowed_external_media_player_help'] = 'Permite aos moderadores sincronizar e reproduzir vídeos de fontes como YouTube ou Vimeo para toda a turma. Ideal para analisar excertos educativos ou ver documentários juntos sem atraso de largura de banda.';
