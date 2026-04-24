@@ -186,8 +186,11 @@ $string['allow_file_upload_help'] = 'Permette di condividere file all\'interno d
 $string['allow_shared_notepad'] = 'Consentire la condivisione del blocco note';
 $string['allow_shared_notepad_help'] = 'Consente un editor di testo collaborativo dove studenti e insegnanti possono prendere appunti in tempo reale insieme. È perfetto per fare brainstorming, co-scrivere o costruire un riassunto condiviso della classe.';
 
+$string['whiteboard_features'] = 'Caratteristiche della lavagna bianca';
 $string['allow_whiteboard'] = 'Consenti lavagna';
 $string['allow_whiteboard_help'] = 'Sblocca uno spazio di disegno interattivo per la sessione. Usalo per schizzare diagrammi, risolvere problemi di matematica in modo visivo o lasciare che gli studenti annotino contenuti condivisi.';
+$string['preload_file'] = 'Precarica file di presentazione';
+$string['preload_file_help'] = 'Ti permette di caricare un PDF o un documento Office che verrà caricato automaticamente sulla lavagna quando inizia la sessione. Questo garantisce che il materiale della presentazione sia pronto immediatamente per la lezione. <strong>Dimensione massima del file: 5Mb</strong>';
 
 $string['allowed_external_media_player'] = 'Consentire lettore multimediale esterno';
 $string['allowed_external_media_player_help'] = 'Permette ai moderatori di sincronizzare e riprodurre video da fonti come YouTube o Vimeo per tutta la classe. Ideale per analizzare clip educativi o guardare documentari insieme senza ritardo di banda.';
