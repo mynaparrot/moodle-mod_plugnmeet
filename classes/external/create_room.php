@@ -32,6 +32,7 @@ use context_module;
 use dml_exception;
 use core_external\external_single_structure;
 use mod_plugnmeet\helper\plugNmeetConnect;
+use mod_plugnmeet\helper\RoomHelper;
 use moodle_url;
 
 defined('MOODLE_INTERNAL') || die();
@@ -157,6 +158,8 @@ class create_room extends external_api {
                     $DB->insert_record('plugnmeet_sessions', $newsession);
                 }
             }
+        } else {
+            RoomHelper::write_log_event($instance->roomid, 'create_room', $res->getMsg());
         }
 
         return ['status' => $res->getStatus(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];

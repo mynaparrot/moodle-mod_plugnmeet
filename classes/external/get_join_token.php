@@ -31,6 +31,7 @@ use external_value;
 use context_module;
 use core_external\external_single_structure;
 use mod_plugnmeet\helper\plugNmeetConnect;
+use mod_plugnmeet\helper\RoomHelper;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -125,6 +126,7 @@ class get_join_token extends external_api {
         // 1. Check if room is active.
         $isactiveres = $connect->isRoomActive($plugnmeet->roomid);
         if (!$isactiveres->getStatus()) {
+            RoomHelper::write_log_event($plugnmeet->roomid, 'get_join_token:isRoomActive', $isactiveres->getMsg());
             return [
                 'status' => false,
                 'msg' => $connect->getResponseError($isactiveres, get_string('room_subject', 'mod_plugnmeet')),
@@ -172,6 +174,9 @@ class get_join_token extends external_api {
         }
 
         $res = $connect->getJoinToken($plugnmeet->roomid, $name, $userid, $isadmin);
+        if (!$res->getStatus()) {
+            RoomHelper::write_log_event($plugnmeet->roomid, 'get_join_token', $res->getMsg());
+        }
 
         $result = ['status' => $res->getStatus(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];
         if ($result['status']) {

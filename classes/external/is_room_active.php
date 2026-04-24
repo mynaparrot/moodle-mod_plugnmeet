@@ -32,6 +32,7 @@ use context_module;
 use dml_exception;
 use core_external\external_single_structure;
 use mod_plugnmeet\helper\plugNmeetConnect;
+use mod_plugnmeet\helper\RoomHelper;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -69,6 +70,9 @@ class is_room_active extends external_api {
         $config = get_config('mod_plugnmeet');
         $connect = new plugNmeetConnect($config);
         $res = $connect->isRoomActive($instance->roomid);
+        if (!$res->getStatus()) {
+            RoomHelper::write_log_event($instance->roomid, 'is_room_active', $res->getMsg());
+        }
 
         return ['status' => $res->getStatus(), 'is_active' => $res->getIsActive(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];
     }

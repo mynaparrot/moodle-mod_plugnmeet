@@ -32,7 +32,6 @@ use Livekit\TrackType;
 use mod_plugnmeet\event\artifact_created;
 use mod_plugnmeet\event\participant_joined;
 use mod_plugnmeet\event\participant_left;
-use mod_plugnmeet\event\plugin_error;
 use mod_plugnmeet\event\recording_ended;
 use mod_plugnmeet\event\recording_proceeded;
 use mod_plugnmeet\event\recording_started;
@@ -46,6 +45,7 @@ use mod_plugnmeet\event\track_published;
 use mod_plugnmeet\event\track_unpublished;
 use mod_plugnmeet\helper\CompletionHelper;
 use mod_plugnmeet\helper\plugNmeetConnect;
+use mod_plugnmeet\helper\RoomHelper;
 use Mynaparrot\PlugnmeetProto\CommonNotifyEvent;
 use Mynaparrot\PlugnmeetProto\RoomArtifactType;
 
@@ -71,14 +71,7 @@ try {
         return;
     }
 } catch (Exception $e) {
-    $event = plugin_error::create([
-        'context' => context_system::instance(),
-        'other' => [
-            'type' => 'webhook',
-            'message' => 'JWT Decode Error: ' . $e->getMessage(),
-        ],
-    ]);
-    $event->trigger();
+    RoomHelper::write_log_event('', 'webhook', 'JWT Decode Error: ' . $e->getMessage());
 
     debugging("PlugNmeet Webhook JWT Error: " . $e->getMessage());
     http_response_code(500);
@@ -289,15 +282,7 @@ try {
             break;
     }
 } catch (Exception $e) {
-    $event = plugin_error::create([
-        'context' => $context ?? context_system::instance(),
-        'objectid' => $plugnmeet->id ?? null,
-        'other' => [
-            'type' => 'webhook',
-            'message' => $e->getMessage(),
-        ],
-    ]);
-    $event->trigger();
+    RoomHelper::write_log_event($plugnmeet->id ?? '', 'webhook', $e->getMessage());
 
     debugging("PlugNmeet Webhook Exception: " . $e->getMessage());
     http_response_code(500);

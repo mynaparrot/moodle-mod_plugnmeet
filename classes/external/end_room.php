@@ -32,6 +32,7 @@ use context_module;
 use dml_exception;
 use core_external\external_single_structure;
 use mod_plugnmeet\helper\plugNmeetConnect;
+use mod_plugnmeet\helper\RoomHelper;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -70,6 +71,9 @@ class end_room extends external_api {
 
         $connect = new plugNmeetConnect($config);
         $res = $connect->endRoom($plugnmeet->roomid);
+        if (!$res->getStatus()) {
+            RoomHelper::write_log_event($plugnmeet->roomid, 'end_room', $res->getMsg());
+        }
 
         return ['status' => $res->getStatus(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];
     }

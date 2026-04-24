@@ -16,9 +16,6 @@
 
 namespace mod_plugnmeet\helper;
 
-use context_system;
-use core\notification;
-use mod_plugnmeet\event\plugin_error;
 use MoodleExcelWorkbook;
 use MoodleExcelFormat;
 use cache;
@@ -109,17 +106,7 @@ class AnalyticsHelper {
                     }
                 }
             } else {
-                $event = plugin_error::create([
-                    'context' => context_system::instance(),
-                    'objectid' => $artifactid,
-                    'other' => [
-                        'type' => 'AnalyticsHelper',
-                        'message' => "Error during fetching report download token: " . $res->getMsg(),
-                    ],
-                ]);
-                $event->trigger();
-
-                debugging("Error during fetching report download token: " . $res->getMsg());
+                RoomHelper::write_log_event($artifactid, 'AnalyticsHelper', "Error during fetching report download token: " . $res->getMsg());
             }
         }
 
@@ -149,17 +136,7 @@ class AnalyticsHelper {
         $result = $curl->get($host);
 
         if ($curl->get_errno()) {
-            $event = plugin_error::create([
-                'context' => context_system::instance(),
-                'objectid' => $artifactid,
-                'other' => [
-                    'type' => 'AnalyticsHelper',
-                    'message' => "Error during fetching report by CURL: " . $curl->get_errno(),
-                ],
-            ]);
-            $event->trigger();
-
-            debugging("AnalyticsHelper Error during fetching report by CURL: " . $curl->get_errno());
+            RoomHelper::write_log_event($artifactid, 'AnalyticsHelper', "Error during fetching report by CURL: " . $curl->get_errno());
             return null;
         }
         return $result;

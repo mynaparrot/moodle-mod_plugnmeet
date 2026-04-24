@@ -25,6 +25,8 @@
 
 namespace mod_plugnmeet\helper;
 
+use context_system;
+use mod_plugnmeet\event\plugin_error;
 use Mynaparrot\PlugnmeetProto\ActiveRoomWithParticipant;
 use Mynaparrot\PlugnmeetProto\RoomMetadata;
 use Livekit\TrackSource;
@@ -177,5 +179,29 @@ class RoomHelper {
             return $isotime;
         }
         return userdate($timestamp, get_string('strftimedatetimeshort', 'langconfig'));
+    }
+
+    /**
+     * Write log by event
+     *
+     * @param string $objectid
+     * @param string $type
+     * @param string $message
+     * @return void
+     */
+    public static function write_log_event(string $objectid, string $type, string $message) {
+        try {
+            $event = plugin_error::create([
+                'context' => context_system::instance(),
+                'objectid' => $objectid,
+                'other' => [
+                    'type' => $type,
+                    'message' => $message,
+                ],
+            ]);
+            $event->trigger();
+        } catch (\Exception $e) {
+            debugging($e->getMessage());
+        }
     }
 }
