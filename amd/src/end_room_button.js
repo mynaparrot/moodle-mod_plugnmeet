@@ -18,7 +18,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, ajax, notificat
                         } else {
                             notification.addNotification({
                                 message: response.msg,
-                                type: "info"
+                                type: "error"
                             });
                             that.attr('disabled', false);
                         }
