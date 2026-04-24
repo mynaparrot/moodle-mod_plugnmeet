@@ -186,8 +186,11 @@ $string['allow_file_upload_help'] = 'Ermöglicht das Teilen von Dateien im Chat.
 $string['allow_shared_notepad'] = 'Gemeinsames Notizbuch erlauben';
 $string['allow_shared_notepad_help'] = 'Ermöglicht einen kollaborativen Texteditor, in dem Schüler und Lehrer gemeinsam in Echtzeit Notizen machen können. Das ist perfekt zum Brainstorming, zum Co-Schreiben oder zum Erstellen einer gemeinsamen Kurszusammenfassung.';
 
+$string['whiteboard_features'] = 'Whiteboard-Funktionen';
 $string['allow_whiteboard'] = 'Whiteboard zulassen';
 $string['allow_whiteboard_help'] = 'Es wird ein interaktiver Zeichenbereich für die Sitzung freigeschaltet. Nutzen Sie es, um Diagramme zu skizzieren, Mathematikaufgaben visuell zu lösen oder den Schülern das Annotieren gemeinsamer Inhalte zu ermöglichen.';
+$string['preload_file'] = 'Preload-Präsentationsdatei';
+$string['preload_file_help'] = 'Ermöglicht es Ihnen, ein PDF oder ein Office-Dokument hochzuladen, das automatisch auf dem Whiteboard geladen wird, wenn die Sitzung beginnt. So wird sichergestellt, dass Ihr Präsentationsmaterial sofort für den Kurs einsatzbereit ist. <strong>Maximale Dateigröße: 5 MB</strong>';
 
 $string['allowed_external_media_player'] = 'Externe Mediaplayer erlauben';
 $string['allowed_external_media_player_help'] = 'Ermöglicht es Moderatoren, Videos von Quellen wie YouTube oder Vimeo für die gesamte Klasse zu synchronisieren und abzuspielen. Ideal, um Bildungsclips zu analysieren oder gemeinsam Dokumentationen ohne Bandbreitenverzögerung zu schauen.';
