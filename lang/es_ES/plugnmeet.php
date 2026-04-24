@@ -186,8 +186,11 @@ $string['allow_file_upload_help'] = 'Permite compartir archivos dentro del chat.
 $string['allow_shared_notepad'] = 'Permitir bloc de notas compartido';
 $string['allow_shared_notepad_help'] = 'Permite un editor de texto colaborativo donde estudiantes y profesores pueden tomar notas en tiempo real juntos. Esto es perfecto para hacer lluvia de ideas, co-escribir o crear un resumen compartido de clase.';
 
+$string['whiteboard_features'] = 'Características de la pizarra';
 $string['allow_whiteboard'] = 'Permitir pizarra';
 $string['allow_whiteboard_help'] = 'Desbloquea un espacio de dibujo interactivo para la sesión. Úsalo para dibujar diagramas, resolver problemas matemáticos visualmente o dejar que los estudiantes anoten contenido compartido.';
+$string['preload_file'] = 'Preload Presentation File';
+$string['preload_file_help'] = 'Te permite subir un PDF o un documento de Office que se cargará automáticamente en la pizarra cuando empiece la sesión. Esto garantiza que tu material de presentación esté listo para la clase de inmediato. <strong>Tamaño máximo de archivo: 5Mb</strong>';
 
 $string['allowed_external_media_player'] = 'Permitir reproductor multimedia externo';
 $string['allowed_external_media_player_help'] = 'Permite a los moderadores sincronizar y reproducir vídeos de fuentes como YouTube o Vimeo para toda la clase. Ideal para analizar clips educativos o ver documentales juntos sin retardo en el ancho de banda.';
