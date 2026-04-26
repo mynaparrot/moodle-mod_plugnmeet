@@ -12,7 +12,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
  * Public entry point for guest users to join a PlugNmeet session.
@@ -28,7 +28,7 @@
 require_once(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
 
-global $DB, $PAGE, $OUTPUT;
+global $DB, $PAGE, $OUTPUT, $SITE;
 
 $id = required_param('id', PARAM_INT);
 $expiry = required_param('expiry', PARAM_INT);
@@ -68,10 +68,11 @@ if (time() > $expiry) {
 
 // Setup Page.
 $PAGE->set_url('/mod/plugnmeet/guest_join.php', ['id' => $id, 'expiry' => $expiry, 'sig' => $sig]);
+$PAGE->set_course($SITE);
 $PAGE->set_context(context_system::instance()); // Public context.
 $PAGE->set_title(get_string('guest_join_title', 'mod_plugnmeet'));
 $PAGE->set_heading(format_string($plugnmeet->name));
-$PAGE->set_pagelayout('base');
+$PAGE->set_pagelayout('standard');
 
 // Initialize JS.
 $PAGE->requires->js_call_amd('mod_plugnmeet/join_button', 'init', [
