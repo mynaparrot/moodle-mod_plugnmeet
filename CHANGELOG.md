@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.4](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.3...v3.0.4) (2026-04-26)
+
+
+### Bug Fixes
+
+* improve guest join interface ([7d2bfa7](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/7d2bfa75d4a595e69d464bb5f852b7857e380510))
+
 ## [3.0.3](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.2...v3.0.3) (2026-04-24)
 
 
