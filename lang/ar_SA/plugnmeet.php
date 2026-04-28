@@ -401,6 +401,8 @@ $string['estimated_cost'] = 'التكلفة التقديرية';
 $string['file_path'] = 'مسار الملف';
 $string['mime_type'] = 'نوع MIME';
 $string['created_at'] = 'تم الإنشاء في';
+$string['meeting_summary'] = 'ملخص الاجتماع';
+$string['error_loading_meeting_summary'] = 'خطأ في تحميل ملخص الاجتماع: {$a}';
 
 // Analytics strings
 $string['download_excel_report'] = 'تنزيل تقرير Excel';
