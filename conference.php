@@ -32,13 +32,15 @@ use mod_plugnmeet\helper\plugNmeetConnect;
 
 global $CFG, $DB, $PAGE;
 
-$id = optional_param('id', 0, PARAM_INT);
+$id = required_param('id', PARAM_INT);
+$accesstoken = required_param('access_token', PARAM_RAW);
+
 $cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
 $moduleinstance = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
 $context = context_module::instance($cm->id);
 
-$PAGE->set_url('/mod/plugnmeet/conference.php', ['id' => $cm->id]);
+$PAGE->set_url('/mod/plugnmeet/conference.php', ['access_token' => $accesstoken, 'id' => $cm->id]);
 $PAGE->set_context($context);
 
 // If guest access is NOT enabled, require standard Moodle login.
@@ -70,7 +72,7 @@ $csstag = "";
 foreach ($cssfiles as $file) {
     $csstag .= '<link href="' . $path . '/css/' . $file . '" rel="stylesheet" />' . "\n\t";
 }
-$script = get_plugnmeet_config();
+$cnfscript = get_plugnmeet_config();
 
 $title = format_string($moduleinstance->name);
 
@@ -81,7 +83,7 @@ echo '<!doctype html>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <title>' . $title . '</title>
-    ' . $csstag . $jstag . $script . '
+    ' . $csstag . $jstag . $cnfscript . '
 </head>
 <body>
 <div id="plugNmeet-app"></div>
