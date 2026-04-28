@@ -401,6 +401,8 @@ $string['estimated_cost'] = 'Geschatte kosten';
 $string['file_path'] = 'Bestandspad';
 $string['mime_type'] = 'MIME-type';
 $string['created_at'] = 'Gemaakt op';
+$string['meeting_summary'] = 'Samenvatting van de vergadering';
+$string['error_loading_meeting_summary'] = 'Fout laden samenvatting van vergaderingen: {$a}';
 
 // Analytics strings
 $string['download_excel_report'] = 'Excel-rapport downloaden';
