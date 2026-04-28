@@ -401,6 +401,8 @@ $string['estimated_cost'] = 'Geschätzte Kosten';
 $string['file_path'] = 'Dateipfad';
 $string['mime_type'] = 'Pantomime-Typ';
 $string['created_at'] = 'Erstellt am';
+$string['meeting_summary'] = 'Zusammenfassung der Sitzung';
+$string['error_loading_meeting_summary'] = 'Fehler-Laden-Sitzungszusammenfassung: {$a}';
 
 // Analytics strings
 $string['download_excel_report'] = 'Excel-Bericht herunterladen';
