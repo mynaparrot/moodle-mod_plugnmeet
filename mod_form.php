@@ -654,6 +654,22 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
     }
 
     /**
+     * Recursive function to flatten metadata for form defaults.
+     */
+    private function flatten_metadata($metadata, $prefix = 'meta') {
+        $flat = [];
+        foreach ($metadata as $key => $value) {
+            $newkey = $prefix . '[' . $key . ']';
+            if (is_array($value)) {
+                $flat = array_merge($flat, $this->flatten_metadata($value, $newkey));
+            } else {
+                $flat[$newkey] = $value;
+            }
+        }
+        return $flat;
+    }
+
+    /**
      * Moodle data processing hook
      */
     public function data_preprocessing(&$defaultvalues) {
@@ -663,20 +679,9 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             // Handle metadata
             $metadata = json_decode($this->current->roommetadata, true);
             if ($metadata) {
-                foreach ($metadata as $key => $value) {
-                    if (is_array($value)) {
-                        foreach ($value as $subkey => $subvalue) {
-                            if (is_array($subvalue)) {
-                                foreach ($subvalue as $subsubkey => $subsubvalue) {
-                                    $defaultvalues['meta[' . $key . '][' . $subkey . '][' . $subsubkey . ']'] = $subsubvalue;
-                                }
-                            } else {
-                                $defaultvalues['meta[' . $key . '][' . $subkey . ']'] = $subvalue;
-                            }
-                        }
-                    } else {
-                        $defaultvalues['meta[' . $key . ']'] = $value;
-                    }
+                $flatmetadata = $this->flatten_metadata($metadata);
+                foreach ($flatmetadata as $key => $value) {
+                    $defaultvalues[$key] = $value;
                 }
             }
 
