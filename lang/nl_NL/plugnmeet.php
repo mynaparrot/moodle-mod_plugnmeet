@@ -314,6 +314,7 @@ $string['session_available_from'] = 'Beschikbaar via: {$a}';
 $string['session_available_until'] = 'Beschikbaar tot: {$a}';
 $string['session_not_started_yet'] = 'Deze sessie is nog niet begonnen.';
 $string['session_ended'] = 'Deze sessie is afgelopen.';
+$string['client_files_missing'] = 'Clientbestanden (JS/CSS) ontbreken. Controleer alsjeblieft de configuratie van je PlugNmeet-server.';
 $string['allow_guest'] = 'Gastgebruikers toestaan';
 $string['allow_guest_help'] = 'Wanneer deze functie is ingeschakeld, wordt een beveiligde, deelbare link gegenereerd waarmee externe gebruikers (zoals gastdocenten of deelnemers zonder Moodle-account) aan de sessie kunnen deelnemen; een beheerder kan deze link bekijken en delen.';
 $string['guest_join_link'] = 'Gast aanmelden';
