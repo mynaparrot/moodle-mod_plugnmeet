@@ -314,6 +314,7 @@ $string['session_available_from'] = 'متوفر من: {$a}';
 $string['session_available_until'] = 'متاح حتى: {$a}';
 $string['session_not_started_yet'] = 'لم تبدأ هذه الجلسة بعد.';
 $string['session_ended'] = 'انتهت هذه الجلسة.';
+$string['client_files_missing'] = 'ملفات العملاء (JS/CSS) مفقودة. يرجى التحقق من إعدادات خادم PlugNmeet الخاص بك.';
 $string['allow_guest'] = 'السماح للمستخدمين الضيوف';
 $string['allow_guest_help'] = 'عند التمكين، يتم إنشاء رابط آمن قابل للمشاركة بحيث يمكن للمستخدمين الخارجيين (مثل المعلمين الضيوف أو المشاركين الذين ليس لديهم حساب Moodle) الانضمام إلى الجلسة؛ ويمكن للمسؤول عرض هذا الرابط ومشاركته.';
 $string['guest_join_link'] = 'رابط الانضمام كضيف';
