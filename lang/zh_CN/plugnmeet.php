@@ -314,6 +314,7 @@ $string['session_available_from'] = '可从以下网址获取： {$a}';
 $string['session_available_until'] = '有效期至： {$a}';
 $string['session_not_started_yet'] = '本次会议尚未开始。';
 $string['session_ended'] = '本次会议已结束。';
+$string['client_files_missing'] = '客户端文件（JS/CSS）缺失。请检查你的PlugMeet服务器配置。';
 $string['allow_guest'] = '允许访客用户';
 $string['allow_guest_help'] = '启用后，系统会生成一个安全的共享链接，以便外部用户（例如客座教师或没有 Moodle 帐户的参与者）可以加入会话；管理员可以查看和共享此链接。';
 $string['guest_join_link'] = '访客加入链接';
