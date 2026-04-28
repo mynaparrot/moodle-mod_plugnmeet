@@ -31,6 +31,8 @@ use Mynaparrot\PlugnmeetProto\ActiveRoomWithParticipant;
 use Mynaparrot\PlugnmeetProto\RoomMetadata;
 use Livekit\TrackSource;
 use moodle_url;
+use cache; // Added for caching.
+use mod_plugnmeet\helper\plugNmeetConnect; // Added for plugNmeetConnect.
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -203,5 +205,78 @@ class RoomHelper {
         } catch (\Exception $e) {
             debugging($e->getMessage());
         }
+    }
+
+    /**
+     * Fetches and caches meeting summary artifact.
+     *
+     * @param string $artifactid
+     * @return string|null
+     * @throws \dml_exception
+     */
+    public static function get_meeting_summary(string $artifactid): ?string {
+        global $CFG;
+
+        require_once($CFG->dirroot . '/mod/plugnmeet/classes/helper/plugNmeetConnect.php');
+        require_once($CFG->libdir . '/filelib.php');
+
+        $cache = cache::make('mod_plugnmeet', 'artifact_info');
+        $summerykey = sprintf("meeting_summer_%s", $artifactid);
+        $cachedata = $cache->get($summerykey);
+
+        if ($cachedata) {
+            return $cachedata;
+        } else {
+            $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
+            $res = $pnc->getArtifactDownloadToken($artifactid);
+
+            if ($res->getStatus()) {
+                $summarycontent = self::fetch_artifact_data($artifactid, $res->getToken());
+                if (!empty($summarycontent)) {
+                    // Remove the header "Meeting Summary for: [UUID]\n---\n" using regex.
+                    $cleancontent = preg_replace(
+                        '~^Meeting Summary for:.*\R+\R+---\R+\R+~s',
+                        '',
+                        $summarycontent
+                    );
+                    $cleancontent = str_replace("h3>", "h6>", $cleancontent);
+
+                    $cache->set($summerykey, $cleancontent);
+                    return $cleancontent;
+                }
+            } else {
+                self::write_log_event($artifactid, 'RoomHelper', "Error during fetching meeting summary download token: " . $res->getMsg());
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Fetches artifact data from server.
+     *
+     * @param string $artifactid
+     * @param string $token
+     * @return bool|string|null
+     * @throws \dml_exception
+     */
+    private static function fetch_artifact_data(string $artifactid, string $token) {
+        $ignoresecurity = false;
+
+        $serverurl = rtrim(get_config('mod_plugnmeet', 'plugnmeet_server_url'), '/');
+        if (str_contains($serverurl, 'http://')) {
+            $ignoresecurity = true;
+        }
+        $host = $serverurl . "/download/artifact/" . $token;
+
+        $curl = new \curl([
+                'ignoresecurity' => $ignoresecurity,
+            ]);
+        $result = $curl->get($host);
+
+        if ($curl->get_errno()) {
+            self::write_log_event($artifactid, 'RoomHelper', "Error during fetching artifact by CURL: " . $curl->get_errno());
+            return null;
+        }
+        return $result;
     }
 }

@@ -143,6 +143,9 @@ class artifacts_controller {
                 'page' => $page,
             ]))->out(false),
 
+            'is_meeting_summary' => $info->getType() === RoomArtifactType::MEETING_SUMMARY,
+            'meeting_summary_content' => '',
+
             'can_delete' => $isfilebased &&
                 has_capability('mod/plugnmeet:deleteartifacts', $this->context),
             'delete_url' => (new moodle_url('/mod/plugnmeet/artifacts.php', [
@@ -199,6 +202,8 @@ class artifacts_controller {
 
         if ($context['is_analytics']) {
             $this->populate_analytics_context($artifactid, $context);
+        } else if ($context['is_meeting_summary']) {
+            $this->populate_meeting_summary_context($artifactid, $context);
         }
 
         return $OUTPUT->render_from_template('mod_plugnmeet/artifact_details', $context);
@@ -269,6 +274,26 @@ class artifacts_controller {
         } catch (\Exception $e) {
             $context['is_analytics'] = false; // Prevent rendering analytics section on error.
             echo $OUTPUT->notification(get_string('error_loading_analytics', 'mod_plugnmeet', $e->getMessage()), 'error');
+        }
+    }
+
+    /**
+     * Populates the context array with meeting summary details.
+     *
+     * @param string $artifactid
+     * @param array &$context
+     */
+    private function populate_meeting_summary_context($artifactid, &$context) {
+        global $OUTPUT;
+        try {
+            $summarycontent = RoomHelper::get_meeting_summary($artifactid);
+            if ($summarycontent) {
+                $context['meeting_summary_content'] = $summarycontent;
+            } else {
+                echo $OUTPUT->notification(get_string('error_loading_meeting_summary', 'mod_plugnmeet'), 'error');
+            }
+        } catch (\Exception $e) {
+            echo $OUTPUT->notification(get_string('error_loading_meeting_summary', 'mod_plugnmeet', $e->getMessage()), 'error');
         }
     }
 
@@ -358,6 +383,8 @@ class artifacts_controller {
 
                 // Purge artifact info and list cache.
                 cache::make('mod_plugnmeet', 'artifact_info')->delete($artifactid);
+                $summerykey = sprintf("meeting_summer_%s", $artifactid);
+                cache::make('mod_plugnmeet', 'artifact_info')->delete($summerykey);
                 cache::make('mod_plugnmeet', 'artifacts_list')->purge();
             }
         }

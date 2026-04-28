@@ -25,6 +25,8 @@
         "can_download_analytics": true,
         "download_excel_url": "http://example.com/excel",
         "download_json_url": "http://example.com/json",
+        "is_meeting_summary": false,
+        "meeting_summary_content": "",
         "can_delete": true,
         "delete_url": "http://example.com/delete",
         "back_url": "http://example.com/back",
@@ -59,7 +61,7 @@
     </div>
 </div>
 
-<table class="generaltable">
+<table class="generaltable mb-6">
     {{#details}}
     <tr>
         <td><strong>{{label}}</strong></td>
@@ -68,9 +70,16 @@
     {{/details}}
 </table>
 
+{{#is_meeting_summary}}
+    <h5 class="mt-4">{{#str}}meeting_summary, mod_plugnmeet{{/str}}</h5>
+    <div class="meeting-summary-content mt-4">
+        {{{meeting_summary_content}}}
+    </div>
+{{/is_meeting_summary}}
+
 {{#is_analytics}}
     <h5 class="mt-4">{{#str}}room_summary, mod_plugnmeet{{/str}}</h5>
-    <table class="generaltable">
+    <table class="generaltable mt-3">
         {{#room_details}}
         <tr>
             <td><strong>{{label}}</strong></td>
@@ -81,7 +90,7 @@
 
     {{#has_users}}
         <h5 class="mt-4">{{#str}}users_summary, mod_plugnmeet{{/str}}</h5>
-        <div class="table-responsive">
+        <div class="table-responsive mt-3">
             <table class="generaltable">
                 <thead>
                     <tr>

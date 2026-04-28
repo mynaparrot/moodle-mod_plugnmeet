@@ -401,6 +401,8 @@ $string['estimated_cost'] = 'Estimated Cost';
 $string['file_path'] = 'File Path';
 $string['mime_type'] = 'Mime Type';
 $string['created_at'] = 'Created At';
+$string['meeting_summary'] = 'Meeting Summary';
+$string['error_loading_meeting_summary'] = 'Error loading meeting summary: {$a}';
 
 // Analytics strings
 $string['download_excel_report'] = 'Download Excel Report';
