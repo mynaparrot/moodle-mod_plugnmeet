@@ -314,6 +314,7 @@ $string['session_available_from'] = 'Disponível em: {$a}';
 $string['session_available_until'] = 'Disponível até: {$a}';
 $string['session_not_started_yet'] = 'Esta sessão ainda não começou.';
 $string['session_ended'] = 'Esta sessão terminou.';
+$string['client_files_missing'] = 'Ficheiros de cliente (JS/CSS) estão em falta. Por favor, verifique a configuração do seu servidor PlugNetet.';
 $string['allow_guest'] = 'Permitir utilizadores convidados';
 $string['allow_guest_help'] = 'Quando ativada, esta opção gera um link seguro e partilhável para que os utilizadores externos (como professores convidados ou participantes sem conta no Moodle) possam entrar na sessão; um administrador pode visualizar e partilhar esse link.';
 $string['guest_join_link'] = 'Link para inscrição de convidados';
