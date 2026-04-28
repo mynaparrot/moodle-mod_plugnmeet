@@ -28,7 +28,9 @@
 require(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/lib.php');
 
+use core\output\notification;
 use mod_plugnmeet\helper\plugNmeetConnect;
+use mod_plugnmeet\helper\RoomHelper;
 
 global $CFG, $DB, $PAGE;
 
@@ -51,12 +53,33 @@ if (empty($moduleinstance->allow_guest)) {
 
 $config = get_config('mod_plugnmeet');
 $connect = new plugNmeetConnect($config);
-$files = $connect->getClientFiles();
-$jsfiles = $files->getJSFiles() ?? [];
-$cssfiles = $files->getCSSFiles() ?? [];
+$fileres = $connect->getClientFiles();
+if (!$fileres->getStatus()) {
+    RoomHelper::write_log_event($moduleinstance->roomid, 'getClientFiles', $fileres->getMsg());
+    // Redirect to the module view page with error.
+    redirect(
+        new moodle_url('/mod/plugnmeet/view.php', ['id' => $cm->id]),
+        $connect->getResponseError($fileres->getMsg()),
+        null,
+        notification::NOTIFY_ERROR
+    );
+}
+
+$jsfiles = $fileres->getJSFiles() ?? [];
+$cssfiles = $fileres->getCSSFiles() ?? [];
+if (empty($jsfiles) || empty($cssfiles)) {
+    // Redirect to the module view page with error.
+    redirect(
+        new moodle_url('/mod/plugnmeet/view.php', ['id' => $cm->id]),
+        get_string('client_files_missing', 'mod_plugnmeet'),
+        null,
+        notification::NOTIFY_ERROR
+    );
+}
+
 $path = $config->plugnmeet_server_url . "/assets";
-if (!empty($files->getStaticAssetsPath())) {
-    $path = $files->getStaticAssetsPath();
+if (!empty($fileres->getStaticAssetsPath())) {
+    $path = $fileres->getStaticAssetsPath();
 }
 
 $jstag = "";

@@ -314,6 +314,7 @@ $string['session_available_from'] = 'Available from: {$a}';
 $string['session_available_until'] = 'Available until: {$a}';
 $string['session_not_started_yet'] = 'This session has not started yet.';
 $string['session_ended'] = 'This session has ended.';
+$string['client_files_missing'] = 'Client files (JS/CSS) are missing. Please check your PlugNmeet server configuration.';
 $string['allow_guest'] = 'Allow Guest Users';
 $string['allow_guest_help'] = 'When enabled, a secure shareable link is generated so external users (such as guest teachers or participants without a Moodle account) can join the session; an admin can view and share this link.';
 $string['guest_join_link'] = 'Guest Join Link';
