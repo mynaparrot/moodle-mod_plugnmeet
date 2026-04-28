@@ -401,6 +401,8 @@ $string['estimated_cost'] = '预计成本';
 $string['file_path'] = '文件路径';
 $string['mime_type'] = '哑剧类型';
 $string['created_at'] = '创建于';
+$string['meeting_summary'] = '会议摘要';
+$string['error_loading_meeting_summary'] = '错误加载会议摘要： {$a}';
 
 // Analytics strings
 $string['download_excel_report'] = '下载 Excel 报表';
