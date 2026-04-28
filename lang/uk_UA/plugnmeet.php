@@ -401,6 +401,8 @@ $string['estimated_cost'] = 'Орієнтовна вартість';
 $string['file_path'] = 'Шлях до файлу';
 $string['mime_type'] = 'Тип MIME';
 $string['created_at'] = 'Створено в';
+$string['meeting_summary'] = 'Підсумок зустрічі';
+$string['error_loading_meeting_summary'] = 'Резюме засідання при завантаженні помилки: {$a}';
 
 // Analytics strings
 $string['download_excel_report'] = 'Завантажити звіт Excel';
