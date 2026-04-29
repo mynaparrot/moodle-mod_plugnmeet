@@ -218,9 +218,9 @@ $string['sip_dial_in_features_is_allow'] = 'Permitir a marcação SIP';
 $string['sip_dial_in_features_is_allow_help'] = 'Permite que os participantes entrem na sessão de áudio através de uma chamada telefónica tradicional. Isto é essencial para os alunos com más ligações à internet ou que precisam de participar enquanto estão em movimento.';
 
 $string['enable_end_to_end_encryption_features'] = 'Ativar encriptação ponta a ponta (E2EE)';
-$string['enable_end_to_end_encryption_features_help'] = 'Oferece a máxima segurança ao encriptar fluxos de vídeo e áudio, de tal forma que nem o servidor pode aceder aos mesmos. Nota: algumas funcionalidades, como a escrita no servidor, podem ser limitadas quando a encriptação ponta a ponta (E2EE) está ativa.';
+$string['enable_end_to_end_encryption_features_help'] = 'Proporciona forte segurança ao encriptar fluxos de vídeo e áudio entre os participantes. Neste modo, o servidor gera e distribui de forma segura uma chave de encriptação única para a sessão.';
 $string['enabled_self_insert_encryption_key'] = 'Permitir chaves definidas pelo participante';
-$string['enabled_self_insert_encryption_key_help'] = 'Permite que os participantes introduzam manualmente uma chave secreta partilhada. Isto garante que o fornecedor de serviços nunca tem acesso às chaves de encriptação, oferecendo o mais alto nível de privacidade.';
+$string['enabled_self_insert_encryption_key_help'] = 'Permite aos participantes inserir manualmente uma chave secreta partilhada, oferecendo o mais alto nível de privacidade, pois o servidor nunca tem acesso às chaves de encriptação. É responsabilidade do anfitrião partilhar o mesmo segredo com todos os participantes; Se forem usadas chaves diferentes, os utilizadores não poderão comunicar entre si. <strong>Nota:</strong> Quando esta opção está ativada, funcionalidades que requerem processamento multimédia do lado do servidor (como gravação na cloud, transcrição e resumo por IA) serão automaticamente desativadas.';
 $string['included_e2ee_chat_messages'] = 'Encriptar mensagens de chat';
 $string['included_e2ee_chat_messages_help'] = 'Estende a encriptação de ponta a ponta ao chat de texto, garantindo que as mensagens só podem ser lidas pelos participantes da sala.';
 $string['included_e2ee_whiteboard'] = 'Encriptar dados de quadro branco';
@@ -314,6 +314,8 @@ $string['session_available_from'] = 'Disponível em: {$a}';
 $string['session_available_until'] = 'Disponível até: {$a}';
 $string['session_not_started_yet'] = 'Esta sessão ainda não começou.';
 $string['session_ended'] = 'Esta sessão terminou.';
+$string['client_files_missing'] = 'Ficheiros de cliente (JS/CSS) estão em falta. Por favor, verifique a configuração do seu servidor PlugNetet.';
+$string['client_connection_error'] = 'Houve um erro ao ligar-se ao servidor PlugNmeet: {$a}. Por favor, verifica as definições do plugin.';
 $string['allow_guest'] = 'Permitir utilizadores convidados';
 $string['allow_guest_help'] = 'Quando ativada, esta opção gera um link seguro e partilhável para que os utilizadores externos (como professores convidados ou participantes sem conta no Moodle) possam entrar na sessão; um administrador pode visualizar e partilhar esse link.';
 $string['guest_join_link'] = 'Link para inscrição de convidados';
@@ -400,6 +402,8 @@ $string['estimated_cost'] = 'Custo estimado';
 $string['file_path'] = 'Caminho do ficheiro';
 $string['mime_type'] = 'Tipo MIME';
 $string['created_at'] = 'Criado em';
+$string['meeting_summary'] = 'Resumo da Reunião';
+$string['error_loading_meeting_summary'] = 'Resumo da reunião de carregamento de erros: {$a}';
 
 // Analytics strings
 $string['download_excel_report'] = 'Descarregar relatório em Excel';

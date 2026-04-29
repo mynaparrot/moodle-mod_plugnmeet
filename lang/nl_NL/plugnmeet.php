@@ -218,9 +218,9 @@ $string['sip_dial_in_features_is_allow'] = 'SIP-inbellen toestaan';
 $string['sip_dial_in_features_is_allow_help'] = 'Hiermee kunnen deelnemers via een traditioneel telefoongesprek aan de audiosessie deelnemen. Dit is essentieel voor studenten met een slechte internetverbinding of voor studenten die onderweg willen deelnemen.';
 
 $string['enable_end_to_end_encryption_features'] = 'Schakel end-to-end-versleuteling (E2EE) in.';
-$string['enable_end_to_end_encryption_features_help'] = 'Biedt maximale beveiliging door video- en audiostreamen te versleutelen, zodat zelfs de server er geen toegang toe heeft. Let op: sommige functies, zoals server-side recording, kunnen beperkt zijn wanneer end-to-end-encryptie (E2EE) actief is.';
+$string['enable_end_to_end_encryption_features_help'] = 'Biedt sterke beveiliging door video- en audiostreams tussen deelnemers te versleutelen. In deze modus genereert en verspreidt de server veilig een unieke encryptiesleutel voor de sessie.';
 $string['enabled_self_insert_encryption_key'] = 'Sta door de deelnemer gedefinieerde sleutels toe.';
-$string['enabled_self_insert_encryption_key_help'] = 'Hiermee kunnen deelnemers handmatig een gedeelde geheime sleutel invoeren. Dit zorgt ervoor dat de serviceprovider nooit toegang heeft tot de encryptiesleutels, wat het hoogste niveau van privacy biedt.';
+$string['enabled_self_insert_encryption_key_help'] = 'Stelt deelnemers in staat handmatig een gedeelde geheime sleutel in te voeren, wat het hoogste niveau van privacy biedt omdat de server nooit toegang heeft tot de encryptiesleutels. Het is de verantwoordelijkheid van de gastheer om hetzelfde geheim met alle deelnemers te delen; Als er verschillende sleutels worden gebruikt, kunnen gebruikers niet met elkaar communiceren. <strong>Opmerking:</strong> Wanneer deze optie is ingeschakeld, worden functies die server-side mediaverwerking vereisen (zoals cloudopname, transcriptie en AI-samenvatting) automatisch uitgeschakeld.';
 $string['included_e2ee_chat_messages'] = 'Versleutel chatberichten';
 $string['included_e2ee_chat_messages_help'] = 'Breidt end-to-end-versleuteling uit naar tekstchats, waardoor berichten alleen leesbaar zijn voor deelnemers in de chatruimte.';
 $string['included_e2ee_whiteboard'] = 'Whiteboardgegevens versleutelen';
@@ -314,6 +314,8 @@ $string['session_available_from'] = 'Beschikbaar via: {$a}';
 $string['session_available_until'] = 'Beschikbaar tot: {$a}';
 $string['session_not_started_yet'] = 'Deze sessie is nog niet begonnen.';
 $string['session_ended'] = 'Deze sessie is afgelopen.';
+$string['client_files_missing'] = 'Clientbestanden (JS/CSS) ontbreken. Controleer alsjeblieft de configuratie van je PlugNmeet-server.';
+$string['client_connection_error'] = 'Er was een foutmelding met verbinding maken naar de PlugNmeet-server: {$a}. Controleer alsjeblieft je plugin-instellingen.';
 $string['allow_guest'] = 'Gastgebruikers toestaan';
 $string['allow_guest_help'] = 'Wanneer deze functie is ingeschakeld, wordt een beveiligde, deelbare link gegenereerd waarmee externe gebruikers (zoals gastdocenten of deelnemers zonder Moodle-account) aan de sessie kunnen deelnemen; een beheerder kan deze link bekijken en delen.';
 $string['guest_join_link'] = 'Gast aanmelden';
@@ -400,6 +402,8 @@ $string['estimated_cost'] = 'Geschatte kosten';
 $string['file_path'] = 'Bestandspad';
 $string['mime_type'] = 'MIME-type';
 $string['created_at'] = 'Gemaakt op';
+$string['meeting_summary'] = 'Samenvatting van de vergadering';
+$string['error_loading_meeting_summary'] = 'Fout laden samenvatting van vergaderingen: {$a}';
 
 // Analytics strings
 $string['download_excel_report'] = 'Excel-rapport downloaden';
