@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.0.4](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.3...v3.0.4) (2026-04-29)
+
+
+### Bug Fixes
+
+* added meeting summery display view ([31eb261](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/31eb261ed595749a0d2061467898c15247e6b9b5))
+* added more clear texts ([c08b3bd](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/c08b3bda16c86043dce0786a8a6a6e15ea70e05b))
+* check status to display error ([8c518a2](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/8c518a27a68e8307021464a618b7224057b340b3))
+* correctly flattens the metadata to any depth ([2917c41](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/2917c41e22e665d4e61c3013261a019f37aeab1b))
+* improve guest join interface ([7d2bfa7](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/7d2bfa75d4a595e69d464bb5f852b7857e380510))
+* **locale:** new Crowdin updates ([398ad44](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/398ad4478844bd70cf72a7f5b8a77818b7f3d2c9))
+* params changed from optional to required ([f037cf4](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/f037cf49e0d63ff6a68bc3d1c8122661992aba05))
+
 ## [3.0.3](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.2...v3.0.3) (2026-04-24)
 
 
