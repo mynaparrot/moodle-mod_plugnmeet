@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mod_plugnmeet', language 'pt_PT'
+ * Strings for component 'mod_plugnmeet', language 'en'
  *
  * @package     mod_plugnmeet
  * @author      Jibon L. Costa <jibon@mynaparrot.com>
