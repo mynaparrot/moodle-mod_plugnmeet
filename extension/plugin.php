@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - https://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,23 +12,27 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * PlugNmeet extension plugin type definition.
  *
- * @package     mod_plugnmeet
+ * @package    mod_plugnmeet
  * @author     Jibon L. Costa <jibon@mynaparrot.com>
  * @copyright  2026 MynaParrot
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-
-$plugin->component = 'mod_plugnmeet';
-// x-release-please-start-version
-$plugin->release = '3.0.4';
-// x-release-please-end
-$plugin->version   = 2026050400;
-$plugin->requires  = 2024051300;
-$plugin->maturity  = MATURITY_STABLE;
+$plugins = [
+    'pnmext' => [
+        'subdir' => 'extension',
+        'functions' => [
+            'get_sorted_plugins_list' => [
+                'args' => ['names' => PARAM_RAW],
+                'returns' => PARAM_RAW,
+            ],
+        ],
+    ],
+];

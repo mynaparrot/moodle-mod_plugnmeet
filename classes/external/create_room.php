@@ -33,6 +33,7 @@ use dml_exception;
 use core_external\external_single_structure;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use mod_plugnmeet\helper\RoomHelper;
+use mod_plugnmeet\helper\ExtensionManager;
 use moodle_url;
 
 defined('MOODLE_INTERNAL') || die();
@@ -127,16 +128,34 @@ class create_room extends external_api {
             "activity" => json_encode(["id" => $cm->id, "course" => $cm->course]),
         ];
 
+        // Prepare initial room creation parameters.
+        $roomoptions = [
+            'roomid' => $instance->roomid,
+            'roomname' => $instance->name,
+            'roommetadata' => $roommetadata,
+            'welcomemessage' => $instance->welcomemessage,
+            'logouturl' => $logouturl,
+            'webhookurl' => $webhookurl,
+            'maxparticipants' => $instance->maxparticipants,
+            'empty_timeout' => 0,
+            'extradata' => $extradata,
+        ];
+
+        // Allow extensions to modify room creation parameters.
+        foreach (ExtensionManager::get_room_options_addons() as $addon) {
+            $roomoptions = $addon->modify_room_options('create_room', $roomoptions, $instance, $context);
+        }
+
         $res = $connect->createRoom(
-            $instance->roomid,
-            $instance->name,
-            $roommetadata,
-            $instance->welcomemessage,
-            $logouturl,
-            $webhookurl,
-            $instance->maxparticipants,
-            0,
-            $extradata
+            $roomoptions['roomid'],
+            $roomoptions['roomname'],
+            $roomoptions['roommetadata'],
+            $roomoptions['welcomemessage'],
+            $roomoptions['logouturl'],
+            $roomoptions['webhookurl'],
+            $roomoptions['maxparticipants'],
+            $roomoptions['empty_timeout'],
+            $roomoptions['extradata']
         );
 
         if ($res->getStatus() && !empty($res->getRoomInfo())) {

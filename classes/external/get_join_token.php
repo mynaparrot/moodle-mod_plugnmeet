@@ -32,6 +32,7 @@ use context_module;
 use core_external\external_single_structure;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use mod_plugnmeet\helper\RoomHelper;
+use mod_plugnmeet\helper\ExtensionManager;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -173,7 +174,40 @@ class get_join_token extends external_api {
             $userid = (string)$USER->id;
         }
 
-        $res = $connect->getJoinToken($plugnmeet->roomid, $name, $userid, $isadmin);
+        // Prepare initial join token parameters.
+        $jointokenoptions = [
+            'roomid' => $plugnmeet->roomid,
+            'username' => $name,
+            'userid' => $userid,
+            'isadmin' => $isadmin,
+            'ishidden' => false,
+            'usermetadata' => null,
+            'locksettings' => null,
+        ];
+
+        // Allow extensions to modify join token parameters.
+        foreach (ExtensionManager::get_room_options_addons() as $addon) {
+            $jointokenoptions = $addon->modify_room_options('get_join_token', $jointokenoptions, $plugnmeet, $context);
+        }
+
+        // Extract potentially modified values.
+        $finalroomid = $jointokenoptions['roomid'];
+        $finalusername = $jointokenoptions['username'];
+        $finaluserid = $jointokenoptions['userid'];
+        $finalisadmin = $jointokenoptions['isadmin'];
+        $finalishidden = $jointokenoptions['ishidden'];
+        $finalusermetadata = $jointokenoptions['usermetadata'];
+        $finallocksettings = $jointokenoptions['locksettings'];
+
+        $res = $connect->getJoinToken(
+            $finalroomid,
+            $finalusername,
+            $finaluserid,
+            $finalisadmin,
+            $finalishidden,
+            $finalusermetadata,
+            $finallocksettings
+        );
         if (!$res->getStatus()) {
             RoomHelper::write_log_event($plugnmeet->roomid, 'get_join_token', $res->getMsg());
         }

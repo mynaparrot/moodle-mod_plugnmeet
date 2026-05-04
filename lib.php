@@ -17,14 +17,15 @@
 /**
  * Library of functions and constants for module plugnmeet
  *
- * @package     mod_plugnmeet
- * @author      Jibon L. Costa <jibon@mynaparrot.com>
- * @copyright   2026 MynaParrot
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package mod_plugnmeet
+ * @author Jibon L. Costa <jibon@mynaparrot.com>
+ * @copyright 2026 MynaParrot
+ * @license https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 use mod_plugnmeet\completion\custom_completion;
 use mod_plugnmeet\helper\plugNmeetConnect;
+use mod_plugnmeet\helper\ExtensionManager;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -90,6 +91,17 @@ function plugnmeet_add_instance(stdClass $data, $mform = null) {
     // Update calendar event.
     plugnmeet_update_calendar_event($data);
 
+    // Call extension hooks.
+    try {
+        $cm = get_coursemodule_from_instance('plugnmeet', $data->id, $data->course, false, MUST_EXIST);
+        foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
+            $addon->after_add_instance($data, $cm);
+        }
+    } catch (Exception $e) {
+        // Prevent subplugin errors from breaking the main plugin.
+        debugging('Error in PlugNmeet subplugin add_instance: ' . $e->getMessage(), DEBUG_DEVELOPER);
+    }
+
     return $data->id;
 }
 
@@ -142,6 +154,17 @@ function plugnmeet_update_instance(stdClass $data, $mform = null) {
     // Update calendar event.
     plugnmeet_update_calendar_event($data);
 
+    // Call extension hooks.
+    try {
+        $cm = get_coursemodule_from_instance('plugnmeet', $data->id, $data->course, false, MUST_EXIST);
+        foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
+            $addon->after_update_instance($data, $cm);
+        }
+    } catch (Exception $e) {
+        // Prevent subplugin errors from breaking the main plugin.
+        debugging('Error in PlugNmeet subplugin update_instance: ' . $e->getMessage(), DEBUG_DEVELOPER);
+    }
+
     return $result;
 }
 
@@ -157,6 +180,15 @@ function plugnmeet_delete_instance($id) {
 
     if (!$plugnmeet = $DB->get_record('plugnmeet', ['id' => $id])) {
         return false;
+    }
+
+    // Call extension hooks BEFORE deleting.
+    try {
+        foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
+            $addon->before_delete_instance($plugnmeet);
+        }
+    } catch (Exception $e) {
+        debugging('Error in PlugNmeet subplugin before_delete_instance: ' . $e->getMessage(), DEBUG_DEVELOPER);
     }
 
     // Delete calendar event.
@@ -175,7 +207,18 @@ function plugnmeet_delete_instance($id) {
         $fs->delete_area_files(context_module::instance($cm->id)->id, 'mod_plugnmeet', 'preload_file', $id);
     }
 
-    return $DB->delete_records('plugnmeet', ['id' => $plugnmeet->id]);
+    $result = $DB->delete_records('plugnmeet', ['id' => $plugnmeet->id]);
+
+    // Call extension hooks AFTER deleting.
+    try {
+        foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
+            $addon->after_delete_instance($plugnmeet);
+        }
+    } catch (Exception $e) {
+        debugging('Error in PlugNmeet subplugin after_delete_instance: ' . $e->getMessage(), DEBUG_DEVELOPER);
+    }
+
+    return $result;
 }
 
 /**
@@ -377,6 +420,18 @@ function plugnmeet_get_completion_state($course, $cm, $userid, $type) {
     // we should check the current completion state in Moodle's completion table.
     $completion = new completion_info($course);
     $data = $completion->get_data($cm, false, $userid);
+
+    // Allow extensions to modify the completion state.
+    try {
+        foreach (ExtensionManager::get_completion_addons() as $addon) {
+            if ($addon->is_complete($plugnmeet, $cm, $userid, $data->timemodified)) {
+                return COMPLETION_COMPLETE;
+            }
+        }
+    } catch (Exception $e) {
+        // Prevent subplugin errors from breaking the main plugin.
+        debugging('Error in PlugNmeet subplugin is_complete: ' . $e->getMessage(), DEBUG_DEVELOPER);
+    }
 
     return $data->completionstate;
 }

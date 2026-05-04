@@ -22,6 +22,13 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace mod_plugnmeet\backup\moodle2;
+
+use backup_activity_structure_step;
+use backup_nested_element;
+use backup;
+use mod_plugnmeet\helper\ExtensionManager;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -67,6 +74,26 @@ class backup_plugnmeet_activity_structure_step extends backup_activity_structure
 
         $plugnmeet->add_child($userstats);
         $userstats->add_child($userstat);
+
+        // Add extension tables.
+        foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
+            try {
+                $jointables = $addon->get_join_tables();
+                foreach ($jointables as $tablename) {
+                    // Assuming a simple structure for join tables with 'id' as PK and 'plugnmeetid' as FK.
+                    // Moodle's backup system might be able to infer other fields, or we might need to enhance the interface.
+                    $extensionelement = new backup_nested_element($tablename, ['id'], []); // No other fields specified for now.
+                    $plugnmeet->add_child($extensionelement);
+                    $extensionelement->set_source_table($tablename, ['plugnmeetid' => backup::VAR_PARENTID]);
+
+                    // If userinfo is relevant for this extension table, it should be handled here.
+                    // This would require the addon to provide more metadata about its table structure.
+                    // For now, we'll assume no userinfo for dynamically added tables unless specified by the addon.
+                }
+            } catch (\Exception $e) {
+                debugging('Error in PlugNmeet subplugin get_join_tables: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            }
+        }
 
         // Define sources.
         $plugnmeet->set_source_table('plugnmeet', ['id' => backup::VAR_ACTIVITYID]);

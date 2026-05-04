@@ -28,6 +28,8 @@ defined('MOODLE_INTERNAL') || die();
 global $CFG;
 require_once($CFG->dirroot . '/course/moodleform_mod.php');
 
+use mod_plugnmeet\helper\ExtensionManager;
+
 /**
  * Module instance settings form.
  */
@@ -112,6 +114,19 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('header', 'default_lock_header', get_string('defaultlock', 'mod_plugnmeet'));
         $mform->setExpanded('default_lock_header', false);
         $this->add_default_lock_settings();
+
+        // Call extension form hooks.
+        $cmid = 0;
+        if (!empty($this->current->cmid)) {
+            $cmid = $this->current->cmid;
+        }
+        foreach (ExtensionManager::get_mod_form_addons() as $addon) {
+            try {
+                $addon->add_mod_form_elements($mform, $this->get_course(), $cmid);
+            } catch (Exception $e) {
+                debugging('Error in PlugNmeet subplugin add_mod_form_elements: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            }
+        }
 
         // Availability.
         $mform->addElement('header', 'availabilityhdr', get_string('availability'));
@@ -647,6 +662,15 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         if ($this->completion_rule_enabled($data)) {
             if (empty($data['meta']['room_features']['enable_analytics'])) {
                 $errors['meta[room_features][enable_analytics]'] = get_string('error_analytics_required_for_completion', 'mod_plugnmeet');
+            }
+        }
+
+        // Call extension form validation hooks.
+        foreach (ExtensionManager::get_mod_form_addons() as $addon) {
+            try {
+                $errors = $addon->get_mod_form_validation_rules($data, $errors);
+            } catch (Exception $e) {
+                debugging('Error in PlugNmeet subplugin get_mod_form_validation_rules: ' . $e->getMessage(), DEBUG_DEVELOPER);
             }
         }
 
