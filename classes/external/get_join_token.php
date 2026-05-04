@@ -33,6 +33,7 @@ use core_external\external_single_structure;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use mod_plugnmeet\helper\RoomHelper;
 use mod_plugnmeet\helper\ExtensionManager;
+use Exception;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -186,8 +187,13 @@ class get_join_token extends external_api {
         ];
 
         // Allow extensions to modify join token parameters.
-        foreach (ExtensionManager::get_room_options_addons() as $addon) {
-            $jointokenoptions = $addon->modify_room_options('get_join_token', $jointokenoptions, $plugnmeet, $context);
+        try {
+            foreach (ExtensionManager::get_room_options_addons() as $addon) {
+                $jointokenoptions = $addon->modify_room_options('get_join_token', $jointokenoptions, $plugnmeet, $context);
+            }
+        } catch (Exception $e) {
+            debugging('Error in PlugNmeet subplugin modify_room_options (get_join_token): ' . $e->getMessage(), DEBUG_DEVELOPER);
+            RoomHelper::write_log_event($plugnmeet->roomid, 'get_join_token_modify_room_options', $e->getMessage());
         }
 
         // Extract potentially modified values.

@@ -18,6 +18,7 @@
  * Define all the restore steps for mod_plugnmeet.
  *
  * @package    mod_plugnmeet
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,6 +28,8 @@ namespace mod_plugnmeet\backup\moodle2;
 use restore_activity_structure_step;
 use restore_path_element;
 use mod_plugnmeet\helper\ExtensionManager;
+use mod_plugnmeet\helper\RoomHelper; // Import RoomHelper.
+use Exception; // Import Exception.
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -46,16 +49,19 @@ class restore_plugnmeet_activity_structure_step extends restore_activity_structu
         $paths[] = new restore_path_element('user_stat', '/activity/plugnmeet/user_stats/user_stat');
 
         // Add extension tables to the restore paths.
-        foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
-            try {
+        try {
+            foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
                 $jointables = $addon->get_join_tables();
                 foreach ($jointables as $tablename) {
                     // Assuming the XML element name for each record is the table name itself.
                     $paths[] = new restore_path_element($tablename, '/activity/plugnmeet/' . $tablename, 'process_extension_table');
                 }
-            } catch (\Exception $e) {
-                debugging('Error in PlugNmeet subplugin get_join_tables during restore structure definition: ' . $e->getMessage(), DEBUG_DEVELOPER);
             }
+        } catch (Exception $e) {
+            debugging('Error in PlugNmeet subplugin get_join_tables during restore structure definition: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            // Use a generic object ID or the instance ID if available.
+            $objectid = $this->task->get_courseid() ?? 0;
+            RoomHelper::write_log_event($objectid, 'restore_get_join_tables', $e->getMessage());
         }
 
         // Return the paths wrapped into standard activity structure.

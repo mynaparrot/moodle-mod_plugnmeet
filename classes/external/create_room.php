@@ -35,6 +35,7 @@ use mod_plugnmeet\helper\plugNmeetConnect;
 use mod_plugnmeet\helper\RoomHelper;
 use mod_plugnmeet\helper\ExtensionManager;
 use moodle_url;
+use Exception;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -142,8 +143,13 @@ class create_room extends external_api {
         ];
 
         // Allow extensions to modify room creation parameters.
-        foreach (ExtensionManager::get_room_options_addons() as $addon) {
-            $roomoptions = $addon->modify_room_options('create_room', $roomoptions, $instance, $context);
+        try {
+            foreach (ExtensionManager::get_room_options_addons() as $addon) {
+                $roomoptions = $addon->modify_room_options('create_room', $roomoptions, $instance, $context);
+            }
+        } catch (Exception $e) {
+            debugging('Error in PlugNmeet subplugin modify_room_options (create_room): ' . $e->getMessage(), DEBUG_DEVELOPER);
+            RoomHelper::write_log_event($instance->roomid, 'create_room_modify_room_options', $e->getMessage());
         }
 
         $res = $connect->createRoom(

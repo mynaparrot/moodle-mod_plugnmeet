@@ -29,6 +29,7 @@ global $CFG;
 require_once($CFG->dirroot . '/course/moodleform_mod.php');
 
 use mod_plugnmeet\helper\ExtensionManager;
+use mod_plugnmeet\helper\RoomHelper;
 
 /**
  * Module instance settings form.
@@ -120,12 +121,13 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         if (!empty($this->current->cmid)) {
             $cmid = $this->current->cmid;
         }
-        foreach (ExtensionManager::get_mod_form_addons() as $addon) {
-            try {
+        try {
+            foreach (ExtensionManager::get_mod_form_addons() as $addon) {
                 $addon->add_mod_form_elements($mform, $this->get_course(), $cmid);
-            } catch (Exception $e) {
-                debugging('Error in PlugNmeet subplugin add_mod_form_elements: ' . $e->getMessage(), DEBUG_DEVELOPER);
             }
+        } catch (Exception $e) {
+            debugging('Error in PlugNmeet subplugin add_mod_form_elements: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            RoomHelper::write_log_event($cmid, 'mod_form_add_elements', $e->getMessage());
         }
 
         // Availability.
@@ -666,12 +668,15 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         }
 
         // Call extension form validation hooks.
-        foreach (ExtensionManager::get_mod_form_addons() as $addon) {
-            try {
+        try {
+            foreach (ExtensionManager::get_mod_form_addons() as $addon) {
                 $errors = $addon->get_mod_form_validation_rules($data, $errors);
-            } catch (Exception $e) {
-                debugging('Error in PlugNmeet subplugin get_mod_form_validation_rules: ' . $e->getMessage(), DEBUG_DEVELOPER);
             }
+        } catch (Exception $e) {
+            debugging('Error in PlugNmeet subplugin get_mod_form_validation_rules: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            // Use a generic object ID or the instance ID if available.
+            $objectid = $data['instance'] ?? 0;
+            RoomHelper::write_log_event($objectid, 'mod_form_validation', $e->getMessage());
         }
 
         return $errors;

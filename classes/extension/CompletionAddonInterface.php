@@ -39,4 +39,17 @@ interface CompletionAddonInterface {
      * @return bool True if the activity is complete, false otherwise.
      */
     public function is_complete(object $plugnmeet, object $cm, int $userid, int $timemodified): bool;
+
+    /**
+     * Runs after the completion criteria for a user have been evaluated.
+     *
+     * This hook allows you to modify the completion result before it is saved.
+     *
+     * @param array $result The initial completion evaluation result.
+     * @param array $aggregatedstats The user's aggregated statistics.
+     * @param object $plugnmeet The plugnmeet activity instance.
+     * @param int $userid The ID of the user.
+     * @return array The (possibly modified) completion evaluation result.
+     */
+    public function after_evaluate_completion(array $result, array $aggregatedstats, object $plugnmeet, int $userid): array;
 }

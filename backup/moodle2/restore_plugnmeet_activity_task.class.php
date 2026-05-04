@@ -18,9 +18,12 @@
  * Activity task for mod_plugnmeet restore.
  *
  * @package    mod_plugnmeet
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+use mod_plugnmeet\backup\moodle2\restore_plugnmeet_activity_structure_step;
 
 defined('MOODLE_INTERNAL') || die();
 

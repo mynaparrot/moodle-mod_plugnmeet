@@ -31,6 +31,7 @@ defined('MOODLE_INTERNAL') || die();
  * Controller class for handling room artifacts.
  *
  * @package    mod_plugnmeet
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

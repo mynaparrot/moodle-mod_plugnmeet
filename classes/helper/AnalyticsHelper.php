@@ -31,6 +31,7 @@ require_once($CFG->libdir . '/excellib.class.php');
  * Helper class for handling room analytics and reports.
  *
  * @package    mod_plugnmeet
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

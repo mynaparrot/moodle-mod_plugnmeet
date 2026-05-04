@@ -18,6 +18,7 @@ namespace mod_plugnmeet\helper;
 
 use cache;
 use coding_exception;
+use Exception;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -29,6 +30,7 @@ require_once($CFG->dirroot . '/lib/completionlib.php');
  * Helper class for handling activity completion.
  *
  * @package    mod_plugnmeet
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -95,6 +97,16 @@ class CompletionHelper {
                 // 4. Evaluate criteria based on TOTALS.
                 $results = self::evaluate_criteria($aggregatedstats, $plugnmeet);
 
+                // Hook to allow modification of completion results.
+                try {
+                    foreach (ExtensionManager::get_completion_addons() as $addon) {
+                        $results = $addon->after_evaluate_completion($results, $aggregatedstats, $plugnmeet, (int)$userid);
+                    }
+                } catch (Exception $e) {
+                    debugging('Error in PlugNmeet subplugin after_evaluate_completion: ' . $e->getMessage(), DEBUG_DEVELOPER);
+                    RoomHelper::write_log_event($plugnmeet->id, 'after_evaluate_completion', $e->getMessage());
+                }
+
                 // 5. Save aggregated stats and attendance.
                 self::save_user_stats((int)$userid, $plugnmeet, $aggregatedstats, $results['all_met'], $statsrecord);
 
@@ -111,6 +123,7 @@ class CompletionHelper {
                 }
             }
         } catch (\Exception $e) {
+            RoomHelper::write_log_event($plugnmeet->id, 'update_completion_for_room', $e->getMessage());
             return false;
         }
 

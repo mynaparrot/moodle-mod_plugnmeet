@@ -30,6 +30,7 @@ use core_privacy\local\request\writer;
  * Privacy Subsystem for mod_plugnmeet.
  *
  * @package    mod_plugnmeet
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

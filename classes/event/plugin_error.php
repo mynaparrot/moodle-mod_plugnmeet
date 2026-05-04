@@ -22,6 +22,7 @@ defined('MOODLE_INTERNAL') || die();
  * The plugin_error event class.
  *
  * @package    mod_plugnmeet
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

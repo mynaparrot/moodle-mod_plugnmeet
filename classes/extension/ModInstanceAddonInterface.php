@@ -16,6 +16,8 @@
 
 namespace mod_plugnmeet\extension;
 
+defined('MOODLE_INTERNAL') || die();
+
 use stdClass;
 
 /**
@@ -28,20 +30,36 @@ use stdClass;
  */
 interface ModInstanceAddonInterface {
     /**
+     * Runs any processes that must run before a plugnmeet is created.
+     *
+     * @param stdClass $data The plugnmeet instance data from the form.
+     * @return stdClass The (possibly modified) plugnmeet instance data.
+     */
+    public function before_add_instance(stdClass $data): stdClass;
+
+    /**
      * Runs any processes that must run after a plugnmeet is created.
      *
-     * @param stdClass $plugnmeet The plugnmeet instance data from the form.
+     * @param stdClass $data The plugnmeet instance data from the form.
      * @param stdClass $cm The course module record.
      */
-    public function after_add_instance(stdClass $plugnmeet, stdClass $cm);
+    public function after_add_instance(stdClass $data, stdClass $cm);
+
+    /**
+     * Runs any processes that must be run before a plugnmeet is updated.
+     *
+     * @param stdClass $data The plugnmeet instance data from the form.
+     * @return stdClass The (possibly modified) plugnmeet instance data.
+     */
+    public function before_update_instance(stdClass $data): stdClass;
 
     /**
      * Runs any processes that must be run after a plugnmeet is updated.
      *
-     * @param stdClass $plugnmeet The plugnmeet instance data from the form.
+     * @param stdClass $data The plugnmeet instance data from the form.
      * @param stdClass $cm The course module record.
      */
-    public function after_update_instance(stdClass $plugnmeet, stdClass $cm): void;
+    public function after_update_instance(stdClass $data, stdClass $cm): void;
 
     /**
      * Runs any processes that must be run BEFORE a plugnmeet is deleted.

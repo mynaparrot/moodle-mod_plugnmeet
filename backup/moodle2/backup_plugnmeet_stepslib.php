@@ -18,6 +18,7 @@
  * Define all the backup steps for mod_plugnmeet.
  *
  * @package    mod_plugnmeet
+ * @author     Jibon L. Costa <jibon@mynaparrot.com>
  * @copyright  2026 MynaParrot
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,6 +29,8 @@ use backup_activity_structure_step;
 use backup_nested_element;
 use backup;
 use mod_plugnmeet\helper\ExtensionManager;
+use mod_plugnmeet\helper\RoomHelper; // Import RoomHelper.
+use Exception; // Import Exception.
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -76,8 +79,8 @@ class backup_plugnmeet_activity_structure_step extends backup_activity_structure
         $userstats->add_child($userstat);
 
         // Add extension tables.
-        foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
-            try {
+        try {
+            foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
                 $jointables = $addon->get_join_tables();
                 foreach ($jointables as $tablename) {
                     // Assuming a simple structure for join tables with 'id' as PK and 'plugnmeetid' as FK.
@@ -90,9 +93,12 @@ class backup_plugnmeet_activity_structure_step extends backup_activity_structure
                     // This would require the addon to provide more metadata about its table structure.
                     // For now, we'll assume no userinfo for dynamically added tables unless specified by the addon.
                 }
-            } catch (\Exception $e) {
-                debugging('Error in PlugNmeet subplugin get_join_tables: ' . $e->getMessage(), DEBUG_DEVELOPER);
             }
+        } catch (Exception $e) {
+            debugging('Error in PlugNmeet subplugin get_join_tables: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            // Use a generic object ID or the instance ID if available.
+            $objectid = $this->task->get_courseid() ?? 0;
+            RoomHelper::write_log_event($objectid, 'backup_get_join_tables', $e->getMessage());
         }
 
         // Define sources.
