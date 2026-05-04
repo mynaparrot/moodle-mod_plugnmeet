@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mod_plugnmeet', language 'es_ES'
+ * Strings for component 'mod_plugnmeet', language 'en'
  *
  * @package     mod_plugnmeet
  * @author      Jibon L. Costa <jibon@mynaparrot.com>
@@ -401,7 +401,7 @@ $string['character_count_usage'] = 'Uso de recuento de caracteres';
 $string['estimated_cost'] = 'Costo estimado';
 $string['file_path'] = 'Ruta del archivo';
 $string['mime_type'] = 'Tipo MIME';
-$string['created_at'] = 'Creado el';
+$string['created_at'] = 'Creado en';
 $string['meeting_summary'] = 'Resumen de la reunión';
 $string['error_loading_meeting_summary'] = 'Error al cargar el resumen de la reunión: {$a}';
 
