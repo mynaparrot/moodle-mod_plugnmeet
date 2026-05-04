@@ -28,8 +28,8 @@ namespace mod_plugnmeet\backup\moodle2;
 use restore_activity_structure_step;
 use restore_path_element;
 use mod_plugnmeet\helper\ExtensionManager;
-use mod_plugnmeet\helper\RoomHelper; // Import RoomHelper.
-use Exception; // Import Exception.
+use mod_plugnmeet\helper\RoomHelper;
+use Exception;
 
 defined('MOODLE_INTERNAL') || die();
 

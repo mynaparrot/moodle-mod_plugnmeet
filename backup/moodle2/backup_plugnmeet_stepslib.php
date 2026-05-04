@@ -29,8 +29,8 @@ use backup_activity_structure_step;
 use backup_nested_element;
 use backup;
 use mod_plugnmeet\helper\ExtensionManager;
-use mod_plugnmeet\helper\RoomHelper; // Import RoomHelper.
-use Exception; // Import Exception.
+use mod_plugnmeet\helper\RoomHelper;
+use Exception;
 
 defined('MOODLE_INTERNAL') || die();
 
