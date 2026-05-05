@@ -49,6 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'Voir les enregistrements';
 $string['plugnmeetfieldset'] = 'Jeu de champs d\'exemple personnalisé';
 $string['plugnmeetname'] = 'Nom d\'exemple personnalisé';
 $string['plugnmeetname_help'] = 'Aide d\'exemple personnalisée';
+$string['subplugintype_pnmext'] = 'Extension d’activité PlugNmeet';
+$string['subplugintype_pnmext_plural'] = 'Extensions d’activité PlugNmeet';
 
 // Admin Settings
 $string['api_config'] = 'Configuration de l\'API';
