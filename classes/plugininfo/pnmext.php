@@ -122,8 +122,6 @@ class pnmext extends base {
         if (!self::is_plugnmeet_enabled()) {
             return;
         }
-        $ADMIN = $adminroot;
-        $plugininfo = $this;
 
         if (!$this->is_installed_and_upgraded()) {
             return;
@@ -143,11 +141,13 @@ class pnmext extends base {
         );
 
         if ($adminroot->fulltree) {
-            $shortsubtype = substr($this->type, strlen(ExtensionManager::PNM_EXTENSION_PLUGIN_NAME));
+            // values are required in the included setting file
+            $ADMIN = $adminroot;
+            $plugininfo = $this;
             include($this->full_path('settings.php'));
         }
-
-        $adminroot->add($this->type . 'plugins', $settings);
+        // we've setup custom parent for extensions e.g. pnmextplugins
+        $adminroot->add(ExtensionManager::PNM_EXTENSION_PLUGIN_NAME . 'plugins', $settings);
     }
 
     /**
@@ -156,7 +156,7 @@ class pnmext extends base {
      * @return string
      */
     public function get_settings_section_name() {
-        return $this->type . '_' . $this->name;
+        return ExtensionManager::PNM_EXTENSION_PLUGIN_NAME . '_' . $this->name . '_settings';
     }
 
     /**
