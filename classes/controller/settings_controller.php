@@ -91,15 +91,18 @@ class settings_controller {
             }
             $this->admin->add($this->parantename, $mainsettings);
 
-            // add custom category for subplugins with name: pnmextplugins
-            $this->admin->add($this->parantename, new admin_category(
-                ExtensionManager::PNM_EXTENSION_PLUGIN_NAME . 'plugins',
-                get_string('subplugintype_pnmext', 'mod_plugnmeet'),
-                $this->module->is_enabled() === false
-            ));
-            // handle with subplugins' settings options
-            foreach (core_plugin_manager::instance()->get_plugins_of_type(ExtensionManager::PNM_EXTENSION_PLUGIN_NAME) as $plugin) {
-                $plugin->load_settings($this->admin, $this->parantename, $this->hassiteconfig);
+            $extensions = core_plugin_manager::instance()->get_plugins_of_type(ExtensionManager::PNM_EXTENSION_PLUGIN_NAME);
+            if (!empty($extensions)) {
+                // add custom category for subplugins with name: pnmextplugins
+                $this->admin->add($this->parantename, new admin_category(
+                    ExtensionManager::PNM_EXTENSION_PLUGIN_NAME . 'plugins',
+                    get_string('subplugintype_pnmext', 'mod_plugnmeet'),
+                    $this->module->is_enabled() === false
+                ));
+                // handle with subplugins' settings options
+                foreach ($extensions as $plugin) {
+                    $plugin->load_settings($this->admin, $this->parantename, $this->hassiteconfig);
+                }
             }
         }
     }
