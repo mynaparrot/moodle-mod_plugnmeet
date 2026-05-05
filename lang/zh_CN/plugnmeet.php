@@ -49,6 +49,8 @@ $string['plugnmeet:viewrecordings'] = '查看录像';
 $string['plugnmeetfieldset'] = '自定义示例字段集';
 $string['plugnmeetname'] = '自定义示例名称';
 $string['plugnmeetname_help'] = '自定义示例帮助';
+$string['subplugintype_pnmext'] = 'PlugNmeet 活动扩展';
+$string['subplugintype_pnmext_plural'] = 'PlugNmeet 活动扩展';
 
 // Admin Settings
 $string['api_config'] = 'API 配置';
