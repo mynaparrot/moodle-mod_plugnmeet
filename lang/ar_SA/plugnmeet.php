@@ -49,6 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'عرض التسجيلات';
 $string['plugnmeetfieldset'] = 'مجموعة حقول مثال مخصصة';
 $string['plugnmeetname'] = 'اسم مثال مخصص';
 $string['plugnmeetname_help'] = 'مساعدة مثال مخصصة';
+$string['subplugintype_pnmext'] = 'امتداد نشاط PlugNmeet';
+$string['subplugintype_pnmext_plural'] = 'امتدادات نشاط PlugNmeet';
 
 // Admin Settings
 $string['api_config'] = 'تهيئة واجهة برمجة التطبيقات (API)';
