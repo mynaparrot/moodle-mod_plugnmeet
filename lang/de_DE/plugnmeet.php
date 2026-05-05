@@ -49,6 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'Aufnahmen anzeigen';
 $string['plugnmeetfieldset'] = 'Benutzerdefinierter Beispielsatz';
 $string['plugnmeetname'] = 'Benutzerdefinierter Beispielname';
 $string['plugnmeetname_help'] = 'Benutzerdefinierte Beispielhilfe';
+$string['subplugintype_pnmext'] = 'PlugNmeet-Erweiterung der Aktivität';
+$string['subplugintype_pnmext_plural'] = 'PlugNmeet-Erweiterungen der Aktivität';
 
 // Admin Settings
 $string['api_config'] = 'API-Konfiguration';
