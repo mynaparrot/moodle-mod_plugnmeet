@@ -49,6 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'Переглянути записи';
 $string['plugnmeetfieldset'] = 'Приклад користувацького набору полів';
 $string['plugnmeetname'] = 'Назва власного прикладу';
 $string['plugnmeetname_help'] = 'Довідка з користувацьких прикладів';
+$string['subplugintype_pnmext'] = 'Розширення активності PlugNmeet';
+$string['subplugintype_pnmext_plural'] = 'Розширення активності PlugNmeet';
 
 // Admin Settings
 $string['api_config'] = 'Конфігурація API';
