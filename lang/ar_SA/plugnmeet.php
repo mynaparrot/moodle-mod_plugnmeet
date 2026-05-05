@@ -29,7 +29,7 @@ $string['modulename'] = 'plugNmeet';
 $string['modulename_help'] = 'تسمح لك وحدة نشاط PlugNmeet بإنشاء وإدارة جلسات مؤتمرات الويب في الوقت الفعلي من داخل Moodle.';
 $string['modulename_link'] = 'mod/plugnmeet/view';
 $string['modulenameplural'] = 'plugNmeets';
-$string['pluginadministration'] = 'إدارة plugNmeet';
+$string['pluginadministration'] = 'إدارة PlugNmeet';
 $string['pluginname'] = 'plugNmeet';
 $string['plugnmeet:addinstance'] = 'إضافة نشاط PlugNmeet جديد';
 $string['plugnmeet:deleteartifacts'] = 'حذف القطع الأثرية';
@@ -49,8 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'عرض التسجيلات';
 $string['plugnmeetfieldset'] = 'مجموعة حقول مثال مخصصة';
 $string['plugnmeetname'] = 'اسم مثال مخصص';
 $string['plugnmeetname_help'] = 'مساعدة مثال مخصصة';
-$string['subplugintype_pnmext'] = 'امتداد نشاط PlugNmeet';
-$string['subplugintype_pnmext_plural'] = 'امتدادات نشاط PlugNmeet';
+$string['subplugintype_pnmext'] = 'امتداد PlugNmeet';
+$string['subplugintype_pnmext_plural'] = 'امتدادات PlugNmeet';
 
 // Admin Settings
 $string['api_config'] = 'تهيئة واجهة برمجة التطبيقات (API)';
