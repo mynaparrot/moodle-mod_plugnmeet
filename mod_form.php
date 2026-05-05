@@ -123,7 +123,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         }
         try {
             foreach (ExtensionManager::get_mod_form_addons() as $addon) {
-                $addon->add_mod_form_elements($mform, $this->get_course(), $cmid);
+                $addon->add_mod_form_elements($mform, $this->_course->id, $cmid);
             }
         } catch (Exception $e) {
             debugging('Error in PlugNmeet subplugin add_mod_form_elements: ' . $e->getMessage(), DEBUG_DEVELOPER);

@@ -1,6 +1,5 @@
 # Ignore all files in this directory
 *
 # Except for:
-!plugin.php
 !README.md
 !.gitignore

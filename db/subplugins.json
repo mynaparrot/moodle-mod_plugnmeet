@@ -1,0 +1,8 @@
+{
+  "subplugintypes": {
+    "pnmext": "extension"
+  },
+  "plugintypes": {
+    "pnmext": "mod/plugnmeet/extension"
+  }
+}

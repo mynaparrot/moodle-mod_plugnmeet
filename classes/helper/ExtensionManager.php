@@ -33,6 +33,7 @@ use mod_plugnmeet\extension\ModInstanceAddonInterface;
 use mod_plugnmeet\extension\RoomOptionsAddonInterface;
 use mod_plugnmeet\extension\WebhookAddonInterface;
 use core_plugin_manager;
+use core_component;
 
 /**
  * Manages the discovery and loading of PlugNmeet extensions.
@@ -135,7 +136,26 @@ class ExtensionManager {
      * @return array An array of instantiated extension objects.
      */
     protected static function discover_extensions(string $interface): array {
+        $classes = self::get_classes_implementing($interface);
         $extensions = [];
+        foreach ($classes as $sortorder => $fullclassname) {
+            try {
+                $extensions[$sortorder] = new $fullclassname();
+            } catch (\Exception $e) {
+                \debugging('Failed to instantiate PlugNmeet extension ' . $fullclassname . ': ' . $e->getMessage(), DEBUG_DEVELOPER);
+            }
+        }
+        return array_values($extensions);
+    }
+
+    /**
+     * Get classes that are named on the base of this classname and implementing a given interface.
+     *
+     * @param string $interface The fully qualified name of the interface to discover.
+     * @return array An array of class names, sorted by their sort order.
+     */
+    protected static function get_classes_implementing(string $interface): array {
+        $extensionclasses = [];
 
         // Get the short name of the interface (e.g., 'RoomOptionsAddonInterface').
         $interfaceshortname = (new \ReflectionClass($interface))->getShortName();
@@ -144,14 +164,9 @@ class ExtensionManager {
         $implementingclassname = str_replace('Interface', '', $interfaceshortname);
 
         $allsubs = core_plugin_manager::instance()->get_plugins_of_type(self::PNM_EXTENSION_PLUGIN_NAME);
-
-        // Get sorted list of plugins based on admin settings, if any.
-        $names = [];
-        foreach ($allsubs as $sub) {
-            $names[$sub->name] = $sub->root;
-        }
+        $names = core_component::get_plugin_list(self::PNM_EXTENSION_PLUGIN_NAME);
         $sortedlist = self::get_sorted_plugins_list($names);
-        $sortedlist = array_flip($sortedlist); // Flip to get name => sortorder.
+        $sortedlist = array_flip($sortedlist);
 
         foreach ($allsubs as $sub) {
             if (!$sub->is_enabled()) {
@@ -160,26 +175,32 @@ class ExtensionManager {
 
             // Construct the full class name based on Moodle's subplugin naming convention.
             // For a subplugin 'myaddon' in mod/plugnmeet/extension, and an interface
-            // 'RoomOptionsAddonInterface', we expect a class like:
-            // \pnmext_myaddon\plugnmeet\RoomOptionsAddon
-            $fullclassname = '\\' . self::PNM_EXTENSION_PLUGIN_NAME . '_' . $sub->name . '\\plugnmeet\\' . $implementingclassname;
+            // 'RoomOptionsAddonInterface', we expect a class like: \pnmext_myaddon\plugnmeet\RoomOptionsAddon
+            // so, full location: mod/plugnmeet/extension/myaddon/classes/plugnmeet/RoomOptionsAddon.php
 
-            // Check if the class exists and implements the target interface.
-            if (class_exists($fullclassname) && in_array($interface, class_implements($fullclassname))) {
-                try {
-                    // Ensure the order of extensions is consistent.
-                    $sortorder = $sortedlist[$sub->name] ?? 0;
-                    while (array_key_exists($sortorder, $extensions)) {
-                        $sortorder++; // Avoid collisions if multiple plugins have same sortorder or none.
-                    }
-                    $extensions[$sortorder] = new $fullclassname();
-                } catch (\Exception $e) {
-                    \debugging('Failed to instantiate PlugNmeet extension ' . $fullclassname . ': ' . $e->getMessage(), DEBUG_DEVELOPER);
-                }
+            $fullclassname = '\\' . self::PNM_EXTENSION_PLUGIN_NAME . '_' . $sub->name . '\\plugnmeet\\' . $implementingclassname;
+            if (!class_exists($fullclassname)) {
+                continue;
             }
+
+            if (!in_array($interface, class_implements($fullclassname))) {
+                debugging("The class $fullclassname should implement $interface in the subplugin {$sub->name}. Ignoring.");
+                continue;
+            }
+
+            if (!isset($sortedlist[$sub->name])) {
+                debugging("The class $fullclassname does not belong to an existing subplugin. Ignoring");
+                continue;
+            }
+
+            $sortorder = $sortedlist[$sub->name];
+            while (array_key_exists($sortorder, $extensionclasses)) {
+                $sortorder++;
+            }
+            $extensionclasses[$sortorder] = $fullclassname;
         }
-        ksort($extensions); // Sort by key (sortorder).
-        return array_values($extensions); // Reset keys to be sequential.
+        ksort($extensionclasses);
+        return $extensionclasses;
     }
 
     /**
