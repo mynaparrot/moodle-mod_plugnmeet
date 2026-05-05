@@ -29,7 +29,7 @@ $string['modulename'] = 'plugNmeet';
 $string['modulename_help'] = 'Met de PlugNmeet-activiteitsmodule kunt u realtime webconferentiesessies creëren en beheren vanuit Moodle.';
 $string['modulename_link'] = 'mod/plugnmeet/view';
 $string['modulenameplural'] = 'plugNmeets';
-$string['pluginadministration'] = 'plugNmeet-administratie';
+$string['pluginadministration'] = 'PlugNmeet-administratie';
 $string['pluginname'] = 'plugNmeet';
 $string['plugnmeet:addinstance'] = 'Voeg een nieuwe PlugNmeet-activiteit toe';
 $string['plugnmeet:deleteartifacts'] = 'Artefacten verwijderen';
@@ -49,8 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'Bekijk opnames';
 $string['plugnmeetfieldset'] = 'Aangepaste voorbeeld-veldset';
 $string['plugnmeetname'] = 'Aangepaste voorbeeldnaam';
 $string['plugnmeetname_help'] = 'Hulp bij aangepaste voorbeelden';
-$string['subplugintype_pnmext'] = 'PlugNmeet-activiteitenuitbreiding';
-$string['subplugintype_pnmext_plural'] = 'PlugNmeet-activiteitenuitbreidingen';
+$string['subplugintype_pnmext'] = 'PlugNmeet-uitbreiding';
+$string['subplugintype_pnmext_plural'] = 'PlugNmeet-extensies';
 
 // Admin Settings
 $string['api_config'] = 'API-configuratie';
