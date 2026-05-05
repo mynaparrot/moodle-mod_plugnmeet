@@ -46,6 +46,7 @@ use mod_plugnmeet\event\track_unpublished;
 use mod_plugnmeet\helper\CompletionHelper;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use mod_plugnmeet\helper\RoomHelper;
+use mod_plugnmeet\helper\ExtensionManager;
 use Mynaparrot\PlugnmeetProto\CommonNotifyEvent;
 use Mynaparrot\PlugnmeetProto\RoomArtifactType;
 
@@ -89,14 +90,24 @@ if ($our !== $senthash) {
 
 try {
     global $DB;
-    $webhook = new CommonNotifyEvent();
-    $webhook->mergeFromJsonString($entitybody, true);
-
     $id = required_param('id', PARAM_INT);
     $plugnmeet = $DB->get_record('plugnmeet', ['id' => $id], '*', MUST_EXIST);
     $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id, 0, false, MUST_EXIST);
-    $context = context_module::instance($cm->id);
 
+    // Call webhook addons.
+    try {
+        foreach (ExtensionManager::get_webhook_addons() as $addon) {
+            $addon->handle_webhook($entitybody, $plugnmeet, $cm);
+        }
+    } catch (Exception $e) {
+        RoomHelper::write_log_event($plugnmeet->id, 'webhook_addon', $e->getMessage());
+        debugging("PlugNmeet Webhook Addon Exception: " . $e->getMessage());
+    }
+
+    $webhook = new CommonNotifyEvent();
+    $webhook->mergeFromJsonString($entitybody, true);
+
+    $context = context_module::instance($cm->id);
     $eventtype = $webhook->getEvent();
     $sid = $webhook->getRoom()?->getSid();
 

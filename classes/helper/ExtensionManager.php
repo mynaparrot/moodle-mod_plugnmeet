@@ -31,6 +31,7 @@ use mod_plugnmeet\extension\CompletionAddonInterface;
 use mod_plugnmeet\extension\ModFormAddonInterface;
 use mod_plugnmeet\extension\ModInstanceAddonInterface;
 use mod_plugnmeet\extension\RoomOptionsAddonInterface;
+use mod_plugnmeet\extension\WebhookAddonInterface;
 use core_plugin_manager;
 
 /**
@@ -61,6 +62,11 @@ class ExtensionManager {
      * @var array Stores instances of discovered ModFormAddonInterface implementations.
      */
     protected static $modformaddons = null;
+
+    /**
+     * @var array Stores instances of discovered WebhookAddonInterface implementations.
+     */
+    protected static $webhookaddons = null;
 
     /**
      * Get all registered RoomOptionsAddonInterface implementations.
@@ -108,6 +114,18 @@ class ExtensionManager {
             static::$modformaddons = static::discover_extensions(ModFormAddonInterface::class);
         }
         return static::$modformaddons;
+    }
+
+    /**
+     * Get all registered WebhookAddonInterface implementations.
+     *
+     * @return WebhookAddonInterface[]
+     */
+    public static function get_webhook_addons(): array {
+        if (static::$webhookaddons === null) {
+            static::$webhookaddons = static::discover_extensions(WebhookAddonInterface::class);
+        }
+        return static::$webhookaddons;
     }
 
     /**
