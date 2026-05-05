@@ -49,6 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'Bekijk opnames';
 $string['plugnmeetfieldset'] = 'Aangepaste voorbeeld-veldset';
 $string['plugnmeetname'] = 'Aangepaste voorbeeldnaam';
 $string['plugnmeetname_help'] = 'Hulp bij aangepaste voorbeelden';
+$string['subplugintype_pnmext'] = 'PlugNmeet-activiteitenuitbreiding';
+$string['subplugintype_pnmext_plural'] = 'PlugNmeet-activiteitenuitbreidingen';
 
 // Admin Settings
 $string['api_config'] = 'API-configuratie';
