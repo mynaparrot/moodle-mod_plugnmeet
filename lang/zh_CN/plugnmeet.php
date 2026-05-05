@@ -29,7 +29,7 @@ $string['modulename'] = 'plugNmeet';
 $string['modulename_help'] = 'PlugNmeet 活动模块允许您在 Moodle 内创建和管理实时网络会议会话。';
 $string['modulename_link'] = 'mod/plugnmeet/查看';
 $string['modulenameplural'] = 'plugNmeets';
-$string['pluginadministration'] = 'plugNmeet 管理';
+$string['pluginadministration'] = 'PlugNmeet 管理';
 $string['pluginname'] = 'plugNmeet';
 $string['plugnmeet:addinstance'] = '添加新的 PlugNmeet 活动';
 $string['plugnmeet:deleteartifacts'] = '删除工件';
@@ -49,8 +49,8 @@ $string['plugnmeet:viewrecordings'] = '查看录像';
 $string['plugnmeetfieldset'] = '自定义示例字段集';
 $string['plugnmeetname'] = '自定义示例名称';
 $string['plugnmeetname_help'] = '自定义示例帮助';
-$string['subplugintype_pnmext'] = 'PlugNmeet 活动扩展';
-$string['subplugintype_pnmext_plural'] = 'PlugNmeet 活动扩展';
+$string['subplugintype_pnmext'] = 'PlugNmeet 扩展';
+$string['subplugintype_pnmext_plural'] = 'PlugNmeet 扩展';
 
 // Admin Settings
 $string['api_config'] = 'API 配置';
