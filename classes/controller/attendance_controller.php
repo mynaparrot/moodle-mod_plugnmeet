@@ -236,8 +236,11 @@ class attendance_controller {
 
         $rows = $this->get_attendance_data_rows($page, $perpage);
         foreach ($rows as $row) {
+            $user = $row['user'];
+            $profileurl = new moodle_url('/user/profile.php', ['id' => $user->id]);
             $context['rows'][] = [
-                'fullname' => fullname($row['user']),
+                'fullname' => fullname($user),
+                'profile_url' => $profileurl->out(false),
                 'status_string' => get_string($row['status_key'], 'mod_plugnmeet'),
                 'badge_class' => $badgemap[$row['status_key']],
                 'duration' => $this->format_seconds_to_time($row['duration']),
