@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.0.5](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.4...v3.0.5) (2026-05-06)
+
+
+### Bug Fixes
+
+* added `.gitignore` file ([c1d4954](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/c1d495414837e0c309a3406ddaa179a31b2e77fc))
+* added few more hooks ([8400aa0](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/8400aa013295a905d9059206c6b101809e65fce9))
+* added webhook hook as well ([67c060f](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/67c060f91f64d7ab567cc1778e8566c1722ec63f))
+* **feat:** implemented way to dev sub plugins ([3b745e2](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/3b745e204b96b9b1d8c8ccb6869e1fc3c723b820))
+* issue with settings page ([43f1ba1](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/43f1ba160a5b008453770062c2e45155e4b146ae))
+* **locale:** new Crowdin updates ([86e3f7b](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/86e3f7b9c52d1deef0ede4b8281eb73f7cbb903e))
+* only load when exist ([5dec2d9](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/5dec2d9c6ba059a5871f1eb5545d5613d6160773))
+* sub-plugin added to moodle system ([0160dba](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/0160dba416a6d914d14edbe31eb6b833da44f427))
+* updated language strings ([f00e029](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/f00e0293f491af0fec4c5ffb2da8567d19d80be8))
+
 ## [3.0.4](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.3...v3.0.4) (2026-04-29)
 
 
