@@ -23,6 +23,8 @@
         "status_string": "Completed",
         "badge_class": "badge-success",
         "timemodified": 1678912345,
+        "can_download": true,
+        "download_url": "http://...",
         "progress_items": [
             {
                 "label": "Minutes Attended",
@@ -50,6 +52,11 @@
                     <p class="text-muted">{{#str}}attendance_report, mod_plugnmeet{{/str}}</p>
                 </div>
                 <div class="col-md-6 text-md-right">
+                    {{#can_download}}
+                        <a href="{{download_url}}" class="btn btn-primary mb-2">
+                            <i class="fa fa-download"></i> {{#str}}download_excel_report, mod_plugnmeet{{/str}}
+                        </a>
+                    {{/can_download}}
                     <div class="mb-2">
                         <span class="badge badge-lg {{badge_class}}">{{status_string}}</span>
                     </div>

@@ -46,7 +46,6 @@ $action = optional_param('action', '', PARAM_TEXT);
 if ($action === 'download_excel') {
     require_capability('mod/plugnmeet:downloadattendance', $context);
     $controller->download_excel_report();
-    exit; // Important to exit after file download.
 }
 
 $data = $controller->get_page_data();

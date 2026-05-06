@@ -279,6 +279,11 @@ class attendance_controller {
         ];
 
         $context = [
+            'can_download' => has_capability('mod/plugnmeet:downloadattendance', $this->context),
+            'download_url' => (new moodle_url('/mod/plugnmeet/attendance.php', [
+                'id' => $this->cm->id,
+                'action' => 'download_excel',
+            ]))->out(false),
             'fullname' => fullname($row['user']),
             'status_string' => get_string($row['status_key'], 'mod_plugnmeet'),
             'badge_class' => $badgemap[$row['status_key']],
@@ -345,7 +350,7 @@ class attendance_controller {
         global $CFG;
         require_once($CFG->libdir . '/excellib.class.php');
 
-        $filename = 'attendance_' . clean_filename($this->plugnmeet->name) . '_' . date('YmdHis') . '.xlsx';
+        $filename = 'attendance_' . $this->plugnmeet->id . '_' . clean_filename($this->plugnmeet->name) . '.xlsx';
         $workbook = new MoodleExcelWorkbook($filename);
         $worksheet = $workbook->add_worksheet(get_string('attendance', 'mod_plugnmeet'));
 
@@ -355,7 +360,7 @@ class attendance_controller {
             get_string('name'),
             get_string('status', 'mod_plugnmeet'),
             get_string('minutes_attended', 'mod_plugnmeet'),
-            get_string('attendance_raised_hand', 'mod_plugnmeet'),
+            get_string('attendance_raise_hand', 'mod_plugnmeet'),
             get_string('attendance_chat_messages', 'mod_plugnmeet'),
             get_string('attendance_webcam_status', 'mod_plugnmeet'),
             get_string('attendance_webcam_duration', 'mod_plugnmeet'),
@@ -372,7 +377,7 @@ class attendance_controller {
             $worksheet->write_string(0, $col++, $header, $headerformat);
         }
 
-        $rows = $this->get_attendance_data_rows(); // Fetch all for Excel (or just the user's data).
+        $rows = $this->get_attendance_data_rows(); // Fetch all for Excel.
         $rowidx = 1;
         foreach ($rows as $row) {
             $col = 0;
@@ -394,5 +399,6 @@ class attendance_controller {
         }
 
         $workbook->close();
+        exit(); // Important to exit after file download.
     }
 }
