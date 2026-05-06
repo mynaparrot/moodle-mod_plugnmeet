@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mod_plugnmeet', language 'fr_FR'
+ * Strings for component 'mod_plugnmeet'
  *
  * @package     mod_plugnmeet
  * @author      Jibon L. Costa <jibon@mynaparrot.com>
@@ -29,7 +29,7 @@ $string['modulename'] = 'plugNmeet';
 $string['modulename_help'] = 'Le module d\'activité PlugNmeet vous permet de créer et de gérer des sessions de conférence web en temps réel depuis Moodle.';
 $string['modulename_link'] = 'mod/plugnmeet/view';
 $string['modulenameplural'] = 'plugNmeets';
-$string['pluginadministration'] = 'Administration de plugNmeet';
+$string['pluginadministration'] = 'Administration PlugNmeet';
 $string['pluginname'] = 'plugNmeet';
 $string['plugnmeet:addinstance'] = 'Ajouter une nouvelle activité PlugNmeet';
 $string['plugnmeet:deleteartifacts'] = 'Supprimer les artefacts';
@@ -49,6 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'Voir les enregistrements';
 $string['plugnmeetfieldset'] = 'Jeu de champs d\'exemple personnalisé';
 $string['plugnmeetname'] = 'Nom d\'exemple personnalisé';
 $string['plugnmeetname_help'] = 'Aide d\'exemple personnalisée';
+$string['subplugintype_pnmext'] = 'Extension PlugNmeet';
+$string['subplugintype_pnmext_plural'] = 'Extensions PlugNmeet';
 
 // Admin Settings
 $string['api_config'] = 'Configuration de l\'API';
@@ -401,7 +403,7 @@ $string['character_count_usage'] = 'Utilisation du nombre de caractères';
 $string['estimated_cost'] = 'Coût estimé';
 $string['file_path'] = 'Chemin du fichier';
 $string['mime_type'] = 'Type MIME';
-$string['created_at'] = 'Créé le';
+$string['created_at'] = 'Créé à';
 $string['meeting_summary'] = 'Résumé de la réunion';
 $string['error_loading_meeting_summary'] = 'Erreur lors du chargement du résumé de la réunion : {$a}';
 

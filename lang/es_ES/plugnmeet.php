@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mod_plugnmeet', language 'es_ES'
+ * Strings for component 'mod_plugnmeet'
  *
  * @package     mod_plugnmeet
  * @author      Jibon L. Costa <jibon@mynaparrot.com>
@@ -29,7 +29,7 @@ $string['modulename'] = 'plugNmeet';
 $string['modulename_help'] = 'El módulo de actividad PlugNmeet le permite crear y gestionar sesiones de conferencias web en tiempo real dentro de Moodle.';
 $string['modulename_link'] = 'mod/plugnmeet/view';
 $string['modulenameplural'] = 'plugNmeets';
-$string['pluginadministration'] = 'Administración de plugNmeet';
+$string['pluginadministration'] = 'Administración de PlugNmeet';
 $string['pluginname'] = 'plugNmeet';
 $string['plugnmeet:addinstance'] = 'Añadir una nueva actividad PlugNmeet';
 $string['plugnmeet:deleteartifacts'] = 'Eliminar artefactos';
@@ -49,6 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'Ver grabaciones';
 $string['plugnmeetfieldset'] = 'Conjunto de campos de ejemplo personalizado';
 $string['plugnmeetname'] = 'Nombre de ejemplo personalizado';
 $string['plugnmeetname_help'] = 'Ayuda de ejemplo personalizada';
+$string['subplugintype_pnmext'] = 'Extensión PlugNmeet';
+$string['subplugintype_pnmext_plural'] = 'Extensiones PlugNmeet';
 
 // Admin Settings
 $string['api_config'] = 'Configuración de la API';
@@ -371,7 +373,7 @@ $string['no_recordings'] = 'No se encontraron grabaciones.';
 $string['recording_id'] = 'ID de grabación';
 $string['room_sid'] = 'SID de la sala';
 $string['file_size'] = 'Tamaño del archivo';
-$string['created_at'] = 'Creado el';
+$string['created_at'] = 'Creado en';
 $string['actions'] = 'Acciones';
 $string['view'] = 'Ver';
 $string['play'] = 'Reproducir';
@@ -401,7 +403,7 @@ $string['character_count_usage'] = 'Uso de recuento de caracteres';
 $string['estimated_cost'] = 'Costo estimado';
 $string['file_path'] = 'Ruta del archivo';
 $string['mime_type'] = 'Tipo MIME';
-$string['created_at'] = 'Creado el';
+$string['created_at'] = 'Creado en';
 $string['meeting_summary'] = 'Resumen de la reunión';
 $string['error_loading_meeting_summary'] = 'Error al cargar el resumen de la reunión: {$a}';
 

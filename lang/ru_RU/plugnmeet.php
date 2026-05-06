@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mod_plugnmeet', language 'en'
+ * Strings for component 'mod_plugnmeet'
  *
  * @package     mod_plugnmeet
  * @author      Jibon L. Costa <jibon@mynaparrot.com>
@@ -29,7 +29,7 @@ $string['modulename'] = 'plugNmeet';
 $string['modulename_help'] = 'Модуль PlugNmeet позволяет создавать и управлять сеансами веб-конференций в режиме реального времени непосредственно в Moodle.';
 $string['modulename_link'] = 'mod/plugnmeet/view';
 $string['modulenameplural'] = 'plugNmeets';
-$string['pluginadministration'] = 'администрирование plugNmeet';
+$string['pluginadministration'] = 'Администрирование PlugNmeet';
 $string['pluginname'] = 'plugNmeet';
 $string['plugnmeet:addinstance'] = 'Добавить новое действие PlugNmeet';
 $string['plugnmeet:deleteartifacts'] = 'Удалить артефакты';
@@ -49,6 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'Просмотреть записи';
 $string['plugnmeetfieldset'] = 'Пример пользовательского набора полей';
 $string['plugnmeetname'] = 'Пример пользовательского имени';
 $string['plugnmeetname_help'] = 'Пример пользовательской справки';
+$string['subplugintype_pnmext'] = 'Расширение PlugNmeet';
+$string['subplugintype_pnmext_plural'] = 'Расширения PlugNmeet';
 
 // Admin Settings
 $string['api_config'] = 'Конфигурация API';

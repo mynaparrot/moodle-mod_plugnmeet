@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mod_plugnmeet', language 'de_DE'
+ * Strings for component 'mod_plugnmeet'
  *
  * @package     mod_plugnmeet
  * @author      Jibon L. Costa <jibon@mynaparrot.com>
@@ -29,7 +29,7 @@ $string['modulename'] = 'plugNmeet';
 $string['modulename_help'] = 'Das PlugNmeet-Aktivitätsmodul ermöglicht es Ihnen, Echtzeit-Webkonferenzsitzungen innerhalb von Moodle zu erstellen und zu verwalten.';
 $string['modulename_link'] = 'mod/plugnmeet/view';
 $string['modulenameplural'] = 'plugNmeets';
-$string['pluginadministration'] = 'plugNmeet-Administration';
+$string['pluginadministration'] = 'PlugNmeet-Administration';
 $string['pluginname'] = 'plugNmeet';
 $string['plugnmeet:addinstance'] = 'Neue PlugNmeet-Aktivität hinzufügen';
 $string['plugnmeet:deleteartifacts'] = 'Artefakte löschen';
@@ -49,6 +49,8 @@ $string['plugnmeet:viewrecordings'] = 'Aufnahmen anzeigen';
 $string['plugnmeetfieldset'] = 'Benutzerdefinierter Beispielsatz';
 $string['plugnmeetname'] = 'Benutzerdefinierter Beispielname';
 $string['plugnmeetname_help'] = 'Benutzerdefinierte Beispielhilfe';
+$string['subplugintype_pnmext'] = 'PlugNmeet-Erweiterung';
+$string['subplugintype_pnmext_plural'] = 'PlugNmeet Erweiterungen';
 
 // Admin Settings
 $string['api_config'] = 'API-Konfiguration';
