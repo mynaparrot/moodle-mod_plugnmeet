@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.0.6](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.5...v3.0.6) (2026-05-09)
+
+
+### Bug Fixes
+
+* added link to profile page ([828eb01](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/828eb01ebea7387aa261a20cccff58bcde45c06d))
+* attendance report downloaded file was empty ([01dae5f](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/01dae5f59f98e7803199d05baf43e1fba9ba64bb))
+
 ## [3.0.5](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.4...v3.0.5) (2026-05-06)
 
 
