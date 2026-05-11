@@ -21,7 +21,6 @@ use mod_plugnmeet\helper\plugNmeetConnect;
 use mod_plugnmeet\helper\AnalyticsHelper;
 use mod_plugnmeet\helper\RoomHelper;
 use Mynaparrot\PlugnmeetProto\RoomArtifactType;
-use html_writer;
 use moodle_url;
 use cache;
 

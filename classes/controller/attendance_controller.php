@@ -17,7 +17,6 @@
 namespace mod_plugnmeet\controller;
 
 use html_writer;
-use html_table;
 use moodle_url;
 use MoodleExcelWorkbook;
 use MoodleExcelFormat;

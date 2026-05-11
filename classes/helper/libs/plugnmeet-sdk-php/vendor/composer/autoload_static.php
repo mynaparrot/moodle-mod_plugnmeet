@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
+class ComposerStaticInit85afec30a002738a7522d97226a46190
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -14,26 +14,26 @@ class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
     );
 
     public static $prefixLengthsPsr4 = array (
-        'R' =>
+        'R' => 
         array (
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
         ),
-        'M' =>
+        'M' => 
         array (
             'Mynaparrot\\Plugnmeet\\' => 21,
             'Mynaparrot\\PlugnmeetProto\\' => 26,
         ),
-        'L' =>
+        'L' => 
         array (
             'Livekit\\' => 8,
         ),
-        'G' =>
+        'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
@@ -42,75 +42,75 @@ class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
             'GPBMetadata\\Google\\Protobuf\\' => 28,
             'GPBMetadata\\' => 12,
         ),
-        'F' =>
+        'F' => 
         array (
             'Firebase\\JWT\\' => 13,
         ),
-        'B' =>
+        'B' => 
         array (
             'Brick\\Math\\' => 11,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Ramsey\\Uuid\\' =>
+        'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
         ),
-        'Ramsey\\Collection\\' =>
+        'Ramsey\\Collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
-        'Psr\\Http\\Message\\' =>
+        'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
-        'Psr\\Http\\Client\\' =>
+        'Psr\\Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Mynaparrot\\Plugnmeet\\' =>
+        'Mynaparrot\\Plugnmeet\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'Mynaparrot\\PlugnmeetProto\\' =>
+        'Mynaparrot\\PlugnmeetProto\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto',
         ),
-        'Livekit\\' =>
+        'Livekit\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/gen/Livekit',
         ),
-        'GuzzleHttp\\Psr7\\' =>
+        'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' =>
+        'GuzzleHttp\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' =>
+        'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Google\\Protobuf\\' =>
+        'Google\\Protobuf\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf',
         ),
-        'GPBMetadata\\Google\\Protobuf\\' =>
+        'GPBMetadata\\Google\\Protobuf\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/protobuf/src/GPBMetadata/Google/Protobuf',
         ),
-        'GPBMetadata\\' =>
+        'GPBMetadata\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/gen/GPBMetadata',
         ),
-        'Firebase\\JWT\\' =>
+        'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
-        'Brick\\Math\\' =>
+        'Brick\\Math\\' => 
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
@@ -444,6 +444,7 @@ class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
         'Livekit\\ClientConfigSetting' => __DIR__ . '/../..' . '/src/gen/Livekit/ClientConfigSetting.php',
         'Livekit\\ClientConfiguration' => __DIR__ . '/../..' . '/src/gen/Livekit/ClientConfiguration.php',
         'Livekit\\ClientInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/ClientInfo.php',
+        'Livekit\\ClientInfo\\Capability' => __DIR__ . '/../..' . '/src/gen/Livekit/ClientInfo/Capability.php',
         'Livekit\\ClientInfo\\SDK' => __DIR__ . '/../..' . '/src/gen/Livekit/ClientInfo/SDK.php',
         'Livekit\\ClientSettingsRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/ClientSettingsRequest.php',
         'Livekit\\ClientSettingsResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/ClientSettingsResponse.php',
@@ -462,6 +463,8 @@ class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
         'Livekit\\CreateAgentDispatchRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateAgentDispatchRequest.php',
         'Livekit\\CreateAgentRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateAgentRequest.php',
         'Livekit\\CreateAgentResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateAgentResponse.php',
+        'Livekit\\CreateAgentV2Request' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateAgentV2Request.php',
+        'Livekit\\CreateAgentV2Response' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateAgentV2Response.php',
         'Livekit\\CreateIngressRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreateIngressRequest.php',
         'Livekit\\CreatePrivateLinkRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/CreatePrivateLinkRequest.php',
         'Livekit\\CreatePrivateLinkRequest\\AWSCreateConfig' => __DIR__ . '/../..' . '/src/gen/Livekit/CreatePrivateLinkRequest/AWSCreateConfig.php',
@@ -502,6 +505,8 @@ class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
         'Livekit\\DeleteSIPTrunkRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DeleteSIPTrunkRequest.php',
         'Livekit\\DeployAgentRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DeployAgentRequest.php',
         'Livekit\\DeployAgentResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/DeployAgentResponse.php',
+        'Livekit\\DeployAgentV2Request' => __DIR__ . '/../..' . '/src/gen/Livekit/DeployAgentV2Request.php',
+        'Livekit\\DeployAgentV2Response' => __DIR__ . '/../..' . '/src/gen/Livekit/DeployAgentV2Response.php',
         'Livekit\\Destination' => __DIR__ . '/../..' . '/src/gen/Livekit/Destination.php',
         'Livekit\\DestroyPrivateLinkRequest' => __DIR__ . '/../..' . '/src/gen/Livekit/DestroyPrivateLinkRequest.php',
         'Livekit\\DestroyPrivateLinkResponse' => __DIR__ . '/../..' . '/src/gen/Livekit/DestroyPrivateLinkResponse.php',
@@ -694,6 +699,7 @@ class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
         'Livekit\\SIPCallDirection' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPCallDirection.php',
         'Livekit\\SIPCallInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPCallInfo.php',
         'Livekit\\SIPCallStatus' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPCallStatus.php',
+        'Livekit\\SIPCodec' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPCodec.php',
         'Livekit\\SIPDispatchRule' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPDispatchRule.php',
         'Livekit\\SIPDispatchRuleCallee' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPDispatchRuleCallee.php',
         'Livekit\\SIPDispatchRuleDirect' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPDispatchRuleDirect.php',
@@ -704,6 +710,7 @@ class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
         'Livekit\\SIPHeaderOptions' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPHeaderOptions.php',
         'Livekit\\SIPInboundTrunkInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPInboundTrunkInfo.php',
         'Livekit\\SIPInboundTrunkUpdate' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPInboundTrunkUpdate.php',
+        'Livekit\\SIPMediaConfig' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPMediaConfig.php',
         'Livekit\\SIPMediaEncryption' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPMediaEncryption.php',
         'Livekit\\SIPOutboundConfig' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPOutboundConfig.php',
         'Livekit\\SIPOutboundTrunkInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/SIPOutboundTrunkInfo.php',
@@ -1083,9 +1090,11 @@ class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
         'Mynaparrot\\PlugnmeetProto\\VerifyTokenRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/VerifyTokenRes.php',
         'Mynaparrot\\PlugnmeetProto\\WaitingRoomFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/WaitingRoomFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\WhiteboardFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/WhiteboardFeatures.php',
+        'Mynaparrot\\Plugnmeet\\AnalyticsFormatter' => __DIR__ . '/../..' . '/src/AnalyticsFormatter.php',
         'Mynaparrot\\Plugnmeet\\GuzzleHttpClient' => __DIR__ . '/../..' . '/src/GuzzleHttpClient.php',
         'Mynaparrot\\Plugnmeet\\HttpClientInterface' => __DIR__ . '/../..' . '/src/HttpClientInterface.php',
         'Mynaparrot\\Plugnmeet\\PlugNmeet' => __DIR__ . '/../..' . '/src/PlugNmeet.php',
+        'Mynaparrot\\Plugnmeet\\RoomCreateFeaturesBuilder' => __DIR__ . '/../..' . '/src/RoomCreateFeaturesBuilder.php',
         'Psr\\Http\\Client\\ClientExceptionInterface' => __DIR__ . '/..' . '/psr/http-client/src/ClientExceptionInterface.php',
         'Psr\\Http\\Client\\ClientInterface' => __DIR__ . '/..' . '/psr/http-client/src/ClientInterface.php',
         'Psr\\Http\\Client\\NetworkExceptionInterface' => __DIR__ . '/..' . '/psr/http-client/src/NetworkExceptionInterface.php',
@@ -1250,9 +1259,9 @@ class ComposerStaticInit20c4be0a14681fda586551ee0cffb60e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit20c4be0a14681fda586551ee0cffb60e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit20c4be0a14681fda586551ee0cffb60e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit20c4be0a14681fda586551ee0cffb60e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit85afec30a002738a7522d97226a46190::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit85afec30a002738a7522d97226a46190::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit85afec30a002738a7522d97226a46190::$classMap;
 
         }, null, ClassLoader::class);
     }

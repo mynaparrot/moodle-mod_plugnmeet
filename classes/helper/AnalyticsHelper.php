@@ -19,6 +19,7 @@ namespace mod_plugnmeet\helper;
 use MoodleExcelWorkbook;
 use MoodleExcelFormat;
 use cache;
+use Mynaparrot\Plugnmeet\AnalyticsFormatter;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -37,47 +38,17 @@ require_once($CFG->libdir . '/excellib.class.php');
  */
 class AnalyticsHelper {
     /**
-     * @var string[]
+     * @var AnalyticsFormatter
      */
-    protected array $roomfields = [
-        "room_id", "room_title", "room_creation", "room_ended", "room_duration",
-        "room_total_users", "enabled_e2ee", "recording_status", "rtmp_status",
-        "external_media_player_status", "etherpad_status", "external_display_link_status",
-        "ingress_created", "breakout_room",
-    ];
-
-    /**
-     * @var string[]
-     */
-    protected array $userfields = [
-        "name", "ex_user_id", "is_admin", "duration", "joined", "left", "mic_status",
-        "mic_muted", "mic_duration", "talked", "talked_duration", "webcam_status", "webcam_duration", "raise_hand",
-        "voted_poll", "whiteboard_annotated", "whiteboard_files", "screen_share_status",
-        "public_chat", "private_chat", "chat_files", "interface_invisible", "connection_quality",
-    ];
-
+    private AnalyticsFormatter $analyticsformatter;
     /**
      * @var array
      */
-    protected array $roomdata = [];
-
+    private array $roomdata = [];
     /**
      * @var array
      */
-    protected array $usersdata = [];
-
-    /**
-     * @var array
-     */
-    protected mixed $analyticsdata = [
-        "room"  => [],
-        "users" => [],
-    ];
-
-    /**
-     * @var \DateTimeZone
-     */
-    private \DateTimeZone $timezone;
+    private array $usersdata = [];
 
     /**
      * Constructor.
@@ -85,15 +56,13 @@ class AnalyticsHelper {
      * @param string $artifactid
      */
     public function __construct(string $artifactid) {
-        $this->timezone = new \DateTimeZone(get_user_timezone());
-
         $cache = cache::make('mod_plugnmeet', 'analytics_data');
         $cachedata = $cache->get($artifactid);
+        $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
 
         if ($cachedata) {
-            $this->analyticsdata = $cachedata;
+            $analyticsdata = $cachedata;
         } else {
-            $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
             $res = $pnc->getArtifactDownloadToken($artifactid);
 
             if ($res->getStatus()) {
@@ -101,18 +70,21 @@ class AnalyticsHelper {
                 if (!empty($analyticsdata)) {
                     $data = json_decode($analyticsdata, true);
                     if (!empty($data)) {
-                        $this->analyticsdata = $data;
+                        $analyticsdata = $data;
                         // Cache the decoded data.
                         $cache->set($artifactid, $data);
                     }
                 }
             } else {
                 RoomHelper::write_log_event($artifactid, 'AnalyticsHelper', "Error during fetching report download token: " . $res->getMsg());
+                $analyticsdata = ['room' => [], 'users' => []];
             }
         }
 
-        $this->format_room_data();
-        $this->format_users_data();
+        $this->analyticsformatter = $pnc->getAnalyticsFormatter($analyticsdata, get_user_timezone());
+        $formatteddata = $this->analyticsformatter->getFormattedEventData();
+        $this->roomdata = $formatteddata['room'];
+        $this->usersdata = $formatteddata['users'];
     }
 
     /**
@@ -161,7 +133,7 @@ class AnalyticsHelper {
      * @return array
      */
     public function get_raw_analytics_data(): array {
-        return $this->analyticsdata;
+        return $this->analyticsformatter->getRawAnalyticsData();
     }
 
     /**
@@ -170,7 +142,7 @@ class AnalyticsHelper {
      * @return string[]
      */
     public function get_user_fields(): array {
-        return $this->userfields;
+        return $this->analyticsformatter->getUserFields();
     }
 
     /**
@@ -179,258 +151,7 @@ class AnalyticsHelper {
      * @return string[]
      */
     public function get_room_fields(): array {
-        return $this->roomfields;
-    }
-
-    /**
-     * Formats room data.
-     *
-     * @return void
-     */
-    private function format_room_data(): void {
-        foreach ($this->analyticsdata["room"] as $key => $data) {
-            if ($key !== "events") {
-                if ($key === "room_creation" || $key === "room_ended") {
-                    $data = $this->format_timestamp($data, false);
-                } else if ($key === "room_id") {
-                    $data = str_replace(get_config('mod_plugnmeet', 'plugnmeet_server_id') . "_", "", $data);
-                }
-                $this->roomdata[$key] = $data;
-            }
-        }
-        if (isset($this->analyticsdata["room"]["events"])) {
-            $this->format_room_events($this->analyticsdata["room"]["events"]);
-        }
-    }
-
-    /**
-     * Formats room events.
-     *
-     * @param array $events
-     * @return void
-     */
-    private function format_room_events(array $events): void {
-        foreach ($events as $event) {
-            switch ($event["name"]) {
-                case "recording_status":
-                case "rtmp_status":
-                case "external_media_player_status":
-                case "external_display_link_status":
-                case "etherpad_status":
-                    $this->roomdata[$event["name"]] = $this->count_status_start_type_event($event["values"]);
-                    break;
-                case "ingress_created":
-                case "breakout_room":
-                    $this->roomdata[$event["name"]] = $event["total"];
-                    break;
-                case "whiteboard_files":
-                    $this->roomdata[$event["name"]] = $event["values"];
-                    break;
-                case "poll_added":
-                    $this->roomdata["polls"] = $this->format_room_polls($event["values"]);
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Formats users data.
-     *
-     * @return void
-     */
-    private function format_users_data(): void {
-        foreach ($this->analyticsdata["users"] as $user) {
-            $u = [];
-            foreach ($user as $key => $val) {
-                if ($key !== "events") {
-                    if ($key === "ex_user_id") {
-                        $u["ex_user_id"] = $val;
-                    } else {
-                        $u[$key] = $val;
-                    }
-                }
-            }
-            $this->format_user_events($u, $user["events"]);
-            $this->format_user_join_duration($u);
-            $this->usersdata[] = $u;
-        }
-    }
-
-    /**
-     * Formats user events.
-     *
-     * @param array $user
-     * @param array $events
-     * @return void
-     */
-    private function format_user_events(array &$user, array $events): void {
-        foreach ($events as $event) {
-            switch ($event["name"]) {
-                case "mic_status":
-                    $user[$event["name"]] = $this->count_status_start_type_event($event["values"]);
-                    $user["mic_muted"]    = $this->count_status_start_type_event($event["values"], "ANALYTICS_STATUS_MUTED");
-                    $user['mic_duration'] = $this->get_duration_from_events($event['values']);
-                    break;
-                case "webcam_status":
-                    $user[$event["name"]] = $this->count_status_start_type_event($event["values"]);
-                    $user['webcam_duration'] = $this->get_duration_from_events($event['values']);
-                    break;
-                case "screen_share_status":
-                    $user[$event["name"]] = $this->count_status_start_type_event($event["values"]);
-                    break;
-                case "whiteboard_files":
-                case "whiteboard_annotated":
-                case "raise_hand":
-                case "chat_files":
-                case "private_chat":
-                case "public_chat":
-                case "talked":
-                    $user[$event["name"]] = $event["total"];
-                    break;
-                case "talked_duration":
-                    $user[$event["name"]] = (int)ceil((float)$event["total"] / 1000); // Store in seconds.
-                    break;
-                case "joined":
-                case "left":
-                    $user[$event["name"]] = array_map(function ($val) {
-                        return (int)$val["value"];
-                    }, $event["values"]);
-                    sort($user[$event["name"]], SORT_NUMERIC);
-                    break;
-                case "interface_visibility":
-                    $user["interface_invisible"] = $this->count_status_start_type_event($event["values"], "hidden");
-                    break;
-                case "connection_quality":
-                    $user[$event["name"]]["excellent"] = $this->count_status_start_type_event($event["values"], "excellent");
-                    $user[$event["name"]]["good"]      = $this->count_status_start_type_event($event["values"], "good");
-                    $user[$event["name"]]["poor"]      = $this->count_status_start_type_event($event["values"], "poor");
-                    break;
-                case "voted_poll":
-                    $user[$event["name"]] = $this->format_user_poll_voted($event["values"]);
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Counts events of a certain status.
-     *
-     * @param array $data
-     * @param string $type
-     * @return int
-     */
-    private function count_status_start_type_event(array $data, string $type = "ANALYTICS_STATUS_STARTED"): int {
-        $total = 0;
-        foreach ($data as $val) {
-            if (!empty($val["value"])) {
-                if (stripos($type, $val["value"]) !== false) {
-                    $total++;
-                }
-            }
-        }
-
-        return $total;
-    }
-
-    /**
-     * Formats room polls.
-     *
-     * @param array $data
-     * @return array
-     */
-    private function format_room_polls(array $data): array {
-        $polls = [];
-        foreach ($data as $val) {
-            if (empty($val["value"])) {
-                continue;
-            }
-            $p = json_decode($val["value"], true);
-
-            $poll = [
-                "created"  => $this->format_timestamp($val["time"]),
-                "question" => $p["question"],
-            ];
-
-            foreach ($p["options"] as $opt) {
-                $poll["options"][$opt["id"]] = [
-                    "text"      => $opt["text"],
-                    "responses" => 0,
-                ];
-            }
-            $polls[$p["poll_id"]] = $poll;
-        }
-
-        return $polls;
-    }
-
-    /**
-     * Formats user voted poll data.
-     *
-     * @param array $values
-     * @return int
-     */
-    public function format_user_poll_voted(array $values): int {
-        $total = 0;
-        if (empty($values)) {
-            return $total;
-        }
-        foreach ($values as $val) {
-            $total++;
-            $vote = json_decode($val["value"], true);
-            if (isset($this->roomdata["polls"][$vote["poll_id"]])) {
-                $this->roomdata["polls"][$vote["poll_id"]]["options"][$vote["selected_option"]]["responses"] += 1;
-            }
-        }
-
-        return $total;
-    }
-
-    /**
-     * Calculates user duration in the room.
-     *
-     * @param array $user
-     * @return void
-     */
-    public function format_user_join_duration(array &$user): void {
-        if (empty($user["joined"])) {
-            $user["duration"] = 0;
-            return;
-        }
-
-        $totalduration = 0;
-        $roomendedtimestamp = null;
-
-        if (isset($this->analyticsdata["room"]["room_ended"])) {
-            $roomendedtimestamp = (float)$this->analyticsdata["room"]["room_ended"] * 1000;
-        }
-
-        $joinedevents = $user["joined"];
-        $leftevents = $user["left"] ?? [];
-
-        sort($joinedevents);
-        sort($leftevents);
-
-        $leftindex = 0;
-        foreach ($joinedevents as $jointime) {
-            $leavetime = null;
-
-            while ($leftindex < count($leftevents) && $leftevents[$leftindex] <= $jointime) {
-                $leftindex++;
-            }
-
-            if ($leftindex < count($leftevents)) {
-                $leavetime = (float)$leftevents[$leftindex];
-                $leftindex++;
-            } else {
-                $leavetime = (float)$roomendedtimestamp;
-            }
-
-            if ($leavetime > (float)$jointime) {
-                $totalduration += ($leavetime - (float)$jointime);
-            }
-        }
-
-        $user["duration"] = (int)ceil($totalduration / 1000); // Store in seconds.
+        return $this->analyticsformatter->getRoomFields();
     }
 
     /**
@@ -470,12 +191,10 @@ class AnalyticsHelper {
         $sheet->set_column(1, 1, 50);
 
         $rowindex = 0;
-        foreach ($this->roomfields as $field) {
+        foreach ($this->get_room_fields() as $field) {
             $data = $this->roomdata[$field] ?? 0;
-
             $title = get_string('analytics_room_' . $field, 'plugnmeet');
             $sheet->write_string($rowindex, 0, $title, $headerformat);
-
             $formatteddata = $this->format_room_data_for_xlsx($data, $field);
             $sheet->write_string($rowindex, 1, (string)$formatteddata);
             $rowindex++;
@@ -491,7 +210,7 @@ class AnalyticsHelper {
      */
     private function format_room_data_for_xlsx(mixed $data, string $field): mixed {
         if ($field === "room_duration" || $field === "speech_service_total_usage") {
-            return $this->format_seconds_to_time($data);
+            return $this->analyticsformatter->formatSecondsToTime($data);
         }
 
         if (is_bool($data) || $field === "enabled_e2ee") {
@@ -513,7 +232,7 @@ class AnalyticsHelper {
 
         $columnmap   = [];
         $columnindex = 0;
-        foreach ($this->userfields as $field) {
+        foreach ($this->get_user_fields() as $field) {
             $columnmap[$field] = $columnindex++;
         }
 
@@ -546,7 +265,7 @@ class AnalyticsHelper {
                 return 0;
             }
             $arr = array_map(function ($d) {
-                return $this->format_timestamp($d);
+                return $this->analyticsformatter->formatTimestamp($d);
             }, (array)$data);
 
             return implode("\n", $arr);
@@ -564,8 +283,11 @@ class AnalyticsHelper {
             return implode("\n", $arr);
         }
 
-        if ($field === "duration" || $field === "talked_duration" || $field === "speech_service_total_usage" || $field === "webcam_duration" || $field === "mic_duration") {
-            return $this->format_seconds_to_time($data);
+        if (
+            $field === "duration" || $field === "talked_duration" || $field === "speech_service_total_usage"
+            || $field === "webcam_duration" || $field === "mic_duration"
+        ) {
+            return $this->analyticsformatter->formatSecondsToTime($data);
         }
 
         if (is_bool($data)) {
@@ -632,7 +354,7 @@ class AnalyticsHelper {
 
         $i = 1;
         foreach ($this->roomdata["whiteboard_files"] as $file) {
-            $created = $this->format_timestamp($file["time"]);
+            $created = $this->analyticsformatter->formatTimestamp($file["time"]);
 
             $sheet->write_string($i, 0, $file["value"], new MoodleExcelFormat(['text_wrap' => true]));
             $sheet->write_string($i, 1, $created, new MoodleExcelFormat(['text_wrap' => true]));
@@ -649,12 +371,7 @@ class AnalyticsHelper {
      * @return string
      */
     public function format_timestamp($timestamp, bool $ms = true): string {
-        $t = new \DateTime();
-        $val = $ms ? (int)floor((float)$timestamp / 1000) : (int)floor((float)$timestamp);
-        $t->setTimestamp($val);
-        $t->setTimezone($this->timezone);
-
-        return $t->format("d-m-Y H:i:s P");
+        return $this->analyticsformatter->formatTimestamp($timestamp, $ms);
     }
 
     /**
@@ -664,52 +381,6 @@ class AnalyticsHelper {
      * @return string
      */
     public function format_seconds_to_time($seconds): string {
-        $s = (int)round((float)$seconds);
-        $h = intdiv($s, 3600);
-        $m = intdiv($s % 3600, 60);
-        $sec = $s % 60;
-
-        return sprintf("%02d:%02d:%02d", (int)$h, (int)$m, (int)$sec);
-    }
-
-    /**
-     * Calculate the total duration from status events.
-     *
-     * @param array $events
-     * @param string $startstatus
-     * @param string $endstatus
-     * @return int
-     */
-    protected function get_duration_from_events(array $events, string $startstatus = 'ANALYTICS_STATUS_STARTED', string $endstatus = 'ANALYTICS_STATUS_ENDED'): int {
-        if (empty($events)) {
-            return 0;
-        }
-
-        // Sort events by time ascending.
-        usort($events, function ($a, $b) {
-            return (int)$a['time'] <=> (int)$b['time'];
-        });
-
-        $totalduration = 0;
-        $startedtime = 0;
-
-        foreach ($events as $event) {
-            if ($event['value'] === $startstatus) {
-                $startedtime = (float)$event['time'];
-            } else if ($event['value'] === $endstatus && $startedtime > 0) {
-                $totalduration += ((float)$event['time'] - $startedtime);
-                $startedtime = 0;
-            }
-        }
-
-        // If it's still started, use room ended time.
-        if ($startedtime > 0 && isset($this->analyticsdata["room"]["room_ended"])) {
-            $roomendedtimestamp = (float)$this->analyticsdata["room"]["room_ended"] * 1000;
-            if ($roomendedtimestamp > $startedtime) {
-                $totalduration += ($roomendedtimestamp - $startedtime);
-            }
-        }
-
-        return (int)ceil($totalduration / 1000);
+        return $this->analyticsformatter->formatSecondsToTime($seconds);
     }
 }

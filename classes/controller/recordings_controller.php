@@ -18,7 +18,6 @@ namespace mod_plugnmeet\controller;
 
 use core\output\notification;
 use mod_plugnmeet\helper\plugNmeetConnect;
-use html_writer;
 use mod_plugnmeet\helper\RoomHelper;
 use moodle_url;
 use cache;
