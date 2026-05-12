@@ -58,11 +58,11 @@ class AnalyticsHelper {
     public function __construct(string $artifactid) {
         $cache = cache::make('mod_plugnmeet', 'analytics_data');
         $cachedata = $cache->get($artifactid);
-        $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
 
         if ($cachedata) {
             $analyticsdata = $cachedata;
         } else {
+            $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
             $res = $pnc->getArtifactDownloadToken($artifactid);
 
             if ($res->getStatus()) {
@@ -81,7 +81,7 @@ class AnalyticsHelper {
             }
         }
 
-        $this->analyticsformatter = $pnc->getAnalyticsFormatter($analyticsdata, get_user_timezone());
+        $this->analyticsformatter = plugNmeetConnect::getAnalyticsFormatter($analyticsdata, get_user_timezone());
         $formatteddata = $this->analyticsformatter->getFormattedEventData();
         $this->roomdata = $formatteddata['room'];
         $this->usersdata = $formatteddata['users'];

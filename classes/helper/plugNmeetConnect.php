@@ -23,6 +23,7 @@
 
 namespace mod_plugnmeet\helper;
 
+use Exception;
 use Google\Protobuf\Internal\MapField;
 use Mynaparrot\Plugnmeet\AnalyticsFormatter;
 use Mynaparrot\Plugnmeet\PlugNmeet;
@@ -150,22 +151,24 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $roomId
-     * @param string $roomTitle
-     * @param array $roomMetadata
-     * @param string $welcomeMessage
-     * @param string $logoutUrl
-     * @param string $webHookUrl
-     * @param int $max_participants
-     * @param int $empty_timeout
-     * @param array|MapField $extraData
-     * @return CreateRoomRes
-     * @throws \Exception
+     * Creates a new room.
+     *
+     * @param string $roomId The ID of the room to create.
+     * @param string $roomTitle The title of the room.
+     * @param array $roomMetadata The metadata for the room.
+     * @param string $welcomeMessage An optional welcome message.
+     * @param string $logoutUrl An optional logout URL.
+     * @param string $webHookUrl An optional webhook URL.
+     * @param int $max_participants The maximum number of participants allowed in the room.
+     * @param int $empty_timeout The timeout in seconds before an empty room is automatically closed.
+     * @param array|MapField $extraData Optional extra data for the room.
+     * @return CreateRoomRes The response from the createRoom API call.
+     * @throws Exception If the room_features metadata is missing or not an array.
      */
     public function createRoom(string $roomId, string $roomTitle, array $roomMetadata, string $welcomeMessage = "", string $logoutUrl = "", string $webHookUrl = "", int $max_participants = 0, int $empty_timeout = 0, array|MapField $extraData = array()): CreateRoomRes
     {
         if (!isset($roomMetadata['room_features']) || !is_array($roomMetadata['room_features'])) {
-            throw new \Exception("room_features required and should be an array");
+            throw new Exception("room_features required and should be an array");
         }
 
         $featuresBuilder = new RoomCreateFeaturesBuilder($roomMetadata);
@@ -198,6 +201,7 @@ class plugNmeetConnect {
             $metadata->setCopyrightConf($copyrightConf);
         }
 
+
         $roomCreateReq = new CreateRoomReq();
         $roomCreateReq->setRoomId($roomId);
         $roomCreateReq->setMetadata($metadata);
@@ -213,17 +217,19 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $roomId
-     * @param string $name
-     * @param string $userId
-     * @param bool $isAdmin
-     * @param bool $isHidden
-     * @param UserMetadata|null $userMetadata
-     * @param LockSettings|null $lockSettings
-     * @return GenerateTokenRes
-     * @throws \Exception
+     * Generates a token for a user to join a room.
+     *
+     * @param string $roomId The ID of the room to join.
+     * @param string $name The name of the user.
+     * @param string $userId The ID of the user.
+     * @param bool $isAdmin Whether the user is an administrator.
+     * @param bool $isHidden Whether the user is hidden.
+     * @param UserMetadata|null $userMetadata Optional metadata for the user.
+     * @param LockSettings|null $lockSettings Optional lock settings for the user.
+     * @return GenerateTokenRes The response from the getJoinToken API call.
+     * @throws Exception
      */
-    public function getJoinToken(string $roomId, string $name, string $userId, bool $isAdmin, bool $isHidden = false, UserMetadata $userMetadata = null, LockSettings $lockSettings = null): GenerateTokenRes
+    public function getJoinToken(string $roomId, string $name, string $userId, bool $isAdmin, bool $isHidden = false, UserMetadata|null $userMetadata = null, LockSettings|null $lockSettings = null): GenerateTokenRes
     {
         $userInfo = new UserInfo();
         $userInfo->setUserId($userId);
@@ -249,9 +255,11 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $roomId
-     * @return IsRoomActiveRes
-     * @throws \Exception
+     * Checks if a room is currently active.
+     *
+     * @param string $roomId The ID of the room to check.
+     * @return IsRoomActiveRes The response from the isRoomActive API call.
+     * @throws Exception
      */
     public function isRoomActive(string $roomId): IsRoomActiveRes
     {
@@ -262,9 +270,11 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $roomId
-     * @return GetActiveRoomInfoRes
-     * @throws \Exception
+     * Retrieves information about an active room.
+     *
+     * @param string $roomId The ID of the room to get information about.
+     * @return GetActiveRoomInfoRes The response from the getActiveRoomInfo API call.
+     * @throws Exception
      */
     public function getActiveRoomInfo(string $roomId): GetActiveRoomInfoRes
     {
@@ -275,8 +285,10 @@ class plugNmeetConnect {
     }
 
     /**
-     * @return GetActiveRoomsInfoRes
-     * @throws \Exception
+     * Retrieves information about all active rooms.
+     *
+     * @return GetActiveRoomsInfoRes The response from the getActiveRoomsInfo API call.
+     * @throws Exception
      */
     public function getActiveRoomsInfo(): GetActiveRoomsInfoRes
     {
@@ -284,9 +296,11 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $roomId
-     * @return RoomEndRes
-     * @throws \Exception
+     * Ends a room session.
+     *
+     * @param string $roomId The ID of the room to end.
+     * @return RoomEndRes The response from the endRoom API call.
+     * @throws Exception
      */
     public function endRoom(string $roomId): RoomEndRes
     {
@@ -297,12 +311,14 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param array $roomIds
-     * @param int $from
-     * @param int $limit
-     * @param string $orderBy
-     * @return FetchPastRoomsRes
-     * @throws \Exception
+     * Retrieves a list of past rooms.
+     *
+     * @param array $roomIds An array of room IDs to filter by.
+     * @param int $from The starting index for pagination.
+     * @param int $limit The maximum number of rooms to return.
+     * @param string $orderBy The order in which to sort the rooms (e.g., "DESC").
+     * @return FetchPastRoomsRes The response from the fetchPastRoomsInfo API call.
+     * @throws Exception
      */
     public function getPastRooms(array $roomIds, int $from = 0, int $limit = 20, string $orderBy = "DESC"): FetchPastRoomsRes
     {
@@ -316,13 +332,15 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param array $roomIds
-     * @param string|null $roomSid
-     * @param int $from
-     * @param int $limit
-     * @param string $orderBy
-     * @return FetchRecordingsRes
-     * @throws \Exception
+     * Retrieves a list of recordings.
+     *
+     * @param array $roomIds An array of room IDs to filter by.
+     * @param string|null $roomSid An optional room SID to filter by.
+     * @param int $from The starting index for pagination.
+     * @param int $limit The maximum number of recordings to return.
+     * @param string $orderBy The order in which to sort the recordings (e.g., "DESC").
+     * @return FetchRecordingsRes The response from the fetchRecordings API call.
+     * @throws Exception
      */
     public function getRecordings(array $roomIds, string|null $roomSid = null, int $from = 0, int $limit = 20, string $orderBy = "DESC"): FetchRecordingsRes
     {
@@ -339,9 +357,11 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $recordingId
-     * @return RecordingInfoRes
-     * @throws \Exception
+     * Retrieves information about a specific recording.
+     *
+     * @param string $recordingId The ID of the recording to get information about.
+     * @return RecordingInfoRes The response from the getRecordingInfo API call.
+     * @throws Exception
      */
     public function getRecordingInfo(string $recordingId): RecordingInfoRes
     {
@@ -352,12 +372,14 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $recordingId
-     * @param string $title
-     * @param string|null $description
-     * @param array|MapField $extraData
-     * @return UpdateRecordingMetadataRes
-     * @throws \Exception
+     * Updates the metadata of a recording.
+     *
+     * @param string $recordingId The ID of the recording to update.
+     * @param string $title The new title for the recording.
+     * @param string|null $description An optional new description for the recording.
+     * @param array|MapField $extraData Optional extra data for the recording.
+     * @return UpdateRecordingMetadataRes The response from the updateRecordingMetadata API call.
+     * @throws Exception
      */
     public function updateRecordingMetadata(string $recordingId, string $title, string|null $description, array|MapField $extraData): UpdateRecordingMetadataRes
     {
@@ -374,9 +396,11 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $recordingId
-     * @return GetDownloadTokenRes
-     * @throws \Exception
+     * Generates a download link for a recording.
+     *
+     * @param string $recordingId The ID of the recording to generate a download link for.
+     * @return GetDownloadTokenRes The response from the getRecordingDownloadToken API call.
+     * @throws Exception
      */
     public function getRecordingDownloadLink(string $recordingId): GetDownloadTokenRes
     {
@@ -387,9 +411,11 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $recordingId
-     * @return DeleteRecordingRes
-     * @throws \Exception
+     * Deletes a recording.
+     *
+     * @param string $recordingId The ID of the recording to delete.
+     * @return DeleteRecordingRes The response from the deleteRecordings API call.
+     * @throws Exception
      */
     public function deleteRecording(string $recordingId): DeleteRecordingRes
     {
@@ -400,49 +426,55 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param array $roomIds
-     * @param string|null $roomSid
-     * @param int|null $artifactsType
-     * @param int $from
-     * @param int $limit
-     * @param string $orderBy
-     * @return FetchArtifactsRes
-     * @throws \Exception
+     * Retrieves a list of artifacts.
+     *
+     * @param array $roomIds An array of room IDs to filter by.
+     * @param string|null $roomSid An optional room SID to filter by.
+     * @param int|null $artifactsType An optional artifact type to filter by.
+     * @param int $from The starting index for pagination.
+     * @param int $limit The maximum number of artifacts to return.
+     * @param string $orderBy The order in which to sort the artifacts (e.g., "DESC").
+     * @return FetchArtifactsRes The response from the fetchArtifacts API call.
+     * @throws Exception
      */
     public function getArtifacts(array $roomIds, string|null $roomSid = null, int|null $artifactsType = null, int $from = 0, int $limit = 20, string $orderBy = "DESC"): FetchArtifactsRes
     {
-        $fetchRecordingsReq = new FetchArtifactsReq();
-        $fetchRecordingsReq->setRoomIds($roomIds);
+        $fetchArtifactsReq = new FetchArtifactsReq();
+        $fetchArtifactsReq->setRoomIds($roomIds);
         if (!is_null($roomSid)) {
-            $fetchRecordingsReq->setRoomSid($roomSid);
+            $fetchArtifactsReq->setRoomSid($roomSid);
         }
         if (!is_null($artifactsType)) {
-            $fetchRecordingsReq->setType($artifactsType);
+            $fetchArtifactsReq->setType($artifactsType);
         }
-        $fetchRecordingsReq->setFrom($from);
-        $fetchRecordingsReq->setLimit($limit);
-        $fetchRecordingsReq->setOrderBy($orderBy);
+        $fetchArtifactsReq->setFrom($from);
+        $fetchArtifactsReq->setLimit($limit);
+        $fetchArtifactsReq->setOrderBy($orderBy);
 
-        return $this->plugnmeet->fetchArtifacts($fetchRecordingsReq);
+        return $this->plugnmeet->fetchArtifacts($fetchArtifactsReq);
     }
 
     /**
-     * @param string $artifactId
-     * @return ArtifactInfoRes
-     * @throws \Exception
+     * Retrieves information about a specific artifact.
+     *
+     * @param string $artifactId The ID of the artifact to get information about.
+     * @return ArtifactInfoRes The response from the getArtifactInfo API call.
+     * @throws Exception
      */
     public function getArtifactInfo(string $artifactId): ArtifactInfoRes
     {
-        $recordingInfoReq = new ArtifactInfoReq();
-        $recordingInfoReq->setArtifactId($artifactId);
+        $artifactInfoReq = new ArtifactInfoReq();
+        $artifactInfoReq->setArtifactId($artifactId);
 
-        return $this->plugnmeet->getArtifactInfo($recordingInfoReq);
+        return $this->plugnmeet->getArtifactInfo($artifactInfoReq);
     }
 
     /**
-     * @param string $artifactId
-     * @return GetArtifactDownloadTokenRes
-     * @throws \Exception
+     * Generates a download token for an artifact.
+     *
+     * @param string $artifactId The ID of the artifact to generate a download token for.
+     * @return GetArtifactDownloadTokenRes The response from the getArtifactDownloadToken API call.
+     * @throws Exception
      */
     public function getArtifactDownloadToken(string $artifactId): GetArtifactDownloadTokenRes
     {
@@ -453,27 +485,30 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $artifactId
-     * @return DeleteArtifactRes
-     * @throws \Exception
+     * Deletes an artifact.
+     *
+     * @param string $artifactId The ID of the artifact to delete.
+     * @return DeleteArtifactRes The response from the deleteArtifact API call.
+     * @throws Exception
      */
     public function deleteArtifact(string $artifactId): DeleteArtifactRes
     {
-        $deleteRecordingReq = new DeleteArtifactReq();
-        $deleteRecordingReq->setArtifactId($artifactId);
+        $deleteArtifactReq = new DeleteArtifactReq();
+        $deleteArtifactReq->setArtifactId($artifactId);
 
-        return $this->plugnmeet->deleteArtifact($deleteRecordingReq);
+        return $this->plugnmeet->deleteArtifact($deleteArtifactReq);
     }
 
     /**
-     * @param array $roomIds
-     * @param string|null $roomSid
-     * @param int|null $artifactsType
-     * @param int $from
-     * @param int $limit
-     * @param string $orderBy
-     * @return FetchArtifactsRes
-     * @throws \Exception
+     * Retrieves analytics data.
+     *
+     * @param array $roomIds An array of room IDs to filter by.
+     * @param string|null $roomSid An optional room SID to filter by.
+     * @param int $from The starting index for pagination.
+     * @param int $limit The maximum number of analytics to return.
+     * @param string $orderBy The order in which to sort the analytics (e.g., "DESC").
+     * @return FetchArtifactsRes The response from the getArtifacts API call.
+     * @throws Exception
      */
     public function getAnalytics(array $roomIds, string|null $roomSid = null, int $from = 0, int $limit = 20, string $orderBy = "DESC"): FetchArtifactsRes
     {
@@ -481,9 +516,11 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $artifactId
-     * @return GetArtifactDownloadTokenRes
-     * @throws \Exception
+     * Generates a download link for analytics data.
+     *
+     * @param string $artifactId The ID of the analytics artifact to generate a download link for.
+     * @return GetArtifactDownloadTokenRes The response from the getArtifactDownloadToken API call.
+     * @throws Exception
      */
     public function getAnalyticsDownloadLink(string $artifactId): GetArtifactDownloadTokenRes
     {
@@ -491,9 +528,11 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string $artifactId
-     * @return DeleteArtifactRes
-     * @throws \Exception
+     * Deletes analytics data.
+     *
+     * @param string $artifactId The ID of the analytics artifact to delete.
+     * @return DeleteArtifactRes The response from the deleteArtifact API call.
+     * @throws Exception
      */
     public function deleteAnalytics(string $artifactId): DeleteArtifactRes
     {
@@ -501,8 +540,10 @@ class plugNmeetConnect {
     }
 
     /**
-     * @return GetClientFilesRes
-     * @throws \Exception
+     * Retrieves the client files needed to build the plugNmeet interface.
+     *
+     * @return GetClientFilesRes The response from the getClientFiles API call.
+     * @throws Exception
      */
     public function getClientFiles(): GetClientFilesRes
     {
@@ -510,11 +551,13 @@ class plugNmeetConnect {
     }
 
     /**
-     * @param string|array $rawData
-     * @param string $userTimezone
-     * @return AnalyticsFormatter
+     * Formats raw analytics data into a more readable format.
+     *
+     * @param string|array $rawData The raw analytics data.
+     * @param string $userTimezone The user's timezone.
+     * @return AnalyticsFormatter An AnalyticsFormatter instance.
      */
-    public function getAnalyticsFormatter(string|array $rawData, string $userTimezone = 'UTC'): AnalyticsFormatter
+    public static function getAnalyticsFormatter(string|array $rawData, string $userTimezone = 'UTC'): AnalyticsFormatter
     {
         if (!is_array($rawData)) {
             $rawData = json_decode($rawData, true);
