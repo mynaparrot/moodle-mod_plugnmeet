@@ -19,7 +19,9 @@ namespace mod_plugnmeet\task;
 use core\task\scheduled_task;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use mod_plugnmeet\helper\CompletionHelper;
+use mod_plugnmeet\helper\RoomHelper;
 use Mynaparrot\PlugnmeetProto\RoomArtifactType;
+use Mynaparrot\PlugnmeetProto\StatusCode;
 
 /**
  * Scheduled task to fetch room analytics and process activity completion.
@@ -100,6 +102,7 @@ class fetch_analytics_task extends scheduled_task {
                     1
                 );
 
+                $updatedb = false;
                 if ($res->getStatus() && !empty($res->getResult())) {
                     $artifacts = $res->getResult()->getArtifactsList();
                     $artifact = $artifacts[0];
@@ -109,14 +112,19 @@ class fetch_analytics_task extends scheduled_task {
                         mtrace("Processing analytics for session: {$session->sid} (Artifact: {$artifactid})");
 
                         // Update completion using the artifact.
-                        $success = CompletionHelper::update_completion_for_room($instance, $artifactid);
-
-                        if ($success) {
-                            $DB->set_field('plugnmeet_sessions', 'analytics_processed', 1, ['id' => $session->id]);
-                            $DB->set_field('plugnmeet_sessions', 'timemodified', time(), ['id' => $session->id]);
-                            mtrace("Successfully processed analytics for session: {$session->sid}");
-                        }
+                        $updatedb = CompletionHelper::update_completion_for_room($instance, $artifactid);
                     }
+                } else if ($res->getStatusCode() === StatusCode::NOT_FOUND) {
+                    $updatedb = true;
+                    $msg = "No analytics found for session: {$session->sid}";
+                    mtrace($msg);
+                    RoomHelper::write_log_event($session->sid, "NOT_FOUND", $msg);
+                }
+
+                if ($updatedb) {
+                    $DB->set_field('plugnmeet_sessions', 'analytics_processed', 1, ['id' => $session->id]);
+                    $DB->set_field('plugnmeet_sessions', 'timemodified', time(), ['id' => $session->id]);
+                    mtrace("Successfully processed analytics for session: {$session->sid}");
                 }
             } catch (\Exception $e) {
                 mtrace("Error fetching analytics for session {$session->sid}: " . $e->getMessage());
