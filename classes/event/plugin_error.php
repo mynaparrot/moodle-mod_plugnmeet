@@ -43,6 +43,10 @@ class plugin_error extends \core\event\base {
     public function get_description() {
         $message = $this->other['message'] ?? 'Unknown error';
         $type = $this->other['type'] ?? 'general';
+        $objectid = $this->other['objectid'] ?? '';
+        if (!empty($objectid)) {
+            return "Plugin error for {$objectid} ==> ({$type}): " . $message;
+        }
         return "Plugin error ({$type}): " . $message;
     }
 

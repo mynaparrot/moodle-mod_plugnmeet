@@ -195,9 +195,8 @@ class RoomHelper {
         try {
             $event = plugin_error::create([
                 'context' => context_system::instance(),
-                'objecttable' => 'plugnmeet',
-                'objectid' => $objectid,
                 'other' => [
+                    'objectid' => $objectid,
                     'type' => $type,
                     'message' => $message,
                 ],
