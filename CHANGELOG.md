@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.0.7](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.6...v3.0.7) (2026-05-15)
+
+
+### Bug Fixes
+
+* bump SDK ([5ed9d85](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/5ed9d85ca408ad1d89221704fb9c075439af2440))
+* displaying error because of missing `objecttable` ([2df097b](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/2df097b148933afd578b6da989bcfa1e33d673d0))
+* handle `write_log_event` better way ([db35c26](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/db35c2675d7da4a11de5e2dee35fd5a3e7c86a03))
+* use new helper method from lib ([89d4685](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/89d46854bf96c99ea46c2cdee9cf35fe43a254da))
+
 ## [3.0.6](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.5...v3.0.6) (2026-05-09)
 
 
