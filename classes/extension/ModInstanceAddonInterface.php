@@ -41,9 +41,8 @@ interface ModInstanceAddonInterface {
      * Runs any processes that must run after a plugnmeet is created.
      *
      * @param stdClass $data The plugnmeet instance data from the form.
-     * @param stdClass $cm The course module record.
      */
-    public function after_add_instance(stdClass $data, stdClass $cm);
+    public function after_add_instance(stdClass $data);
 
     /**
      * Runs any processes that must be run before a plugnmeet is updated.
@@ -57,9 +56,8 @@ interface ModInstanceAddonInterface {
      * Runs any processes that must be run after a plugnmeet is updated.
      *
      * @param stdClass $data The plugnmeet instance data from the form.
-     * @param stdClass $cm The course module record.
      */
-    public function after_update_instance(stdClass $data, stdClass $cm): void;
+    public function after_update_instance(stdClass $data): void;
 
     /**
      * Runs any processes that must be run BEFORE a plugnmeet is deleted.

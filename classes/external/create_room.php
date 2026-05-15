@@ -149,7 +149,7 @@ class create_room extends external_api {
             }
         } catch (Exception $e) {
             debugging('Error in PlugNmeet subplugin modify_room_options (create_room): ' . $e->getMessage(), DEBUG_DEVELOPER);
-            RoomHelper::write_log_event($instance->roomid, 'create_room_modify_room_options', $e->getMessage());
+            RoomHelper::write_log_event($instance->id, 'create_room_modify_room_options', $e->getMessage());
         }
 
         $res = $connect->createRoom(
@@ -182,7 +182,7 @@ class create_room extends external_api {
                 }
             }
         } else {
-            RoomHelper::write_log_event($instance->roomid, 'create_room', $res->getMsg());
+            RoomHelper::write_log_event($instance->id, 'create_room', $res->getMsg());
         }
 
         return ['status' => $res->getStatus(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];

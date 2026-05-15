@@ -77,7 +77,7 @@ function plugnmeet_add_instance(stdClass $data, $mform = null) {
     } catch (Exception $e) {
         // Prevent subplugin errors from breaking the main plugin.
         debugging('Error in PlugNmeet subplugin before_add_instance: ' . $e->getMessage(), DEBUG_DEVELOPER);
-        RoomHelper::write_log_event($data->roomid, 'before_add_instance', $e->getMessage());
+        RoomHelper::write_log_event($data->id, 'before_add_instance', $e->getMessage());
     }
 
     // Handle metadata from the 'meta' form fields.
@@ -105,14 +105,13 @@ function plugnmeet_add_instance(stdClass $data, $mform = null) {
 
     // Call extension hooks.
     try {
-        $cm = get_coursemodule_from_instance('plugnmeet', $data->id, $data->course, false, MUST_EXIST);
         foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
-            $addon->after_add_instance($data, $cm);
+            $addon->after_add_instance($data);
         }
     } catch (Exception $e) {
         // Prevent subplugin errors from breaking the main plugin.
         debugging('Error in PlugNmeet subplugin add_instance: ' . $e->getMessage(), DEBUG_DEVELOPER);
-        RoomHelper::write_log_event($data->roomid, 'add_instance', $e->getMessage());
+        RoomHelper::write_log_event($data->id, 'add_instance', $e->getMessage());
     }
 
     return $data->id;
@@ -180,9 +179,8 @@ function plugnmeet_update_instance(stdClass $data, $mform = null) {
 
     // Call extension hooks.
     try {
-        $cm = get_coursemodule_from_instance('plugnmeet', $data->id, $data->course, false, MUST_EXIST);
         foreach (ExtensionManager::get_mod_instance_addons() as $addon) {
-            $addon->after_update_instance($data, $cm);
+            $addon->after_update_instance($data);
         }
     } catch (Exception $e) {
         // Prevent subplugin errors from breaking the main plugin.

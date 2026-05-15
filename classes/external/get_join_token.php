@@ -128,7 +128,7 @@ class get_join_token extends external_api {
         // 1. Check if room is active.
         $isactiveres = $connect->isRoomActive($plugnmeet->roomid);
         if (!$isactiveres->getStatus()) {
-            RoomHelper::write_log_event($plugnmeet->roomid, 'get_join_token:isRoomActive', $isactiveres->getMsg());
+            RoomHelper::write_log_event($plugnmeet->id, 'get_join_token:isRoomActive', $isactiveres->getMsg());
             return [
                 'status' => false,
                 'msg' => $connect->getResponseError($isactiveres, get_string('room_subject', 'mod_plugnmeet')),
@@ -193,7 +193,7 @@ class get_join_token extends external_api {
             }
         } catch (Exception $e) {
             debugging('Error in PlugNmeet subplugin modify_room_options (get_join_token): ' . $e->getMessage(), DEBUG_DEVELOPER);
-            RoomHelper::write_log_event($plugnmeet->roomid, 'get_join_token_modify_room_options', $e->getMessage());
+            RoomHelper::write_log_event($plugnmeet->id, 'get_join_token_modify_room_options', $e->getMessage());
         }
 
         // Extract potentially modified values.
@@ -215,7 +215,7 @@ class get_join_token extends external_api {
             $finallocksettings
         );
         if (!$res->getStatus()) {
-            RoomHelper::write_log_event($plugnmeet->roomid, 'get_join_token', $res->getMsg());
+            RoomHelper::write_log_event($plugnmeet->id, 'get_join_token', $res->getMsg());
         }
 
         $result = ['status' => $res->getStatus(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];

@@ -55,7 +55,7 @@ $config = get_config('mod_plugnmeet');
 $connect = new plugNmeetConnect($config);
 $fileres = $connect->getClientFiles();
 if (!$fileres->getStatus()) {
-    RoomHelper::write_log_event($moduleinstance->roomid, 'getClientFiles', $fileres->getMsg());
+    RoomHelper::write_log_event($moduleinstance->id, 'getClientFiles', $fileres->getMsg());
     // Redirect to the module view page with error.
     redirect(
         new moodle_url('/mod/plugnmeet/view.php', ['id' => $cm->id]),
