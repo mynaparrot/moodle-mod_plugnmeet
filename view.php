@@ -23,8 +23,6 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use mod_plugnmeet\helper\RoomHelper;
-
 require_once(__DIR__ . '/../../config.php');
 
 global $DB, $PAGE, $OUTPUT;
