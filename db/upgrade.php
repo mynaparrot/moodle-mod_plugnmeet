@@ -42,7 +42,7 @@ function xmldb_plugnmeet_upgrade($oldversion) {
         $fields = [
             'eventid' => new xmldb_field('eventid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0, 'grade'),
             'allow_guest' => new xmldb_field('allow_guest', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0, 'eventid'),
-            'guest_token' => new xmldb_field('guest_token', XMLDB_TYPE_CHAR, '64', null, null, null, null, 'guest_token'),
+            'guest_token' => new xmldb_field('guest_token', XMLDB_TYPE_CHAR, '64', null, null, null, null, 'allow_guest'),
             'completionminutes' => new xmldb_field('completionminutes', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0),
             'completionraisedhand' => new xmldb_field('completionraisedhand', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
             'completionchatmessages' => new xmldb_field('completionchatmessages', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, 0),
