@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.8](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.7...v3.0.8) (2026-05-20)
+
+
+### Bug Fixes
+
+* check sessions older than 5 minutes for analytics + delete older records ([600bb7c](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/600bb7c2094be11b943205ae8675552b5d605601))
+* don't call repetitively if not found response received ([88adc90](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/88adc902b114566148c76f838cbb8461b0c316e0))
+* invalid `sequence` value, fixed: [#89](https://github.com/mynaparrot/moodle-mod_plugnmeet/issues/89) ([1a3cffb](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/1a3cffb6e26de9574f4a7fa5635554dc6bba455b))
+* missed version bump ([d8088c5](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/d8088c58fdd3b09f692a45f9c8b78cf9b1e4a759))
+* missed version bump ([ba62373](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/ba623734a9476dfe565f8224720ecfcb30ee36ea))
+
 ## [3.0.9](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.8...v3.0.9) (2026-05-20)
 
 
