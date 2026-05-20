@@ -30,5 +30,5 @@ $plugin->component = 'mod_plugnmeet';
 $plugin->release = '3.0.8';
 // x-release-please-end
 $plugin->version   = 2026051500;
-$plugin->requires  = 2024051300;
+$plugin->requires  = 2024052000;
 $plugin->maturity  = MATURITY_STABLE;
