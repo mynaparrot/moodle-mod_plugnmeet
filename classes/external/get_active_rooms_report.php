@@ -25,6 +25,7 @@
 
 namespace mod_plugnmeet\external;
 
+use core\oauth2\service\facebook;
 use external_api;
 use external_function_parameters;
 use external_value;
@@ -67,12 +68,9 @@ class get_active_rooms_report extends external_api {
         require_capability('mod/plugnmeet:viewactiveroomsreport', $systemcontext);
 
         $config = get_config('mod_plugnmeet');
-        $pnc = new plugNmeetConnect($config);
-        $res = $pnc->getActiveRoomsInfo();
-
         $response = [
-            'status' => $res->getStatus(),
-            'msg' => $pnc->getResponseError($res, get_string('activerooms', 'mod_plugnmeet')),
+            'status' => false,
+            'msg' => '',
             'rooms' => [],
             'summary' => [
                 'total_rooms' => 0,
@@ -83,13 +81,20 @@ class get_active_rooms_report extends external_api {
             ],
         ];
 
-        if (!$res->getStatus()) {
+        $pnc = new plugNmeetConnect($config);
+        try {
+            $res = $pnc->getActiveRoomsInfo();
+            if (!$res->getStatus()) {
+                $response['msg'] = $pnc->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'));
+                return $response;
+            }
+        } catch (\Exception $e) {
+            $response['msg'] = html_entity_decode(strip_tags($e->getMessage()));
             return $response;
         }
 
         $rooms = $res->getRooms();
         $response['summary']['total_rooms'] = count($rooms);
-
         $allprocessedrooms = [];
 
         foreach ($rooms as $room) {

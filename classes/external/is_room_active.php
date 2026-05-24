@@ -68,13 +68,26 @@ class is_room_active extends external_api {
 
         $instance = $DB->get_record('plugnmeet', ['id' => $instanceid], '*', MUST_EXIST);
         $config = get_config('mod_plugnmeet');
-        $connect = new plugNmeetConnect($config);
-        $res = $connect->isRoomActive($instance->roomid);
-        if (!$res->getStatus()) {
-            RoomHelper::write_log_event($instance->id, 'is_room_active', $res->getMsg());
+        $response = [
+            'status' => false,
+            'msg' => '',
+            'is_active' => false,
+        ];
+
+        try {
+            $connect = new plugNmeetConnect($config);
+            $res = $connect->isRoomActive($instance->roomid);
+            if (!$res->getStatus()) {
+                RoomHelper::write_log_event($instance->id, 'is_room_active', $res->getMsg());
+            }
+            $response['status'] = $res->getStatus();
+            $response['is_active'] = $res->getIsActive();
+            $response['msg'] = $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'));
+        } catch (\Exception $e) {
+            $response['msg'] = html_entity_decode(strip_tags($e->getMessage()));
         }
 
-        return ['status' => $res->getStatus(), 'is_active' => $res->getIsActive(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];
+        return $response;
     }
 
     /**

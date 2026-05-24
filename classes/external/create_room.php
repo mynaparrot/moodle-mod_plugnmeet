@@ -152,37 +152,44 @@ class create_room extends external_api {
             RoomHelper::write_log_event($instance->id, 'create_room_modify_room_options', $e->getMessage());
         }
 
-        $res = $connect->createRoom(
-            $roomoptions['roomid'],
-            $roomoptions['roomname'],
-            $roomoptions['roommetadata'],
-            $roomoptions['welcomemessage'],
-            $roomoptions['logouturl'],
-            $roomoptions['webhookurl'],
-            $roomoptions['maxparticipants'],
-            $roomoptions['empty_timeout'],
-            $roomoptions['extradata']
-        );
+        try {
+            $res = $connect->createRoom(
+                $roomoptions['roomid'],
+                $roomoptions['roomname'],
+                $roomoptions['roommetadata'],
+                $roomoptions['welcomemessage'],
+                $roomoptions['logouturl'],
+                $roomoptions['webhookurl'],
+                $roomoptions['maxparticipants'],
+                $roomoptions['empty_timeout'],
+                $roomoptions['extradata']
+            );
 
-        if ($res->getStatus() && !empty($res->getRoomInfo())) {
-            $sid = $res->getRoomInfo()->getSid();
-            if ($sid) {
-                // Track this session in our local database.
-                $record = $DB->get_record('plugnmeet_sessions', ['sid' => $sid]);
-                if (!$record) {
-                    $newsession = new \stdClass();
-                    $newsession->plugnmeetid = $instance->id;
-                    $newsession->sid = $sid;
-                    $newsession->roomid = $instance->roomid;
-                    $newsession->status = 1; // Active.
-                    $newsession->analytics_processed = 0;
-                    $newsession->timecreated = time();
-                    $newsession->timemodified = time();
-                    $DB->insert_record('plugnmeet_sessions', $newsession);
+            if ($res->getStatus() && !empty($res->getRoomInfo())) {
+                $sid = $res->getRoomInfo()->getSid();
+                if ($sid) {
+                    // Track this session in our local database.
+                    $record = $DB->get_record('plugnmeet_sessions', ['sid' => $sid]);
+                    if (!$record) {
+                        $newsession = new \stdClass();
+                        $newsession->plugnmeetid = $instance->id;
+                        $newsession->sid = $sid;
+                        $newsession->roomid = $instance->roomid;
+                        $newsession->status = 1; // Active.
+                        $newsession->analytics_processed = 0;
+                        $newsession->timecreated = time();
+                        $newsession->timemodified = time();
+                        $DB->insert_record('plugnmeet_sessions', $newsession);
+                    }
                 }
+            } else {
+                RoomHelper::write_log_event($instance->id, 'create_room', $res->getMsg());
             }
-        } else {
-            RoomHelper::write_log_event($instance->id, 'create_room', $res->getMsg());
+        } catch (\Exception $e) {
+            return [
+                'status' => false,
+                'msg' => html_entity_decode(strip_tags($e->getMessage())),
+            ];
         }
 
         return ['status' => $res->getStatus(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];

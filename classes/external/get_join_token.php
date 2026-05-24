@@ -126,12 +126,19 @@ class get_join_token extends external_api {
         $connect = new plugNmeetConnect($config);
 
         // 1. Check if room is active.
-        $isactiveres = $connect->isRoomActive($plugnmeet->roomid);
-        if (!$isactiveres->getStatus()) {
-            RoomHelper::write_log_event($plugnmeet->id, 'get_join_token:isRoomActive', $isactiveres->getMsg());
+        try {
+            $isactiveres = $connect->isRoomActive($plugnmeet->roomid);
+            if (!$isactiveres->getStatus()) {
+                RoomHelper::write_log_event($plugnmeet->id, 'get_join_token:isRoomActive', $isactiveres->getMsg());
+                return [
+                    'status' => false,
+                    'msg' => $connect->getResponseError($isactiveres, get_string('room_subject', 'mod_plugnmeet')),
+                ];
+            }
+        } catch (\Exception $e) {
             return [
                 'status' => false,
-                'msg' => $connect->getResponseError($isactiveres, get_string('room_subject', 'mod_plugnmeet')),
+                'msg' => html_entity_decode(strip_tags($e->getMessage())),
             ];
         }
 
@@ -205,17 +212,24 @@ class get_join_token extends external_api {
         $finalusermetadata = $jointokenoptions['usermetadata'];
         $finallocksettings = $jointokenoptions['locksettings'];
 
-        $res = $connect->getJoinToken(
-            $finalroomid,
-            $finalusername,
-            $finaluserid,
-            $finalisadmin,
-            $finalishidden,
-            $finalusermetadata,
-            $finallocksettings
-        );
-        if (!$res->getStatus()) {
-            RoomHelper::write_log_event($plugnmeet->id, 'get_join_token', $res->getMsg());
+        try {
+            $res = $connect->getJoinToken(
+                $finalroomid,
+                $finalusername,
+                $finaluserid,
+                $finalisadmin,
+                $finalishidden,
+                $finalusermetadata,
+                $finallocksettings
+            );
+            if (!$res->getStatus()) {
+                RoomHelper::write_log_event($plugnmeet->id, 'get_join_token', $res->getMsg());
+            }
+        } catch (\Exception $e) {
+            return [
+                'status' => false,
+                'msg' => html_entity_decode(strip_tags($e->getMessage())),
+            ];
         }
 
         $result = ['status' => $res->getStatus(), 'msg' => $connect->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'))];

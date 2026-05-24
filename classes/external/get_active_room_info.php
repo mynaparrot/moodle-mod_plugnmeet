@@ -69,34 +69,38 @@ class get_active_room_info extends external_api {
         self::validate_context($context);
 
         $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
+        $response = [
+            'status' => false,
+            'msg' => '',
+            'participants_info' => [],
+        ];
 
-        $config = get_config('mod_plugnmeet');
-        $pnc = new plugNmeetConnect($config);
-        $res = $pnc->getActiveRoomInfo($plugnmeet->roomid);
+        try {
+            $config = get_config('mod_plugnmeet');
+            $pnc = new plugNmeetConnect($config);
+            $res = $pnc->getActiveRoomInfo($plugnmeet->roomid);
 
-        $response = [];
-        $response['status'] = $res->getStatus();
-        $response['msg'] = $pnc->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'));
+            $response['status'] = $res->getStatus();
+            $response['msg'] = $pnc->getResponseError($res, get_string('room_subject', 'mod_plugnmeet'));
 
-        if ($res->getStatus() && $res->getRoom()) {
-            $room = $res->getRoom();
-            $data = RoomHelper::process_room_data($room);
-            if (!empty($data)) {
-                $response['room_info'] = [
-                    'room_id' => $data['room_id'],
-                    'is_recording' => $data['is_recording'],
-                    'joined_participants' => $data['joined_participants'],
-                    'creation_time' => $data['creation_time'],
-                    'total_webcams' => $data['webcams'],
-                    'total_mics' => $data['mics'],
-                    'total_screen_shares' => $data['screenshares'],
-                ];
-                $response['participants_info'] = $data['participants_info'];
+            if ($res->getStatus() && $res->getRoom()) {
+                $room = $res->getRoom();
+                $data = RoomHelper::process_room_data($room);
+                if (!empty($data)) {
+                    $response['room_info'] = [
+                        'room_id' => $data['room_id'],
+                        'is_recording' => $data['is_recording'],
+                        'joined_participants' => $data['joined_participants'],
+                        'creation_time' => $data['creation_time'],
+                        'total_webcams' => $data['webcams'],
+                        'total_mics' => $data['mics'],
+                        'total_screen_shares' => $data['screenshares'],
+                    ];
+                    $response['participants_info'] = $data['participants_info'];
+                }
             }
-        }
-
-        if (!isset($response['participants_info'])) {
-            $response['participants_info'] = [];
+        } catch (\Exception $e) {
+            $response['msg'] = html_entity_decode(strip_tags($e->getMessage()));
         }
 
         return $response;
