@@ -27,19 +27,23 @@ class SIPInboundTrunkUpdate extends \Google\Protobuf\Internal\Message
      */
     protected $allowed_numbers = null;
     /**
-     * Generated from protobuf field <code>optional string auth_username = 4 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>optional string auth_username = 4 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $auth_username = null;
     /**
-     * Generated from protobuf field <code>optional string auth_password = 5 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>optional string auth_password = 5 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      */
     protected $auth_password = null;
+    /**
+     * Generated from protobuf field <code>optional string auth_realm = 9;</code>
+     */
+    protected $auth_realm = null;
     /**
      * Generated from protobuf field <code>optional string name = 6;</code>
      */
     protected $name = null;
     /**
-     * Generated from protobuf field <code>optional string metadata = 7 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>optional string metadata = 7 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $metadata = null;
     /**
@@ -58,6 +62,7 @@ class SIPInboundTrunkUpdate extends \Google\Protobuf\Internal\Message
      *     @type \Livekit\ListUpdate $allowed_numbers
      *     @type string $auth_username
      *     @type string $auth_password
+     *     @type string $auth_realm
      *     @type string $name
      *     @type string $metadata
      *     @type int $media_encryption
@@ -165,7 +170,7 @@ class SIPInboundTrunkUpdate extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional string auth_username = 4 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>optional string auth_username = 4 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getAuthUsername()
@@ -184,7 +189,7 @@ class SIPInboundTrunkUpdate extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional string auth_username = 4 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>optional string auth_username = 4 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -197,7 +202,7 @@ class SIPInboundTrunkUpdate extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional string auth_password = 5 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>optional string auth_password = 5 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @return string
      */
     public function getAuthPassword()
@@ -216,7 +221,7 @@ class SIPInboundTrunkUpdate extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional string auth_password = 5 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>optional string auth_password = 5 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @param string $var
      * @return $this
      */
@@ -224,6 +229,38 @@ class SIPInboundTrunkUpdate extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->auth_password = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string auth_realm = 9;</code>
+     * @return string
+     */
+    public function getAuthRealm()
+    {
+        return isset($this->auth_realm) ? $this->auth_realm : '';
+    }
+
+    public function hasAuthRealm()
+    {
+        return isset($this->auth_realm);
+    }
+
+    public function clearAuthRealm()
+    {
+        unset($this->auth_realm);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string auth_realm = 9;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setAuthRealm($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->auth_realm = $var;
 
         return $this;
     }
@@ -261,7 +298,7 @@ class SIPInboundTrunkUpdate extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional string metadata = 7 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>optional string metadata = 7 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getMetadata()
@@ -280,7 +317,7 @@ class SIPInboundTrunkUpdate extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional string metadata = 7 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>optional string metadata = 7 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */

@@ -41,7 +41,7 @@ class RoomConfiguration extends \Google\Protobuf\Internal\Message
     /**
      * metadata of room
      *
-     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $metadata = '';
     /**
@@ -222,7 +222,7 @@ class RoomConfiguration extends \Google\Protobuf\Internal\Message
     /**
      * metadata of room
      *
-     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getMetadata()
@@ -233,7 +233,7 @@ class RoomConfiguration extends \Google\Protobuf\Internal\Message
     /**
      * metadata of room
      *
-     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */

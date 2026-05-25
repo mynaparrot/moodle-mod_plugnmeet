@@ -51,19 +51,19 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
      * Username and password used to authenticate inbound and outbound SIP invites
      * May be empty to have no Authentication
      *
-     * Generated from protobuf field <code>string inbound_username = 5 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string inbound_username = 5 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $inbound_username = '';
     /**
-     * Generated from protobuf field <code>string inbound_password = 6 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string inbound_password = 6 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      */
     protected $inbound_password = '';
     /**
-     * Generated from protobuf field <code>string outbound_username = 7 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string outbound_username = 7 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $outbound_username = '';
     /**
-     * Generated from protobuf field <code>string outbound_password = 8 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string outbound_password = 8 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      */
     protected $outbound_password = '';
     /**
@@ -75,7 +75,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined metadata for the Trunk.
      *
-     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $metadata = '';
 
@@ -258,7 +258,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
      * Username and password used to authenticate inbound and outbound SIP invites
      * May be empty to have no Authentication
      *
-     * Generated from protobuf field <code>string inbound_username = 5 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string inbound_username = 5 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getInboundUsername()
@@ -270,7 +270,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
      * Username and password used to authenticate inbound and outbound SIP invites
      * May be empty to have no Authentication
      *
-     * Generated from protobuf field <code>string inbound_username = 5 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string inbound_username = 5 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -283,7 +283,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string inbound_password = 6 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string inbound_password = 6 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @return string
      */
     public function getInboundPassword()
@@ -292,7 +292,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string inbound_password = 6 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string inbound_password = 6 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @param string $var
      * @return $this
      */
@@ -305,7 +305,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string outbound_username = 7 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string outbound_username = 7 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getOutboundUsername()
@@ -314,7 +314,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string outbound_username = 7 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string outbound_username = 7 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -327,7 +327,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string outbound_password = 8 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string outbound_password = 8 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @return string
      */
     public function getOutboundPassword()
@@ -336,7 +336,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string outbound_password = 8 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string outbound_password = 8 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @param string $var
      * @return $this
      */
@@ -377,7 +377,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined metadata for the Trunk.
      *
-     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getMetadata()
@@ -388,7 +388,7 @@ class CreateSIPTrunkRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined metadata for the Trunk.
      *
-     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 11 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */

@@ -19,7 +19,7 @@ class RoomAgentDispatch extends \Google\Protobuf\Internal\Message
      */
     protected $agent_name = '';
     /**
-     * Generated from protobuf field <code>string metadata = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string metadata = 2 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $metadata = '';
     /**
@@ -74,7 +74,7 @@ class RoomAgentDispatch extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string metadata = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string metadata = 2 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getMetadata()
@@ -83,7 +83,7 @@ class RoomAgentDispatch extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string metadata = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string metadata = 2 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */

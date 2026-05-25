@@ -23,7 +23,7 @@ class CreateAgentDispatchRequest extends \Google\Protobuf\Internal\Message
      */
     protected $room = '';
     /**
-     * Generated from protobuf field <code>string metadata = 3 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string metadata = 3 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $metadata = '';
     /**
@@ -101,7 +101,7 @@ class CreateAgentDispatchRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string metadata = 3 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string metadata = 3 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getMetadata()
@@ -110,7 +110,7 @@ class CreateAgentDispatchRequest extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string metadata = 3 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string metadata = 3 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */

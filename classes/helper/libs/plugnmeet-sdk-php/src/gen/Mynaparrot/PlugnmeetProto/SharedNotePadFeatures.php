@@ -15,12 +15,7 @@ use Google\Protobuf\RepeatedField;
 class SharedNotePadFeatures extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>optional bool allowed_shared_note_pad = 1 [deprecated = true];</code>
-     * @deprecated
-     */
-    protected $allowed_shared_note_pad = null;
-    /**
-     * Generated from protobuf field <code>bool is_allow = 8;</code>
+     * Generated from protobuf field <code>bool is_allow = 1;</code>
      */
     protected $is_allow = false;
     /**
@@ -54,7 +49,6 @@ class SharedNotePadFeatures extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type bool $allowed_shared_note_pad
      *     @type bool $is_allow
      *     @type bool $is_active
      *     @type bool $visible
@@ -70,49 +64,7 @@ class SharedNotePadFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional bool allowed_shared_note_pad = 1 [deprecated = true];</code>
-     * @return bool
-     * @deprecated
-     */
-    public function getAllowedSharedNotePad()
-    {
-        if (isset($this->allowed_shared_note_pad)) {
-            @trigger_error('allowed_shared_note_pad is deprecated.', E_USER_DEPRECATED);
-        }
-        return isset($this->allowed_shared_note_pad) ? $this->allowed_shared_note_pad : false;
-    }
-
-    public function hasAllowedSharedNotePad()
-    {
-        if (isset($this->allowed_shared_note_pad)) {
-            @trigger_error('allowed_shared_note_pad is deprecated.', E_USER_DEPRECATED);
-        }
-        return isset($this->allowed_shared_note_pad);
-    }
-
-    public function clearAllowedSharedNotePad()
-    {
-        @trigger_error('allowed_shared_note_pad is deprecated.', E_USER_DEPRECATED);
-        unset($this->allowed_shared_note_pad);
-    }
-
-    /**
-     * Generated from protobuf field <code>optional bool allowed_shared_note_pad = 1 [deprecated = true];</code>
-     * @param bool $var
-     * @return $this
-     * @deprecated
-     */
-    public function setAllowedSharedNotePad($var)
-    {
-        @trigger_error('allowed_shared_note_pad is deprecated.', E_USER_DEPRECATED);
-        GPBUtil::checkBool($var);
-        $this->allowed_shared_note_pad = $var;
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>bool is_allow = 8;</code>
+     * Generated from protobuf field <code>bool is_allow = 1;</code>
      * @return bool
      */
     public function getIsAllow()
@@ -121,7 +73,7 @@ class SharedNotePadFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>bool is_allow = 8;</code>
+     * Generated from protobuf field <code>bool is_allow = 1;</code>
      * @param bool $var
      * @return $this
      */

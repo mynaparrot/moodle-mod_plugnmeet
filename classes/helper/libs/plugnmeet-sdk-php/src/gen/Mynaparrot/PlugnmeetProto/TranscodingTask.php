@@ -29,33 +29,16 @@ class TranscodingTask extends \Google\Protobuf\Internal\Message
      */
     protected $room_sid = '';
     /**
-     * directory where raw file is stored
-     *
-     * Generated from protobuf field <code>string file_path = 4;</code>
-     */
-    protected $file_path = '';
-    /**
-     * raw file name e.g. rec-xxx_raw.mp4
-     *
-     * Generated from protobuf field <code>string file_name = 5;</code>
-     */
-    protected $file_name = '';
-    /**
-     * Generated from protobuf field <code>int64 room_table_id = 6;</code>
+     * Generated from protobuf field <code>int64 room_table_id = 4;</code>
      */
     protected $room_table_id = 0;
     /**
      * ID of the original recorder that captured the file
      *
-     * Generated from protobuf field <code>string recorder_id = 7;</code>
+     * Generated from protobuf field <code>string recorder_id = 5;</code>
      */
     protected $recorder_id = '';
-    /**
-     * The variant of the recording
-     *
-     * Generated from protobuf field <code>.plugnmeet.CloudRecordingVariants recording_variant = 8;</code>
-     */
-    protected $recording_variant = 0;
+    protected $task_details;
 
     /**
      * Constructor.
@@ -66,15 +49,11 @@ class TranscodingTask extends \Google\Protobuf\Internal\Message
      *     @type string $recording_id
      *     @type string $room_id
      *     @type string $room_sid
-     *     @type string $file_path
-     *           directory where raw file is stored
-     *     @type string $file_name
-     *           raw file name e.g. rec-xxx_raw.mp4
      *     @type int|string $room_table_id
      *     @type string $recorder_id
      *           ID of the original recorder that captured the file
-     *     @type int $recording_variant
-     *           The variant of the recording
+     *     @type \Mynaparrot\PlugnmeetProto\TranscodingTaskPostRecording $post_recording
+     *     @type \Mynaparrot\PlugnmeetProto\TranscodingTaskMergeRecordings $merge_recordings
      * }
      */
     public function __construct($data = NULL) {
@@ -149,59 +128,7 @@ class TranscodingTask extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * directory where raw file is stored
-     *
-     * Generated from protobuf field <code>string file_path = 4;</code>
-     * @return string
-     */
-    public function getFilePath()
-    {
-        return $this->file_path;
-    }
-
-    /**
-     * directory where raw file is stored
-     *
-     * Generated from protobuf field <code>string file_path = 4;</code>
-     * @param string $var
-     * @return $this
-     */
-    public function setFilePath($var)
-    {
-        GPBUtil::checkString($var, True);
-        $this->file_path = $var;
-
-        return $this;
-    }
-
-    /**
-     * raw file name e.g. rec-xxx_raw.mp4
-     *
-     * Generated from protobuf field <code>string file_name = 5;</code>
-     * @return string
-     */
-    public function getFileName()
-    {
-        return $this->file_name;
-    }
-
-    /**
-     * raw file name e.g. rec-xxx_raw.mp4
-     *
-     * Generated from protobuf field <code>string file_name = 5;</code>
-     * @param string $var
-     * @return $this
-     */
-    public function setFileName($var)
-    {
-        GPBUtil::checkString($var, True);
-        $this->file_name = $var;
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>int64 room_table_id = 6;</code>
+     * Generated from protobuf field <code>int64 room_table_id = 4;</code>
      * @return int|string
      */
     public function getRoomTableId()
@@ -210,7 +137,7 @@ class TranscodingTask extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int64 room_table_id = 6;</code>
+     * Generated from protobuf field <code>int64 room_table_id = 4;</code>
      * @param int|string $var
      * @return $this
      */
@@ -225,7 +152,7 @@ class TranscodingTask extends \Google\Protobuf\Internal\Message
     /**
      * ID of the original recorder that captured the file
      *
-     * Generated from protobuf field <code>string recorder_id = 7;</code>
+     * Generated from protobuf field <code>string recorder_id = 5;</code>
      * @return string
      */
     public function getRecorderId()
@@ -236,7 +163,7 @@ class TranscodingTask extends \Google\Protobuf\Internal\Message
     /**
      * ID of the original recorder that captured the file
      *
-     * Generated from protobuf field <code>string recorder_id = 7;</code>
+     * Generated from protobuf field <code>string recorder_id = 5;</code>
      * @param string $var
      * @return $this
      */
@@ -249,29 +176,65 @@ class TranscodingTask extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * The variant of the recording
-     *
-     * Generated from protobuf field <code>.plugnmeet.CloudRecordingVariants recording_variant = 8;</code>
-     * @return int
+     * Generated from protobuf field <code>.plugnmeet.TranscodingTaskPostRecording post_recording = 6;</code>
+     * @return \Mynaparrot\PlugnmeetProto\TranscodingTaskPostRecording|null
      */
-    public function getRecordingVariant()
+    public function getPostRecording()
     {
-        return $this->recording_variant;
+        return $this->readOneof(6);
+    }
+
+    public function hasPostRecording()
+    {
+        return $this->hasOneof(6);
     }
 
     /**
-     * The variant of the recording
-     *
-     * Generated from protobuf field <code>.plugnmeet.CloudRecordingVariants recording_variant = 8;</code>
-     * @param int $var
+     * Generated from protobuf field <code>.plugnmeet.TranscodingTaskPostRecording post_recording = 6;</code>
+     * @param \Mynaparrot\PlugnmeetProto\TranscodingTaskPostRecording $var
      * @return $this
      */
-    public function setRecordingVariant($var)
+    public function setPostRecording($var)
     {
-        GPBUtil::checkEnum($var, \Mynaparrot\PlugnmeetProto\CloudRecordingVariants::class);
-        $this->recording_variant = $var;
+        GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\TranscodingTaskPostRecording::class);
+        $this->writeOneof(6, $var);
 
         return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.plugnmeet.TranscodingTaskMergeRecordings merge_recordings = 7;</code>
+     * @return \Mynaparrot\PlugnmeetProto\TranscodingTaskMergeRecordings|null
+     */
+    public function getMergeRecordings()
+    {
+        return $this->readOneof(7);
+    }
+
+    public function hasMergeRecordings()
+    {
+        return $this->hasOneof(7);
+    }
+
+    /**
+     * Generated from protobuf field <code>.plugnmeet.TranscodingTaskMergeRecordings merge_recordings = 7;</code>
+     * @param \Mynaparrot\PlugnmeetProto\TranscodingTaskMergeRecordings $var
+     * @return $this
+     */
+    public function setMergeRecordings($var)
+    {
+        GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\TranscodingTaskMergeRecordings::class);
+        $this->writeOneof(7, $var);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTaskDetails()
+    {
+        return $this->whichOneof("task_details");
     }
 
 }

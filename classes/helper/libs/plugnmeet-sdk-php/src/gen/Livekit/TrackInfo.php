@@ -23,7 +23,7 @@ class TrackInfo extends \Google\Protobuf\Internal\Message
      */
     protected $type = 0;
     /**
-     * Generated from protobuf field <code>string name = 3 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string name = 3 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $name = '';
     /**
@@ -211,7 +211,7 @@ class TrackInfo extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string name = 3 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string name = 3 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getName()
@@ -220,7 +220,7 @@ class TrackInfo extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string name = 3 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string name = 3 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */

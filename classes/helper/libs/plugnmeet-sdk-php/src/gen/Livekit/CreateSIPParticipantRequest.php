@@ -54,19 +54,19 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional name of the participant in LiveKit room
      *
-     * Generated from protobuf field <code>string participant_name = 7 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_name = 7 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $participant_name = '';
     /**
      * Optional user-defined metadata. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>string participant_metadata = 8 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_metadata = 8 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $participant_metadata = '';
     /**
      * Optional user-defined attributes. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>map<string, string> participant_attributes = 9 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> participant_attributes = 9 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     private $participant_attributes;
     /**
@@ -97,7 +97,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
     /**
      * These headers are sent as-is and may help identify this call as coming from LiveKit for the other SIP endpoint.
      *
-     * Generated from protobuf field <code>map<string, string> headers = 16 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> headers = 16 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     private $headers;
     /**
@@ -149,7 +149,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
      * 2) Empty string: Do not send a display name, which will result in a CNAM lookup downstream.
      * 3) Non-empty: Use the specified value as the display name.
      *
-     * Generated from protobuf field <code>optional string display_name = 21 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>optional string display_name = 21 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $display_name = null;
     /**
@@ -388,7 +388,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional name of the participant in LiveKit room
      *
-     * Generated from protobuf field <code>string participant_name = 7 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_name = 7 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getParticipantName()
@@ -399,7 +399,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional name of the participant in LiveKit room
      *
-     * Generated from protobuf field <code>string participant_name = 7 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_name = 7 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -414,7 +414,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined metadata. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>string participant_metadata = 8 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_metadata = 8 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getParticipantMetadata()
@@ -425,7 +425,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined metadata. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>string participant_metadata = 8 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_metadata = 8 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -440,7 +440,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined attributes. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>map<string, string> participant_attributes = 9 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> participant_attributes = 9 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return \Google\Protobuf\Internal\MapField
      */
     public function getParticipantAttributes()
@@ -451,7 +451,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined attributes. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>map<string, string> participant_attributes = 9 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> participant_attributes = 9 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
@@ -576,7 +576,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
     /**
      * These headers are sent as-is and may help identify this call as coming from LiveKit for the other SIP endpoint.
      *
-     * Generated from protobuf field <code>map<string, string> headers = 16 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> headers = 16 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return \Google\Protobuf\Internal\MapField
      */
     public function getHeaders()
@@ -587,7 +587,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
     /**
      * These headers are sent as-is and may help identify this call as coming from LiveKit for the other SIP endpoint.
      *
-     * Generated from protobuf field <code>map<string, string> headers = 16 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> headers = 16 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
@@ -822,7 +822,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
      * 2) Empty string: Do not send a display name, which will result in a CNAM lookup downstream.
      * 3) Non-empty: Use the specified value as the display name.
      *
-     * Generated from protobuf field <code>optional string display_name = 21 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>optional string display_name = 21 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getDisplayName()
@@ -847,7 +847,7 @@ class CreateSIPParticipantRequest extends \Google\Protobuf\Internal\Message
      * 2) Empty string: Do not send a display name, which will result in a CNAM lookup downstream.
      * 3) Non-empty: Use the specified value as the display name.
      *
-     * Generated from protobuf field <code>optional string display_name = 21 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>optional string display_name = 21 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */

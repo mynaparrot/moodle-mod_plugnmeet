@@ -21,7 +21,7 @@ class UpdateRoomMetadataRequest extends \Google\Protobuf\Internal\Message
     /**
      * metadata to update. skipping updates if left empty
      *
-     * Generated from protobuf field <code>string metadata = 2 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 2 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $metadata = '';
 
@@ -66,7 +66,7 @@ class UpdateRoomMetadataRequest extends \Google\Protobuf\Internal\Message
     /**
      * metadata to update. skipping updates if left empty
      *
-     * Generated from protobuf field <code>string metadata = 2 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 2 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getMetadata()
@@ -77,7 +77,7 @@ class UpdateRoomMetadataRequest extends \Google\Protobuf\Internal\Message
     /**
      * metadata to update. skipping updates if left empty
      *
-     * Generated from protobuf field <code>string metadata = 2 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 2 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */

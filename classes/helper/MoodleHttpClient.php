@@ -22,6 +22,7 @@ global $CFG;
 require_once($CFG->libdir . '/filelib.php');
 
 use Exception;
+use GuzzleHttp\Exception\RequestException;
 use Mynaparrot\Plugnmeet\HttpClientInterface;
 use curl;
 
@@ -59,11 +60,27 @@ class MoodleHttpClient implements HttpClientInterface
             $curl->setHeader("$key: $val");
         }
         $response = $curl->post($fullurl, $body);
+        $info = $curl->get_info();
+        $httpcode = $info['http_code'];
+
+        if ($httpcode < 200 || $httpcode >= 300) {
+            $contentType = $info['content_type'] ?? '';
+            $message = $response;
+            if (str_starts_with($contentType, 'text/html') || str_starts_with($contentType, 'text/plain')) {
+                $message = strip_tags($message);
+            }
+            throw new Exception($message);
+        }
 
         if ($curl->get_errno()) {
             throw new Exception('cURL Error: ' . $curl->error);
         }
 
         return $response;
+    }
+
+    public function uploadFile(string $url, array $multipart, array $headers = []): string {
+        // we don't need now
+        return "";
     }
 }

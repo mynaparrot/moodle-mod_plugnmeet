@@ -19,11 +19,11 @@ class ICEServer extends \Google\Protobuf\Internal\Message
      */
     private $urls;
     /**
-     * Generated from protobuf field <code>string username = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string username = 2 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $username = '';
     /**
-     * Generated from protobuf field <code>string credential = 3 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string credential = 3 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      */
     protected $credential = '';
 
@@ -66,7 +66,7 @@ class ICEServer extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string username = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string username = 2 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getUsername()
@@ -75,7 +75,7 @@ class ICEServer extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string username = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string username = 2 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -88,7 +88,7 @@ class ICEServer extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string credential = 3 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string credential = 3 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @return string
      */
     public function getCredential()
@@ -97,7 +97,7 @@ class ICEServer extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string credential = 3 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string credential = 3 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @param string $var
      * @return $this
      */

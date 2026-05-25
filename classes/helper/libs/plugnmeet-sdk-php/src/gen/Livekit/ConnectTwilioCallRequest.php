@@ -42,19 +42,19 @@ class ConnectTwilioCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional name of the participant in LiveKit room
      *
-     * Generated from protobuf field <code>string participant_name = 5 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_name = 5 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $participant_name = '';
     /**
      * Optional user-defined metadata. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>string participant_metadata = 6 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_metadata = 6 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $participant_metadata = '';
     /**
      * Optional user-defined attributes. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>map<string, string> participant_attributes = 7 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> participant_attributes = 7 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     private $participant_attributes;
     /**
@@ -203,7 +203,7 @@ class ConnectTwilioCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional name of the participant in LiveKit room
      *
-     * Generated from protobuf field <code>string participant_name = 5 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_name = 5 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getParticipantName()
@@ -214,7 +214,7 @@ class ConnectTwilioCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional name of the participant in LiveKit room
      *
-     * Generated from protobuf field <code>string participant_name = 5 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_name = 5 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -229,7 +229,7 @@ class ConnectTwilioCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined metadata. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>string participant_metadata = 6 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_metadata = 6 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getParticipantMetadata()
@@ -240,7 +240,7 @@ class ConnectTwilioCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined metadata. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>string participant_metadata = 6 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string participant_metadata = 6 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -255,7 +255,7 @@ class ConnectTwilioCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined attributes. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>map<string, string> participant_attributes = 7 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> participant_attributes = 7 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return \Google\Protobuf\Internal\MapField
      */
     public function getParticipantAttributes()
@@ -266,7 +266,7 @@ class ConnectTwilioCallRequest extends \Google\Protobuf\Internal\Message
     /**
      * Optional user-defined attributes. Will be attached to a created Participant in the room.
      *
-     * Generated from protobuf field <code>map<string, string> participant_attributes = 7 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> participant_attributes = 7 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */

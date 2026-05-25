@@ -15,27 +15,27 @@ use Google\Protobuf\RepeatedField;
 class S3Upload extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>string access_key = 1 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string access_key = 1 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      */
     protected $access_key = '';
     /**
-     * Generated from protobuf field <code>string secret = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string secret = 2 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      */
     protected $secret = '';
     /**
-     * Generated from protobuf field <code>string session_token = 11 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string session_token = 11 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      */
     protected $session_token = '';
     /**
      * ARN of the role to assume for file upload. Egress will make an AssumeRole API call using the provided access_key and secret to assume that role. On LiveKit cloud, this is only available on accounts that have the feature enabled
      *
-     * Generated from protobuf field <code>string assume_role_arn = 12 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string assume_role_arn = 12 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $assume_role_arn = '';
     /**
      * ExternalID to use when assuming role for upload
      *
-     * Generated from protobuf field <code>string assume_role_external_id = 13 [(.logger.redact) = true, (.logger.name) = "assumeRoleExternalID"];</code>
+     * Generated from protobuf field <code>string assume_role_external_id = 13 [(.logger.name) = "assumeRoleExternalID", (.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      */
     protected $assume_role_external_id = '';
     /**
@@ -55,17 +55,17 @@ class S3Upload extends \Google\Protobuf\Internal\Message
      */
     protected $force_path_style = false;
     /**
-     * Generated from protobuf field <code>map<string, string> metadata = 7;</code>
+     * Generated from protobuf field <code>map<string, string> metadata = 7 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     private $metadata;
     /**
-     * Generated from protobuf field <code>string tagging = 8;</code>
+     * Generated from protobuf field <code>string tagging = 8 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $tagging = '';
     /**
      * Content-Disposition header
      *
-     * Generated from protobuf field <code>string content_disposition = 9;</code>
+     * Generated from protobuf field <code>string content_disposition = 9 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $content_disposition = '';
     /**
@@ -103,7 +103,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string access_key = 1 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string access_key = 1 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @return string
      */
     public function getAccessKey()
@@ -112,7 +112,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string access_key = 1 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string access_key = 1 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @param string $var
      * @return $this
      */
@@ -125,7 +125,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string secret = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string secret = 2 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @return string
      */
     public function getSecret()
@@ -134,7 +134,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string secret = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string secret = 2 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @param string $var
      * @return $this
      */
@@ -147,7 +147,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string session_token = 11 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string session_token = 11 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @return string
      */
     public function getSessionToken()
@@ -156,7 +156,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string session_token = 11 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string session_token = 11 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @param string $var
      * @return $this
      */
@@ -171,7 +171,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     /**
      * ARN of the role to assume for file upload. Egress will make an AssumeRole API call using the provided access_key and secret to assume that role. On LiveKit cloud, this is only available on accounts that have the feature enabled
      *
-     * Generated from protobuf field <code>string assume_role_arn = 12 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string assume_role_arn = 12 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getAssumeRoleArn()
@@ -182,7 +182,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     /**
      * ARN of the role to assume for file upload. Egress will make an AssumeRole API call using the provided access_key and secret to assume that role. On LiveKit cloud, this is only available on accounts that have the feature enabled
      *
-     * Generated from protobuf field <code>string assume_role_arn = 12 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string assume_role_arn = 12 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -197,7 +197,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     /**
      * ExternalID to use when assuming role for upload
      *
-     * Generated from protobuf field <code>string assume_role_external_id = 13 [(.logger.redact) = true, (.logger.name) = "assumeRoleExternalID"];</code>
+     * Generated from protobuf field <code>string assume_role_external_id = 13 [(.logger.name) = "assumeRoleExternalID", (.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @return string
      */
     public function getAssumeRoleExternalId()
@@ -208,7 +208,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     /**
      * ExternalID to use when assuming role for upload
      *
-     * Generated from protobuf field <code>string assume_role_external_id = 13 [(.logger.redact) = true, (.logger.name) = "assumeRoleExternalID"];</code>
+     * Generated from protobuf field <code>string assume_role_external_id = 13 [(.logger.name) = "assumeRoleExternalID", (.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @param string $var
      * @return $this
      */
@@ -309,7 +309,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>map<string, string> metadata = 7;</code>
+     * Generated from protobuf field <code>map<string, string> metadata = 7 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return \Google\Protobuf\Internal\MapField
      */
     public function getMetadata()
@@ -318,7 +318,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>map<string, string> metadata = 7;</code>
+     * Generated from protobuf field <code>map<string, string> metadata = 7 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
@@ -331,7 +331,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string tagging = 8;</code>
+     * Generated from protobuf field <code>string tagging = 8 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getTagging()
@@ -340,7 +340,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string tagging = 8;</code>
+     * Generated from protobuf field <code>string tagging = 8 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -355,7 +355,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     /**
      * Content-Disposition header
      *
-     * Generated from protobuf field <code>string content_disposition = 9;</code>
+     * Generated from protobuf field <code>string content_disposition = 9 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getContentDisposition()
@@ -366,7 +366,7 @@ class S3Upload extends \Google\Protobuf\Internal\Message
     /**
      * Content-Disposition header
      *
-     * Generated from protobuf field <code>string content_disposition = 9;</code>
+     * Generated from protobuf field <code>string content_disposition = 9 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */

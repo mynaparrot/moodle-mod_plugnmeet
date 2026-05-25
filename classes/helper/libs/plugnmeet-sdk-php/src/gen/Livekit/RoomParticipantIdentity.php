@@ -26,6 +26,13 @@ class RoomParticipantIdentity extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string identity = 2;</code>
      */
     protected $identity = '';
+    /**
+     * Unix timestamp used to invalidate token whose nbf is before this value.
+     * Used only by RemoveParticipant; defaults to now(server)+leeway(1min) if left empty.
+     *
+     * Generated from protobuf field <code>int64 revoke_token_ts = 3;</code>
+     */
+    protected $revoke_token_ts = 0;
 
     /**
      * Constructor.
@@ -37,6 +44,9 @@ class RoomParticipantIdentity extends \Google\Protobuf\Internal\Message
      *           name of the room
      *     @type string $identity
      *           identity of the participant
+     *     @type int|string $revoke_token_ts
+     *           Unix timestamp used to invalidate token whose nbf is before this value.
+     *           Used only by RemoveParticipant; defaults to now(server)+leeway(1min) if left empty.
      * }
      */
     public function __construct($data = NULL) {
@@ -92,6 +102,34 @@ class RoomParticipantIdentity extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->identity = $var;
+
+        return $this;
+    }
+
+    /**
+     * Unix timestamp used to invalidate token whose nbf is before this value.
+     * Used only by RemoveParticipant; defaults to now(server)+leeway(1min) if left empty.
+     *
+     * Generated from protobuf field <code>int64 revoke_token_ts = 3;</code>
+     * @return int|string
+     */
+    public function getRevokeTokenTs()
+    {
+        return $this->revoke_token_ts;
+    }
+
+    /**
+     * Unix timestamp used to invalidate token whose nbf is before this value.
+     * Used only by RemoveParticipant; defaults to now(server)+leeway(1min) if left empty.
+     *
+     * Generated from protobuf field <code>int64 revoke_token_ts = 3;</code>
+     * @param int|string $var
+     * @return $this
+     */
+    public function setRevokeTokenTs($var)
+    {
+        GPBUtil::checkInt64($var);
+        $this->revoke_token_ts = $var;
 
         return $this;
     }

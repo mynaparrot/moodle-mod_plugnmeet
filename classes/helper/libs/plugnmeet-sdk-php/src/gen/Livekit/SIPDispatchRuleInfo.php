@@ -52,14 +52,14 @@ class SIPDispatchRuleInfo extends \Google\Protobuf\Internal\Message
      * User-defined metadata for the Dispatch Rule.
      * Participants created by this rule will inherit this metadata.
      *
-     * Generated from protobuf field <code>string metadata = 6 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 6 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $metadata = '';
     /**
      * User-defined attributes for the Dispatch Rule.
      * Participants created by this rule will inherit these attributes.
      *
-     * Generated from protobuf field <code>map<string, string> attributes = 8 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> attributes = 8 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     private $attributes;
     /**
@@ -314,7 +314,7 @@ class SIPDispatchRuleInfo extends \Google\Protobuf\Internal\Message
      * User-defined metadata for the Dispatch Rule.
      * Participants created by this rule will inherit this metadata.
      *
-     * Generated from protobuf field <code>string metadata = 6 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 6 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getMetadata()
@@ -326,7 +326,7 @@ class SIPDispatchRuleInfo extends \Google\Protobuf\Internal\Message
      * User-defined metadata for the Dispatch Rule.
      * Participants created by this rule will inherit this metadata.
      *
-     * Generated from protobuf field <code>string metadata = 6 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 6 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -342,7 +342,7 @@ class SIPDispatchRuleInfo extends \Google\Protobuf\Internal\Message
      * User-defined attributes for the Dispatch Rule.
      * Participants created by this rule will inherit these attributes.
      *
-     * Generated from protobuf field <code>map<string, string> attributes = 8 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> attributes = 8 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return \Google\Protobuf\Internal\MapField
      */
     public function getAttributes()
@@ -354,7 +354,7 @@ class SIPDispatchRuleInfo extends \Google\Protobuf\Internal\Message
      * User-defined attributes for the Dispatch Rule.
      * Participants created by this rule will inherit these attributes.
      *
-     * Generated from protobuf field <code>map<string, string> attributes = 8 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> attributes = 8 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
+class ComposerStaticInitbfe943f5f5ca4e42e67a604c81c1e8ae
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -14,26 +14,26 @@ class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
     );
 
     public static $prefixLengthsPsr4 = array (
-        'R' =>
+        'R' => 
         array (
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
         ),
-        'M' =>
+        'M' => 
         array (
             'Mynaparrot\\Plugnmeet\\' => 21,
             'Mynaparrot\\PlugnmeetProto\\' => 26,
         ),
-        'L' =>
+        'L' => 
         array (
             'Livekit\\' => 8,
         ),
-        'G' =>
+        'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
@@ -42,75 +42,75 @@ class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
             'GPBMetadata\\Google\\Protobuf\\' => 28,
             'GPBMetadata\\' => 12,
         ),
-        'F' =>
+        'F' => 
         array (
             'Firebase\\JWT\\' => 13,
         ),
-        'B' =>
+        'B' => 
         array (
             'Brick\\Math\\' => 11,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Ramsey\\Uuid\\' =>
+        'Ramsey\\Uuid\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
         ),
-        'Ramsey\\Collection\\' =>
+        'Ramsey\\Collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
-        'Psr\\Http\\Message\\' =>
+        'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
-        'Psr\\Http\\Client\\' =>
+        'Psr\\Http\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Mynaparrot\\Plugnmeet\\' =>
+        'Mynaparrot\\Plugnmeet\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'Mynaparrot\\PlugnmeetProto\\' =>
+        'Mynaparrot\\PlugnmeetProto\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto',
         ),
-        'Livekit\\' =>
+        'Livekit\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/gen/Livekit',
         ),
-        'GuzzleHttp\\Psr7\\' =>
+        'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' =>
+        'GuzzleHttp\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' =>
+        'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'Google\\Protobuf\\' =>
+        'Google\\Protobuf\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf',
         ),
-        'GPBMetadata\\Google\\Protobuf\\' =>
+        'GPBMetadata\\Google\\Protobuf\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/protobuf/src/GPBMetadata/Google/Protobuf',
         ),
-        'GPBMetadata\\' =>
+        'GPBMetadata\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/gen/GPBMetadata',
         ),
-        'Firebase\\JWT\\' =>
+        'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
-        'Brick\\Math\\' =>
+        'Brick\\Math\\' => 
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
@@ -158,6 +158,7 @@ class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
         'GPBMetadata\\LivekitAgent' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitAgent.php',
         'GPBMetadata\\LivekitAgentDispatch' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitAgentDispatch.php',
         'GPBMetadata\\LivekitAgentSimulation' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitAgentSimulation.php',
+        'GPBMetadata\\LivekitAgentWorker' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitAgentWorker.php',
         'GPBMetadata\\LivekitAnalytics' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitAnalytics.php',
         'GPBMetadata\\LivekitCloudAgent' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitCloudAgent.php',
         'GPBMetadata\\LivekitConnector' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/LivekitConnector.php',
@@ -884,6 +885,7 @@ class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
         'Livekit\\WebhookInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/WebhookInfo.php',
         'Livekit\\WhatsAppCall' => __DIR__ . '/../..' . '/src/gen/Livekit/WhatsAppCall.php',
         'Livekit\\WhatsAppCallDirection' => __DIR__ . '/../..' . '/src/gen/Livekit/WhatsAppCallDirection.php',
+        'Livekit\\WorkerInfo' => __DIR__ . '/../..' . '/src/gen/Livekit/WorkerInfo.php',
         'Livekit\\WorkerMessage' => __DIR__ . '/../..' . '/src/gen/Livekit/WorkerMessage.php',
         'Livekit\\WorkerPing' => __DIR__ . '/../..' . '/src/gen/Livekit/WorkerPing.php',
         'Livekit\\WorkerPong' => __DIR__ . '/../..' . '/src/gen/Livekit/WorkerPong.php',
@@ -915,6 +917,9 @@ class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
         'Mynaparrot\\PlugnmeetProto\\BreakoutRoomRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BreakoutRoomRes.php',
         'Mynaparrot\\PlugnmeetProto\\BreakoutRoomUser' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BreakoutRoomUser.php',
         'Mynaparrot\\PlugnmeetProto\\BroadcastBreakoutRoomMsgReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BroadcastBreakoutRoomMsgReq.php',
+        'Mynaparrot\\PlugnmeetProto\\BroadcastToRoomChatMessage' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BroadcastToRoomChatMessage.php',
+        'Mynaparrot\\PlugnmeetProto\\BroadcastToRoomNotificationMsg' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BroadcastToRoomNotificationMsg.php',
+        'Mynaparrot\\PlugnmeetProto\\BroadcastToRoomReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BroadcastToRoomReq.php',
         'Mynaparrot\\PlugnmeetProto\\ChangeEtherpadStatusReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChangeEtherpadStatusReq.php',
         'Mynaparrot\\PlugnmeetProto\\ChangeVisibilityRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChangeVisibilityRes.php',
         'Mynaparrot\\PlugnmeetProto\\ChatFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChatFeatures.php',
@@ -947,6 +952,7 @@ class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
         'Mynaparrot\\PlugnmeetProto\\EnableSipDialInReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/EnableSipDialInReq.php',
         'Mynaparrot\\PlugnmeetProto\\EndBreakoutRoomReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/EndBreakoutRoomReq.php',
         'Mynaparrot\\PlugnmeetProto\\EndToEndEncryptionFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/EndToEndEncryptionFeatures.php',
+        'Mynaparrot\\PlugnmeetProto\\ExternalBroadcastingFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ExternalBroadcastingFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\ExternalDisplayLinkReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ExternalDisplayLinkReq.php',
         'Mynaparrot\\PlugnmeetProto\\ExternalDisplayLinkTask' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ExternalDisplayLinkTask.php',
         'Mynaparrot\\PlugnmeetProto\\ExternalMediaPlayerFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ExternalMediaPlayerFeatures.php',
@@ -1014,6 +1020,7 @@ class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
         'Mynaparrot\\PlugnmeetProto\\LtiCustomDesign' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/LtiCustomDesign.php',
         'Mynaparrot\\PlugnmeetProto\\LtiCustomParameters' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/LtiCustomParameters.php',
         'Mynaparrot\\PlugnmeetProto\\MediaServerConnInfo' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MediaServerConnInfo.php',
+        'Mynaparrot\\PlugnmeetProto\\MergeRecordingsReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsReq.php',
         'Mynaparrot\\PlugnmeetProto\\MuteUnMuteTrackReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MuteUnMuteTrackReq.php',
         'Mynaparrot\\PlugnmeetProto\\NatsInitialData' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NatsInitialData.php',
         'Mynaparrot\\PlugnmeetProto\\NatsKvRoomInfo' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NatsKvRoomInfo.php',
@@ -1037,6 +1044,7 @@ class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
         'Mynaparrot\\PlugnmeetProto\\PollsFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollsFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\PollsStats' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollsStats.php',
         'Mynaparrot\\PlugnmeetProto\\PrivateDataDelivery' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PrivateDataDelivery.php',
+        'Mynaparrot\\PlugnmeetProto\\RecorderBotOptions' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecorderBotOptions.php',
         'Mynaparrot\\PlugnmeetProto\\RecorderInfoKeys' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecorderInfoKeys.php',
         'Mynaparrot\\PlugnmeetProto\\RecorderToPlugNmeet' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecorderToPlugNmeet.php',
         'Mynaparrot\\PlugnmeetProto\\RecordingFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecordingFeatures.php',
@@ -1069,12 +1077,13 @@ class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
         'Mynaparrot\\PlugnmeetProto\\SharedNotePadFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SharedNotePadFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\SipDialInFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SipDialInFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\SpeechServiceEvent' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SpeechServiceEvent.php',
-        'Mynaparrot\\PlugnmeetProto\\SpeechToTextTranslationFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SpeechToTextTranslationFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\StatusCode' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/StatusCode.php',
         'Mynaparrot\\PlugnmeetProto\\SubmitPollResponseReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SubmitPollResponseReq.php',
         'Mynaparrot\\PlugnmeetProto\\SwitchPresenterReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SwitchPresenterReq.php',
         'Mynaparrot\\PlugnmeetProto\\SwitchPresenterTask' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SwitchPresenterTask.php',
         'Mynaparrot\\PlugnmeetProto\\TranscodingTask' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/TranscodingTask.php',
+        'Mynaparrot\\PlugnmeetProto\\TranscodingTaskMergeRecordings' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/TranscodingTaskMergeRecordings.php',
+        'Mynaparrot\\PlugnmeetProto\\TranscodingTaskPostRecording' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/TranscodingTaskPostRecording.php',
         'Mynaparrot\\PlugnmeetProto\\TurnCredentials' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/TurnCredentials.php',
         'Mynaparrot\\PlugnmeetProto\\UpdateRecordingMetadataReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/UpdateRecordingMetadataReq.php',
         'Mynaparrot\\PlugnmeetProto\\UpdateRecordingMetadataRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/UpdateRecordingMetadataRes.php',
@@ -1259,9 +1268,9 @@ class ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5fe52e4117e4ff11b086be5c1d3dab61::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbfe943f5f5ca4e42e67a604c81c1e8ae::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbfe943f5f5ca4e42e67a604c81c1e8ae::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbfe943f5f5ca4e42e67a604c81c1e8ae::$classMap;
 
         }, null, ClassLoader::class);
     }

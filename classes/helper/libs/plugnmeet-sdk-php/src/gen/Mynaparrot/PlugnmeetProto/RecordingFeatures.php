@@ -34,6 +34,10 @@ class RecordingFeatures extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>bool only_record_admin_webcams = 5;</code>
      */
     protected $only_record_admin_webcams = false;
+    /**
+     * Generated from protobuf field <code>optional .plugnmeet.RecorderBotOptions recorder_bot_options = 6;</code>
+     */
+    protected $recorder_bot_options = null;
 
     /**
      * Constructor.
@@ -46,6 +50,7 @@ class RecordingFeatures extends \Google\Protobuf\Internal\Message
      *     @type bool $enable_auto_cloud_recording
      *     @type bool $is_allow_local
      *     @type bool $only_record_admin_webcams
+     *     @type \Mynaparrot\PlugnmeetProto\RecorderBotOptions $recorder_bot_options
      * }
      */
     public function __construct($data = NULL) {
@@ -159,6 +164,38 @@ class RecordingFeatures extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkBool($var);
         $this->only_record_admin_webcams = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional .plugnmeet.RecorderBotOptions recorder_bot_options = 6;</code>
+     * @return \Mynaparrot\PlugnmeetProto\RecorderBotOptions|null
+     */
+    public function getRecorderBotOptions()
+    {
+        return $this->recorder_bot_options;
+    }
+
+    public function hasRecorderBotOptions()
+    {
+        return isset($this->recorder_bot_options);
+    }
+
+    public function clearRecorderBotOptions()
+    {
+        unset($this->recorder_bot_options);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional .plugnmeet.RecorderBotOptions recorder_bot_options = 6;</code>
+     * @param \Mynaparrot\PlugnmeetProto\RecorderBotOptions $var
+     * @return $this
+     */
+    public function setRecorderBotOptions($var)
+    {
+        GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\RecorderBotOptions::class);
+        $this->recorder_bot_options = $var;
 
         return $this;
     }

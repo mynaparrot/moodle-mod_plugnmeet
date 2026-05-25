@@ -15,11 +15,11 @@ use Google\Protobuf\RepeatedField;
 class AliOSSUpload extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>string access_key = 1 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string access_key = 1 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      */
     protected $access_key = '';
     /**
-     * Generated from protobuf field <code>string secret = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string secret = 2 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      */
     protected $secret = '';
     /**
@@ -54,7 +54,7 @@ class AliOSSUpload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string access_key = 1 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string access_key = 1 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @return string
      */
     public function getAccessKey()
@@ -63,7 +63,7 @@ class AliOSSUpload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string access_key = 1 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string access_key = 1 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @param string $var
      * @return $this
      */
@@ -76,7 +76,7 @@ class AliOSSUpload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string secret = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string secret = 2 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @return string
      */
     public function getSecret()
@@ -85,7 +85,7 @@ class AliOSSUpload extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string secret = 2 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string secret = 2 [(.logger.sensitivity) = SENSITIVITY_SECRET];</code>
      * @param string $var
      * @return $this
      */

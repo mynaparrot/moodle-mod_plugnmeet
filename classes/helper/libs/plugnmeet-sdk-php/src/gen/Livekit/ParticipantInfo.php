@@ -31,7 +31,7 @@ class ParticipantInfo extends \Google\Protobuf\Internal\Message
      */
     private $tracks;
     /**
-     * Generated from protobuf field <code>string metadata = 5 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 5 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $metadata = '';
     /**
@@ -47,7 +47,7 @@ class ParticipantInfo extends \Google\Protobuf\Internal\Message
      */
     protected $joined_at_ms = 0;
     /**
-     * Generated from protobuf field <code>string name = 9 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string name = 9 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $name = '';
     /**
@@ -74,7 +74,7 @@ class ParticipantInfo extends \Google\Protobuf\Internal\Message
      */
     protected $kind = 0;
     /**
-     * Generated from protobuf field <code>map<string, string> attributes = 15 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> attributes = 15 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     private $attributes;
     /**
@@ -221,7 +221,7 @@ class ParticipantInfo extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string metadata = 5 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 5 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getMetadata()
@@ -230,7 +230,7 @@ class ParticipantInfo extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string metadata = 5 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 5 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -295,7 +295,7 @@ class ParticipantInfo extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string name = 9 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string name = 9 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getName()
@@ -304,7 +304,7 @@ class ParticipantInfo extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string name = 9 [(.logger.redact) = true];</code>
+     * Generated from protobuf field <code>string name = 9 [(.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -443,7 +443,7 @@ class ParticipantInfo extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>map<string, string> attributes = 15 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> attributes = 15 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return \Google\Protobuf\Internal\MapField
      */
     public function getAttributes()
@@ -452,7 +452,7 @@ class ParticipantInfo extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>map<string, string> attributes = 15 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> attributes = 15 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */

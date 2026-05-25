@@ -42,6 +42,10 @@ class RecordingReq extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional .plugnmeet.CloudRecordingVariants recording_variant = 7;</code>
      */
     protected $recording_variant = null;
+    /**
+     * Generated from protobuf field <code>optional .plugnmeet.RecorderBotOptions recorder_bot_options = 8;</code>
+     */
+    protected $recorder_bot_options = null;
 
     /**
      * Constructor.
@@ -56,6 +60,7 @@ class RecordingReq extends \Google\Protobuf\Internal\Message
      *     @type string $rtmp_url
      *     @type string $custom_design
      *     @type int $recording_variant
+     *     @type \Mynaparrot\PlugnmeetProto\RecorderBotOptions $recorder_bot_options
      * }
      */
     public function __construct($data = NULL) {
@@ -243,6 +248,38 @@ class RecordingReq extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkEnum($var, \Mynaparrot\PlugnmeetProto\CloudRecordingVariants::class);
         $this->recording_variant = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional .plugnmeet.RecorderBotOptions recorder_bot_options = 8;</code>
+     * @return \Mynaparrot\PlugnmeetProto\RecorderBotOptions|null
+     */
+    public function getRecorderBotOptions()
+    {
+        return $this->recorder_bot_options;
+    }
+
+    public function hasRecorderBotOptions()
+    {
+        return isset($this->recorder_bot_options);
+    }
+
+    public function clearRecorderBotOptions()
+    {
+        unset($this->recorder_bot_options);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional .plugnmeet.RecorderBotOptions recorder_bot_options = 8;</code>
+     * @param \Mynaparrot\PlugnmeetProto\RecorderBotOptions $var
+     * @return $this
+     */
+    public function setRecorderBotOptions($var)
+    {
+        GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\RecorderBotOptions::class);
+        $this->recorder_bot_options = $var;
 
         return $this;
     }

@@ -25,7 +25,7 @@ class JoinRequest extends \Google\Protobuf\Internal\Message
     /**
      * if not empty, will overwrite `metadata` in token
      *
-     * Generated from protobuf field <code>string metadata = 3 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 3 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     protected $metadata = '';
     /**
@@ -33,7 +33,7 @@ class JoinRequest extends \Google\Protobuf\Internal\Message
      * will overwrite if the same key is in the token
      * will not delete keys from token if there is a key collision and this sets that key to empty value
      *
-     * Generated from protobuf field <code>map<string, string> participant_attributes = 4 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> participant_attributes = 4 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      */
     private $participant_attributes;
     /**
@@ -155,7 +155,7 @@ class JoinRequest extends \Google\Protobuf\Internal\Message
     /**
      * if not empty, will overwrite `metadata` in token
      *
-     * Generated from protobuf field <code>string metadata = 3 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 3 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return string
      */
     public function getMetadata()
@@ -166,7 +166,7 @@ class JoinRequest extends \Google\Protobuf\Internal\Message
     /**
      * if not empty, will overwrite `metadata` in token
      *
-     * Generated from protobuf field <code>string metadata = 3 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>string metadata = 3 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param string $var
      * @return $this
      */
@@ -183,7 +183,7 @@ class JoinRequest extends \Google\Protobuf\Internal\Message
      * will overwrite if the same key is in the token
      * will not delete keys from token if there is a key collision and this sets that key to empty value
      *
-     * Generated from protobuf field <code>map<string, string> participant_attributes = 4 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> participant_attributes = 4 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @return \Google\Protobuf\Internal\MapField
      */
     public function getParticipantAttributes()
@@ -196,7 +196,7 @@ class JoinRequest extends \Google\Protobuf\Internal\Message
      * will overwrite if the same key is in the token
      * will not delete keys from token if there is a key collision and this sets that key to empty value
      *
-     * Generated from protobuf field <code>map<string, string> participant_attributes = 4 [(.logger.redact) = true, (.logger.redact_format) = "<redacted ({{ .Size }} bytes)>"];</code>
+     * Generated from protobuf field <code>map<string, string> participant_attributes = 4 [(.logger.redact_format) = "<redacted ({{ .Size }} bytes)>", (.logger.sensitivity) = SENSITIVITY_PII];</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */

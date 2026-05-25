@@ -30,6 +30,9 @@ use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 
+/**
+ * An HTTP client that uses Guzzle to send requests.
+ */
 class GuzzleHttpClient implements HttpClientInterface
 {
     /**
@@ -44,9 +47,9 @@ class GuzzleHttpClient implements HttpClientInterface
     public function __construct(int $timeout = 60, bool $verifySSL = true)
     {
         $this->guzzleClient = new Client([
-            'timeout' => $timeout,
-            'verify' => $verifySSL,
-        ]);
+                                             'timeout' => $timeout,
+                                             'verify' => $verifySSL,
+                                         ]);
     }
 
     /**
@@ -67,6 +70,38 @@ class GuzzleHttpClient implements HttpClientInterface
             return $response->getBody()->getContents();
         } catch (ConnectException $e) {
             // Extract the core error message from cURL errors
+            $message = $e->getMessage();
+            if (preg_match('/cURL error \d+: (.*) \(see/', $message, $matches)) {
+                throw new Exception($matches[1]);
+            } else {
+                throw new Exception('Connection Error: ' . $message);
+            }
+        } catch (RequestException $e) {
+            throw new Exception($this->handleRequestException($e));
+        } catch (GuzzleException $e) {
+            throw new Exception('Guzzle Error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    /**
+     * @param string $url
+     * @param array $multipart
+     * @param array $headers
+     * @return string
+     * @throws Exception
+     */
+    public function uploadFile(string $url, array $multipart, array $headers = []): string
+    {
+        try {
+            $response = $this->guzzleClient->post($url, [
+                'headers' => $headers,
+                'multipart' => $multipart,
+            ]);
+
+            return $response->getBody()->getContents();
+        } catch (ConnectException $e) {
             $message = $e->getMessage();
             if (preg_match('/cURL error \d+: (.*) \(see/', $message, $matches)) {
                 throw new Exception($matches[1]);
