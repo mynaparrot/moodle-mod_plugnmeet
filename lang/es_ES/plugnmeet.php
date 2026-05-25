@@ -150,7 +150,7 @@ $string['mute_on_start'] = 'Silenciar al inicio';
 $string['mute_on_start_help'] = 'Silenciar automáticamente a todos los participantes cuando se unan a la sesión.';
 $string['allow_screen_share'] = 'Permitir compartir pantalla';
 $string['allow_screen_share_help'] = 'Permitir a los participantes compartir su pantalla.';
-$string['allow_broadcasting'] = 'Permitir la radiodifusión (Conmutador maestro)';
+$string['allow_broadcasting'] = 'Permitir la transmisión (Interruptor principal)';
 $string['allow_broadcasting_help'] = 'El interruptor principal maestro para todas las funciones de emisión. Si se desactiva, todas las demás opciones de emisión quedarán deshabilitadas.';
 $string['allow_rtmp'] = 'Permitir transmisión RTMP';
 $string['allow_rtmp_help'] = 'Permite a los moderadores transmitir la sesión en vivo a plataformas externas como YouTube, Facebook o Twitch. Perfecto para seminarios web públicos o conferencias de invitados.';
@@ -181,7 +181,7 @@ $string['enable_auto_cloud_recording'] = 'Habilitar grabación automática en la
 $string['enable_auto_cloud_recording_help'] = 'Activa automáticamente la grabación en la nube en el momento en que el primer moderador se une a la sesión. Ideal para asegurar que ninguna conferencia se olvide.';
 $string['allow_local_recording'] = 'Permitir grabación local';
 $string['allow_local_recording_help'] = 'Permite grabar directamente en el ordenador. **Nota:** Requiere Google Chrome. Para capturar todo el audio de la sesión, el usuario debe compartir su "Pestaña de Chrome" y marcar la casilla "También compartir audio de la pestaña". El archivo se guarda localmente en el dispositivo una vez finalizado.';
-$string['only_record_admin_webcams'] = 'Solo webcams de administrador de registros';
+$string['only_record_admin_webcams'] = 'Solo grabar webcams de Admin';
 $string['only_record_admin_webcams_help'] = 'Si está activada, solo se incluirán las cámaras web de los administradores en la grabación.';
 
 $string['allow_chat'] = 'Permitir chat (interruptor maestro global)';
