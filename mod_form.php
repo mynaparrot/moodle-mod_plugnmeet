@@ -86,10 +86,10 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->setExpanded('whiteboard_features_header', false);
         $this->add_whiteboard_features();
 
-        // Recording Features
-        $mform->addElement('header', 'recording_features_header', get_string('recording_features', 'mod_plugnmeet'));
-        $mform->setExpanded('recording_features_header', false);
-        $this->add_recording_features();
+        // Recording & Broadcasting Features
+        $mform->addElement('header', 'recording_broadcasting_features_header', get_string('recording_broadcasting_features', 'mod_plugnmeet'));
+        $mform->setExpanded('recording_broadcasting_features_header', false);
+        $this->add_recording_and_broadcasting_features();
 
         // Chat Features
         $mform->addElement('header', 'chat_features_header', get_string('chat_features', 'mod_plugnmeet'));
@@ -174,10 +174,6 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->setDefault('meta[room_features][allow_screen_share]', 1);
         $mform->addHelpButton('meta[room_features][allow_screen_share]', 'allow_screen_share', 'mod_plugnmeet');
 
-        $mform->addElement('advcheckbox', 'meta[room_features][allow_rtmp]', get_string('allow_rtmp', 'mod_plugnmeet'));
-        $mform->setDefault('meta[room_features][allow_rtmp]', 1);
-        $mform->addHelpButton('meta[room_features][allow_rtmp]', 'allow_rtmp', 'mod_plugnmeet');
-
         $mform->addElement('advcheckbox', 'meta[room_features][allow_raise_hand]', get_string('allow_raise_hand', 'mod_plugnmeet'));
         $mform->setDefault('meta[room_features][allow_raise_hand]', 1);
         $mform->addHelpButton('meta[room_features][allow_raise_hand]', 'allow_raise_hand', 'mod_plugnmeet');
@@ -237,11 +233,11 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
     }
 
     /**
-     * Add recording features.
+     * Add recording and broadcasting features.
      * @return void
      * @throws coding_exception
      */
-    private function add_recording_features() {
+    private function add_recording_and_broadcasting_features() {
         $mform = $this->_form;
         $mform->addElement(
             'advcheckbox',
@@ -265,6 +261,11 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addHelpButton('meta[recording_features][enable_auto_cloud_recording]', 'enable_auto_cloud_recording', 'mod_plugnmeet');
         $mform->disabledIf('meta[recording_features][enable_auto_cloud_recording]', 'meta[recording_features][is_allow_cloud]', 'eq', 0);
 
+        $mform->addElement('advcheckbox', 'meta[recording_features][only_record_admin_webcams]', get_string('only_record_admin_webcams', 'mod_plugnmeet'));
+        $mform->setDefault('meta[recording_features][only_record_admin_webcams]', 0);
+        $mform->addHelpButton('meta[recording_features][only_record_admin_webcams]', 'only_record_admin_webcams', 'mod_plugnmeet');
+        $mform->disabledIf('meta[recording_features][only_record_admin_webcams]', 'meta[recording_features][is_allow_cloud]', 'eq', 0);
+
         $mform->addElement(
             'advcheckbox',
             'meta[recording_features][is_allow_local]',
@@ -273,6 +274,17 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->setDefault('meta[recording_features][is_allow_local]', 1);
         $mform->addHelpButton('meta[recording_features][is_allow_local]', 'allow_local_recording', 'mod_plugnmeet');
         $mform->disabledIf('meta[recording_features][is_allow_local]', 'meta[recording_features][is_allow]', 'eq', 0);
+
+        $mform->addElement('html', '<hr>');
+
+        $mform->addElement('advcheckbox', 'meta[external_broadcasting_features][is_allow]', get_string('allow_broadcasting', 'mod_plugnmeet'));
+        $mform->setDefault('meta[external_broadcasting_features][is_allow]', 1);
+        $mform->addHelpButton('meta[external_broadcasting_features][is_allow]', 'allow_broadcasting', 'mod_plugnmeet');
+
+        $mform->addElement('advcheckbox', 'meta[external_broadcasting_features][is_allow_rtmp]', get_string('allow_rtmp', 'mod_plugnmeet'));
+        $mform->setDefault('meta[external_broadcasting_features][is_allow_rtmp]', 1);
+        $mform->addHelpButton('meta[external_broadcasting_features][is_allow_rtmp]', 'allow_rtmp', 'mod_plugnmeet');
+        $mform->disabledIf('meta[external_broadcasting_features][is_allow_rtmp]', 'meta[external_broadcasting_features][is_allow]', 'eq', 0);
     }
 
     /**
@@ -321,6 +333,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             'eq',
             0
         );
+        $mform->addElement('html', '<hr>');
 
         $mform->addElement(
             'advcheckbox',
@@ -344,6 +357,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             'eq',
             0
         );
+        $mform->addElement('html', '<hr>');
 
         $mform->addElement(
             'advcheckbox',
@@ -449,6 +463,8 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->setDefault('meta[insights_features][is_allow]', 0);
         $mform->addHelpButton('meta[insights_features][is_allow]', 'insights_features_is_allow', 'mod_plugnmeet');
 
+        $mform->addElement('html', '<hr>');
+
         $mform->addElement('advcheckbox', 'meta[insights_features][transcription_features][is_allow]', get_string('insights_transcription_features_is_allow', 'mod_plugnmeet'));
         $mform->setDefault('meta[insights_features][transcription_features][is_allow]', 0);
         $mform->addHelpButton(
@@ -498,6 +514,8 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             'eq',
             0
         );
+
+        $mform->addElement('html', '<hr>');
 
         $mform->addElement(
             'advcheckbox',
