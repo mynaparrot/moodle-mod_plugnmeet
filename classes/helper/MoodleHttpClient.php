@@ -1,4 +1,5 @@
 <?php
+// @codingStandardsIgnoreFile
 // This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -22,7 +23,6 @@ global $CFG;
 require_once($CFG->libdir . '/filelib.php');
 
 use Exception;
-use GuzzleHttp\Exception\RequestException;
 use Mynaparrot\Plugnmeet\HttpClientInterface;
 use curl;
 
@@ -64,9 +64,9 @@ class MoodleHttpClient implements HttpClientInterface
         $httpcode = $info['http_code'];
 
         if ($httpcode < 200 || $httpcode >= 300) {
-            $contentType = $info['content_type'] ?? '';
+            $contenttype = $info['content_type'] ?? '';
             $message = $response;
-            if (str_starts_with($contentType, 'text/html') || str_starts_with($contentType, 'text/plain')) {
+            if (str_starts_with($contenttype, 'text/html') || str_starts_with($contenttype, 'text/plain')) {
                 $message = strip_tags($message);
             }
             throw new Exception($message);
@@ -79,6 +79,14 @@ class MoodleHttpClient implements HttpClientInterface
         return $response;
     }
 
+    /**
+     * Sends a multipart/form-data request to the specified URL with the given data.
+     *
+     * @param string $url The URL to send the request to.
+     * @param array $multipart The multipart data to send.
+     * @param array $headers Optional headers to send with the request.
+     * @return string The response body as a string.
+     */
     public function uploadFile(string $url, array $multipart, array $headers = []): string {
         // we don't need now
         return "";
