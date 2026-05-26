@@ -64,8 +64,9 @@ define([
 
                     ajaxPromise.then(response => {
                         if (response.status) {
-                            renderModalBody({success: successMessage, showinitial: false}).then(html => {
+                            renderModalBody({success: successMessage}).then(html => {
                                 modal.setBody(html);
+                                modal.getRoot().find('#merge-button-modal').hide();
                             });
                             // Uncheck all checkboxes.
                             $('.generaltable input[type="checkbox"]:checked').prop('checked', false);
