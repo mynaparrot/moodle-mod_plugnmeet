@@ -19,15 +19,22 @@
 
     Example context (json):
     {
+        "success": "Your request was successful.",
         "error": "An error message.",
+        "showinitial": true,
         "hasrecordings": true,
         "recordings": ["rec-1", "rec-2"]
     }
 }}
+{{#success}}
+    <div class="alert alert-success">{{success}}</div>
+{{/success}}
+
 {{#error}}
     <div class="alert alert-danger">{{error}}</div>
 {{/error}}
-{{^error}}
+
+{{#showinitial}}
     {{#hasrecordings}}
         <p>{{#str}}modal_merge_recordings_header, mod_plugnmeet{{/str}}</p>
         <ul>
@@ -39,4 +46,4 @@
     {{^hasrecordings}}
         <p>{{#str}}modal_merge_recordings_prompt, mod_plugnmeet{{/str}}</p>
     {{/hasrecordings}}
-{{/error}}
+{{/showinitial}}
