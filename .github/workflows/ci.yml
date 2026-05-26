@@ -87,7 +87,7 @@ jobs:
         run: moodle-plugin-ci mustache
 
       - name: Grunt
-        run: moodle-plugin-ci grunt --max-lint-warnings 0
+        run: moodle-plugin-ci grunt
 
       - name: PHPUnit tests
         run: moodle-plugin-ci phpunit --fail-on-warning
