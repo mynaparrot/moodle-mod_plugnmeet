@@ -50,7 +50,7 @@ class merge_recordings extends external_api {
     public static function execute_parameters() {
         return new external_function_parameters([
             'instanceid' => new external_value(PARAM_INT, 'Course module ID', VALUE_REQUIRED),
-            'record_ids' => new external_value(PARAM_RAW, 'Comma-separated recording IDs'),
+            'recordids' => new external_value(PARAM_RAW, 'Comma-separated recording IDs'),
         ]);
     }
 

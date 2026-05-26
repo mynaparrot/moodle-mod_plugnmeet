@@ -19,55 +19,48 @@ define([
     }
 
     return {
-        init: function(instanceid) {
+        init: async function(instanceid) { // Made init function async
             selected = []; // Reset on initialization
+            let modal;
 
             const trigger = $('#merge-button');
             trigger.prop('disabled', true); // Disable the button initially
 
-            let modal;
-            let mergeText;
-            let successMessage;
+            try {
+                const [title, mergeText, successMessage] = await Promise.all([
+                    str.get_string('merge_recordings', 'mod_plugnmeet'),
+                    str.get_string('merge', 'mod_plugnmeet'),
+                    str.get_string('merge_request_success', 'mod_plugnmeet')
+                ]);
 
-            const stringPromises = [
-                str.get_string('merge_recordings', 'mod_plugnmeet'),
-                str.get_string('merge', 'mod_plugnmeet'),
-                str.get_string('merge_request_success', 'mod_plugnmeet')
-            ];
-
-            Promise.all(stringPromises).then(([title, resolvedMergeText, resolvedSuccessMessage]) => {
-                mergeText = resolvedMergeText;
-                successMessage = resolvedSuccessMessage;
-                return ModalFactory.create({
+                modal = await ModalFactory.create({
                     type: ModalFactory.types.DEFAULT,
                     title: title,
                 });
-            }).then(instance => {
-                modal = instance;
+
                 const footer = modal.getRoot().find('.modal-footer');
                 const mergeButton = $('<button type="button" class="btn btn-primary" id="merge-button-modal">' +
                     mergeText + '</button>');
                 footer.append(mergeButton);
 
-                mergeButton.on('click', function() {
+                mergeButton.on('click', async function() { // Made click handler async
                     if ($(this).prop('disabled')) {
                         return;
                     }
 
-                    const ajaxPromise = ajax.call([{
-                        methodname: 'mod_plugnmeet_merge_recordings',
-                        args: {
-                            instanceid: instanceid,
-                            record_ids: selected.join(','),
-                        }
-                    }])[0];
+                    try {
+                        const response = await ajax.call([{
+                            methodname: 'mod_plugnmeet_merge_recordings',
+                            args: {
+                                instanceid: instanceid,
+                                recordids: selected.join(','),
+                            }
+                        }])[0];
 
-                    ajaxPromise.then(response => {
                         if (response.status) {
-                            renderModalBody({success: successMessage}).then(html => {
-                                modal.setBody(html);
-                                modal.getRoot().find('#merge-button-modal').hide();
-                            });
+                            const html = await renderModalBody({success: successMessage});
+                            modal.setBody(html);
+                            modal.getRoot().find('#merge-button-modal').hide();
                             // Uncheck all checkboxes.
                             $('.generaltable input[type="checkbox"]:checked').prop('checked', false);
                             // Clear the selected array.
@@ -75,19 +68,19 @@ define([
                             // Disable the merge button.
                             trigger.prop('disabled', true);
                         } else {
-                            return renderModalBody({error: response.error}).then(html => {
-                                modal.setBody(html);
-                                modal.getRoot().find('#merge-button-modal').hide();
-                            });
-                        }
-                    }).catch(ex => {
-                        return renderModalBody({error: ex.message}).then(html => {
+                            const html = await renderModalBody({error: response.error});
                             modal.setBody(html);
                             modal.getRoot().find('#merge-button-modal').hide();
-                        });
-                    });
+                        }
+                    } catch (ex) {
+                        const html = await renderModalBody({error: ex.message});
+                        modal.setBody(html);
+                        modal.getRoot().find('#merge-button-modal').hide();
+                    }
                 });
-            }).catch(notification.exception);
+            } catch (ex) {
+                await notification.exception(ex);
+            }
 
             // Listen for changes on checkboxes to update the selection.
             $('.generaltable').on('change', 'input[type="checkbox"]', function() {
@@ -107,20 +100,23 @@ define([
             });
 
             // Define the click handler for the main trigger button.
-            trigger.on('click', function() {
+            trigger.on('click', async function() { // Made click handler async
                 if (modal) {
                     const context = {
                         showinitial: true,
                         hasrecordings: selected.length >= 2,
                         recordings: selected
                     };
-                    renderModalBody(context).then(html => {
+                    try {
+                        const html = await renderModalBody(context);
                         modal.setBody(html);
                         const mergeButton = modal.getRoot().find('#merge-button-modal');
                         mergeButton.prop('disabled', selected.length < 2);
                         mergeButton.show();
                         modal.show();
-                    }).catch(notification.exception);
+                    } catch (ex) {
+                        await notification.exception(ex);
+                    }
                 }
             });
         }
