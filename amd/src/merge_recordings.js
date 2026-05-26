@@ -19,7 +19,7 @@ define([
     }
 
     return {
-        init: async function(instanceid) { // Made init function async
+        init: async function(instanceid) {
             selected = []; // Reset on initialization
             let modal;
 
@@ -43,7 +43,7 @@ define([
                     mergeText + '</button>');
                 footer.append(mergeButton);
 
-                mergeButton.on('click', async function() { // Made click handler async
+                mergeButton.on('click', async function() {
                     if ($(this).prop('disabled')) {
                         return;
                     }
@@ -100,7 +100,7 @@ define([
             });
 
             // Define the click handler for the main trigger button.
-            trigger.on('click', async function() { // Made click handler async
+            trigger.on('click', async function() {
                 if (modal) {
                     const context = {
                         showinitial: true,
