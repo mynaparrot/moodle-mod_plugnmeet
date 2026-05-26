@@ -30,6 +30,8 @@ use Mynaparrot\Plugnmeet\PlugNmeet;
 use Mynaparrot\Plugnmeet\RoomCreateFeaturesBuilder;
 use Mynaparrot\PlugnmeetProto\ArtifactInfoReq;
 use Mynaparrot\PlugnmeetProto\ArtifactInfoRes;
+use Mynaparrot\PlugnmeetProto\BroadcastToRoomReq;
+use Mynaparrot\PlugnmeetProto\CommonResponse;
 use Mynaparrot\PlugnmeetProto\CopyrightConf;
 use Mynaparrot\PlugnmeetProto\CreateRoomReq;
 use Mynaparrot\PlugnmeetProto\CreateRoomRes;
@@ -56,6 +58,7 @@ use Mynaparrot\PlugnmeetProto\GetDownloadTokenRes;
 use Mynaparrot\PlugnmeetProto\IsRoomActiveReq;
 use Mynaparrot\PlugnmeetProto\IsRoomActiveRes;
 use Mynaparrot\PlugnmeetProto\LockSettings;
+use Mynaparrot\PlugnmeetProto\MergeRecordingsReq;
 use Mynaparrot\PlugnmeetProto\RecordingInfoReq;
 use Mynaparrot\PlugnmeetProto\RecordingInfoRes;
 use Mynaparrot\PlugnmeetProto\RecordingMetadata;
@@ -332,6 +335,31 @@ class plugNmeetConnect {
     }
 
     /**
+     * Broadcast messages or notifications directly into an active Plug-N-Meet session in real-time
+     *
+     * @param BroadcastToRoomReq $broadcastToRoomReq The request object for broadcasting to room.
+     * @return CommonResponse The response from the API call.
+     * @throws Exception
+     */
+    public function broadcastToRoom(BroadcastToRoomReq $broadcastToRoomReq): CommonResponse
+    {
+        return $this->plugnmeet->broadcastToRoom($broadcastToRoomReq);
+    }
+
+    /**
+     * Upload a file to the whiteboard.
+     *
+     * @param string $roomId The ID of the room to upload the file to.
+     * @param array $options An array containing either a 'document' (local full file path) or 'document_link' (URL).
+     * @return CommonResponse The response from the server.
+     * @throws Exception
+     */
+    public function uploadWhiteboardFile(string $roomId, array $options): CommonResponse
+    {
+        return $this->plugnmeet->uploadWhiteboardFile($roomId, $options);
+    }
+
+    /**
      * Retrieves a list of recordings.
      *
      * @param array $roomIds An array of room IDs to filter by.
@@ -393,6 +421,18 @@ class plugNmeetConnect {
         $updateRecordingMetadataReq->setMetadata($metadata);
 
         return $this->plugnmeet->updateRecordingMetadata($updateRecordingMetadataReq);
+    }
+
+    /**
+     * Merge multiple parts of recording into a single new recording.
+     *
+     * @param MergeRecordingsReq $mergeRecordingsReq
+     * @return CommonResponse The response from the API call.
+     * @throws Exception
+     */
+    public function mergeRecordings(MergeRecordingsReq $mergeRecordingsReq): CommonResponse
+    {
+        return $this->plugnmeet->mergeRecordings($mergeRecordingsReq);
     }
 
     /**

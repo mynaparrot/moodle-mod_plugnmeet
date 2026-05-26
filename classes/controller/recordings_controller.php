@@ -190,6 +190,8 @@ class recordings_controller {
         $context = [
             'recordings' => [],
             'paging_bar' => '',
+            'cmid' => $this->cm->id,
+            'hasmorerecordings' => count($recordings) > 1,
         ];
 
         foreach ($recordings as $recording) {

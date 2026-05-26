@@ -909,6 +909,8 @@ return array(
     'Mynaparrot\\PlugnmeetProto\\LtiCustomDesign' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/LtiCustomDesign.php',
     'Mynaparrot\\PlugnmeetProto\\LtiCustomParameters' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/LtiCustomParameters.php',
     'Mynaparrot\\PlugnmeetProto\\MediaServerConnInfo' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/MediaServerConnInfo.php',
+    'Mynaparrot\\PlugnmeetProto\\MergeRecordingsByIds' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsByIds.php',
+    'Mynaparrot\\PlugnmeetProto\\MergeRecordingsByRoomSession' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsByRoomSession.php',
     'Mynaparrot\\PlugnmeetProto\\MergeRecordingsReq' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsReq.php',
     'Mynaparrot\\PlugnmeetProto\\MuteUnMuteTrackReq' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/MuteUnMuteTrackReq.php',
     'Mynaparrot\\PlugnmeetProto\\NatsInitialData' => $baseDir . '/src/gen/Mynaparrot/PlugnmeetProto/NatsInitialData.php',

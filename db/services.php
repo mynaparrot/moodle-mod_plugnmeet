@@ -74,4 +74,12 @@ $functions = [
         'ajax'        => true,
         'capability'  => 'mod/plugnmeet:viewactiveroomsreport',
     ],
+    'mod_plugnmeet_merge_recordings' => [
+        'classname'   => 'mod_plugnmeet\external\merge_recordings',
+        'methodname'  => 'execute',
+        'description' => 'Merges recordings.',
+        'type'        => 'write',
+        'ajax'        => true,
+        'capability'  => 'mod/plugnmeet:manage',
+    ],
 ];

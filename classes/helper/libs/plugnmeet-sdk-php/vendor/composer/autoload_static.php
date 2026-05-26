@@ -1020,6 +1020,8 @@ class ComposerStaticInitbfe943f5f5ca4e42e67a604c81c1e8ae
         'Mynaparrot\\PlugnmeetProto\\LtiCustomDesign' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/LtiCustomDesign.php',
         'Mynaparrot\\PlugnmeetProto\\LtiCustomParameters' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/LtiCustomParameters.php',
         'Mynaparrot\\PlugnmeetProto\\MediaServerConnInfo' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MediaServerConnInfo.php',
+        'Mynaparrot\\PlugnmeetProto\\MergeRecordingsByIds' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsByIds.php',
+        'Mynaparrot\\PlugnmeetProto\\MergeRecordingsByRoomSession' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsByRoomSession.php',
         'Mynaparrot\\PlugnmeetProto\\MergeRecordingsReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsReq.php',
         'Mynaparrot\\PlugnmeetProto\\MuteUnMuteTrackReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MuteUnMuteTrackReq.php',
         'Mynaparrot\\PlugnmeetProto\\NatsInitialData' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NatsInitialData.php',

@@ -28,7 +28,9 @@
                 "view_url": "http://example.com/view"
             }
         ],
-        "paging_bar": "<nav>Paging bar HTML</nav>"
+        "paging_bar": "<nav>Paging bar HTML</nav>",
+        "cmid": 1,
+        "hasmorerecordings": true
     }
 }}
 <table class="generaltable table-hover w-100 mb-2">
@@ -44,7 +46,14 @@
     <tbody>
         {{#recordings}}
         <tr>
-            <td>{{record_id}}</td>
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{record_id}}" id="recording-{{record_id}}">
+                    <label class="form-check-label" for="recording-{{record_id}}">
+                        {{record_id}}
+                    </label>
+                </div>
+            </td>
             <td class="text-center">{{creation_time}}</td>
             <td class="text-center">{{room_creation_time}}</td>
             <td class="text-center">{{file_size}}</td>
@@ -55,5 +64,16 @@
         {{/recordings}}
     </tbody>
 </table>
+{{#hasmorerecordings}}
+<button type="button" class="btn btn-primary" id="merge-button">
+    {{#str}}merge_recordings, mod_plugnmeet{{/str}}
+</button>
+
+{{#js}}
+require(['mod_plugnmeet/merge_recordings'], function(amd) {
+    amd.init({{cmid}});
+});
+{{/js}}
+{{/hasmorerecordings}}
 
 {{{paging_bar}}}
