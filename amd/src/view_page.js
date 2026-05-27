@@ -25,8 +25,10 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function(
             $('#live_session_info').html(html);
             if (canManage && data.room_info) {
                 $('#end_room_button').show();
+                $('#upload_whiteboard_button').show();
             } else {
                 $('#end_room_button').hide();
+                $('#upload_whiteboard_button').hide();
             }
         });
     };

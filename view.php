@@ -24,6 +24,7 @@
  */
 
 require_once(__DIR__ . '/../../config.php');
+require_once($CFG->dirroot . '/repository/lib.php');
 
 global $DB, $PAGE, $OUTPUT;
 
@@ -47,8 +48,33 @@ $PAGE->requires->js_call_amd('mod_plugnmeet/join_button', 'init', [['cmid' => $c
 // we'll load this for everyone, further restriction was set in JS code
 $PAGE->requires->js_call_amd('mod_plugnmeet/view_page', 'init', [['cmid' => $cm->id, 'can_view' => $canviewlivesessioninfo]]);
 
+$contextdata = [
+    'can_manage' => $canmanage,
+];
+
 if ($canmanage) {
     $PAGE->requires->js_call_amd('mod_plugnmeet/end_room_button', 'init', [['cmid' => $cm->id]]);
+
+    // Use the file_picker class to generate the options object.
+    $fpargs = new stdClass();
+    $fpargs->context = $context;
+    $fpargs->client_id = 'plugnmeet-view-fp-' . $cm->id;
+    $fpargs->maxfiles = 1;
+    $fpargs->maxbytes = 0;
+    $fpargs->itemid = 0; // This will be the user's draft file area.
+    $fpargs->accepted_types = 'document';
+    $fpargs->env = 'filemanager';
+    $fpargs->disable_types = ['upload'];
+
+    $filepicker = new file_picker($fpargs);
+    $fpoptions = $filepicker->options;
+    $fpoptions->cmid = $cm->id;
+
+    // Pass the options to the template, so it can be added as a data attribute.
+    $contextdata['fpoptions'] = htmlspecialchars(json_encode($fpoptions), ENT_QUOTES, 'UTF-8');
+
+    // Load the AMD module and tell it which button to initialize.
+    $PAGE->requires->js_call_amd('mod_plugnmeet/file_picker_button', 'init', ['#upload_whiteboard_button']);
 }
 
 echo $OUTPUT->header();
@@ -71,13 +97,10 @@ if ($plugnmeet->deadline && $timenow > $plugnmeet->deadline) {
     $availabilitymsg .= \html_writer::div(get_string('session_ended', 'mod_plugnmeet'), 'alert alert-danger');
 }
 
-$contextdata = [
-    'availability_message' => $availabilitymsg,
-    'can_join' => $available,
-    'can_manage' => $canmanage,
-    'guest_link' => false,
-    'can_view_live_info' => $canviewlivesessioninfo,
-];
+$contextdata['availability_message'] = $availabilitymsg;
+$contextdata['can_join'] = $available;
+$contextdata['guest_link'] = false;
+$contextdata['can_view_live_info'] = $canviewlivesessioninfo;
 
 // Managers can join even if session has not started, but not if it has ended.
 if ($canmanage && ($plugnmeet->deadline == 0 || $timenow <= $plugnmeet->deadline)) {

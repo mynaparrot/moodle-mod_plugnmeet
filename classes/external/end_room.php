@@ -25,6 +25,7 @@
 
 namespace mod_plugnmeet\external;
 
+use core_external\restricted_context_exception;
 use external_api;
 use external_function_parameters;
 use external_value;
@@ -57,6 +58,9 @@ class end_room extends external_api {
      * End a room.
      * @param int $cmid The course module ID.
      * @return array
+     * @throws \coding_exception
+     * @throws restricted_context_exception
+     * @throws \invalid_parameter_exception
      * @throws dml_exception
      */
     public static function execute(int $cmid) {

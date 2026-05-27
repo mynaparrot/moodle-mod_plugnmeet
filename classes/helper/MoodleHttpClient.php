@@ -39,15 +39,15 @@ class MoodleHttpClient implements HttpClientInterface
     /**
      * Sends a POST request to the specified URL with the given data.
      *
-     * @param string $fullurl The URL to send the request to.
+     * @param string $url
      * @param string $body The raw request body.
      * @param array $headers Optional headers to send with the request.
      * @return string The response body as a string.
      * @throws Exception If the request fails.
      */
-    public function post(string $fullurl, string $body, array $headers = []): string {
+    public function post(string $url, string $body, array $headers = []): string {
         $ignoresecurity = false;
-        if (str_contains($fullurl, 'http://')) {
+        if (str_contains($url, 'http://')) {
             $ignoresecurity = true;
         }
 
@@ -59,7 +59,57 @@ class MoodleHttpClient implements HttpClientInterface
         foreach ($headers as $key => $val) {
             $curl->setHeader("$key: $val");
         }
-        $response = $curl->post($fullurl, $body);
+        $response = $curl->post($url, $body);
+        $this->handleErrorResponse($curl, $response);
+
+        return $response;
+    }
+
+    /**
+     * Sends a multipart/form-data request to the specified URL with the given data.
+     *
+     * @param string $url The URL to send the request to.
+     * @param array $multipart The multipart data to send.
+     * @param array $headers Optional headers to send with the request.
+     * @return string The response body as a string.
+     * @throws Exception
+     */
+    public function uploadFile(string $url, array $multipart, array $headers = []): string {
+        $ignoresecurity = false;
+        if (str_contains($url, 'http://')) {
+            $ignoresecurity = true;
+        }
+
+        // we should initialized curl everytime otherwise it will make conflict with header value + signature
+        $curl = new curl([
+            'ignoresecurity' => $ignoresecurity,
+        ]);
+
+        foreach ($headers as $key => $val) {
+            $curl->setHeader("$key: $val");
+        }
+
+        $params = [];
+        foreach ($multipart as $data) {
+            if (isset($data['name']) && isset($data['contents'])) {
+                $params[$data['name']] = new \CURLFile($data['contents'], mime_content_type($data['contents']), basename($data['contents']));
+            }
+        }
+
+        $response = $curl->post($url, $params);
+        $this->handleErrorResponse($curl, $response);
+
+        return $response;
+    }
+
+    /**
+     * Handles the error response from a cURL request.
+     *
+     * @param curl $curl The cURL handle.
+     * @param string $response The response body.
+     * @throws Exception If the request failed.
+     */
+    private function handleErrorResponse(curl $curl, string $response): void {
         $info = $curl->get_info();
         $httpcode = $info['http_code'];
 
@@ -75,20 +125,5 @@ class MoodleHttpClient implements HttpClientInterface
         if ($curl->get_errno()) {
             throw new Exception('cURL Error: ' . $curl->error);
         }
-
-        return $response;
-    }
-
-    /**
-     * Sends a multipart/form-data request to the specified URL with the given data.
-     *
-     * @param string $url The URL to send the request to.
-     * @param array $multipart The multipart data to send.
-     * @param array $headers Optional headers to send with the request.
-     * @return string The response body as a string.
-     */
-    public function uploadFile(string $url, array $multipart, array $headers = []): string {
-        // we don't need now
-        return "";
     }
 }

@@ -25,7 +25,8 @@
         "guest_link": true,
         "guest_link_url": "http://example.com/guest",
         "guest_link_help": "Share this link with guests.",
-        "can_view_live_info": true
+        "can_view_live_info": true,
+        "fpoptions": "{...}"
     }
 }}
 <div class="mod_plugnmeet_view_container">
@@ -41,6 +42,7 @@
             <div class="action_buttons">
                 <button id="join_button" class="btn btn-primary btn-lg">{{#str}}join_session, plugnmeet{{/str}}</button>
                 {{#can_manage}}
+                <button id="upload_whiteboard_button" class="btn btn-secondary btn-lg ml-2" data-fp-options="{{{fpoptions}}}" style="display:none;">{{#str}}upload_to_whiteboard, mod_plugnmeet{{/str}}</button>
                 <button id="end_room_button" class="btn btn-danger btn-lg ml-2" style="display:none;">{{#str}}end_session, plugnmeet{{/str}}</button>
                 {{/can_manage}}
             </div>

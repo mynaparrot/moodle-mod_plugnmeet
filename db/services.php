@@ -82,4 +82,12 @@ $functions = [
         'ajax'        => true,
         'capability'  => 'mod/plugnmeet:manage',
     ],
+    'mod_plugnmeet_upload_whiteboard_file' => [
+        'classname'   => 'mod_plugnmeet\external\upload_whiteboard_file',
+        'methodname'  => 'execute',
+        'description' => 'Uploads a file to the whiteboard.',
+        'type'        => 'write',
+        'ajax'        => true,
+        'capability'  => 'mod/plugnmeet:manage',
+    ],
 ];
