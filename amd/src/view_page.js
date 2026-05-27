@@ -43,6 +43,7 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function(
             } else {
                 $('#live_session_info').html('');
                 $('#end_room_button').hide();
+                $('#upload_whiteboard_button').hide();
             }
         }).fail(notification.exception);
 

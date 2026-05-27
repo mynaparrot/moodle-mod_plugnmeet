@@ -44,6 +44,7 @@ class upload_whiteboard_file extends external_api {
         return new external_function_parameters([
             'cmid' => new \external_value(PARAM_INT, 'The course module ID'),
             'itemid' => new \external_value(PARAM_INT, 'The draft file area ID'),
+            'contextid' => new \external_value(PARAM_INT, 'The user context ID'),
             'filename' => new \external_value(PARAM_RAW, 'The name of the file to upload'),
         ]);
     }
@@ -53,6 +54,7 @@ class upload_whiteboard_file extends external_api {
      *
      * @param int $cmid The course module ID.
      * @param int $itemid The draft file area ID.
+     * @param int $contextid The user conext id of the file.
      * @param string $filename The name of the file to upload.
      * @return array
      * @throws \coding_exception
@@ -60,20 +62,18 @@ class upload_whiteboard_file extends external_api {
      * @throws \invalid_parameter_exception
      * @throws \moodle_exception
      */
-    public static function execute($cmid, $itemid, $filename) {
-        global $DB, $USER;
+    public static function execute($cmid, $itemid, $contextid, $filename) {
+        global $DB;
 
         $cm = get_coursemodule_from_id('plugnmeet', $cmid, 0, false, MUST_EXIST);
         $context = \context_module::instance($cm->id);
         self::validate_context($context);
 
         $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
-        $config = get_config('mod_plugnmeet');
 
         // The file selected by the file picker is in the user's draft area.
-        $usercontext = \context_user::instance($USER->id);
         $fs = get_file_storage();
-        $file = $fs->get_file($usercontext->id, 'user', 'draft', $itemid, '/', $filename);
+        $file = $fs->get_file($contextid, 'user', 'draft', $itemid, '/', $filename);
 
         if (!$file) {
             return [
@@ -94,7 +94,7 @@ class upload_whiteboard_file extends external_api {
             ];
         }
 
-        $pnm = new plugNmeetConnect($config);
+        $pnm = new plugNmeetConnect(get_config('mod_plugnmeet'));
         $res = $pnm->uploadWhiteboardFile($plugnmeet->roomid, ['document' => $temppath]);
 
         // Clean up the temporary file and directory.

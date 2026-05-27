@@ -59,11 +59,7 @@ if ($canmanage) {
     $fpargs = new stdClass();
     $fpargs->context = $context;
     $fpargs->client_id = 'plugnmeet-view-fp-' . $cm->id;
-    $fpargs->maxfiles = 1;
-    $fpargs->maxbytes = 0;
-    $fpargs->itemid = 0; // This will be the user's draft file area.
     $fpargs->accepted_types = 'document';
-    $fpargs->env = 'filemanager';
     $fpargs->disable_types = ['upload'];
 
     $filepicker = new file_picker($fpargs);

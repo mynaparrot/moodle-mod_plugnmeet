@@ -32,8 +32,9 @@ define(['jquery', 'core/yui', 'core/notification', 'core/ajax', 'core/str'], fun
                             methodname: 'mod_plugnmeet_upload_whiteboard_file',
                             args: {
                                 cmid: fpoptions.cmid,
-                                itemid: fpoptions.itemid,
-                                filename: fileinfo.file
+                                itemid: fileinfo.itemid,
+                                filename: fileinfo.file,
+                                contextid: fileinfo.contextid,
                             },
                             done: async function(response) {
                                 const msg = await str.get_string('upload_to_whiteboard_success', 'mod_plugnmeet');
