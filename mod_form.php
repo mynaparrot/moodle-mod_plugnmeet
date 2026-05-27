@@ -219,12 +219,14 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addHelpButton('meta[whiteboard_features][is_allow]', 'allow_whiteboard', 'mod_plugnmeet');
 
         $mform->addElement(
-            'filepicker',
+            'filemanager',
             'preload_file',
             get_string('preload_file', 'mod_plugnmeet'),
             null,
             [
                 'maxbytes' => 5242880,
+                'areamaxbytes' => 5242880,
+                'maxfiles' => 1,
                 'accepted_types' => ['document'],
             ]
         );
