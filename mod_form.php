@@ -733,18 +733,11 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
                     $defaultvalues[$key] = $value;
                 }
             }
-
-            // Handle existing preload_file.
-            // The itemid for the file area 'preload_file' is the instance ID itself.
-            $defaultvalues['preload_file'] = $this->current->id;
-        } else {
-            // For new instances, ensure preload_file is initialized to 0.
-            $defaultvalues['preload_file'] = 0;
         }
 
         // Prepare draft area for filepicker.
         $draftitemid = file_get_submitted_draft_itemid('preload_file');
-        file_prepare_draft_area($draftitemid, $this->context->id, 'mod_plugnmeet', 'preload_file', $defaultvalues['preload_file'], ['subdirs' => 0, 'maxfiles' => 1]);
+        file_prepare_draft_area($draftitemid, $this->context->id, 'mod_plugnmeet', 'preload_file', $this->current->id, ['subdirs' => 0, 'maxfiles' => 1]);
         $defaultvalues['preload_file'] = $draftitemid;
     }
 }

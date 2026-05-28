@@ -86,16 +86,20 @@ function plugnmeet_add_instance(stdClass $data, $mform = null) {
         unset($data->meta);
     }
 
-    // Temporarily save the draft ID.
-    $draftitemid = $data->preload_file ?? 0;
-    unset($data->preload_file); // Field no longer exists in DB, just temporary field.
-
     // Insert record first to get the ID.
     $data->id = $DB->insert_record('plugnmeet', $data);
 
     // Handle preloaded file using the instance ID as itemid.
-    if ($draftitemid) {
-        file_save_draft_area_files($draftitemid, context_module::instance($data->coursemodule)->id, 'mod_plugnmeet', 'preload_file', $data->id, ['subdirs' => 0, 'maxfiles' => 1]);
+    if (isset($data->preload_file)) {
+        file_save_draft_area_files(
+            $data->preload_file,
+            context_module::instance($data->coursemodule)->id,
+            'mod_plugnmeet',
+            'preload_file',
+            $data->id,
+            ['subdirs' => 0, 'maxfiles' => 1]
+        );
+        unset($data->preload_file); // Field not exists in DB, just temporary field.
     }
 
     plugnmeet_grade_item_update($data);
@@ -166,7 +170,7 @@ function plugnmeet_update_instance(stdClass $data, $mform = null) {
             $data->id,
             ['subdirs' => 0, 'maxfiles' => 1]
         );
-        unset($data->preload_file); // Field no longer exists in DB, just temporary field.
+        unset($data->preload_file); // Field not exists in DB, just temporary field.
     }
 
     $result = $DB->update_record('plugnmeet', $data);
