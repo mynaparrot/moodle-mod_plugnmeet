@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.0.9](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.8...v3.0.9) (2026-05-31)
+
+
+### Bug Fixes
+
+* bump SDK ([46786ca](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/46786ca1e96ba81611b455b59d5e3aa561cd0b7b))
+* bump version ([61bf808](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/61bf808589f734f5367005be32bee63a681bb3a7))
+* **feat:** added mergeRecordings feature based on new API ([8aac196](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/8aac19696e5e3001e26587bc6175d329f2b0b43d))
+* **feat:** added option to upload files to whiteboard directly ([cab1fb0](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/cab1fb0c985237b4500b8391fd7052f184c54ca1))
+* handle non-success response message properly ([cbfe808](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/cbfe8088b9b878b3497634ab53a2f8a1c310580e))
+* hide buttion ([c6fb0ec](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/c6fb0ecabfa3bbf77b3f86a43ddeb71a2a1f70b0))
+* **locale:** new Crowdin updates ([e16c5b3](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/e16c5b381ddf9f906d6630603f5dc2a1de42e608))
+* moved rtmp to new `external_broadcasting_features` ([fbdf5b8](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/fbdf5b873715107515bcddf6c823444306d6b722))
+* update the way to display meesage ([1a53a1e](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/1a53a1ec0e9d1ba1f452ced4c9012ff05d48d749))
+* upload button wasn't hiding on session ends + clean up ([126fd68](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/126fd689debc4ed34fcd01decc319d3b062e4b33))
+* use `try...catch` block to handle errors properly ([1c68820](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/1c688201b8738ab889f80ee246d596219299cd69))
+* use async ([6ae84b7](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/6ae84b710baee3d944dd5f8e0ff9d722bb369480))
+* use correct type `filemanager` for `preload_file` ([ccf0276](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/ccf02762d1d0860abb131d03abed62f2c25aac75))
+
 ## [3.0.8](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.7...v3.0.8) (2026-05-20)
 
 
