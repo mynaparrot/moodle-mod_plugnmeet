@@ -5,6 +5,15 @@
 
 ### Bug Fixes
 
+* bump version ([959bcda](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/959bcda49f9b50783ca3bf1cedc6524d18c03b0d))
+* language string setting ([bf29a8e](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/bf29a8ed90f860525823837199d9c96ddb2ef498))
+* **locale:** new Crowdin updates ([7ea95c4](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/7ea95c49c9fb69702a39e297862386d12f68beed))
+
+## [3.0.10](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.9...v3.0.10) (2026-06-09)
+
+
+### Bug Fixes
+
 * language string setting ([bf29a8e](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/bf29a8ed90f860525823837199d9c96ddb2ef498))
 * **locale:** new Crowdin updates ([7ea95c4](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/7ea95c49c9fb69702a39e297862386d12f68beed))
 
