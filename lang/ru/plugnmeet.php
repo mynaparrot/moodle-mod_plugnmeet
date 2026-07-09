@@ -156,6 +156,8 @@ $string['allow_rtmp'] = 'Разрешить потоковую передачу 
 $string['allow_rtmp_help'] = 'Позволяет модераторам транслировать прямую трансляцию на внешние платформы, такие как YouTube, Facebook или Twitch. Идеально подходит для публичных вебинаров или гостевых лекций.';
 $string['allow_raise_hand'] = 'Разрешите поднять руку';
 $string['allow_raise_hand_help'] = 'Разрешите участникам поднять руку.';
+$string['allow_reactions'] = 'Allow Reactions';
+$string['allow_reactions_help'] = 'Allow participants to send floating reactions (e.g., thumbs up, clap) during the session.';
 $string['admin_only_webcams'] = 'Веб-камеры только для администраторов';
 $string['admin_only_webcams_help'] = 'Разрешайте использовать веб-камеры только модераторам.';
 $string['allow_view_other_webcams'] = 'Разрешить просмотр других веб-камер';
@@ -267,6 +269,8 @@ $string['lock_chat_file_share'] = 'Блокировка общего досту�
 $string['lock_chat_file_share_help'] = 'Запрещает участникам загружать или обмениваться файлами в чате.';
 $string['lock_private_chat'] = 'Заблокировать приватный чат';
 $string['lock_private_chat_help'] = 'Отключает личные сообщения между участниками. Примечание: Участники по-прежнему могут отправлять личные сообщения модераторам для получения помощи или ответов на вопросы.';
+$string['lock_reactions'] = 'Lock Reactions';
+$string['lock_reactions_help'] = 'Prevents participants from sending any reactions during the session.';
 
 $string['completion_minutes'] = 'Протокол заседания';
 $string['completion_minutes_help'] = 'Необходимо, чтобы пользователь находился в сессии определенное количество минут.';
