@@ -156,6 +156,8 @@ $string['allow_rtmp'] = 'السماح بالبث عبر RTMP';
 $string['allow_rtmp_help'] = 'يمكّن المشرفين من بث الجلسة المباشرة إلى منصات خارجية مثل YouTube أو Facebook أو Twitch. مثالي للندوات العامة أو المحاضرات الضيف.';
 $string['allow_raise_hand'] = 'السماح برفع اليد';
 $string['allow_raise_hand_help'] = 'السماح للمشاركين برفع أيديهم.';
+$string['allow_reactions'] = 'Allow Reactions';
+$string['allow_reactions_help'] = 'Allow participants to send floating reactions (e.g., thumbs up, clap) during the session.';
 $string['admin_only_webcams'] = 'كاميرات الويب للمشرف فقط';
 $string['admin_only_webcams_help'] = 'السماح للمشرفين فقط باستخدام كاميرات الويب الخاصة بهم.';
 $string['allow_view_other_webcams'] = 'السماح بعرض كاميرات الويب الأخرى';
@@ -267,6 +269,8 @@ $string['lock_chat_file_share'] = 'قفل مشاركة الملفات';
 $string['lock_chat_file_share_help'] = 'يمنع المشاركين من تحميل أو مشاركة الملفات داخل منطقة الدردشة.';
 $string['lock_private_chat'] = 'قفل الدردشة الخاصة';
 $string['lock_private_chat_help'] = 'يعطل المراسلة الخاصة الفردية بين المشاركين. ملاحظة: لا يزال بإمكان المشاركين إرسال رسائل خاصة إلى المشرفين للحصول على المساعدة أو طرح الأسئلة.';
+$string['lock_reactions'] = 'Lock Reactions';
+$string['lock_reactions_help'] = 'Prevents participants from sending any reactions during the session.';
 
 $string['completion_minutes'] = 'الدقائق التي تم حضورها';
 $string['completion_minutes_help'] = 'يتطلب من المستخدم أن يكون في الجلسة لعدد معين من الدقائق.';
