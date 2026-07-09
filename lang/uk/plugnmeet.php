@@ -156,6 +156,8 @@ $string['allow_rtmp'] = 'Дозволити потокове передаван�
 $string['allow_rtmp_help'] = 'Дозволяє модераторам транслювати сесію в прямому ефірі на зовнішні платформи, такі як YouTube, Facebook або Twitch. Ідеально підходить для публічних вебінарів або гостьових лекцій.';
 $string['allow_raise_hand'] = 'Дозволити підняти руку';
 $string['allow_raise_hand_help'] = 'Дозвольте учасникам підняти руку.';
+$string['allow_reactions'] = 'Allow Reactions';
+$string['allow_reactions_help'] = 'Allow participants to send floating reactions (e.g., thumbs up, clap) during the session.';
 $string['admin_only_webcams'] = 'Веб-камери лише для адміністраторів';
 $string['admin_only_webcams_help'] = 'Дозволити використовувати веб-камери лише модераторам.';
 $string['allow_view_other_webcams'] = 'Дозволити перегляд інших веб-камер';
@@ -267,6 +269,8 @@ $string['lock_chat_file_share'] = 'Блокування спільного до�
 $string['lock_chat_file_share_help'] = 'Забороняє учасникам завантажувати або обмінюватися файлами в області чату.';
 $string['lock_private_chat'] = 'Заблокувати приватний чат';
 $string['lock_private_chat_help'] = 'Вимикає особистий обмін повідомленнями між учасниками. Примітка: Учасники все ще можуть надсилати особисті повідомлення модераторам для отримання допомоги або запитань.';
+$string['lock_reactions'] = 'Lock Reactions';
+$string['lock_reactions_help'] = 'Prevents participants from sending any reactions during the session.';
 
 $string['completion_minutes'] = 'Протокол присутності';
 $string['completion_minutes_help'] = 'Вимагати від користувача перебування в сеансі протягом певної кількості хвилин.';
