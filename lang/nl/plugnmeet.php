@@ -156,6 +156,8 @@ $string['allow_rtmp'] = 'RTMP-streaming toestaan';
 $string['allow_rtmp_help'] = 'Hiermee kunnen moderators de live sessie uitzenden naar externe platforms zoals YouTube, Facebook of Twitch. Perfect voor openbare webinars of gastcolleges.';
 $string['allow_raise_hand'] = 'Sta toe hand op te steken';
 $string['allow_raise_hand_help'] = 'Geef de deelnemers de gelegenheid om hun hand op te steken.';
+$string['allow_reactions'] = 'Allow Reactions';
+$string['allow_reactions_help'] = 'Allow participants to send floating reactions (e.g., thumbs up, clap) during the session.';
 $string['admin_only_webcams'] = 'Webcams alleen voor beheerders';
 $string['admin_only_webcams_help'] = 'Sta alleen moderators toe hun webcams te gebruiken.';
 $string['allow_view_other_webcams'] = 'Sta het bekijken van andere webcams toe';
@@ -267,6 +269,8 @@ $string['lock_chat_file_share'] = 'Bestandsdeling vergrendelen';
 $string['lock_chat_file_share_help'] = 'Voorkomt dat deelnemers bestanden uploaden of delen binnen het chatvenster.';
 $string['lock_private_chat'] = 'Privéchat vergrendelen';
 $string['lock_private_chat_help'] = 'Schakelt privéberichten tussen deelnemers uit. Let op: deelnemers kunnen nog steeds privéberichten naar moderators sturen voor hulp of vragen.';
+$string['lock_reactions'] = 'Lock Reactions';
+$string['lock_reactions_help'] = 'Prevents participants from sending any reactions during the session.';
 
 $string['completion_minutes'] = 'Notulen van de bijeenkomst';
 $string['completion_minutes_help'] = 'Vereis dat de gebruiker gedurende een bepaald aantal minuten in de sessie aanwezig is.';
