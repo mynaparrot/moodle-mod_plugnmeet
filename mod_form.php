@@ -178,6 +178,10 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->setDefault('meta[room_features][allow_raise_hand]', 1);
         $mform->addHelpButton('meta[room_features][allow_raise_hand]', 'allow_raise_hand', 'mod_plugnmeet');
 
+        $mform->addElement('advcheckbox', 'meta[room_features][allow_reactions]', get_string('allow_reactions', 'mod_plugnmeet'));
+        $mform->setDefault('meta[room_features][allow_reactions]', 1);
+        $mform->addHelpButton('meta[room_features][allow_reactions]', 'allow_reactions', 'mod_plugnmeet');
+
         $mform->addElement('advcheckbox', 'meta[room_features][allow_view_other_webcams]', get_string('allow_view_other_webcams', 'mod_plugnmeet'));
         $mform->setDefault('meta[room_features][allow_view_other_webcams]', 1);
         $mform->addHelpButton('meta[room_features][allow_view_other_webcams]', 'allow_view_other_webcams', 'mod_plugnmeet');
@@ -604,6 +608,10 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
         $mform->addElement('advcheckbox', 'meta[default_lock_settings][lock_private_chat]', get_string('lock_private_chat', 'mod_plugnmeet'));
         $mform->setDefault('meta[default_lock_settings][lock_private_chat]', 0);
         $mform->addHelpButton('meta[default_lock_settings][lock_private_chat]', 'lock_private_chat', 'mod_plugnmeet');
+
+        $mform->addElement('advcheckbox', 'meta[default_lock_settings][lock_reactions]', get_string('lock_reactions', 'mod_plugnmeet'));
+        $mform->setDefault('meta[default_lock_settings][lock_reactions]', 0);
+        $mform->addHelpButton('meta[default_lock_settings][lock_reactions]', 'lock_reactions', 'mod_plugnmeet');
     }
 
     /**

@@ -156,6 +156,8 @@ $string['allow_rtmp'] = 'Allow RTMP Streaming';
 $string['allow_rtmp_help'] = 'Enables moderators to broadcast the live session to external platforms like YouTube, Facebook, or Twitch. Perfect for public webinars or guest lectures.';
 $string['allow_raise_hand'] = 'Allow Raise Hand';
 $string['allow_raise_hand_help'] = 'Allow participants to raise their hand.';
+$string['allow_reactions'] = 'Allow Reactions';
+$string['allow_reactions_help'] = 'Allow participants to send floating reactions (e.g., thumbs up, clap) during the session.';
 $string['admin_only_webcams'] = 'Admin Only Webcams';
 $string['admin_only_webcams_help'] = 'Only allow moderators to use their webcams.';
 $string['allow_view_other_webcams'] = 'Allow View Other Webcams';
@@ -267,6 +269,8 @@ $string['lock_chat_file_share'] = 'Lock File Sharing';
 $string['lock_chat_file_share_help'] = 'Prevents participants from uploading or sharing files within the chat area.';
 $string['lock_private_chat'] = 'Lock Private Chat';
 $string['lock_private_chat_help'] = 'Disables 1-on-1 private messaging between participants. Note: Participants can still send private messages to moderators for help or questions.';
+$string['lock_reactions'] = 'Lock Reactions';
+$string['lock_reactions_help'] = 'Prevents participants from sending any reactions during the session.';
 
 $string['completion_minutes'] = 'Minutes Attended';
 $string['completion_minutes_help'] = 'Require the user to be in the session for a certain number of minutes.';
