@@ -156,6 +156,8 @@ $string['allow_rtmp'] = 'Consenti streaming RTMP';
 $string['allow_rtmp_help'] = 'Consente ai moderatori di trasmettere la sessione live su piattaforme esterne come YouTube, Facebook o Twitch. Perfetto per webinar pubblici o lezioni di ospiti.';
 $string['allow_raise_hand'] = 'Consenti alza mano';
 $string['allow_raise_hand_help'] = 'Consenti ai partecipanti di alzare la mano.';
+$string['allow_reactions'] = 'Allow Reactions';
+$string['allow_reactions_help'] = 'Allow participants to send floating reactions (e.g., thumbs up, clap) during the session.';
 $string['admin_only_webcams'] = 'Webcam solo per amministratori';
 $string['admin_only_webcams_help'] = 'Consenti solo ai moderatori di utilizzare le proprie webcam.';
 $string['allow_view_other_webcams'] = 'Consenti visualizzazione altre webcam';
@@ -267,6 +269,8 @@ $string['lock_chat_file_share'] = 'Blocca condivisione file';
 $string['lock_chat_file_share_help'] = 'Impedisce ai partecipanti di caricare o condividere file all\'interno dell\'area chat.';
 $string['lock_private_chat'] = 'Blocca chat privata';
 $string['lock_private_chat_help'] = 'Disabilita la messaggistica privata 1-a-1 tra i partecipanti. Nota: i partecipanti possono comunque inviare messaggi privati ai moderatori per aiuto o domande.';
+$string['lock_reactions'] = 'Lock Reactions';
+$string['lock_reactions_help'] = 'Prevents participants from sending any reactions during the session.';
 
 $string['completion_minutes'] = 'Minuti di presenza';
 $string['completion_minutes_help'] = 'Richiede che l\'utente sia presente alla sessione per un certo numero di minuti.';
