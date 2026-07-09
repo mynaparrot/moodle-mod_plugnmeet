@@ -181,7 +181,7 @@ $string['enable_auto_cloud_recording'] = 'Habilitar grabación automática en la
 $string['enable_auto_cloud_recording_help'] = 'Activa automáticamente la grabación en la nube en el momento en que el primer moderador se une a la sesión. Ideal para asegurar que ninguna conferencia se olvide.';
 $string['allow_local_recording'] = 'Permitir grabación local';
 $string['allow_local_recording_help'] = 'Permite grabar directamente en el ordenador. **Nota:** Requiere Google Chrome. Para capturar todo el audio de la sesión, el usuario debe compartir su "Pestaña de Chrome" y marcar la casilla "También compartir audio de la pestaña". El archivo se guarda localmente en el dispositivo una vez finalizado.';
-$string['only_record_admin_webcams'] = 'Solo grabar webcams de Admin';
+$string['only_record_admin_webcams'] = 'Solo grabar webcams del administrador';
 $string['only_record_admin_webcams_help'] = 'Si está activada, solo se incluirán las cámaras web de los administradores en la grabación.';
 
 $string['allow_chat'] = 'Permitir chat (interruptor maestro global)';
