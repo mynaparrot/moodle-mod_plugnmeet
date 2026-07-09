@@ -156,6 +156,8 @@ $string['allow_rtmp'] = 'Permitir transmisión RTMP';
 $string['allow_rtmp_help'] = 'Permite a los moderadores transmitir la sesión en vivo a plataformas externas como YouTube, Facebook o Twitch. Perfecto para seminarios web públicos o conferencias de invitados.';
 $string['allow_raise_hand'] = 'Permitir levantar la mano';
 $string['allow_raise_hand_help'] = 'Permitir a los participantes levantar la mano.';
+$string['allow_reactions'] = 'Allow Reactions';
+$string['allow_reactions_help'] = 'Allow participants to send floating reactions (e.g., thumbs up, clap) during the session.';
 $string['admin_only_webcams'] = 'Solo cámaras web de administradores';
 $string['admin_only_webcams_help'] = 'Solo permitir a los moderadores usar sus cámaras web.';
 $string['allow_view_other_webcams'] = 'Permitir ver otras cámaras web';
@@ -267,6 +269,8 @@ $string['lock_chat_file_share'] = 'Bloquear compartir archivos';
 $string['lock_chat_file_share_help'] = 'Impide que los participantes suban o compartan archivos dentro del área de chat.';
 $string['lock_private_chat'] = 'Bloquear chat privado';
 $string['lock_private_chat_help'] = 'Deshabilita la mensajería privada uno a uno entre los participantes. Nota: Los participantes aún pueden enviar mensajes privados a los moderadores para obtener ayuda o hacer preguntas.';
+$string['lock_reactions'] = 'Lock Reactions';
+$string['lock_reactions_help'] = 'Prevents participants from sending any reactions during the session.';
 
 $string['completion_minutes'] = 'Minutos asistidos';
 $string['completion_minutes_help'] = 'Requiere que el usuario esté en la sesión durante un cierto número de minutos.';
