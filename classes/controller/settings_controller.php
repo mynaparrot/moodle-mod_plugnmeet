@@ -169,7 +169,7 @@ class settings_controller {
             'mod_plugnmeet/video_codec',
             get_string('video_codec', 'mod_plugnmeet'),
             get_string('video_codec_des', 'mod_plugnmeet'),
-            'vp8',
+            'vp9',
             ["vp8" => "vp8", "h264" => "h264", "av1" => "av1", "vp9" => "vp9"]
         ));
 
