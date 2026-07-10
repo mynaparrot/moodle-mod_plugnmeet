@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.0.11](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.10...v3.0.11) (2026-07-10)
+
+
+### Bug Fixes
+
+* added new reactions option ([23b36df](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/23b36dfb5ac88aa847731f170edb5abe4f41320f))
+* **locale:** new Crowdin updates ([#101](https://github.com/mynaparrot/moodle-mod_plugnmeet/issues/101)) ([85d34a4](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/85d34a4890a7a175fc910e220828f40e768acb9a))
+* shifted default codec to `vp9` as fallback will be vp8 in firefox ([83c648e](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/83c648ee1d7bdfcdb28601523073350bd40a923d))
+
 ## [3.0.10](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.9...v3.0.10) (2026-06-09)
 
 
