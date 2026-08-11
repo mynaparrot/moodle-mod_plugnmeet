@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfa2b3ef7d1a85c4419d57cfd77c957f9
+class ComposerStaticInit1fa0acf9502bf9bcec07e9e665c33eaf
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -206,6 +206,7 @@ class ComposerStaticInitfa2b3ef7d1a85c4419d57cfd77c957f9
         'GPBMetadata\\PlugnmeetIngress' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/PlugnmeetIngress.php',
         'GPBMetadata\\PlugnmeetInsights' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/PlugnmeetInsights.php',
         'GPBMetadata\\PlugnmeetLtiV1' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/PlugnmeetLtiV1.php',
+        'GPBMetadata\\PlugnmeetNativeBridge' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/PlugnmeetNativeBridge.php',
         'GPBMetadata\\PlugnmeetNatsMsg' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/PlugnmeetNatsMsg.php',
         'GPBMetadata\\PlugnmeetPolls' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/PlugnmeetPolls.php',
         'GPBMetadata\\PlugnmeetRecorder' => __DIR__ . '/../..' . '/src/gen/GPBMetadata/PlugnmeetRecorder.php',
@@ -359,6 +360,7 @@ class ComposerStaticInitfa2b3ef7d1a85c4419d57cfd77c957f9
         'GuzzleHttp\\Handler\\CurlVersion' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/CurlVersion.php',
         'GuzzleHttp\\Handler\\EasyHandle' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/EasyHandle.php',
         'GuzzleHttp\\Handler\\HeaderProcessor' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/HeaderProcessor.php',
+        'GuzzleHttp\\Handler\\HostValidator' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/HostValidator.php',
         'GuzzleHttp\\Handler\\MockHandler' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/MockHandler.php',
         'GuzzleHttp\\Handler\\Proxy' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/Proxy.php',
         'GuzzleHttp\\Handler\\ProxyEnvironment' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Handler/ProxyEnvironment.php',
@@ -804,19 +806,11 @@ class ComposerStaticInitfa2b3ef7d1a85c4419d57cfd77c957f9
         'Livekit\\SimulationRun\\Get\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Get/Request.php',
         'Livekit\\SimulationRun\\Get\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Get/Response.php',
         'Livekit\\SimulationRun\\Job' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Job.php',
-        'Livekit\\SimulationRun\\JobMetrics' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/JobMetrics.php',
-        'Livekit\\SimulationRun\\JobMetrics\\Conversation' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/JobMetrics/Conversation.php',
-        'Livekit\\SimulationRun\\JobMetrics\\LLM' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/JobMetrics/LLM.php',
-        'Livekit\\SimulationRun\\JobMetrics\\STT' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/JobMetrics/STT.php',
-        'Livekit\\SimulationRun\\JobMetrics\\Simulator' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/JobMetrics/Simulator.php',
-        'Livekit\\SimulationRun\\JobMetrics\\TTS' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/JobMetrics/TTS.php',
-        'Livekit\\SimulationRun\\JobMetrics\\Turn' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/JobMetrics/Turn.php',
         'Livekit\\SimulationRun\\Job\\Status' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Job/Status.php',
         'Livekit\\SimulationRun\\Job\\Usage' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Job/Usage.php',
         'Livekit\\SimulationRun\\PBList' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/PBList.php',
         'Livekit\\SimulationRun\\PBList\\Request' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/PBList/Request.php',
         'Livekit\\SimulationRun\\PBList\\Response' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/PBList/Response.php',
-        'Livekit\\SimulationRun\\RunMetrics' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/RunMetrics.php',
         'Livekit\\SimulationRun\\Status' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Status.php',
         'Livekit\\SimulationRun\\Usage' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulationRun/Usage.php',
         'Livekit\\SimulcastCodec' => __DIR__ . '/../..' . '/src/gen/Livekit/SimulcastCodec.php',
@@ -952,6 +946,7 @@ class ComposerStaticInitfa2b3ef7d1a85c4419d57cfd77c957f9
         'Mynaparrot\\PlugnmeetProto\\ChatFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChatFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\ChatMessage' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChatMessage.php',
         'Mynaparrot\\PlugnmeetProto\\CleanEtherpadReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CleanEtherpadReq.php',
+        'Mynaparrot\\PlugnmeetProto\\ClientType' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ClientType.php',
         'Mynaparrot\\PlugnmeetProto\\ClosePollReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ClosePollReq.php',
         'Mynaparrot\\PlugnmeetProto\\CloudRecordingVariants' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CloudRecordingVariants.php',
         'Mynaparrot\\PlugnmeetProto\\CommonNotifyEvent' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CommonNotifyEvent.php',
@@ -1051,6 +1046,18 @@ class ComposerStaticInitfa2b3ef7d1a85c4419d57cfd77c957f9
         'Mynaparrot\\PlugnmeetProto\\MergeRecordingsByRoomSession' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsByRoomSession.php',
         'Mynaparrot\\PlugnmeetProto\\MergeRecordingsReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsReq.php',
         'Mynaparrot\\PlugnmeetProto\\MuteUnMuteTrackReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MuteUnMuteTrackReq.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeBridgeActions' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeActions.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeBridgeE2EE' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeE2EE.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeBridgeError' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeError.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeBridgeHeartbeat' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeHeartbeat.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeBridgeInitializePublisher' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeInitializePublisher.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeBridgeMediaMuted' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeMediaMuted.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeBridgeMediaSource' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeMediaSource.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeBridgeMediaStatus' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeMediaStatus.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeBridgeMsg' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeMsg.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeBridgeTrackState' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeTrackState.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeMediaSource' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeMediaSource.php',
+        'Mynaparrot\\PlugnmeetProto\\NativeTrackKind' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeTrackKind.php',
         'Mynaparrot\\PlugnmeetProto\\NatsInitialData' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NatsInitialData.php',
         'Mynaparrot\\PlugnmeetProto\\NatsKvRoomInfo' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NatsKvRoomInfo.php',
         'Mynaparrot\\PlugnmeetProto\\NatsKvUserInfo' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NatsKvUserInfo.php',
@@ -1305,9 +1312,9 @@ class ComposerStaticInitfa2b3ef7d1a85c4419d57cfd77c957f9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfa2b3ef7d1a85c4419d57cfd77c957f9::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfa2b3ef7d1a85c4419d57cfd77c957f9::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitfa2b3ef7d1a85c4419d57cfd77c957f9::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1fa0acf9502bf9bcec07e9e665c33eaf::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1fa0acf9502bf9bcec07e9e665c33eaf::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1fa0acf9502bf9bcec07e9e665c33eaf::$classMap;
 
         }, null, ClassLoader::class);
     }
