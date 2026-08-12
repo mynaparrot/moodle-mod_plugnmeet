@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'mynaparrot/plugnmeet-sdk',
-        'pretty_version' => '2.2.4',
-        'version' => '2.2.4.0',
+        'pretty_version' => '2.2.5',
+        'version' => '2.2.5.0',
         'reference' => null,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
@@ -65,8 +65,8 @@
             'dev_requirement' => false,
         ),
         'mynaparrot/plugnmeet-sdk' => array(
-            'pretty_version' => '2.2.4',
-            'version' => '2.2.4.0',
+            'pretty_version' => '2.2.5',
+            'version' => '2.2.5.0',
             'reference' => null,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
