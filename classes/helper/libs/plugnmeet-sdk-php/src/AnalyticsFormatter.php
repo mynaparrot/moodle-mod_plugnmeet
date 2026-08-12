@@ -449,10 +449,12 @@ class AnalyticsFormatter
 
             $total++;
 
-            if (isset(
-                $this->roomData["polls"][$vote["poll_id"]]
-                ["options"][$vote["selected_option"]]["responses"]
-            )) {
+            if (
+                isset(
+                    $this->roomData["polls"][$vote["poll_id"]]
+                    ["options"][$vote["selected_option"]]["responses"]
+                )
+            ) {
                 $this->roomData["polls"][$vote["poll_id"]]
                 ["options"][$vote["selected_option"]]["responses"]++;
             }
