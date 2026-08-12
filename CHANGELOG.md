@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.0.12](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.11...v3.0.12) (2026-08-12)
+
+
+### Bug Fixes
+
+* bump SDK ([601fcd6](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/601fcd66f46b2e793568f86cf55678dac7e191a4))
+* bump SDK ([a981244](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/a98124455108bcd1f9c7698cf1ced1b0ea18e629))
+* reverted default to `vp8` for best compatibility ([ca0df6a](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/ca0df6aeee765273810bb28f5ccb52fbbfe7db56))
+* various timezone + duration related problems ([f249d20](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/f249d20954a1d624b2da4fac25021c14a82b4c3b))
+
 ## [3.0.11](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.10...v3.0.11) (2026-07-10)
 
 
