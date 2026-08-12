@@ -60,7 +60,7 @@ class RoomHelper {
             'is_recording' => $roominfo->getIsRecording(),
             'joined_participants' => $roominfo->getJoinedParticipants(),
             'creation_time' => $roominfo->getCreationTime(),
-            'creation_time_formatted' => userdate($roominfo->getCreationTime()),
+            'creation_time_formatted' => userdate((int) $roominfo->getCreationTime()),
             'webcams' => 0,
             'mics' => 0,
             'screenshares' => 0,

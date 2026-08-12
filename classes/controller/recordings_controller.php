@@ -134,15 +134,15 @@ class recordings_controller {
             get_string('room_id', 'mod_plugnmeet') => $info->getRoomId(),
             get_string('room_sid', 'mod_plugnmeet') => $info->getRoomSid(),
             get_string('file_size', 'mod_plugnmeet') => RoomHelper::format_mb($info->getFileSize()),
-            get_string('recording_creation_time', 'mod_plugnmeet') => userdate($info->getCreationTime()),
+            get_string('recording_creation_time', 'mod_plugnmeet') => userdate((int) $info->getCreationTime()),
         ];
 
         if ($roominfo) {
             $details[get_string('room_title', 'mod_plugnmeet')] = $roominfo->getRoomTitle();
-            $details[get_string('session_started_at', 'mod_plugnmeet')] = userdate(strtotime($roominfo->getCreated()));
-            $details[get_string('session_ended_at', 'mod_plugnmeet')] = userdate(strtotime($roominfo->getEnded()));
+            $details[get_string('session_started_at', 'mod_plugnmeet')] = userdate(strtotime($roominfo->getCreated() . ' UTC'));
+            $details[get_string('session_ended_at', 'mod_plugnmeet')] = userdate(strtotime($roominfo->getEnded() . ' UTC'));
         } else {
-            $details[get_string('room_creation_time', 'mod_plugnmeet')] = userdate($info->getRoomCreationTime());
+            $details[get_string('room_creation_time', 'mod_plugnmeet')] = userdate((int) $info->getRoomCreationTime());
         }
 
         foreach ($details as $label => $value) {
@@ -197,8 +197,8 @@ class recordings_controller {
         foreach ($recordings as $recording) {
             $context['recordings'][] = [
                 'record_id' => $recording->getRecordId(),
-                'creation_time' => userdate($recording->getCreationTime()),
-                'room_creation_time' => userdate($recording->getRoomCreationTime()),
+                'creation_time' => userdate((int) $recording->getCreationTime()),
+                'room_creation_time' => userdate((int) $recording->getRoomCreationTime()),
                 'file_size' => RoomHelper::format_mb($recording->getFileSize()),
                 'view_url' => (new moodle_url('/mod/plugnmeet/recordings.php', [
                     'id' => $this->cm->id,
