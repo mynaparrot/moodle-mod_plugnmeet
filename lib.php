@@ -324,6 +324,8 @@ function plugnmeet_grade_item_update(stdClass $plugnmeet, $grades = null) {
         } else if ($plugnmeet->grade < 0) {
             $params['gradetype'] = GRADE_TYPE_SCALE;
             $params['scaleid']   = -$plugnmeet->grade;
+        } else {
+            $params['gradetype'] = GRADE_TYPE_NONE;
         }
     } else {
         $params['gradetype'] = GRADE_TYPE_NONE;
