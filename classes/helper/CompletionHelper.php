@@ -350,6 +350,12 @@ class CompletionHelper {
      * @param float $progress 0-100
      */
     private static function update_grade(int $userid, $plugnmeet, float $progress): void {
+        // Only point-based grades can be derived from completion progress.
+        // Grade type None (0) and scale grades (negative) are not auto-updated here.
+        if (empty($plugnmeet->grade) || $plugnmeet->grade < 0) {
+            return;
+        }
+
         // Calculate actual grade based on activity max grade.
         $gradevalue = ($progress / 100.0) * $plugnmeet->grade;
 
