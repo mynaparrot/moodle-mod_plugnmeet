@@ -68,6 +68,9 @@ class get_active_room_info extends external_api {
         $context = context_module::instance($cm->id);
         self::validate_context($context);
 
+        // Enforce capability (services.php declarations are metadata only).
+        require_capability('mod/plugnmeet:viewlivesessioninfo', $context);
+
         $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
         $response = [
             'status' => false,

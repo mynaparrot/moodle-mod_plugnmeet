@@ -45,6 +45,7 @@ $action = optional_param('action', '', PARAM_TEXT);
 $artifactid = optional_param('artifact_id', '', PARAM_TEXT);
 
 if ($action === 'delete') {
+    require_sesskey();
     require_capability('mod/plugnmeet:deleteartifacts', $context);
     $controller->delete_artifact($artifactid);
 } else if ($action === 'download') {

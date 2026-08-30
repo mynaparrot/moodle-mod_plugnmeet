@@ -83,7 +83,7 @@ $entitybody = file_get_contents('php://input');
 $our = hash('sha256', $entitybody, true);
 $senthash = base64_decode($deco->sha256);
 
-if ($our !== $senthash) {
+if (!hash_equals($senthash, $our)) {
     http_response_code(401);
     return;
 }

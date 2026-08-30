@@ -66,6 +66,9 @@ class is_room_active extends external_api {
         $context = context_module::instance($cm->id);
         self::validate_context($context);
 
+        // Enforce capability (services.php declarations are metadata only).
+        require_capability('mod/plugnmeet:view', $context);
+
         $instance = $DB->get_record('plugnmeet', ['id' => $instanceid], '*', MUST_EXIST);
         $config = get_config('mod_plugnmeet');
         $response = [

@@ -86,13 +86,15 @@ class get_join_token extends external_api {
             if (empty($guestname) || empty($expiry) || empty($sig)) {
                 return ['status' => false, 'msg' => get_string('invalid_guest_token', 'mod_plugnmeet')];
             }
-            if (empty($plugnmeet->allow_guest)) {
+            // Cap the guest display name length.
+            $guestname = substr(trim($guestname), 0, 100);
+            if (empty($plugnmeet->allow_guest) || empty($plugnmeet->guest_token)) {
                 return ['status' => false, 'msg' => get_string('guest_access_denied', 'mod_plugnmeet')];
             }
 
             // 2. Validate Signature.
             $expectedsig = sha1($cm->id . $plugnmeet->guest_token . $expiry);
-            if ($sig !== $expectedsig) {
+            if (!hash_equals($expectedsig, $sig)) {
                 return ['status' => false, 'msg' => get_string('invalid_guest_token', 'mod_plugnmeet')];
             }
 

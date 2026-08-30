@@ -43,6 +43,7 @@ $controller = new recordings_controller($cm, $course, $plugnmeet);
 
 $action = optional_param('action', '', PARAM_ALPHA);
 if ($action === 'delete') {
+    require_sesskey();
     require_capability('mod/plugnmeet:deleterecording', $context);
     $recordingid = required_param('recording_id', PARAM_TEXT);
     $controller->delete_recording($recordingid);

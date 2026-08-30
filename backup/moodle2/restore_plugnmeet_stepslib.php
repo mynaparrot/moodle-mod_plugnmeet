@@ -29,6 +29,7 @@ use restore_activity_structure_step;
 use restore_path_element;
 use mod_plugnmeet\helper\ExtensionManager;
 use mod_plugnmeet\helper\RoomHelper;
+use mod_plugnmeet\helper\plugNmeetConnect;
 use Exception;
 
 defined('MOODLE_INTERNAL') || die();
@@ -83,6 +84,15 @@ class restore_plugnmeet_activity_structure_step extends restore_activity_structu
 
         // Reset some fields that shouldn't be copied or need fresh values.
         $data->eventid = 0; // Fresh calendar event will be created later if needed.
+
+        // Security: never restore the raw guest secret from the backup. Generate a fresh token so
+        // old guest join links from the source site can no longer be reused on the restored site.
+        // This also covers new backups that no longer export guest_token at all (property absent).
+        if (!empty($data->allow_guest)) {
+            $data->guest_token = plugNmeetConnect::generateUuid4();
+        } else {
+            $data->guest_token = null;
+        }
 
         // Insert the plugnmeet record.
         $newid = $DB->insert_record('plugnmeet', $data);

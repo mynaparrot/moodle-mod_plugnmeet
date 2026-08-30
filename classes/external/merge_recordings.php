@@ -68,6 +68,9 @@ class merge_recordings extends external_api {
         $context = context_module::instance($cm->id);
         self::validate_context($context);
 
+        // Enforce capability (services.php declarations are metadata only).
+        require_capability('mod/plugnmeet:manage', $context);
+
         $instance = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
         $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
 

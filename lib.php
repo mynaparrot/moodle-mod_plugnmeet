@@ -610,7 +610,6 @@ function get_plugnmeet_config() {
         $plugnmeetconfig['designCustomization'] = $designcustomization;
     }
 
-    $jsonconfig = json_encode($plugnmeetconfig, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    $js = "window.plugNmeetConfig = JSON.parse(`" . addslashes($jsonconfig) . "`);";
+    $js = "window.plugNmeetConfig = " . json_encode($plugnmeetconfig, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . ";";
     return "<script type=\"text/javascript\">\n" . $js . "\n</script>\n";
 }

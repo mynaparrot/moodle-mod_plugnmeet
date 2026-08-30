@@ -121,6 +121,7 @@ class recordings_controller {
                 'action' => 'delete',
                 'recording_id' => $recordid,
                 'page' => $page,
+                'sesskey' => sesskey(),
             ]))->out(false),
             'back_url' => (new moodle_url('/mod/plugnmeet/recordings.php', [
                 'id' => $this->cm->id,

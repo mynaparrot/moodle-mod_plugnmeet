@@ -153,6 +153,7 @@ class artifacts_controller {
                 'action' => 'delete',
                 'artifact_id' => $artifactid,
                 'page' => $page,
+                'sesskey' => sesskey(),
             ]))->out(false),
 
             'back_url' => (new moodle_url('/mod/plugnmeet/artifacts.php', [

@@ -51,7 +51,7 @@ class backup_plugnmeet_activity_structure_step extends backup_activity_structure
             'name', 'roomid', 'welcomemessage', 'maxparticipants', 'roommetadata',
             'timecreated', 'timemodified', 'intro', 'introformat',
             'available', 'deadline', 'usermodified', 'grade', 'eventid',
-            'allow_guest', 'guest_token',
+            'allow_guest',
             'completionminutes', 'completionraisedhand', 'completionchatmessages',
             'completionwebcam', 'completionwebcamduration', 'completionmic',
             'completionmicduration', 'completiontalkduration', 'completionpollvoted',

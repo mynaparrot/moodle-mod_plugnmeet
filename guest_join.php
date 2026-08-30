@@ -51,13 +51,13 @@ $cm = get_coursemodule_from_id('plugnmeet', $id, 0, false, MUST_EXIST);
 $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
 
 // 2. Activity-level Security Check: Is guest access enabled for this room?
-if (empty($plugnmeet->allow_guest)) {
+if (empty($plugnmeet->allow_guest) || empty($plugnmeet->guest_token)) {
     throw new moodle_exception('guest_access_denied', 'mod_plugnmeet');
 }
 
 // 3. Validate Signature.
 $expectedsig = sha1($cm->id . $plugnmeet->guest_token . $expiry);
-if ($sig !== $expectedsig) {
+if (!hash_equals($expectedsig, $sig)) {
     throw new moodle_exception('invalid_guest_token', 'mod_plugnmeet');
 }
 
