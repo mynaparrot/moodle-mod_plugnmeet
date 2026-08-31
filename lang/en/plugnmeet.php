@@ -435,7 +435,6 @@ $string['analytics_room_recording_status'] = 'Recording Status Count';
 $string['analytics_room_rtmp_status'] = 'RTMP Status Count';
 $string['analytics_room_speech_service_total_usage'] = 'Speech Service Total Usage';
 $string['analytics_room_external_media_player_status'] = 'External Media Player Status Count';
-$string['analytics_room_etherpad_status'] = 'Etherpad Status Count'; // TODO: remove as deprecated
 $string['analytics_room_shared_notepad_status'] = 'Notepad Status Count';
 $string['analytics_room_external_display_link_status'] = 'External Display Link Status Count';
 $string['analytics_room_ingress_created'] = 'Ingress Created Count';
