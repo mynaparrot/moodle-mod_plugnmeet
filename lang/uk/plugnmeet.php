@@ -435,7 +435,6 @@ $string['analytics_room_recording_status'] = 'Кількість станів з
 $string['analytics_room_rtmp_status'] = 'Кількість статусів RTMP';
 $string['analytics_room_speech_service_total_usage'] = 'Загальне використання служби мовлення';
 $string['analytics_room_external_media_player_status'] = 'Кількість станів зовнішнього медіаплеєра';
-$string['analytics_room_etherpad_status'] = 'Кількість статусів Etherpad'; // TODO: remove as deprecated
 $string['analytics_room_shared_notepad_status'] = 'Підрахунок статусу блокнота';
 $string['analytics_room_external_display_link_status'] = 'Кількість статусів посилань на зовнішній дисплей';
 $string['analytics_room_ingress_created'] = 'Кількість створених вхідних даних';
