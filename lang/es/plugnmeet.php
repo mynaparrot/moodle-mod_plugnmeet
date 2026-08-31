@@ -435,7 +435,6 @@ $string['analytics_room_recording_status'] = 'Cantidad de estado de grabación';
 $string['analytics_room_rtmp_status'] = 'Recuento de estado de RTMP';
 $string['analytics_room_speech_service_total_usage'] = 'Uso total del servicio de voz';
 $string['analytics_room_external_media_player_status'] = 'Recuento de estado del reproductor multimedia externo';
-$string['analytics_room_etherpad_status'] = 'Recuento de estado de Etherpad'; // TODO: remove as deprecated
 $string['analytics_room_shared_notepad_status'] = 'Recuento de estado del bloc de notas';
 $string['analytics_room_external_display_link_status'] = 'Recuento de estado del enlace de visualización externa';
 $string['analytics_room_ingress_created'] = 'Recuento de entradas creadas';
