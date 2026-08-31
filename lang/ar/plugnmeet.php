@@ -435,7 +435,6 @@ $string['analytics_room_recording_status'] = 'عدد حالات التسجيل';
 $string['analytics_room_rtmp_status'] = 'عدد حالات RTMP';
 $string['analytics_room_speech_service_total_usage'] = 'إجمالي استخدام خدمة الكلام';
 $string['analytics_room_external_media_player_status'] = 'عدد حالات مشغل الوسائط الخارجية';
-$string['analytics_room_etherpad_status'] = 'عدد حالات Etherpad'; // TODO: remove as deprecated
 $string['analytics_room_shared_notepad_status'] = 'عدد حالة دفتر الملاحظات';
 $string['analytics_room_external_display_link_status'] = 'عدد حالات رابط العرض الخارجي';
 $string['analytics_room_ingress_created'] = 'عدد مرات إنشاء الدخول';
