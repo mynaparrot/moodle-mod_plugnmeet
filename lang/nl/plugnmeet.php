@@ -435,7 +435,6 @@ $string['analytics_room_recording_status'] = 'Registratiestatus Aantal';
 $string['analytics_room_rtmp_status'] = 'RTMP-statustelling';
 $string['analytics_room_speech_service_total_usage'] = 'Totaal gebruik van de spraakservice';
 $string['analytics_room_external_media_player_status'] = 'Status van externe mediaspeler';
-$string['analytics_room_etherpad_status'] = 'Etherpad-statusteller'; // TODO: remove as deprecated
 $string['analytics_room_shared_notepad_status'] = 'Notitieblok Statusaantal';
 $string['analytics_room_external_display_link_status'] = 'Status van externe beeldschermlink';
 $string['analytics_room_ingress_created'] = 'Aantal aangemaakte ingress-bestanden';
