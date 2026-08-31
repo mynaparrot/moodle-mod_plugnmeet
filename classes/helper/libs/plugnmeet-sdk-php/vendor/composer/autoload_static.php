@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a
+class ComposerStaticInitff3590fad67acc6d0b8839c029a4b099
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -228,6 +228,7 @@ class ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a
         'Google\\Protobuf\\Internal\\EnumDescriptorProto' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/EnumDescriptorProto.php',
         'Google\\Protobuf\\Internal\\EnumDescriptorProto\\EnumReservedRange' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/EnumDescriptorProto/EnumReservedRange.php',
         'Google\\Protobuf\\Internal\\EnumOptions' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/EnumOptions.php',
+        'Google\\Protobuf\\Internal\\EnumValueDescriptor' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/EnumValueDescriptor.php',
         'Google\\Protobuf\\Internal\\EnumValueDescriptorProto' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/EnumValueDescriptorProto.php',
         'Google\\Protobuf\\Internal\\EnumValueOptions' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/EnumValueOptions.php',
         'Google\\Protobuf\\Internal\\ExtensionRangeOptions' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/ExtensionRangeOptions.php',
@@ -241,6 +242,8 @@ class ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a
         'Google\\Protobuf\\Internal\\FeatureSet\\FieldPresence' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/FeatureSet/FieldPresence.php',
         'Google\\Protobuf\\Internal\\FeatureSet\\JsonFormat' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/FeatureSet/JsonFormat.php',
         'Google\\Protobuf\\Internal\\FeatureSet\\MessageEncoding' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/FeatureSet/MessageEncoding.php',
+        'Google\\Protobuf\\Internal\\FeatureSet\\ProtoLimitsFeature' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/FeatureSet/ProtoLimitsFeature.php',
+        'Google\\Protobuf\\Internal\\FeatureSet\\ProtoLimitsFeature\\EnforceProtoLimits' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/FeatureSet/ProtoLimitsFeature/EnforceProtoLimits.php',
         'Google\\Protobuf\\Internal\\FeatureSet\\RepeatedFieldEncoding' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/FeatureSet/RepeatedFieldEncoding.php',
         'Google\\Protobuf\\Internal\\FeatureSet\\Utf8Validation' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/FeatureSet/Utf8Validation.php',
         'Google\\Protobuf\\Internal\\FeatureSet\\VisibilityFeature' => __DIR__ . '/..' . '/google/protobuf/src/Google/Protobuf/Internal/FeatureSet/VisibilityFeature.php',
@@ -525,11 +528,10 @@ class ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a
         'Mynaparrot\\PlugnmeetProto\\BroadcastToRoomChatMessage' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BroadcastToRoomChatMessage.php',
         'Mynaparrot\\PlugnmeetProto\\BroadcastToRoomNotificationMsg' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BroadcastToRoomNotificationMsg.php',
         'Mynaparrot\\PlugnmeetProto\\BroadcastToRoomReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BroadcastToRoomReq.php',
-        'Mynaparrot\\PlugnmeetProto\\ChangeEtherpadStatusReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChangeEtherpadStatusReq.php',
+        'Mynaparrot\\PlugnmeetProto\\ChangeSharedNotepadStatusReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChangeSharedNotepadStatusReq.php',
         'Mynaparrot\\PlugnmeetProto\\ChangeVisibilityRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChangeVisibilityRes.php',
         'Mynaparrot\\PlugnmeetProto\\ChatFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChatFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\ChatMessage' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChatMessage.php',
-        'Mynaparrot\\PlugnmeetProto\\CleanEtherpadReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CleanEtherpadReq.php',
         'Mynaparrot\\PlugnmeetProto\\ClientType' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ClientType.php',
         'Mynaparrot\\PlugnmeetProto\\ClosePollReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ClosePollReq.php',
         'Mynaparrot\\PlugnmeetProto\\CloudRecordingVariants' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CloudRecordingVariants.php',
@@ -537,7 +539,6 @@ class ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a
         'Mynaparrot\\PlugnmeetProto\\CommonResponse' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CommonResponse.php',
         'Mynaparrot\\PlugnmeetProto\\CopyrightConf' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CopyrightConf.php',
         'Mynaparrot\\PlugnmeetProto\\CreateBreakoutRoomsReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreateBreakoutRoomsReq.php',
-        'Mynaparrot\\PlugnmeetProto\\CreateEtherpadSessionRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreateEtherpadSessionRes.php',
         'Mynaparrot\\PlugnmeetProto\\CreateIngressReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreateIngressReq.php',
         'Mynaparrot\\PlugnmeetProto\\CreateIngressRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreateIngressRes.php',
         'Mynaparrot\\PlugnmeetProto\\CreatePollOptions' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreatePollOptions.php',
@@ -597,6 +598,7 @@ class ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a
         'Mynaparrot\\PlugnmeetProto\\InsightsAIFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/InsightsAIFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\InsightsAIMeetingSummarizationConfigReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/InsightsAIMeetingSummarizationConfigReq.php',
         'Mynaparrot\\PlugnmeetProto\\InsightsAIMeetingSummarizationFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/InsightsAIMeetingSummarizationFeatures.php',
+        'Mynaparrot\\PlugnmeetProto\\InsightsAIRequestSource' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/InsightsAIRequestSource.php',
         'Mynaparrot\\PlugnmeetProto\\InsightsAITextChatConfigReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/InsightsAITextChatConfigReq.php',
         'Mynaparrot\\PlugnmeetProto\\InsightsAITextChatContent' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/InsightsAITextChatContent.php',
         'Mynaparrot\\PlugnmeetProto\\InsightsAITextChatFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/InsightsAITextChatFeatures.php',
@@ -694,6 +696,8 @@ class ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a
         'Mynaparrot\\PlugnmeetProto\\RoomMetadata' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RoomMetadata.php',
         'Mynaparrot\\PlugnmeetProto\\RoomUploadedFileMetadata' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RoomUploadedFileMetadata.php',
         'Mynaparrot\\PlugnmeetProto\\RoomUploadedFileType' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RoomUploadedFileType.php',
+        'Mynaparrot\\PlugnmeetProto\\SessionDataHeader' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SessionDataHeader.php',
+        'Mynaparrot\\PlugnmeetProto\\SessionDataType' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SessionDataType.php',
         'Mynaparrot\\PlugnmeetProto\\SharedNotePadFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SharedNotePadFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\SipDialInFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SipDialInFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\SpeechServiceEvent' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/SpeechServiceEvent.php',
@@ -896,9 +900,9 @@ class ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit550f2996e66fa0c3112fca70ac86bf9a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitff3590fad67acc6d0b8839c029a4b099::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitff3590fad67acc6d0b8839c029a4b099::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitff3590fad67acc6d0b8839c029a4b099::$classMap;
 
         }, null, ClassLoader::class);
     }
