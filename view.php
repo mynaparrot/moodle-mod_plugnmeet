@@ -52,7 +52,25 @@ $contextdata = [
     'can_manage' => $canmanage,
 ];
 
-if ($canmanage) {
+$timenow = time();
+$available = true;
+$availabilitymsg = '';
+
+if ($plugnmeet->available && $timenow < $plugnmeet->available) {
+    $available = false;
+    $availabilitymsg .= \html_writer::div(get_string('session_available_from', 'mod_plugnmeet', userdate($plugnmeet->available)), 'availabilityinfo font-weight-bold mb-2');
+    if (!$canmanage) {
+        $availabilitymsg .= \html_writer::div(get_string('session_not_started_yet', 'mod_plugnmeet'), 'alert alert-warning');
+    }
+}
+
+if ($plugnmeet->deadline && $timenow > $plugnmeet->deadline) {
+    $available = false;
+    $availabilitymsg .= \html_writer::div(get_string('session_available_until', 'mod_plugnmeet', userdate($plugnmeet->deadline)), 'availabilityinfo font-weight-bold mb-2');
+    $availabilitymsg .= \html_writer::div(get_string('session_ended', 'mod_plugnmeet'), 'alert alert-danger');
+}
+
+if ($canmanage && $available) {
     $PAGE->requires->js_call_amd('mod_plugnmeet/end_room_button', 'init', [['cmid' => $cm->id]]);
 
     // Use the file_picker class to generate the options object.
@@ -75,26 +93,6 @@ if ($canmanage) {
 
     // Load the AMD module and tell it which button to initialize.
     $PAGE->requires->js_call_amd('mod_plugnmeet/file_picker_button', 'init', ['#upload_whiteboard_button']);
-}
-
-echo $OUTPUT->header();
-
-$timenow = time();
-$available = true;
-$availabilitymsg = '';
-
-if ($plugnmeet->available && $timenow < $plugnmeet->available) {
-    $available = false;
-    $availabilitymsg .= \html_writer::div(get_string('session_available_from', 'mod_plugnmeet', userdate($plugnmeet->available)), 'availabilityinfo font-weight-bold mb-2');
-    if (!$canmanage) {
-        $availabilitymsg .= \html_writer::div(get_string('session_not_started_yet', 'mod_plugnmeet'), 'alert alert-warning');
-    }
-}
-
-if ($plugnmeet->deadline && $timenow > $plugnmeet->deadline) {
-    $available = false;
-    $availabilitymsg .= \html_writer::div(get_string('session_available_until', 'mod_plugnmeet', userdate($plugnmeet->deadline)), 'availabilityinfo font-weight-bold mb-2');
-    $availabilitymsg .= \html_writer::div(get_string('session_ended', 'mod_plugnmeet'), 'alert alert-danger');
 }
 
 $contextdata['availability_message'] = $availabilitymsg;
@@ -126,6 +124,8 @@ if ($canmanage && $allowglobal && !empty($plugnmeet->allow_guest) && !empty($plu
     $contextdata['guest_link_url'] = $guestjoinurl->out(false);
     $contextdata['guest_link_help'] = get_string('guest_join_link_help', 'mod_plugnmeet', $durationhours);
 }
+
+echo $OUTPUT->header();
 
 echo $OUTPUT->render_from_template('mod_plugnmeet/view', $contextdata);
 
