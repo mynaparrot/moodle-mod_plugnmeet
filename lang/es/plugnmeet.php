@@ -105,8 +105,8 @@ $string['copyright_text'] = 'Texto de derechos de autor';
 $string['copyright_text_des'] = 'Texto de marca que se muestra en el pie de página de la configuración. Se admite HTML para enlaces o estilos personalizados.';
 $string['client_load'] = 'Método de carga del cliente';
 $string['client_load_des'] = 'Elija **Remoto** (Recomendado) para una experiencia fluida y de marca integrada directamente en su página de Moodle. Elija **Redireccionar** para usar la interfaz predeterminada de plugNmeet; tenga en cuenta que los usuarios abandonarán su sitio y la marca personalizada podría no aplicarse.';
-$string['remote'] = 'Remoto (incrustado)';
-$string['redirect'] = 'Redireccionar al servidor';
+$string['remote'] = 'Remoto (Embebido)';
+$string['redirect'] = 'Redirigir al servidor';
 
 $string['yes'] = 'Sí';
 $string['no'] = 'No';
