@@ -107,6 +107,11 @@ try {
     $webhook = new CommonNotifyEvent();
     $webhook->mergeFromJsonString($entitybody, true);
 
+    if ($plugnmeet->roomid !== $webhook->getRoom()?->getRoomId()) {
+        http_response_code(400);
+        return;
+    }
+
     $context = context_module::instance($cm->id);
     $eventtype = $webhook->getEvent();
     $sid = $webhook->getRoom()?->getSid();
