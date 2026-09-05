@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.0.13](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.12...v3.0.13) (2026-09-05)
+
+
+### Bug Fixes
+
+* bump SDK ([6dab1d8](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/6dab1d8c743216619672970000533d4a40486e8d))
+* don't load picker when activity no longer available, fixed: [#108](https://github.com/mynaparrot/moodle-mod_plugnmeet/issues/108) ([55fb3e8](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/55fb3e84eafb92c44001b730f21b32c1da2e17e7))
+* grade will be calculating only when point is set ([fa8f35b](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/fa8f35b15d60b733db37c4337b714cd4a2814734))
+* handle `GRADE_TYPE_NONE` when nothing set. fixed: [#105](https://github.com/mynaparrot/moodle-mod_plugnmeet/issues/105) ([f586413](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/f58641352334863156fae24462d69ff0c7249757))
+* improved various validation ([69f878b](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/69f878be401c8977b55c7ac04d4242a42bc02918))
+* **locale:** new Crowdin updates ([f94deaa](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/f94deaad6164d8f4dee7ee799fffe9b8ecbb8e24))
+* removed confusing field ([e52ba10](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/e52ba1019c56c84c3c5e337496665619b10904cc))
+* validate roomId in webhook ([bb0f990](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/bb0f990d8d145984ba060cc45908e3d11f0f346d))
+
 ## [3.0.12](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.11...v3.0.12) (2026-08-12)
 
 
