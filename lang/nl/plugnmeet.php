@@ -553,5 +553,5 @@ $string['select_source'] = 'Selecteer bron';
 $string['source_quiz'] = 'Quiz';
 $string['source_question_bank'] = 'Vragenbank';
 $string['select_category'] = 'Selecteer categorie';
-$string['no_categories_found'] = 'No question categories found';
-$string['invalid_question_category'] = 'The question category does not exist or cannot be used as a poll source for this activity.';
+$string['no_categories_found'] = 'Geen vragen gevonden categorieën';
+$string['invalid_question_category'] = 'De vraagcategorie bestaat niet en kan niet worden gebruikt als pollbron voor deze activiteit.';
