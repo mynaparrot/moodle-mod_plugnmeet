@@ -553,5 +553,5 @@ $string['select_source'] = 'Выберите источник';
 $string['source_quiz'] = 'Викторина';
 $string['source_question_bank'] = 'Банк вопросов';
 $string['select_category'] = 'Выбранная категория';
-$string['no_categories_found'] = 'No question categories found';
-$string['invalid_question_category'] = 'The question category does not exist or cannot be used as a poll source for this activity.';
+$string['no_categories_found'] = 'Категории вопросов не найдены';
+$string['invalid_question_category'] = 'Категория вопросов не существует и не может использоваться как источник опроса для этой активности.';
