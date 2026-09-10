@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitff3590fad67acc6d0b8839c029a4b099
+class ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -520,6 +520,8 @@ class ComposerStaticInitff3590fad67acc6d0b8839c029a4b099
         'Mynaparrot\\PlugnmeetProto\\ArtifactInfo' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ArtifactInfo.php',
         'Mynaparrot\\PlugnmeetProto\\ArtifactInfoReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ArtifactInfoReq.php',
         'Mynaparrot\\PlugnmeetProto\\ArtifactInfoRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ArtifactInfoRes.php',
+        'Mynaparrot\\PlugnmeetProto\\BackToMainRoomReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BackToMainRoomReq.php',
+        'Mynaparrot\\PlugnmeetProto\\BackToMainRoomRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BackToMainRoomRes.php',
         'Mynaparrot\\PlugnmeetProto\\BreakoutRoom' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BreakoutRoom.php',
         'Mynaparrot\\PlugnmeetProto\\BreakoutRoomFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BreakoutRoomFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\BreakoutRoomRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/BreakoutRoomRes.php',
@@ -543,6 +545,7 @@ class ComposerStaticInitff3590fad67acc6d0b8839c029a4b099
         'Mynaparrot\\PlugnmeetProto\\CreateIngressRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreateIngressRes.php',
         'Mynaparrot\\PlugnmeetProto\\CreatePollOptions' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreatePollOptions.php',
         'Mynaparrot\\PlugnmeetProto\\CreatePollReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreatePollReq.php',
+        'Mynaparrot\\PlugnmeetProto\\CreatePollRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreatePollRes.php',
         'Mynaparrot\\PlugnmeetProto\\CreateRoomReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreateRoomReq.php',
         'Mynaparrot\\PlugnmeetProto\\CreateRoomRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CreateRoomRes.php',
         'Mynaparrot\\PlugnmeetProto\\CustomDesignParams' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CustomDesignParams.php',
@@ -631,6 +634,7 @@ class ComposerStaticInitff3590fad67acc6d0b8839c029a4b099
         'Mynaparrot\\PlugnmeetProto\\MergeRecordingsByIds' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsByIds.php',
         'Mynaparrot\\PlugnmeetProto\\MergeRecordingsByRoomSession' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsByRoomSession.php',
         'Mynaparrot\\PlugnmeetProto\\MergeRecordingsReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MergeRecordingsReq.php',
+        'Mynaparrot\\PlugnmeetProto\\MoveBreakoutRoomUserReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MoveBreakoutRoomUserReq.php',
         'Mynaparrot\\PlugnmeetProto\\MuteUnMuteTrackReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/MuteUnMuteTrackReq.php',
         'Mynaparrot\\PlugnmeetProto\\NativeBridgeActions' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeActions.php',
         'Mynaparrot\\PlugnmeetProto\\NativeBridgeE2EE' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/NativeBridgeE2EE.php',
@@ -663,9 +667,12 @@ class ComposerStaticInitff3590fad67acc6d0b8839c029a4b099
         'Mynaparrot\\PlugnmeetProto\\PollResponse' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollResponse.php',
         'Mynaparrot\\PlugnmeetProto\\PollResponsesResult' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollResponsesResult.php',
         'Mynaparrot\\PlugnmeetProto\\PollResponsesResultOptions' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollResponsesResultOptions.php',
+        'Mynaparrot\\PlugnmeetProto\\PollShare' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollShare.php',
         'Mynaparrot\\PlugnmeetProto\\PollsFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollsFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\PollsStats' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PollsStats.php',
+        'Mynaparrot\\PlugnmeetProto\\PreassignedBreakoutRoom' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PreassignedBreakoutRoom.php',
         'Mynaparrot\\PlugnmeetProto\\PrivateDataDelivery' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/PrivateDataDelivery.php',
+        'Mynaparrot\\PlugnmeetProto\\ReInviteBreakoutRoomReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ReInviteBreakoutRoomReq.php',
         'Mynaparrot\\PlugnmeetProto\\RecorderBotOptions' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecorderBotOptions.php',
         'Mynaparrot\\PlugnmeetProto\\RecorderInfoKeys' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecorderInfoKeys.php',
         'Mynaparrot\\PlugnmeetProto\\RecorderToPlugNmeet' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecorderToPlugNmeet.php',
@@ -680,6 +687,7 @@ class ComposerStaticInitff3590fad67acc6d0b8839c029a4b099
         'Mynaparrot\\PlugnmeetProto\\RecordingSubtitle' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecordingSubtitle.php',
         'Mynaparrot\\PlugnmeetProto\\RecordingTasks' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RecordingTasks.php',
         'Mynaparrot\\PlugnmeetProto\\RemoveParticipantReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RemoveParticipantReq.php',
+        'Mynaparrot\\PlugnmeetProto\\ReopenPollReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ReopenPollReq.php',
         'Mynaparrot\\PlugnmeetProto\\RoomArtifactCharacterCountUsage' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RoomArtifactCharacterCountUsage.php',
         'Mynaparrot\\PlugnmeetProto\\RoomArtifactDurationUsage' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RoomArtifactDurationUsage.php',
         'Mynaparrot\\PlugnmeetProto\\RoomArtifactFileInfo' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/RoomArtifactFileInfo.php',
@@ -724,6 +732,7 @@ class ComposerStaticInitff3590fad67acc6d0b8839c029a4b099
         'Mynaparrot\\PlugnmeetProto\\VerifyTokenRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/VerifyTokenRes.php',
         'Mynaparrot\\PlugnmeetProto\\WaitingRoomFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/WaitingRoomFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\WhiteboardFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/WhiteboardFeatures.php',
+        'Mynaparrot\\PlugnmeetProto\\WhiteboardShare' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/WhiteboardShare.php',
         'Mynaparrot\\Plugnmeet\\AnalyticsFormatter' => __DIR__ . '/../..' . '/src/AnalyticsFormatter.php',
         'Mynaparrot\\Plugnmeet\\GuzzleHttpClient' => __DIR__ . '/../..' . '/src/GuzzleHttpClient.php',
         'Mynaparrot\\Plugnmeet\\HttpClientInterface' => __DIR__ . '/../..' . '/src/HttpClientInterface.php',
@@ -900,9 +909,9 @@ class ComposerStaticInitff3590fad67acc6d0b8839c029a4b099
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitff3590fad67acc6d0b8839c029a4b099::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitff3590fad67acc6d0b8839c029a4b099::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitff3590fad67acc6d0b8839c029a4b099::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718::$classMap;
 
         }, null, ClassLoader::class);
     }

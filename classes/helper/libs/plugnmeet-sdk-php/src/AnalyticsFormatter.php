@@ -57,8 +57,8 @@ class AnalyticsFormatter
     protected array $roomFields = [
         "room_id", "room_title", "room_creation", "room_ended", "room_duration",
         "room_total_users", "enabled_e2ee", "recording_status", "rtmp_status",
-        "external_media_player_status", "shared_notepad_status",
-        "external_display_link_status", "ingress_created", "breakout_room",
+        "shared_notepad_status", "ingress_created", "breakout_room",
+        "external_display_link_status", "external_media_player_status",
     ];
 
     /**

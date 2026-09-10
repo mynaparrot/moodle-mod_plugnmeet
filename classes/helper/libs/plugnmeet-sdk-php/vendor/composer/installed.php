@@ -1,8 +1,8 @@
 <?php return array(
     'root' => array(
         'name' => 'mynaparrot/plugnmeet-sdk',
-        'pretty_version' => '2.2.6',
-        'version' => '2.2.6.0',
+        'pretty_version' => '2.2.7',
+        'version' => '2.2.7.0',
         'reference' => null,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'google/protobuf' => array(
-            'pretty_version' => 'v5.36.0',
-            'version' => '5.36.0.0',
-            'reference' => '9c105104b54709ecd902494ab340ed2122789b2d',
+            'pretty_version' => 'v5.36.1',
+            'version' => '5.36.1.0',
+            'reference' => 'd64d16befba8632967f604b9644c0bb8f64cfbc3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../google/protobuf',
             'aliases' => array(),
@@ -65,8 +65,8 @@
             'dev_requirement' => false,
         ),
         'mynaparrot/plugnmeet-sdk' => array(
-            'pretty_version' => '2.2.6',
-            'version' => '2.2.6.0',
+            'pretty_version' => '2.2.7',
+            'version' => '2.2.7.0',
             'reference' => null,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
