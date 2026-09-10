@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = 'Autoriser les salles de sous-commission';
 $string['allow_breakout_rooms_help'] = 'Permet aux modérateurs de diviser les participants en petits groupes pour des discussions ciblées, des projets collaboratifs ou des activités de groupe privées.';
 $string['allowed_number_rooms'] = 'Nombre max de salles de sous-commission';
 $string['allowed_number_rooms_help'] = 'Le nombre maximum de sous-salles qu\'un modérateur peut créer au sein d\'une seule session.';
+$string['preassign_breakout_rooms'] = 'Pré-assigner des salles de groupes de cours';
+$string['preassign_breakout_rooms_help'] = 'Une fois activé, chaque groupe de cours devient une salle de travail au début de la session : le titre de la salle est le nom du groupe et les membres du groupe y sont automatiquement attribués. Le modérateur peut réarranger ou supprimer ces affectations à tout moment dans la gestion de la salle de groupe de la réunion. Les utilisateurs qui ne font pas partie d’aucun groupe peuvent être assignés par le modérateur pendant la session. Cela prend effet dès le début de la prochaine session, car les détails de la salle sont fixés lors de la création de la salle. Nécessite que le cours comporte des groupes.';
 
 $string['allow_display_external_link_features'] = 'Autoriser le partage de liens externes';
 $string['allow_display_external_link_features_help'] = 'Permet aux modérateurs d\'afficher du contenu éducatif externe — tel que des activités H5P, des paquets SCORM ou des systèmes de quiz (par exemple, Kahoot) — directement à tous les participants pendant la session.';
