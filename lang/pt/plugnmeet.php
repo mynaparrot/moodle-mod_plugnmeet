@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = 'Permitir salas de breakout';
 $string['allow_breakout_rooms_help'] = 'Permite que os moderadores dividam os participantes em grupos menores para discussões focadas, projetos colaborativos ou atividades de grupo privadas.';
 $string['allowed_number_rooms'] = 'Máximo de salas de breakout';
 $string['allowed_number_rooms_help'] = 'O número máximo de sub-salas que um moderador pode criar dentro de uma única sessão.';
+$string['preassign_breakout_rooms'] = 'Pré-atribuir salas de grupo de grupos de cursos';
+$string['preassign_breakout_rooms_help'] = 'Quando ativado, cada grupo do curso torna-se uma sala de grupos quando a sessão começa: o nome da sala é o nome do grupo e os membros do grupo são automaticamente atribuídos a ele. O moderador pode reorganizar ou remover estas atribuições a qualquer momento na gestão da sala de grupos da reunião. Utilizadores que não estejam em nenhum grupo podem ser designados pelo moderador durante a sessão. Isto entra em vigor a partir do início da sessão seguinte, porque os detalhes da sala são fixos quando a sala é criada. Exige que o curso tenha grupos.';
 
 $string['allow_display_external_link_features'] = 'Permitir compartilhamento de link externo';
 $string['allow_display_external_link_features_help'] = 'Permite que os moderadores exibam conteúdo educacional externo — como atividades H5P, pacotes SCORM ou sistemas de quiz (por exemplo, Kahoot) — diretamente para todos os participantes durante a sessão.';
@@ -530,3 +532,26 @@ $string['upload_to_whiteboard_success'] = 'Carreguei com sucesso o ficheiro sele
 $string['uploading_file'] = 'A carregar ficheiros...';
 $string['file_not_found'] = 'Ficheiro solicitado não encontrado';
 $string['error_file_copy'] = 'Erro durante a cópia do ficheiro';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Adicionar Inquérito a partir do Quiz';
+$string['create_poll'] = 'Create Poll';
+$string['select_quiz'] = 'Quiz Selecionado';
+$string['select_question'] = 'Pergunta Selecionada';
+$string['poll_created'] = 'Sondagem criada com sucesso';
+$string['poll_creation_failed'] = 'Falhou na criação da sondagem: {$a}';
+$string['no_valid_questions'] = 'Este questionário não tem perguntas válidas (apenas são suportadas respostas múltiplas de escolha única e verdadeiro/falso)';
+$string['poll_is_quiz'] = 'Esconder respostas corretas durante a sondagem';
+$string['poll_is_anonymous'] = 'Voto anónimo';
+$string['poll_duration'] = 'Fecho automático após (segundos, 0 = sem limite)';
+$string['no_quizzes_found'] = 'Não há questionários neste curso';
+$string['room_not_active'] = 'A sala deve estar ativa para criar sondagens';
+$string['polls_not_allowed'] = 'As votações não estão ativadas para esta sala';
+$string['poll_invalid_question'] = 'A pergunta selecionada não pode ser convertida numa sondagem.';
+$string['poll_question_tie'] = 'Esta pergunta tem mais do que uma opção com a mesma pontuação máxima e não pode ser convertida numa sondagem.';
+$string['select_source'] = 'Selecionar Fonte';
+$string['source_quiz'] = 'Quiz';
+$string['source_question_bank'] = 'Banco de Perguntas';
+$string['select_category'] = 'Categoria Selecionada';
+$string['no_categories_found'] = 'Sem categorias de perguntas encontradas';
+$string['invalid_question_category'] = 'A categoria de perguntas não existe ou não pode ser usada como fonte de sondagem para esta atividade.';

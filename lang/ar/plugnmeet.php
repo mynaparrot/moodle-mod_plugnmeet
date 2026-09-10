@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = 'السماح بغرف المجموعات ال
 $string['allow_breakout_rooms_help'] = 'يمكّن المشرفين من تقسيم المشاركين إلى مجموعات أصغر للمناقشات المركزة أو المشاريع التعاونية أو الأنشطة الجماعية الخاصة.';
 $string['allowed_number_rooms'] = 'الحد الأقصى لغرف المجموعات الفرعية';
 $string['allowed_number_rooms_help'] = 'الحد الأقصى لعدد الغرف الفرعية التي يمكن للمشرف إنشاؤها ضمن جلسة واحدة.';
+$string['preassign_breakout_rooms'] = 'تخصيص غرف الفصل المسبقا من مجموعات الدورة';
+$string['preassign_breakout_rooms_help'] = 'عند تفعيلها، تصبح كل مجموعة دورة غرفة تقسيم عند بدء الجلسة: عنوان الغرفة هو اسم المجموعة ويتم تعيين أعضاء المجموعة إليه تلقائيا. يمكن للمشرف إعادة ترتيب أو إزالة هذه التعيينات في أي وقت ضمن إدارة غرفة التقسيم. يمكن للمشرف تعيين المستخدمين غير المنتمين لأي مجموعة أثناء الجلسة. يبدأ هذا من بداية الجلسة التالية، لأن تفاصيل الغرفة تثبت عند إنشاء الغرفة. يتطلب أن يكون للدورة مجموعات.';
 
 $string['allow_display_external_link_features'] = 'السماح بمشاركة الروابط الخارجية';
 $string['allow_display_external_link_features_help'] = 'يسمح للمشرفين بعرض المحتوى التعليمي الخارجي - مثل أنشطة H5P أو حزم SCORM أو أنظمة الاختبارات (مثل Kahoot) - مباشرة لجميع المشاركين أثناء الجلسة.';
@@ -530,3 +532,26 @@ $string['upload_to_whiteboard_success'] = 'تم رفع ملف محدد بنجا�
 $string['uploading_file'] = 'تحميل الملف...';
 $string['file_not_found'] = 'لم يتم العثور على ملف مطلوب';
 $string['error_file_copy'] = 'خطأ أثناء ملف النسخ';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'إضافة استطلاع من المسابقات';
+$string['create_poll'] = 'إنشاء استطلاع';
+$string['select_quiz'] = 'اختبار مختاري';
+$string['select_question'] = 'سؤال اختيار';
+$string['poll_created'] = 'تم إنشاء الاستطلاع بنجاح';
+$string['poll_creation_failed'] = 'فشل في إنشاء استطلاع: {$a}';
+$string['no_valid_questions'] = 'هذا الاختبار لا يحتوي على أسئلة صالحة (فقط خيار من متعدد الإجابة وصحيح/خاطئ مدعومة)';
+$string['poll_is_quiz'] = 'إخفاء الإجابات الصحيحة أثناء الاستطلاع';
+$string['poll_is_anonymous'] = 'التصويت المجهول';
+$string['poll_duration'] = 'إغلاق تلقائي بعد (ثواني، 0 = لا حد)';
+$string['no_quizzes_found'] = 'لا توجد اختبارات في هذه الدورة';
+$string['room_not_active'] = 'يجب أن يكون هناك مجال نشط لإنشاء استطلاعات';
+$string['polls_not_allowed'] = 'الاستطلاعات غير مفعلة لهذه الغرفة';
+$string['poll_invalid_question'] = 'لا يمكن تحويل السؤال المختار إلى استطلاع.';
+$string['poll_question_tie'] = 'هذا السؤال يحتوي على أكثر من خيار واحد بنفس الدرجة الأعلى ولا يمكن تحويله إلى استطلاع.';
+$string['select_source'] = 'مصدر محدد';
+$string['source_quiz'] = 'الاختبار';
+$string['source_question_bank'] = 'بنك الأسئلة';
+$string['select_category'] = 'فئة مختارة';
+$string['no_categories_found'] = 'تم العثور على فئات بدون أسئلة';
+$string['invalid_question_category'] = 'فئة الأسئلة غير موجودة أو لا يمكن استخدامها كمصدر استطلاع لهذا النشاط.';

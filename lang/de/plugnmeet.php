@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = 'Breakout-Räume zulassen';
 $string['allow_breakout_rooms_help'] = 'Ermöglicht Moderatoren, Teilnehmer in kleinere Gruppen für fokussierte Diskussionen, kollaborative Projekte oder private Gruppenaktivitäten aufzuteilen.';
 $string['allowed_number_rooms'] = 'Max. Breakout-Räume';
 $string['allowed_number_rooms_help'] = 'Die maximale Anzahl von Unterräumen, die ein Moderator innerhalb einer einzelnen Sitzung erstellen kann.';
+$string['preassign_breakout_rooms'] = 'Vorab Breakout-Räume von Kursgruppen zuweisen';
+$string['preassign_breakout_rooms_help'] = 'Wenn aktiviert, wird jede Kursgruppe zu einem Breakout-Raum, wenn die Sitzung beginnt: Der Raumtitel ist der Gruppenname und die Gruppenmitglieder werden ihm automatisch zugeordnet. Der Moderator kann diese Zuweisungen jederzeit im Breakout-Raum-Management des Meetings umgestalten oder entfernen. Benutzer, die keiner Gruppe angehören, können während der Sitzung vom Moderator zugewiesen werden. Dies gilt ab Beginn der nächsten Sitzung, da die Raumdetails beim Erstellen des Raums festgelegt werden. Es ist erforderlich, dass der Kurs Gruppen hat.';
 
 $string['allow_display_external_link_features'] = 'Externe Linkfreigabe erlauben';
 $string['allow_display_external_link_features_help'] = 'Ermöglicht Moderatoren, externe Bildungsinhalte – wie H5P-Aktivitäten, SCORM-Pakete oder Quizsysteme (z. B. Kahoot) – während der Sitzung direkt allen Teilnehmern anzuzeigen.';
@@ -530,3 +532,26 @@ $string['upload_to_whiteboard_success'] = 'Ausgewählte Datei erfolgreich auf da
 $string['uploading_file'] = 'Dateihochladen...';
 $string['file_not_found'] = 'Angeforderte Datei nicht gefunden';
 $string['error_file_copy'] = 'Fehler beim Kopieren der Datei';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Umfrage vom Quiz hinzufügen';
+$string['create_poll'] = 'Umfrage erstellen';
+$string['select_quiz'] = 'Auswählendes Quiz';
+$string['select_question'] = 'Frage auswählen';
+$string['poll_created'] = 'Umfrage erfolgreich erstellt';
+$string['poll_creation_failed'] = 'Umfrage nicht erstellt: {$a}';
+$string['no_valid_questions'] = 'Dieses Quiz enthält keine gültigen Fragen (es werden nur Multiple-Choice-Einzelantworten und Wahr/Falsch unterstützt)';
+$string['poll_is_quiz'] = 'Richtige Antworten während der Umfrage aussortieren';
+$string['poll_is_anonymous'] = 'Anonyme Abstimmung';
+$string['poll_duration'] = 'Auto-Close danach (Sekunden, 0 = kein Limit)';
+$string['no_quizzes_found'] = 'In diesem Kurs sind keine Quizze zu finden';
+$string['room_not_active'] = 'Der Raum muss aktiv sein, um Umfragen zu erstellen';
+$string['polls_not_allowed'] = 'Für diesen Raum sind Umfragen nicht aktiviert';
+$string['poll_invalid_question'] = 'Die ausgewählte Frage kann nicht in eine Umfrage umgewandelt werden.';
+$string['poll_question_tie'] = 'Diese Frage hat mehr als eine Option mit derselben höchsten Punktzahl und kann nicht in eine Umfrage umgewandelt werden.';
+$string['select_source'] = 'Quelle auswählen';
+$string['source_quiz'] = 'Quiz';
+$string['source_question_bank'] = 'Fragebank';
+$string['select_category'] = 'Auswahl der Kategorie';
+$string['no_categories_found'] = 'Keine Fragekategorien gefunden';
+$string['invalid_question_category'] = 'Die Fragekategorie existiert nicht und kann nicht als Umfragequelle für diese Aktivität verwendet werden.';

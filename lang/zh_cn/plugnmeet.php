@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = '允许分组讨论室';
 $string['allow_breakout_rooms_help'] = '允许主持人将参与者分成小组，以便进行有针对性的讨论、协作项目或私人小组活动。';
 $string['allowed_number_rooms'] = '最大分组讨论室';
 $string['allowed_number_rooms_help'] = '主持人可以在单个会话中创建的最大子房间数。';
+$string['preassign_breakout_rooms'] = '预先分配课程小组的分组讨论室';
+$string['preassign_breakout_rooms_help'] = '启用后，每个课程组在会议开始时即为分组讨论室：房间名称即组名，组员自动分配到该房间。主持人可在会议分组室管理中随时调整或移除这些分配。不属于任何组的用户可在会议期间由主持人分配。此规定从下一次会议开始生效，因为房间细节在创建房间时已固定。要求课程设有组。';
 
 $string['allow_display_external_link_features'] = '允许外部链接共享';
 $string['allow_display_external_link_features_help'] = '允许主持人在会议期间直接向所有参与者展示外部教育内容，例如 H5P 活动、SCORM 包或测验系统（例如 Kahoot）。';
@@ -530,3 +532,26 @@ $string['upload_to_whiteboard_success'] = '已成功上传选定文件到白板'
 $string['uploading_file'] = '文件上传中......';
 $string['file_not_found'] = '未找到请求文件';
 $string['error_file_copy'] = '复制文件时的错误';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Add Quiz 投票';
+$string['create_poll'] = '创建投票';
+$string['select_quiz'] = '精选测验';
+$string['select_question'] = '选择问题';
+$string['poll_created'] = '投票成功创建';
+$string['poll_creation_failed'] = '未能创建投票： {$a}';
+$string['no_valid_questions'] = '本测验没有有效题目（仅支持选择单题和是非题）';
+$string['poll_is_quiz'] = '投票时隐藏正确答案';
+$string['poll_is_anonymous'] = '匿名投票';
+$string['poll_duration'] = '自动关闭（秒数，0 = 无限制）';
+$string['no_quizzes_found'] = '本课程中没有小测验';
+$string['room_not_active'] = '创建投票必须有活动空间';
+$string['polls_not_allowed'] = '该房间不启用投票';
+$string['poll_invalid_question'] = '所选问题无法转换为投票。';
+$string['poll_question_tie'] = '这个问题有多个选项，且分数相同，且不能转换为投票。';
+$string['select_source'] = '精选来源';
+$string['source_quiz'] = '问答';
+$string['source_question_bank'] = '题库';
+$string['select_category'] = '精选类别';
+$string['no_categories_found'] = '未找到题类';
+$string['invalid_question_category'] = '该问题类别不存在，或无法作为本次活动的投票来源。';

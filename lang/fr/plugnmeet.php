@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = 'Autoriser les salles de sous-commission';
 $string['allow_breakout_rooms_help'] = 'Permet aux modérateurs de diviser les participants en petits groupes pour des discussions ciblées, des projets collaboratifs ou des activités de groupe privées.';
 $string['allowed_number_rooms'] = 'Nombre max de salles de sous-commission';
 $string['allowed_number_rooms_help'] = 'Le nombre maximum de sous-salles qu\'un modérateur peut créer au sein d\'une seule session.';
+$string['preassign_breakout_rooms'] = 'Pré-assigner des salles de groupes de cours';
+$string['preassign_breakout_rooms_help'] = 'Une fois activé, chaque groupe de cours devient une salle de travail au début de la session : le titre de la salle est le nom du groupe et les membres du groupe y sont automatiquement attribués. Le modérateur peut réarranger ou supprimer ces affectations à tout moment dans la gestion de la salle de groupe de la réunion. Les utilisateurs qui ne font pas partie d’aucun groupe peuvent être assignés par le modérateur pendant la session. Cela prend effet dès le début de la prochaine session, car les détails de la salle sont fixés lors de la création de la salle. Nécessite que le cours comporte des groupes.';
 
 $string['allow_display_external_link_features'] = 'Autoriser le partage de liens externes';
 $string['allow_display_external_link_features_help'] = 'Permet aux modérateurs d\'afficher du contenu éducatif externe — tel que des activités H5P, des paquets SCORM ou des systèmes de quiz (par exemple, Kahoot) — directement à tous les participants pendant la session.';
@@ -530,3 +532,26 @@ $string['upload_to_whiteboard_success'] = 'Téléversement réussi le fichier s�
 $string['uploading_file'] = 'Téléchargement de fichiers...';
 $string['file_not_found'] = 'Fichier demandé non trouvé';
 $string['error_file_copy'] = 'Erreur lors de la copie du fichier';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Ajouter un sondage à partir de Quiz';
+$string['create_poll'] = 'Create Poll';
+$string['select_quiz'] = 'Quiz Sélectif';
+$string['select_question'] = 'Question sélective';
+$string['poll_created'] = 'Sondage créé avec succès';
+$string['poll_creation_failed'] = 'Échec à créer un sondage : {$a}';
+$string['no_valid_questions'] = 'Ce quiz ne comporte pas de questions valides (seules les réponses à choix multiples et vrai/faux sont prises en charge)';
+$string['poll_is_quiz'] = 'Masquer les bonnes réponses pendant le sondage';
+$string['poll_is_anonymous'] = 'Vote anonyme';
+$string['poll_duration'] = 'Fermeture automatique après (secondes, 0 = pas de limite)';
+$string['no_quizzes_found'] = 'Aucun quiz trouvé dans ce cours';
+$string['room_not_active'] = 'La pièce doit être active pour créer des sondages';
+$string['polls_not_allowed'] = 'Les sondages ne sont pas activés pour cette salle';
+$string['poll_invalid_question'] = 'La question sélectionnée ne peut pas être convertie en sondage.';
+$string['poll_question_tie'] = 'Cette question comporte plusieurs options avec le même score le plus élevé et ne peut pas être convertie en sondage.';
+$string['select_source'] = 'Source sélectionnée';
+$string['source_quiz'] = 'Quiz';
+$string['source_question_bank'] = 'Banque de questions';
+$string['select_category'] = 'Catégorie sélectionnée';
+$string['no_categories_found'] = 'Aucune catégorie de questions trouvée';
+$string['invalid_question_category'] = 'La catégorie de questions n’existe pas et ne peut pas être utilisée comme source de sondage pour cette activité.';
