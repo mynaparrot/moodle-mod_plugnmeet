@@ -532,3 +532,26 @@ $string['upload_to_whiteboard_success'] = 'Ausgewählte Datei erfolgreich auf da
 $string['uploading_file'] = 'Dateihochladen...';
 $string['file_not_found'] = 'Angeforderte Datei nicht gefunden';
 $string['error_file_copy'] = 'Fehler beim Kopieren der Datei';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Umfrage vom Quiz hinzufügen';
+$string['create_poll'] = 'Umfrage erstellen';
+$string['select_quiz'] = 'Auswählendes Quiz';
+$string['select_question'] = 'Frage auswählen';
+$string['poll_created'] = 'Umfrage erfolgreich erstellt';
+$string['poll_creation_failed'] = 'Umfrage nicht erstellt: {$a}';
+$string['no_valid_questions'] = 'Dieses Quiz enthält keine gültigen Fragen (es werden nur Multiple-Choice-Einzelantworten und Wahr/Falsch unterstützt)';
+$string['poll_is_quiz'] = 'Richtige Antworten während der Umfrage aussortieren';
+$string['poll_is_anonymous'] = 'Anonyme Abstimmung';
+$string['poll_duration'] = 'Auto-Close danach (Sekunden, 0 = kein Limit)';
+$string['no_quizzes_found'] = 'In diesem Kurs sind keine Quizze zu finden';
+$string['room_not_active'] = 'Der Raum muss aktiv sein, um Umfragen zu erstellen';
+$string['polls_not_allowed'] = 'Für diesen Raum sind Umfragen nicht aktiviert';
+$string['poll_invalid_question'] = 'Die ausgewählte Frage kann nicht in eine Umfrage umgewandelt werden.';
+$string['poll_question_tie'] = 'Diese Frage hat mehr als eine Option mit derselben höchsten Punktzahl und kann nicht in eine Umfrage umgewandelt werden.';
+$string['select_source'] = 'Quelle auswählen';
+$string['source_quiz'] = 'Quiz';
+$string['source_question_bank'] = 'Fragebank';
+$string['select_category'] = 'Auswahl der Kategorie';
+$string['no_categories_found'] = 'No question categories found';
+$string['invalid_question_category'] = 'The question category does not exist or cannot be used as a poll source for this activity.';
