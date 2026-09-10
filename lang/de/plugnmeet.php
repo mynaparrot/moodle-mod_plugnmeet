@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = 'Breakout-Räume zulassen';
 $string['allow_breakout_rooms_help'] = 'Ermöglicht Moderatoren, Teilnehmer in kleinere Gruppen für fokussierte Diskussionen, kollaborative Projekte oder private Gruppenaktivitäten aufzuteilen.';
 $string['allowed_number_rooms'] = 'Max. Breakout-Räume';
 $string['allowed_number_rooms_help'] = 'Die maximale Anzahl von Unterräumen, die ein Moderator innerhalb einer einzelnen Sitzung erstellen kann.';
+$string['preassign_breakout_rooms'] = 'Vorab Breakout-Räume von Kursgruppen zuweisen';
+$string['preassign_breakout_rooms_help'] = 'Wenn aktiviert, wird jede Kursgruppe zu einem Breakout-Raum, wenn die Sitzung beginnt: Der Raumtitel ist der Gruppenname und die Gruppenmitglieder werden ihm automatisch zugeordnet. Der Moderator kann diese Zuweisungen jederzeit im Breakout-Raum-Management des Meetings umgestalten oder entfernen. Benutzer, die keiner Gruppe angehören, können während der Sitzung vom Moderator zugewiesen werden. Dies gilt ab Beginn der nächsten Sitzung, da die Raumdetails beim Erstellen des Raums festgelegt werden. Es ist erforderlich, dass der Kurs Gruppen hat.';
 
 $string['allow_display_external_link_features'] = 'Externe Linkfreigabe erlauben';
 $string['allow_display_external_link_features_help'] = 'Ermöglicht Moderatoren, externe Bildungsinhalte – wie H5P-Aktivitäten, SCORM-Pakete oder Quizsysteme (z. B. Kahoot) – während der Sitzung direkt allen Teilnehmern anzuzeigen.';
