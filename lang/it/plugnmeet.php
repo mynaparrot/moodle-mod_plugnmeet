@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = 'Consenti stanze per sottogruppi';
 $string['allow_breakout_rooms_help'] = 'Consente ai moderatori di dividere i partecipanti in gruppi più piccoli per discussioni mirate, progetti collaborativi o attività di gruppo private.';
 $string['allowed_number_rooms'] = 'Max stanze per sottogruppi';
 $string['allowed_number_rooms_help'] = 'Il numero massimo di sottostanze che un moderatore può creare all\'interno di una singola sessione.';
+$string['preassign_breakout_rooms'] = 'Preassegna le sale breakout dai gruppi di corso';
+$string['preassign_breakout_rooms_help'] = 'Quando attivato, ogni gruppo del corso diventa una sala per i gruppi all\'inizio della sessione: il titolo della sala è il nome del gruppo e i membri del gruppo vi vengono assegnati automaticamente. Il moderatore può riorganizzare o rimuovere questi compiti in qualsiasi momento nella gestione della sala gruppi della riunione. Gli utenti che non fanno parte di nessun gruppo possono essere assegnati dal moderatore durante la sessione. Questo entra in vigore dall\'inizio della sessione successiva, perché i dettagli della stanza sono fissati quando la sala viene creata. Richiede che il corso abbia gruppi.';
 
 $string['allow_display_external_link_features'] = 'Consenti condivisione link esterni';
 $string['allow_display_external_link_features_help'] = 'Consente ai moderatori di visualizzare contenuti educativi esterni, come attività H5P, pacchetti SCORM o sistemi di quiz (ad esempio, Kahoot), direttamente a tutti i partecipanti durante la sessione.';
