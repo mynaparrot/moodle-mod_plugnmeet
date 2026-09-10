@@ -553,5 +553,5 @@ $string['select_source'] = 'مصدر محدد';
 $string['source_quiz'] = 'الاختبار';
 $string['source_question_bank'] = 'بنك الأسئلة';
 $string['select_category'] = 'فئة مختارة';
-$string['no_categories_found'] = 'No question categories found';
-$string['invalid_question_category'] = 'The question category does not exist or cannot be used as a poll source for this activity.';
+$string['no_categories_found'] = 'تم العثور على فئات بدون أسئلة';
+$string['invalid_question_category'] = 'فئة الأسئلة غير موجودة أو لا يمكن استخدامها كمصدر استطلاع لهذا النشاط.';
