@@ -20,7 +20,6 @@ use context_course;
 use context_coursecat;
 use context_module;
 use context_system;
-use core_question\local\bank\question_bank_helper;
 use external_api;
 use external_function_parameters;
 use external_multiple_structure;
@@ -84,10 +83,9 @@ class get_question_categories extends external_api {
         // Candidate contexts, course level first: the question banks of the
         // activities of this course, the course itself, its course category and
         // the system shared bank.
-        $questionmods = array_merge(
-            question_bank_helper::get_activity_types_with_shareable_questions(),
-            question_bank_helper::get_activity_types_with_private_questions()
-        );
+        // Hardcoded list of activity modules that use the question bank.
+        // This is compatible with Moodle 4.5+ where question_bank_helper doesn't exist.
+        $questionmods = ['quiz', 'lesson', 'feedback'];
 
         $candidatecontextids = [];
         $modinfo = get_fast_modinfo($course);
@@ -122,7 +120,7 @@ class get_question_categories extends external_api {
             return [];
         }
 
-        list($insql, $inparams) = $DB->get_in_or_equal($allowedcontextids, SQL_PARAMS_NAMED, 'ctx');
+        [$insql, $inparams] = $DB->get_in_or_equal($allowedcontextids, SQL_PARAMS_NAMED, 'ctx');
         $sql = "SELECT c.id, c.name, c.contextid, ctx.contextlevel
                   FROM {question_categories} c
                   JOIN {context} ctx ON ctx.id = c.contextid

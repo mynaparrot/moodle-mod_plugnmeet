@@ -87,10 +87,10 @@ class get_quiz_questions extends external_api {
             }
 
             // The category must be usable as a poll source for this course.
-            $categorycontext = QuizPollHelper::getValidCategoryContext((int) $params['categoryid'], (int) $cm->course);
+            $categorycontext = QuizPollHelper::get_valid_category_context((int) $params['categoryid'], (int) $cm->course);
             require_capability('moodle/question:viewall', $categorycontext);
 
-            return QuizPollHelper::getValidQuestionsFromCategory((int) $params['categoryid']);
+            return QuizPollHelper::get_valid_questions_from_category((int) $params['categoryid']);
         }
 
         if ($params['source'] !== 'quiz') {
@@ -105,7 +105,7 @@ class get_quiz_questions extends external_api {
         $quizcm = get_coursemodule_from_id('quiz', $params['quizcmid'], $cm->course, false, MUST_EXIST);
         require_capability('mod/quiz:view', \context_module::instance($quizcm->id));
 
-        return QuizPollHelper::getValidQuestionsFromQuiz((int) $quizcm->id);
+        return QuizPollHelper::get_valid_questions_from_quiz((int) $quizcm->id);
     }
 
     /**

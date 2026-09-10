@@ -103,10 +103,10 @@ class create_poll extends external_api {
             }
 
             // The category must be usable as a poll source for this course.
-            $categorycontext = QuizPollHelper::getValidCategoryContext((int) $params['categoryid'], (int) $cm->course);
+            $categorycontext = QuizPollHelper::get_valid_category_context((int) $params['categoryid'], (int) $cm->course);
             require_capability('moodle/question:viewall', $categorycontext);
 
-            $validquestions = QuizPollHelper::getValidQuestionsFromCategory((int) $params['categoryid']);
+            $validquestions = QuizPollHelper::get_valid_questions_from_category((int) $params['categoryid']);
         } else if ($params['source'] === 'quiz') {
             if (empty($params['quizcmid'])) {
                 throw new \invalid_parameter_exception('quizcmid is required when source is quiz');
@@ -116,7 +116,7 @@ class create_poll extends external_api {
             $quizcm = get_coursemodule_from_id('quiz', $params['quizcmid'], $cm->course, false, MUST_EXIST);
             require_capability('mod/quiz:view', \context_module::instance($quizcm->id));
 
-            $validquestions = QuizPollHelper::getValidQuestionsFromQuiz((int) $quizcm->id);
+            $validquestions = QuizPollHelper::get_valid_questions_from_quiz((int) $quizcm->id);
         } else {
             throw new \invalid_parameter_exception('source must be either quiz or question_bank');
         }
@@ -171,7 +171,7 @@ class create_poll extends external_api {
         }
 
         try {
-            $polldata = QuizPollHelper::transformQuestionToPoll($question, (bool) $params['is_quiz']);
+            $polldata = QuizPollHelper::transform_question_to_poll($question, (bool) $params['is_quiz']);
         } catch (\moodle_exception $e) {
             return [
                 'status' => false,

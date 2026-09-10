@@ -45,7 +45,7 @@ class QuizPollHelper {
      * @return array List of questions with questionid, name, qtype and questiontext.
      * @throws \moodle_exception If the quiz module does not exist.
      */
-    public static function getValidQuestionsFromQuiz(int $quizcmid): array {
+    public static function get_valid_questions_from_quiz(int $quizcmid): array {
         $quizsettings = quiz_settings::create_for_cmid($quizcmid);
         $structure = qbank_helper::get_question_structure(
             $quizsettings->get_quizid(),
@@ -97,7 +97,7 @@ class QuizPollHelper {
      * @throws \dml_exception If the category or its related records do not exist.
      * @throws \moodle_exception If the category cannot be used as a poll source for the course.
      */
-    public static function getValidCategoryContext(int $categoryid, int $courseid): \core\context {
+    public static function get_valid_category_context(int $categoryid, int $courseid): \core\context {
         global $DB;
 
         $category = $DB->get_record('question_categories', ['id' => $categoryid], '*', MUST_EXIST);
@@ -145,8 +145,8 @@ class QuizPollHelper {
      * @return array List of questions with questionid, name, qtype and questiontext.
      * @throws \dml_exception If the category does not exist.
      */
-    public static function getValidQuestionsFromCategory(int $categoryid): array {
-        $questionids = \question_finder::get_instance()->get_questions_from_categories([$categoryid], '', []);
+    public static function get_valid_questions_from_category(int $categoryid): array {
+        $questionids = \question_finder::get_instance()->get_questions_from_categories([$categoryid], '');
 
         $valid = [];
         foreach (array_keys($questionids) as $questionid) {
@@ -187,7 +187,7 @@ class QuizPollHelper {
      * @throws \coding_exception If the question type is not supported.
      * @throws \moodle_exception If the question cannot be converted into a poll.
      */
-    public static function transformQuestionToPoll($question, bool $isQuiz = false): array {
+    public static function transform_question_to_poll($question, bool $isQuiz = false): array {
         if ($question instanceof qtype_multichoice_single_question) {
             return self::transform_multichoice($question);
         }
@@ -284,11 +284,11 @@ class QuizPollHelper {
      * Convert rich text (HTML, markdown, etc.) into a single line of plain text.
      *
      * @param string|null $text The rich text.
-     * @param int|string $format The text format (FORMAT_HTML, FORMAT_MARKDOWN, etc.).
+     * @param int $format The text format (FORMAT_HTML, FORMAT_MARKDOWN, etc.).
      * @return string Plain text with all tags and extra whitespace removed.
      */
-    protected static function strip_html(?string $text, int|string $format = FORMAT_HTML): string {
-        $text = format_text((string) $text, $format, ['para' => false, 'filter' => false]);
+    protected static function strip_html(?string $text, int $format = FORMAT_HTML): string {
+        $text = format_text((string) $text, (int) $format, ['para' => false, 'filter' => false]);
         $text = html_entity_decode(strip_tags($text), ENT_QUOTES | ENT_HTML5, 'UTF-8');
         $text = preg_replace('/\s+/u', ' ', $text);
 
