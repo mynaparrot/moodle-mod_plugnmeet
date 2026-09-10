@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = '允许分组讨论室';
 $string['allow_breakout_rooms_help'] = '允许主持人将参与者分成小组，以便进行有针对性的讨论、协作项目或私人小组活动。';
 $string['allowed_number_rooms'] = '最大分组讨论室';
 $string['allowed_number_rooms_help'] = '主持人可以在单个会话中创建的最大子房间数。';
+$string['preassign_breakout_rooms'] = '预先分配课程小组的分组讨论室';
+$string['preassign_breakout_rooms_help'] = '启用后，每个课程组在会议开始时即为分组讨论室：房间名称即组名，组员自动分配到该房间。主持人可在会议分组室管理中随时调整或移除这些分配。不属于任何组的用户可在会议期间由主持人分配。此规定从下一次会议开始生效，因为房间细节在创建房间时已固定。要求课程设有组。';
 
 $string['allow_display_external_link_features'] = '允许外部链接共享';
 $string['allow_display_external_link_features_help'] = '允许主持人在会议期间直接向所有参与者展示外部教育内容，例如 H5P 活动、SCORM 包或测验系统（例如 Kahoot）。';
