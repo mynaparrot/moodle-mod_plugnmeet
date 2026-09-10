@@ -30,7 +30,7 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/modal_factory', 'core/
         quiz: '#create_poll_quiz',
         category: '#create_poll_category',
         question: '#create_poll_question',
-        isQuiz: '#create_poll_is_quiz',
+        mode: '#create_poll_mode',
         isAnonymous: '#create_poll_is_anonymous',
         duration: '#create_poll_duration',
         submit: '#create_poll_submit',
@@ -44,6 +44,12 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/modal_factory', 'core/
     const SOURCE_QUIZ = 'quiz';
     const SOURCE_QUESTIONBANK = 'questionbank';
     const WS_SOURCE_QUESTIONBANK = 'question_bank';
+
+    // Nice labels for the supported question types.
+    const QUESTION_TYPE_LABELS = {
+        truefalse: 'True/False',
+        multichoice: 'Multiple Choice',
+    };
 
     return {
         /**
@@ -104,20 +110,23 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/modal_factory', 'core/
                     '</div>' +
                     '<div class="form-group">' +
                         '<div class="custom-control custom-checkbox form-check">' +
-                            '<input type="checkbox" id="create_poll_is_quiz" class="custom-control-input form-check-input">' +
-                            '<label for="create_poll_is_quiz" class="custom-control-label form-check-label">' +
-                                strings.pollIsQuiz + '</label>' +
-                        '</div>' +
-                        '<div class="custom-control custom-checkbox form-check">' +
                             '<input type="checkbox" id="create_poll_is_anonymous" class="custom-control-input form-check-input">' +
                             '<label for="create_poll_is_anonymous" class="custom-control-label form-check-label">' +
                                 strings.pollIsAnonymous + '</label>' +
                         '</div>' +
                     '</div>' +
                     '<div class="form-group">' +
+                        '<label for="create_poll_mode">' + strings.pollMode + '</label>' +
+                        '<select id="create_poll_mode" class="custom-select form-select">' +
+                            '<option value="quiz">' + strings.pollModeQuiz + '</option>' +
+                            '<option value="vote">' + strings.pollModeVote + '</option>' +
+                        '</select>' +
+                        '<small class="form-text text-muted">' + strings.pollModeHelp + '</small>' +
+                    '</div>' +
+                    '<div class="form-group">' +
                         '<label for="create_poll_duration">' + strings.pollDuration + '</label>' +
-                        '<input type="number" id="create_poll_duration" class="form-control" value="0"' +
-                            ' min="0" max="3600" step="30">' +
+                        '<input type="number" id="create_poll_duration" class="form-control" min="0" max="60" step="1" value="0">' +
+                        '<small class="form-text text-muted">' + strings.pollDurationHelp + '</small>' +
                     '</div>' +
                     '<button type="button" id="create_poll_submit" class="btn btn-primary" disabled="disabled">' +
                         strings.create + '</button>' +
@@ -205,8 +214,9 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/modal_factory', 'core/
                         return;
                     }
                     questionSelect.html(questions.map(function(question) {
+                        const typeLabel = QUESTION_TYPE_LABELS[question.qtype] || question.qtype;
                         return '<option value="' + question.questionid + '">' +
-                            escapeHtml(question.name) + ' (' + escapeHtml(question.qtype) + ')</option>';
+                            escapeHtml(question.name) + ' (' + escapeHtml(typeLabel) + ')</option>';
                     }).join(''));
                     questionSelect.attr('disabled', false);
                     $(SELECTORS.submit).attr('disabled', false);
@@ -224,8 +234,8 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/modal_factory', 'core/
                     cmid: cmid,
                     questionid: questionid,
                 };
-                args.isquiz = $(SELECTORS.isQuiz).is(':checked');
                 args.isanonymous = $(SELECTORS.isAnonymous).is(':checked');
+                args.mode = $(SELECTORS.mode).val() || 'quiz';
 
                 // The id of the selected question source.
                 let sourceId;
@@ -242,8 +252,8 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/modal_factory', 'core/
                     return;
                 }
 
-                // The plugNmeet server accepts at most one hour as duration.
-                args.duration = Math.min(Math.max(parseInt($(SELECTORS.duration).val(), 10) || 0, 0), 3600);
+                // The duration is entered in minutes; the plugNmeet server expects seconds.
+                args.duration = Math.min(Math.max(parseInt($(SELECTORS.duration).val(), 10) || 0, 0), 60) * 60;
 
                 $(SELECTORS.submit).attr('disabled', true);
 
@@ -253,7 +263,6 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/modal_factory', 'core/
                         // Keep the modal open: confirm inside the modal and let
                         // the user create another poll from a different question.
                         $(SELECTORS.success).text(strings.pollCreated).show();
-                        $(SELECTORS.isQuiz).prop('checked', false);
                         $(SELECTORS.isAnonymous).prop('checked', false);
                         // Reload the questions of the same source so another one
                         // can be picked.
@@ -332,9 +341,13 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/modal_factory', 'core/
                 {key: 'select_category', component: 'mod_plugnmeet'},
                 {key: 'select_quiz', component: 'mod_plugnmeet'},
                 {key: 'select_question', component: 'mod_plugnmeet'},
-                {key: 'poll_is_quiz', component: 'mod_plugnmeet'},
                 {key: 'poll_is_anonymous', component: 'mod_plugnmeet'},
+                {key: 'poll_mode', component: 'mod_plugnmeet'},
+                {key: 'poll_mode_quiz', component: 'mod_plugnmeet'},
+                {key: 'poll_mode_vote', component: 'mod_plugnmeet'},
+                {key: 'poll_mode_help', component: 'mod_plugnmeet'},
                 {key: 'poll_duration', component: 'mod_plugnmeet'},
+                {key: 'poll_duration_help', component: 'mod_plugnmeet'},
                 {key: 'no_valid_questions', component: 'mod_plugnmeet'},
                 {key: 'no_quizzes_found', component: 'mod_plugnmeet'},
                 {key: 'no_categories_found', component: 'mod_plugnmeet'},
@@ -349,14 +362,18 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/modal_factory', 'core/
                     selectCategory: loaded[4],
                     selectQuiz: loaded[5],
                     selectQuestion: loaded[6],
-                    pollIsQuiz: loaded[7],
-                    pollIsAnonymous: loaded[8],
-                    pollDuration: loaded[9],
-                    noValidQuestions: loaded[10],
-                    noQuizzesFound: loaded[11],
-                    noCategoriesFound: loaded[12],
-                    pollCreated: loaded[13],
-                    create: loaded[14],
+                    pollIsAnonymous: loaded[7],
+                    pollMode: loaded[8],
+                    pollModeQuiz: loaded[9],
+                    pollModeVote: loaded[10],
+                    pollModeHelp: loaded[11],
+                    pollDuration: loaded[12],
+                    pollDurationHelp: loaded[13],
+                    noValidQuestions: loaded[14],
+                    noQuizzesFound: loaded[15],
+                    noCategoriesFound: loaded[16],
+                    pollCreated: loaded[17],
+                    create: loaded[18],
                 };
 
                 $('#create_poll_button').on('click', function(e) {

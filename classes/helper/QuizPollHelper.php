@@ -184,12 +184,11 @@ class QuizPollHelper {
      * Transform a supported question into the data needed to create a plugNmeet poll.
      *
      * @param \question_definition $question The question object.
-     * @param bool $isquiz Whether the poll is a quiz (correct answers hidden during the poll).
      * @return array With question, options (list of id, text and is_correct) and is_multiple.
      * @throws \coding_exception If the question type is not supported.
      * @throws \moodle_exception If the question cannot be converted into a poll.
      */
-    public static function transform_question_to_poll($question, bool $isquiz = false): array {
+    public static function transform_question_to_poll($question): array {
         if ($question instanceof qtype_multichoice_single_question) {
             return self::transform_multichoice($question);
         }
