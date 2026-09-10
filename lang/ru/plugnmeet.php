@@ -532,3 +532,26 @@ $string['upload_to_whiteboard_success'] = 'Успешно загрузил вы�
 $string['uploading_file'] = 'Загрузка файла...';
 $string['file_not_found'] = 'Запрошенный файл не найден';
 $string['error_file_copy'] = 'Ошибка при копировании файла';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Добавить опрос из викторины';
+$string['create_poll'] = 'Создать опрос';
+$string['select_quiz'] = 'Выбор викторины';
+$string['select_question'] = 'Выберите вопрос';
+$string['poll_created'] = 'Опрос успешно создан';
+$string['poll_creation_failed'] = 'Не удалось создать опрос: {$a}';
+$string['no_valid_questions'] = 'В этом тесте нет допустимых вопросов (поддерживаются только варианты с выбором ответа на один ответ и true/fal)';
+$string['poll_is_quiz'] = 'Скрыть правильные ответы во время опроса';
+$string['poll_is_anonymous'] = 'Анонимное голосование';
+$string['poll_duration'] = 'Автозакрытие после (секунды, 0 = без ограничения)';
+$string['no_quizzes_found'] = 'В этом курсе нет тестов';
+$string['room_not_active'] = 'Место должно быть активным для создания опросов';
+$string['polls_not_allowed'] = 'Опросы для этой комнаты не включены';
+$string['poll_invalid_question'] = 'Выбранный вопрос нельзя преобразовать в опрос.';
+$string['poll_question_tie'] = 'В этом вопросе есть несколько вариантов с одинаковым самым высоким баллом и не может быть преобразован в опрос.';
+$string['select_source'] = 'Выберите источник';
+$string['source_quiz'] = 'Викторина';
+$string['source_question_bank'] = 'Банк вопросов';
+$string['select_category'] = 'Выбранная категория';
+$string['no_categories_found'] = 'No question categories found';
+$string['invalid_question_category'] = 'The question category does not exist or cannot be used as a poll source for this activity.';
