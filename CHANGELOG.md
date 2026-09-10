@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.0.13](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.12...v3.0.13) (2026-09-10)
+
+
+### Bug Fixes
+
+* added new option to add poll from moodle quiz/question bank ([18294d7](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/18294d72ac5a2f950d26d5ed38d01b2dc37ff137))
+* added option to create pre-assigned breakout room based on group ([ee5045e](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/ee5045e4c5b928e8aa95a3509aa34f3d74df1bbe))
+* bump SDK ([4c90594](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/4c905940059f40a090b962a0df5e66c5ee8e3997))
+* bump SDK ([6dab1d8](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/6dab1d8c743216619672970000533d4a40486e8d))
+* don't load picker when activity no longer available, fixed: [#108](https://github.com/mynaparrot/moodle-mod_plugnmeet/issues/108) ([55fb3e8](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/55fb3e84eafb92c44001b730f21b32c1da2e17e7))
+* grade will be calculating only when point is set ([fa8f35b](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/fa8f35b15d60b733db37c4337b714cd4a2814734))
+* handle `GRADE_TYPE_NONE` when nothing set. fixed: [#105](https://github.com/mynaparrot/moodle-mod_plugnmeet/issues/105) ([f586413](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/f58641352334863156fae24462d69ff0c7249757))
+* improved various validation ([69f878b](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/69f878be401c8977b55c7ac04d4242a42bc02918))
+* **locale:** new Crowdin updates ([f94deaa](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/f94deaad6164d8f4dee7ee799fffe9b8ecbb8e24))
+* **locale:** new Crowdin updates ([#113](https://github.com/mynaparrot/moodle-mod_plugnmeet/issues/113)) ([59cba49](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/59cba49ee683520ea0132fc806694ad5a6d4b399))
+* option to select poll mode ([8727e20](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/8727e20afc9eb4c9ad5f914c492ca49064fdd0e8))
+* removed confusing field ([e52ba10](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/e52ba1019c56c84c3c5e337496665619b10904cc))
+* validate roomId in webhook ([bb0f990](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/bb0f990d8d145984ba060cc45908e3d11f0f346d))
+
 ## [3.0.12](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.11...v3.0.12) (2026-08-12)
 
 
