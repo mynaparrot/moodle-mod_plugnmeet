@@ -532,3 +532,26 @@ $string['upload_to_whiteboard_success'] = 'Geselecteerd bestand succesvol geüpl
 $string['uploading_file'] = 'Bestand uploaden...';
 $string['file_not_found'] = 'Aangevraagd bestand niet gevonden';
 $string['error_file_copy'] = 'Fout tijdens kopiëren van bestand';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Voeg Peiling toe van Quiz';
+$string['create_poll'] = 'Maak poll aan';
+$string['select_quiz'] = 'Selecteer Quiz';
+$string['select_question'] = 'Selecteer vraag';
+$string['poll_created'] = 'Peiling succesvol gemaakt';
+$string['poll_creation_failed'] = 'Niet in geslaagd een poll te creëren: {$a}';
+$string['no_valid_questions'] = 'Deze quiz bevat geen geldige vragen (alleen meerkeuzevragen en waar/onwaar worden ondersteund)';
+$string['poll_is_quiz'] = 'Verberg correcte antwoorden tijdens de poll';
+$string['poll_is_anonymous'] = 'Anoniem stemmen';
+$string['poll_duration'] = 'Auto-close na (seconden, 0 = geen limiet)';
+$string['no_quizzes_found'] = 'Geen quizzen in deze cursus';
+$string['room_not_active'] = 'De ruimte moet actief zijn om polls te maken';
+$string['polls_not_allowed'] = 'Peilingen zijn niet ingeschakeld voor deze kamer';
+$string['poll_invalid_question'] = 'De geselecteerde vraag kan niet worden omgezet in een poll.';
+$string['poll_question_tie'] = 'Deze vraag heeft meer dan één optie met dezelfde hoogste score en kan niet worden omgezet in een poll.';
+$string['select_source'] = 'Selecteer bron';
+$string['source_quiz'] = 'Quiz';
+$string['source_question_bank'] = 'Vragenbank';
+$string['select_category'] = 'Selecteer categorie';
+$string['no_categories_found'] = 'No question categories found';
+$string['invalid_question_category'] = 'The question category does not exist or cannot be used as a poll source for this activity.';
