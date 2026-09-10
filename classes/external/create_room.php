@@ -122,6 +122,9 @@ class create_room extends external_api {
             }
         }
 
+        // Pre-assign breakout rooms from course groups.
+        $roommetadata = self::build_preassigned_rooms($roommetadata, $cm->course, $context);
+
         $connect = new plugNmeetConnect($config);
         $logouturl = (new \moodle_url('/mod/plugnmeet/view.php', ['id' => $cm->id, 'returned' => 'true']))->out(false);
         $webhookurl = (new \moodle_url('/mod/plugnmeet/webhook.php', ['id' => $instanceid]))->out(false);
@@ -207,5 +210,64 @@ class create_room extends external_api {
             'status' => new external_value(PARAM_BOOL, 'Status of the request'),
             'msg' => new external_value(PARAM_TEXT, 'Status message'),
         ]);
+    }
+
+    /**
+     * When the teacher opted in via activity settings, translate course groups
+     * into pre-assigned breakout rooms inside the room metadata.
+     *
+     * @param array $roommetadata The decoded room metadata array.
+     * @param int $courseid The course ID (used to resolve course groups).
+     * @param \context_module $context The module context (used to filter joinable users).
+     * @return array The modified room metadata.
+     */
+    private static function build_preassigned_rooms(array $roommetadata, int $courseid, \context_module $context): array {
+        $preassignflag = !empty($roommetadata['breakout_room_features']['preassign_from_groups']);
+        // Internal flag: always strip it before sending to the server.
+        unset($roommetadata['breakout_room_features']['preassign_from_groups']);
+
+        if (!$preassignflag) {
+            return $roommetadata;
+        }
+
+        $allowedrooms = (int)($roommetadata['breakout_room_features']['allowed_number_rooms'] ?? 0);
+
+        // Users who can actually join this activity (single query).
+        $joinable = [];
+        foreach (get_enrolled_users($context, 'mod/plugnmeet:view') as $joinableuser) {
+            $joinable[(int)$joinableuser->id] = true;
+        }
+
+        $preassignedrooms = [];
+        $assignedusers = [];
+        $groupcount = 0;
+        foreach (groups_get_all_groups($courseid) as $group) {
+            // Room title must not be empty (proto requires min_len 1).
+            if (trim((string)$group->name) === '') {
+                continue;
+            }
+            $groupcount++;
+            $userids = [];
+            foreach (groups_get_members($group->id, 'u.id') as $groupmember) {
+                $memberid = (int)$groupmember->id;
+                // Skip users who cannot join and users already assigned to an earlier group.
+                if (isset($joinable[$memberid]) && !isset($assignedusers[$memberid])) {
+                    $assignedusers[$memberid] = true;
+                    $userids[] = (string)$memberid;
+                }
+            }
+            $preassignedrooms[] = [
+                'title' => $group->name,
+                'user_ids' => $userids,
+            ];
+        }
+
+        // One room per group: raise the room limit to the number of groups if needed.
+        if ($groupcount > $allowedrooms) {
+            $roommetadata['breakout_room_features']['allowed_number_rooms'] = $groupcount;
+        }
+        $roommetadata['breakout_room_features']['preassigned_rooms'] = $preassignedrooms;
+
+        return $roommetadata;
     }
 }

@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = 'Allow Breakout Rooms';
 $string['allow_breakout_rooms_help'] = 'Enables moderators to split participants into smaller groups for focused discussions, collaborative projects, or private group activities.';
 $string['allowed_number_rooms'] = 'Max Breakout Rooms';
 $string['allowed_number_rooms_help'] = 'The maximum number of sub-rooms a moderator can create within a single session.';
+$string['preassign_breakout_rooms'] = 'Pre-assign breakout rooms from course groups';
+$string['preassign_breakout_rooms_help'] = 'When enabled, each course group becomes a breakout room when the session starts: the room title is the group name and group members are automatically assigned to it. The moderator can rearrange or remove these assignments at any time in the meeting\'s breakout room management. Users who are not in any group can be assigned by the moderator during the session. This takes effect from the next session start, because room details are fixed when the room is created. Requires the course to have groups.';
 
 $string['allow_display_external_link_features'] = 'Allow External Link Sharing';
 $string['allow_display_external_link_features_help'] = 'Allows moderators to display external educational content—such as H5P activities, SCORM packages, or quiz systems (e.g., Kahoot)—directly to all participants during the session.';

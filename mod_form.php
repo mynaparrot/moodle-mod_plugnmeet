@@ -363,6 +363,19 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             'eq',
             0
         );
+        $mform->addElement(
+            'advcheckbox',
+            'meta[breakout_room_features][preassign_from_groups]',
+            get_string('preassign_breakout_rooms', 'mod_plugnmeet')
+        );
+        $mform->setDefault('meta[breakout_room_features][preassign_from_groups]', 0);
+        $mform->addHelpButton('meta[breakout_room_features][preassign_from_groups]', 'preassign_breakout_rooms', 'mod_plugnmeet');
+        $mform->disabledIf(
+            'meta[breakout_room_features][preassign_from_groups]',
+            'meta[breakout_room_features][is_allow]',
+            'eq',
+            0
+        );
         $mform->addElement('html', '<hr>');
 
         $mform->addElement(
