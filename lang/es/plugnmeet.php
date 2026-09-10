@@ -553,5 +553,5 @@ $string['select_source'] = 'Fuente seleccionada';
 $string['source_quiz'] = 'Quiz';
 $string['source_question_bank'] = 'Banco de Preguntas';
 $string['select_category'] = 'Seleccionar categoría';
-$string['no_categories_found'] = 'No question categories found';
-$string['invalid_question_category'] = 'The question category does not exist or cannot be used as a poll source for this activity.';
+$string['no_categories_found'] = 'No se encuentran categorías de preguntas';
+$string['invalid_question_category'] = 'La categoría de pregunta no existe ni puede usarse como fuente de encuestas para esta actividad.';
