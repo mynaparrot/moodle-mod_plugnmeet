@@ -45,8 +45,6 @@ $PAGE->set_url('/mod/plugnmeet/view.php', ['id' => $cm->id]);
 $PAGE->set_title(format_string($plugnmeet->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->requires->js_call_amd('mod_plugnmeet/join_button', 'init', [['cmid' => $cm->id]]);
-// we'll load this for everyone, further restriction was set in JS code
-$PAGE->requires->js_call_amd('mod_plugnmeet/view_page', 'init', [['cmid' => $cm->id, 'can_view' => $canviewlivesessioninfo]]);
 
 $contextdata = [
     'can_manage' => $canmanage,
@@ -69,6 +67,13 @@ if ($plugnmeet->deadline && $timenow > $plugnmeet->deadline) {
     $availabilitymsg .= \html_writer::div(get_string('session_available_until', 'mod_plugnmeet', userdate($plugnmeet->deadline)), 'availabilityinfo font-weight-bold mb-2');
     $availabilitymsg .= \html_writer::div(get_string('session_ended', 'mod_plugnmeet'), 'alert alert-danger');
 }
+
+// We'll load this for everyone, further restriction was set in JS code.
+$PAGE->requires->js_call_amd('mod_plugnmeet/view_page', 'init', [[
+    'cmid' => $cm->id,
+    'can_view' => $canviewlivesessioninfo,
+    'available' => $available,
+]]);
 
 if ($canmanage && $available) {
     $PAGE->requires->js_call_amd('mod_plugnmeet/end_room_button', 'init', [['cmid' => $cm->id]]);
@@ -93,6 +98,9 @@ if ($canmanage && $available) {
 
     // Load the AMD module and tell it which button to initialize.
     $PAGE->requires->js_call_amd('mod_plugnmeet/file_picker_button', 'init', ['#upload_whiteboard_button']);
+
+    // Create poll from quiz question button.
+    $PAGE->requires->js_call_amd('mod_plugnmeet/create_poll_button', 'init', [['cmid' => $cm->id]]);
 }
 
 $contextdata['availability_message'] = $availabilitymsg;

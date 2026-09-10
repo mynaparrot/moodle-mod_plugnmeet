@@ -26,9 +26,11 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function(
             if (canManage && data.room_info) {
                 $('#end_room_button').show();
                 $('#upload_whiteboard_button').show();
+                $('#create_poll_button').show();
             } else {
                 $('#end_room_button').hide();
                 $('#upload_whiteboard_button').hide();
+                $('#create_poll_button').hide();
             }
         });
     };
@@ -44,6 +46,7 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function(
                 $('#live_session_info').html('');
                 $('#end_room_button').hide();
                 $('#upload_whiteboard_button').hide();
+                $('#create_poll_button').hide();
             }
         }).fail(notification.exception);
 
@@ -58,6 +61,9 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function(
             if (p.has("returned", "true")) {
                 // This will only work if link opened with window.open()
                 window.close();
+            }
+            if (!params.available) {
+                return; // Session not available - don't poll.
             }
             pollForRoomInfo(params.cmid, params.can_view);
         }

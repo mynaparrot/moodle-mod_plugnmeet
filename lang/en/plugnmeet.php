@@ -532,3 +532,26 @@ $string['upload_to_whiteboard_success'] = 'Successfully uploaded selected file t
 $string['uploading_file'] = 'File uploading...';
 $string['file_not_found'] = 'Requested file not found';
 $string['error_file_copy'] = 'Error during copy file';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Add Poll from Quiz';
+$string['create_poll'] = 'Create Poll';
+$string['select_quiz'] = 'Select Quiz';
+$string['select_question'] = 'Select Question';
+$string['poll_created'] = 'Poll created successfully';
+$string['poll_creation_failed'] = 'Failed to create poll: {$a}';
+$string['no_valid_questions'] = 'This quiz has no valid questions (only multiple choice single-answer and true/false are supported)';
+$string['poll_is_quiz'] = 'Hide correct answers during poll';
+$string['poll_is_anonymous'] = 'Anonymous voting';
+$string['poll_duration'] = 'Auto-close after (seconds, 0 = no limit)';
+$string['no_quizzes_found'] = 'No quizzes found in this course';
+$string['room_not_active'] = 'Room must be active to create polls';
+$string['polls_not_allowed'] = 'Polls are not enabled for this room';
+$string['poll_invalid_question'] = 'The selected question cannot be converted into a poll.';
+$string['poll_question_tie'] = 'This question has more than one option with the same highest score and cannot be converted into a poll.';
+$string['select_source'] = 'Select Source';
+$string['source_quiz'] = 'Quiz';
+$string['source_question_bank'] = 'Question Bank';
+$string['select_category'] = 'Select Category';
+$string['no_categories_found'] = 'No question categories found';
+$string['invalid_question_category'] = 'The question category does not exist or cannot be used as a poll source for this activity.';
