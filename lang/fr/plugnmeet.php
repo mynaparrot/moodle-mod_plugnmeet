@@ -532,3 +532,26 @@ $string['upload_to_whiteboard_success'] = 'Téléversement réussi le fichier s�
 $string['uploading_file'] = 'Téléchargement de fichiers...';
 $string['file_not_found'] = 'Fichier demandé non trouvé';
 $string['error_file_copy'] = 'Erreur lors de la copie du fichier';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Ajouter un sondage à partir de Quiz';
+$string['create_poll'] = 'Create Poll';
+$string['select_quiz'] = 'Quiz Sélectif';
+$string['select_question'] = 'Question sélective';
+$string['poll_created'] = 'Sondage créé avec succès';
+$string['poll_creation_failed'] = 'Échec à créer un sondage : {$a}';
+$string['no_valid_questions'] = 'Ce quiz ne comporte pas de questions valides (seules les réponses à choix multiples et vrai/faux sont prises en charge)';
+$string['poll_is_quiz'] = 'Masquer les bonnes réponses pendant le sondage';
+$string['poll_is_anonymous'] = 'Vote anonyme';
+$string['poll_duration'] = 'Fermeture automatique après (secondes, 0 = pas de limite)';
+$string['no_quizzes_found'] = 'Aucun quiz trouvé dans ce cours';
+$string['room_not_active'] = 'La pièce doit être active pour créer des sondages';
+$string['polls_not_allowed'] = 'Les sondages ne sont pas activés pour cette salle';
+$string['poll_invalid_question'] = 'La question sélectionnée ne peut pas être convertie en sondage.';
+$string['poll_question_tie'] = 'Cette question comporte plusieurs options avec le même score le plus élevé et ne peut pas être convertie en sondage.';
+$string['select_source'] = 'Source sélectionnée';
+$string['source_quiz'] = 'Quiz';
+$string['source_question_bank'] = 'Banque de questions';
+$string['select_category'] = 'Catégorie sélectionnée';
+$string['no_categories_found'] = 'No question categories found';
+$string['invalid_question_category'] = 'The question category does not exist or cannot be used as a poll source for this activity.';
