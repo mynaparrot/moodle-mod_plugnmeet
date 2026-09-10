@@ -224,10 +224,8 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/modal_factory', 'core/
                     cmid: cmid,
                     questionid: questionid,
                 };
-                // Web service parameter names use snake_case, so use bracket notation
-                // to avoid ESLint camelcase warnings.
-                args['is_quiz'] = $(SELECTORS.isQuiz).is(':checked');
-                args['is_anonymous'] = $(SELECTORS.isAnonymous).is(':checked');
+                args.isquiz = $(SELECTORS.isQuiz).is(':checked');
+                args.isanonymous = $(SELECTORS.isAnonymous).is(':checked');
 
                 // The id of the selected question source.
                 let sourceId;

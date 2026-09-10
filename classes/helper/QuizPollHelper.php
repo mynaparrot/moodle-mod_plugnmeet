@@ -67,8 +67,10 @@ class QuizPollHelper {
             }
 
             $question = \question_bank::load_question((int) $slot->questionid, false);
-            if (!$question instanceof qtype_multichoice_single_question
-                    && !$question instanceof qtype_truefalse_question) {
+            if (
+                !$question instanceof qtype_multichoice_single_question
+                && !$question instanceof qtype_truefalse_question
+            ) {
                 // Multiple answers multichoice questions are not supported by polls.
                 continue;
             }
@@ -171,7 +173,7 @@ class QuizPollHelper {
             ];
         }
 
-        usort($valid, function($a, $b) {
+        usort($valid, function ($a, $b) {
             return strnatcasecmp($a['name'], $b['name']);
         });
 
@@ -182,12 +184,12 @@ class QuizPollHelper {
      * Transform a supported question into the data needed to create a plugNmeet poll.
      *
      * @param \question_definition $question The question object.
-     * @param bool $isQuiz Whether the poll is a quiz (correct answers hidden during the poll).
+     * @param bool $isquiz Whether the poll is a quiz (correct answers hidden during the poll).
      * @return array With question, options (list of id, text and is_correct) and is_multiple.
      * @throws \coding_exception If the question type is not supported.
      * @throws \moodle_exception If the question cannot be converted into a poll.
      */
-    public static function transform_question_to_poll($question, bool $isQuiz = false): array {
+    public static function transform_question_to_poll($question, bool $isquiz = false): array {
         if ($question instanceof qtype_multichoice_single_question) {
             return self::transform_multichoice($question);
         }
@@ -207,7 +209,7 @@ class QuizPollHelper {
      * @throws \moodle_exception If the answers cannot unambiguously mark a single correct option.
      */
     protected static function transform_multichoice(qtype_multichoice_single_question $question): array {
-        // question_bank::load_question() returns a question instance where the
+        // The question_bank::load_question() method returns a question instance where the
         // answers live in $question->answers (the ->options record is not loaded).
         $answers = $question->answers ?? [];
         $fractions = [];

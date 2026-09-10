@@ -48,12 +48,22 @@ class create_poll extends external_api {
     public static function execute_parameters() {
         return new external_function_parameters([
             'cmid' => new external_value(PARAM_INT, 'The plugNmeet course module ID'),
-            'quizcmid' => new external_value(PARAM_INT, 'The quiz course module ID (required when source is quiz)', VALUE_DEFAULT, 0),
+            'quizcmid' => new external_value(
+                PARAM_INT,
+                'The quiz course module ID (required when source is quiz)',
+                VALUE_DEFAULT,
+                0
+            ),
             'source' => new external_value(PARAM_ALPHAEXT, 'The question source: quiz or question_bank', VALUE_DEFAULT, 'quiz'),
-            'categoryid' => new external_value(PARAM_INT, 'The question category ID (required when source is question_bank)', VALUE_DEFAULT, 0),
+            'categoryid' => new external_value(
+                PARAM_INT,
+                'The question category ID (required when source is question_bank)',
+                VALUE_DEFAULT,
+                0
+            ),
             'questionid' => new external_value(PARAM_INT, 'The question ID'),
-            'is_quiz' => new external_value(PARAM_BOOL, 'Hide correct answers during the poll', VALUE_DEFAULT, false),
-            'is_anonymous' => new external_value(PARAM_BOOL, 'Hide the identity of the voters', VALUE_DEFAULT, false),
+            'isquiz' => new external_value(PARAM_BOOL, 'Hide correct answers during the poll', VALUE_DEFAULT, false),
+            'isanonymous' => new external_value(PARAM_BOOL, 'Hide the identity of the voters', VALUE_DEFAULT, false),
             'duration' => new external_value(PARAM_INT, 'Auto-close duration in seconds (0 = no limit)', VALUE_DEFAULT, 0),
         ]);
     }
@@ -66,8 +76,8 @@ class create_poll extends external_api {
      * @param string $source The question source: quiz or question_bank.
      * @param int $categoryid The question category ID (required when source is question_bank).
      * @param int $questionid The question ID.
-     * @param bool $is_quiz Whether correct answers should be hidden during the poll.
-     * @param bool $is_anonymous Whether the votes should be anonymous.
+     * @param bool $isquiz Whether correct answers should be hidden during the poll.
+     * @param bool $isanonymous Whether the votes should be anonymous.
      * @param int $duration Auto-close duration in seconds (0 = no limit).
      * @return array
      * @throws \dml_exception
@@ -75,8 +85,16 @@ class create_poll extends external_api {
      * @throws \moodle_exception
      * @throws \required_capability_exception
      */
-    public static function execute($cmid, $quizcmid = 0, $source = 'quiz', $categoryid = 0, $questionid = 0,
-            $is_quiz = false, $is_anonymous = false, $duration = 0) {
+    public static function execute(
+        $cmid,
+        $quizcmid = 0,
+        $source = 'quiz',
+        $categoryid = 0,
+        $questionid = 0,
+        $isquiz = false,
+        $isanonymous = false,
+        $duration = 0
+    ) {
         global $DB, $USER;
 
         $params = self::validate_parameters(self::execute_parameters(), [
@@ -85,8 +103,8 @@ class create_poll extends external_api {
             'source' => $source,
             'categoryid' => $categoryid,
             'questionid' => $questionid,
-            'is_quiz' => $is_quiz,
-            'is_anonymous' => $is_anonymous,
+            'isquiz' => $isquiz,
+            'isanonymous' => $isanonymous,
             'duration' => $duration,
         ]);
 
@@ -162,8 +180,10 @@ class create_poll extends external_api {
 
         // Load and validate the question.
         $question = \question_bank::load_question((int) $params['questionid'], false);
-        if (!$question instanceof qtype_multichoice_single_question
-                && !$question instanceof qtype_truefalse_question) {
+        if (
+            !$question instanceof qtype_multichoice_single_question
+            && !$question instanceof qtype_truefalse_question
+        ) {
             return [
                 'status' => false,
                 'msg' => get_string('poll_invalid_question', 'mod_plugnmeet'),
@@ -171,7 +191,7 @@ class create_poll extends external_api {
         }
 
         try {
-            $polldata = QuizPollHelper::transform_question_to_poll($question, (bool) $params['is_quiz']);
+            $polldata = QuizPollHelper::transform_question_to_poll($question, (bool) $params['isquiz']);
         } catch (\moodle_exception $e) {
             return [
                 'status' => false,
@@ -179,15 +199,15 @@ class create_poll extends external_api {
             ];
         }
 
-        // plugNmeet accepts at most one hour as duration.
+        // The plugNmeet server accepts at most one hour as duration.
         $duration = min(max(0, (int) $params['duration']), 3600);
 
         $req = new CreatePollReq();
         $req->setRoomId($plugnmeet->roomid);
         $req->setUserId((string) $USER->id);
         $req->setQuestion($polldata['question']);
-        $req->setIsQuiz((bool) $params['is_quiz']);
-        $req->setIsAnonymous((bool) $params['is_anonymous']);
+        $req->setIsQuiz((bool) $params['isquiz']);
+        $req->setIsAnonymous((bool) $params['isanonymous']);
         $req->setIsMultiple($polldata['is_multiple']);
         $req->setDuration($duration);
 

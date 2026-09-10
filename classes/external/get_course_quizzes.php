@@ -86,7 +86,7 @@ class get_course_quizzes extends external_api {
             }
         }
 
-        usort($quizzes, function($a, $b) {
+        usort($quizzes, function ($a, $b) {
             return strnatcasecmp($a['name'], $b['name']);
         });
 
