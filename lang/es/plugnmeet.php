@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = 'Permitir salas de grupos pequeños';
 $string['allow_breakout_rooms_help'] = 'Permite a los moderadores dividir a los participantes en grupos más pequeños para discusiones enfocadas, proyectos colaborativos o actividades grupales privadas.';
 $string['allowed_number_rooms'] = 'Número máximo de salas para grupos pequeños';
 $string['allowed_number_rooms_help'] = 'El número máximo de sub-salas que un moderador puede crear dentro de una sola sesión.';
+$string['preassign_breakout_rooms'] = 'Preasigna salas de grupo de grupos de cursos';
+$string['preassign_breakout_rooms_help'] = 'Cuando se habilita, cada grupo de curso se convierte en una sala de grupos cuando comienza la sesión: el título de la sala es el nombre del grupo y los miembros del grupo se asignan automáticamente a él. El moderador puede reorganizar o eliminar estas asignaciones en cualquier momento en la gestión de la sala de grupos de la reunión. Los usuarios que no estén en ningún grupo pueden ser asignados por el moderador durante la sesión. Esto entra en vigor desde el inicio de la siguiente sesión, porque los detalles de la sala se fijan cuando se crea la sala. Requiere que el curso tenga grupos.';
 
 $string['allow_display_external_link_features'] = 'Permitir compartir enlaces externos';
 $string['allow_display_external_link_features_help'] = 'Permite a los moderadores mostrar contenido educativo externo, como actividades H5P, paquetes SCORM o sistemas de cuestionarios (p. ej., Kahoot), directamente a todos los participantes durante la sesión.';
