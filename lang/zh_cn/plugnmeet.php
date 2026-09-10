@@ -532,3 +532,26 @@ $string['upload_to_whiteboard_success'] = '已成功上传选定文件到白板'
 $string['uploading_file'] = '文件上传中......';
 $string['file_not_found'] = '未找到请求文件';
 $string['error_file_copy'] = '复制文件时的错误';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Add Quiz 投票';
+$string['create_poll'] = '创建投票';
+$string['select_quiz'] = '精选测验';
+$string['select_question'] = '选择问题';
+$string['poll_created'] = '投票成功创建';
+$string['poll_creation_failed'] = '未能创建投票： {$a}';
+$string['no_valid_questions'] = '本测验没有有效题目（仅支持选择单题和是非题）';
+$string['poll_is_quiz'] = '投票时隐藏正确答案';
+$string['poll_is_anonymous'] = '匿名投票';
+$string['poll_duration'] = '自动关闭（秒数，0 = 无限制）';
+$string['no_quizzes_found'] = '本课程中没有小测验';
+$string['room_not_active'] = '创建投票必须有活动空间';
+$string['polls_not_allowed'] = '该房间不启用投票';
+$string['poll_invalid_question'] = '所选问题无法转换为投票。';
+$string['poll_question_tie'] = '这个问题有多个选项，且分数相同，且不能转换为投票。';
+$string['select_source'] = '精选来源';
+$string['source_quiz'] = '问答';
+$string['source_question_bank'] = '题库';
+$string['select_category'] = '精选类别';
+$string['no_categories_found'] = '未找到题类';
+$string['invalid_question_category'] = '该问题类别不存在，或无法作为本次活动的投票来源。';
