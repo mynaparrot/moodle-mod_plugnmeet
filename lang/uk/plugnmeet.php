@@ -532,3 +532,26 @@ $string['upload_to_whiteboard_success'] = 'Успішно завантажено
 $string['uploading_file'] = 'Завантаження файлу...';
 $string['file_not_found'] = 'Запитаний файл не знайдено';
 $string['error_file_copy'] = 'Помилка під час копіювання файлу';
+
+// Create poll from quiz question.
+$string['create_poll_from_quiz'] = 'Додати опитування з вікторини';
+$string['create_poll'] = 'Створити опитування';
+$string['select_quiz'] = 'Вибрана вікторина';
+$string['select_question'] = 'Вибрати питання';
+$string['poll_created'] = 'Опитування успішно створено';
+$string['poll_creation_failed'] = 'Не вдалося створити опитування: {$a}';
+$string['no_valid_questions'] = 'У цій вікторині немає дійсних питань (підтримуються лише відповідь з множинною відповіддю та правильно/хибно)';
+$string['poll_is_quiz'] = 'Приховати правильні відповіді під час опитування';
+$string['poll_is_anonymous'] = 'Анонімне голосування';
+$string['poll_duration'] = 'Автоматичне закриття після (секунди, 0 = без обмеження)';
+$string['no_quizzes_found'] = 'У цьому курсі не знайдено тестів';
+$string['room_not_active'] = 'Для створення опитувань має бути активний простір';
+$string['polls_not_allowed'] = 'Опитування для цієї кімнати не увімкнені';
+$string['poll_invalid_question'] = 'Вибране питання не можна перетворити на опитування.';
+$string['poll_question_tie'] = 'Це питання має більше ніж один варіант з однаковим найвищим балом і не може бути перетворене на опитування.';
+$string['select_source'] = 'Вибрати джерело';
+$string['source_quiz'] = 'Вікторина';
+$string['source_question_bank'] = 'Банк запитань';
+$string['select_category'] = 'Вибрана категорія';
+$string['no_categories_found'] = 'No question categories found';
+$string['invalid_question_category'] = 'The question category does not exist or cannot be used as a poll source for this activity.';
