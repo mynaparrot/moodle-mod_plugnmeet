@@ -212,6 +212,8 @@ $string['allow_breakout_rooms'] = 'Schakel breakout-rooms in';
 $string['allow_breakout_rooms_help'] = 'Hiermee kunnen moderators deelnemers in kleinere groepen verdelen voor gerichte discussies, gezamenlijke projecten of besloten groepsactiviteiten.';
 $string['allowed_number_rooms'] = 'Max Breakout Rooms';
 $string['allowed_number_rooms_help'] = 'Het maximale aantal subruimtes dat een moderator binnen één sessie kan aanmaken.';
+$string['preassign_breakout_rooms'] = 'Wijs vooraf breakoutruimtes toe van cursusgroepen';
+$string['preassign_breakout_rooms_help'] = 'Wanneer ingeschakeld, wordt elke cursusgroep een breakoutruimte wanneer de sessie begint: de kamertitel is de groepsnaam en groepsleden worden er automatisch aan toegewezen. De moderator kan deze toewijzingen op elk moment herschikken of verwijderen in het beheer van de breakoutruimte. Gebruikers die niet in een groep zitten, kunnen tijdens de sessie door de moderator worden toegewezen. Dit geldt vanaf de volgende sessiestart, omdat de details van de ruimte worden vastgelegd wanneer de ruimte wordt aangemaakt. Vereist dat de cursus groepen heeft.';
 
 $string['allow_display_external_link_features'] = 'Externe linkdeling toestaan';
 $string['allow_display_external_link_features_help'] = 'Hiermee kunnen moderators externe educatieve content – zoals H5P-activiteiten, SCORM-pakketten of quizsystemen (bijv. Kahoot) – rechtstreeks aan alle deelnemers tonen tijdens de sessie.';
