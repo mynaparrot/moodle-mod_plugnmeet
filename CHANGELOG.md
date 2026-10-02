@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.14](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.13...v3.0.14) (2026-10-02)
+
+
+### Bug Fixes
+
+* text update about `VP8` ([33d6553](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/33d6553282c6b634d4d065fb2fb983e2d43edf0c))
+
 ## [3.0.13](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.12...v3.0.13) (2026-09-10)
 
 
