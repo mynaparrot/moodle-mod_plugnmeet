@@ -282,23 +282,31 @@ function plugnmeet_get_coursemodule_info($coursemodule) {
  * @param navigation_node $plugnmeetnode The plugnmeet node
  */
 function plugnmeet_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $plugnmeetnode) {
-    global $PAGE;
+    // Use the page owning this navigation; $PAGE may refer to a different page instance.
+    $page = $settingsnav->get_page();
+    $context = $page->cm ? $page->cm->context : $page->context;
+    if ($context->contextlevel == CONTEXT_BLOCK) {
+        $context = $context->get_parent_context();
+    }
+    if ($context->contextlevel != CONTEXT_MODULE) {
+        return;
+    }
 
-    $cm = $PAGE->cm;
-    $context = context_module::instance($cm->id);
+    // For a module context the instance id is the course module id.
+    $cmid = $context->instanceid;
 
     if (has_capability('mod/plugnmeet:viewattendance', $context)) {
-        $attendanceurl = new moodle_url('/mod/plugnmeet/attendance.php', ['id' => $cm->id]);
+        $attendanceurl = new moodle_url('/mod/plugnmeet/attendance.php', ['id' => $cmid]);
         $plugnmeetnode->add(get_string('attendance', 'plugnmeet'), $attendanceurl, navigation_node::TYPE_SETTING, null, 'attendance');
     }
 
     if (has_capability('mod/plugnmeet:viewrecordings', $context)) {
-        $recordingsurl = new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $cm->id]);
+        $recordingsurl = new moodle_url('/mod/plugnmeet/recordings.php', ['id' => $cmid]);
         $plugnmeetnode->add(get_string('recordings', 'plugnmeet'), $recordingsurl, navigation_node::TYPE_SETTING, null, 'recordings');
     }
 
     if (has_capability('mod/plugnmeet:viewartifacts', $context)) {
-        $artifactsurl = new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $cm->id]);
+        $artifactsurl = new moodle_url('/mod/plugnmeet/artifacts.php', ['id' => $cmid]);
         $plugnmeetnode->add(get_string('artifacts', 'plugnmeet'), $artifactsurl, navigation_node::TYPE_SETTING, null, 'artifacts');
     }
 }
@@ -512,9 +520,8 @@ function plugnmeet_pluginfile($course, $cm, $context, $filearea, $args, $forcedo
 /**
  * Build client config
  */
-function get_plugnmeet_config() {
+function get_plugnmeet_config($assetspath) {
     $config = get_config('mod_plugnmeet');
-    $assetspath = $config->plugnmeet_server_url . "/assets";
 
     $plugnmeetconfig = [
         'serverUrl' => $config->plugnmeet_server_url,

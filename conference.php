@@ -77,25 +77,25 @@ if (empty($jsfiles) || empty($cssfiles)) {
     );
 }
 
-$path = $config->plugnmeet_server_url . "/assets";
+$assetspath = $config->plugnmeet_server_url . "/assets";
 if (!empty($fileres->getStaticAssetsPath())) {
-    $path = $fileres->getStaticAssetsPath();
+    $assetspath = $fileres->getStaticAssetsPath();
 }
 
 $jstag = "";
 foreach ($jsfiles as $file) {
     if (str_starts_with($file, 'main-module.')) {
-        $jstag .= '<script src="' . $path . '/js/' . $file . '" type="module"></script>' . "\n\t";
+        $jstag .= '<script src="' . $assetspath . '/js/' . $file . '" type="module"></script>' . "\n\t";
         continue;
     }
-    $jstag .= '<script src="' . $path . '/js/' . $file . '" defer="defer"></script>' . "\n\t";
+    $jstag .= '<script src="' . $assetspath . '/js/' . $file . '" defer="defer"></script>' . "\n\t";
 }
 
 $csstag = "";
 foreach ($cssfiles as $file) {
-    $csstag .= '<link href="' . $path . '/css/' . $file . '" rel="stylesheet" />' . "\n\t";
+    $csstag .= '<link href="' . $assetspath . '/css/' . $file . '" rel="stylesheet" />' . "\n\t";
 }
-$cnfscript = get_plugnmeet_config();
+$cnfscript = get_plugnmeet_config($assetspath);
 
 $title = format_string($moduleinstance->name);
 
