@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.14](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.13...v3.0.14) (2026-11-02)
+
+
+### Bug Fixes
+
+* added new marketplace upload API ([107103f](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/107103fd8b76087c0fd9cbaef024de15199c18e7))
+* asset path should use in staticAssetsPath if exist ([666f401](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/666f401f1b1726dbc45c15a26437e39dc83cfa1b))
+* bump SDK ([3dc6b0d](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/3dc6b0d43f6053568aa338fafb010e4320ff03c2))
+* **locale:** new Crowdin updates ([#114](https://github.com/mynaparrot/moodle-mod_plugnmeet/issues/114)) ([786b179](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/786b17939cb555ccb7ea6e0cc3dd4ff3e6bd5b73))
+* text update about `VP8` ([33d6553](https://github.com/mynaparrot/moodle-mod_plugnmeet/commit/33d6553282c6b634d4d065fb2fb983e2d43edf0c))
+
 ## [3.0.13](https://github.com/mynaparrot/moodle-mod_plugnmeet/compare/v3.0.12...v3.0.13) (2026-09-10)
 
 
