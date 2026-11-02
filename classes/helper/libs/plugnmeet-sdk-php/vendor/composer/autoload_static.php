@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718
+class ComposerStaticInit02800703cf4ded342395cdb71f69a4d7
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -138,9 +138,9 @@ class ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718
         'Brick\\Math\\Exception\\NegativeNumberException' => __DIR__ . '/..' . '/brick/math/src/Exception/NegativeNumberException.php',
         'Brick\\Math\\Exception\\NoInverseException' => __DIR__ . '/..' . '/brick/math/src/Exception/NoInverseException.php',
         'Brick\\Math\\Exception\\NumberFormatException' => __DIR__ . '/..' . '/brick/math/src/Exception/NumberFormatException.php',
+        'Brick\\Math\\Exception\\PlatformException' => __DIR__ . '/..' . '/brick/math/src/Exception/PlatformException.php',
         'Brick\\Math\\Exception\\RandomSourceException' => __DIR__ . '/..' . '/brick/math/src/Exception/RandomSourceException.php',
         'Brick\\Math\\Exception\\RoundingNecessaryException' => __DIR__ . '/..' . '/brick/math/src/Exception/RoundingNecessaryException.php',
-        'Brick\\Math\\Exception\\UnsupportedPlatformException' => __DIR__ . '/..' . '/brick/math/src/Exception/UnsupportedPlatformException.php',
         'Brick\\Math\\Internal\\Calculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator.php',
         'Brick\\Math\\Internal\\CalculatorRegistry' => __DIR__ . '/..' . '/brick/math/src/Internal/CalculatorRegistry.php',
         'Brick\\Math\\Internal\\Calculator\\BcMathCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/BcMathCalculator.php',
@@ -148,6 +148,7 @@ class ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718
         'Brick\\Math\\Internal\\Calculator\\NativeCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/NativeCalculator.php',
         'Brick\\Math\\Internal\\DecimalHelper' => __DIR__ . '/..' . '/brick/math/src/Internal/DecimalHelper.php',
         'Brick\\Math\\Internal\\Safe' => __DIR__ . '/..' . '/brick/math/src/Internal/Safe.php',
+        'Brick\\Math\\NumberSyntax' => __DIR__ . '/..' . '/brick/math/src/NumberSyntax.php',
         'Brick\\Math\\RoundingMode' => __DIR__ . '/..' . '/brick/math/src/RoundingMode.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Firebase\\JWT\\BeforeValidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/BeforeValidException.php',
@@ -369,6 +370,7 @@ class ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718
         'GuzzleHttp\\Promise\\PromisorInterface' => __DIR__ . '/..' . '/guzzlehttp/promises/src/PromisorInterface.php',
         'GuzzleHttp\\Promise\\RejectedPromise' => __DIR__ . '/..' . '/guzzlehttp/promises/src/RejectedPromise.php',
         'GuzzleHttp\\Promise\\RejectionException' => __DIR__ . '/..' . '/guzzlehttp/promises/src/RejectionException.php',
+        'GuzzleHttp\\Promise\\State' => __DIR__ . '/..' . '/guzzlehttp/promises/src/State.php',
         'GuzzleHttp\\Promise\\TaskQueue' => __DIR__ . '/..' . '/guzzlehttp/promises/src/TaskQueue.php',
         'GuzzleHttp\\Promise\\TaskQueueInterface' => __DIR__ . '/..' . '/guzzlehttp/promises/src/TaskQueueInterface.php',
         'GuzzleHttp\\Promise\\Utils' => __DIR__ . '/..' . '/guzzlehttp/promises/src/Utils.php',
@@ -534,6 +536,7 @@ class ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718
         'Mynaparrot\\PlugnmeetProto\\ChangeVisibilityRes' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChangeVisibilityRes.php',
         'Mynaparrot\\PlugnmeetProto\\ChatFeatures' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChatFeatures.php',
         'Mynaparrot\\PlugnmeetProto\\ChatMessage' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChatMessage.php',
+        'Mynaparrot\\PlugnmeetProto\\ChatMeta' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ChatMeta.php',
         'Mynaparrot\\PlugnmeetProto\\ClientType' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ClientType.php',
         'Mynaparrot\\PlugnmeetProto\\ClosePollReq' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/ClosePollReq.php',
         'Mynaparrot\\PlugnmeetProto\\CloudRecordingVariants' => __DIR__ . '/../..' . '/src/gen/Mynaparrot/PlugnmeetProto/CloudRecordingVariants.php',
@@ -909,9 +912,9 @@ class ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit87d29f684bbb211cd3fc75f9d2c8c718::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit02800703cf4ded342395cdb71f69a4d7::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit02800703cf4ded342395cdb71f69a4d7::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit02800703cf4ded342395cdb71f69a4d7::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -3,7 +3,7 @@
   "description": "plugNmeet PHP SDK",
   "type": "library",
   "license": "MIT",
-  "version": "2.2.7",
+  "version": "2.2.8",
   "autoload": {
     "psr-4": {
       "Mynaparrot\\Plugnmeet\\": "src/",
@@ -28,14 +28,14 @@
     "ext-curl": "*",
     "ext-json": "*",
     "ext-bcmath": "*",
-    "ramsey/uuid": "4.9.3",
-    "firebase/php-jwt": "7.1.0",
-    "guzzlehttp/guzzle": "7.15.5",
-    "google/protobuf": "5.36.1"
+    "ramsey/uuid": "4.9.4",
+    "firebase/php-jwt": "7.2.1",
+    "guzzlehttp/guzzle": "7.16.0",
+    "google/protobuf": "5.36.2"
   },
   "require-dev": {
-    "overtrue/phplint": "9.7.2",
+    "overtrue/phplint": "9.8.0",
     "squizlabs/php_codesniffer": "4.0.4",
-    "phpunit/phpunit": "13.3.3"
+    "phpunit/phpunit": "13.4.3"
   }
 }
