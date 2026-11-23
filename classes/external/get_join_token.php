@@ -33,6 +33,7 @@ use core_external\external_single_structure;
 use mod_plugnmeet\helper\plugNmeetConnect;
 use mod_plugnmeet\helper\RoomHelper;
 use mod_plugnmeet\helper\ExtensionManager;
+use Mynaparrot\PlugnmeetProto\UserMetadata;
 use Exception;
 
 defined('MOODLE_INTERNAL') || die();
@@ -73,6 +74,11 @@ class get_join_token extends external_api {
         $context = context_module::instance($cm->id);
         $plugnmeet = $DB->get_record('plugnmeet', ['id' => $cm->instance], '*', MUST_EXIST);
         $config = get_config('mod_plugnmeet');
+
+        $roommetadata = json_decode($plugnmeet->roommetadata ?? '', true) ?: [];
+        $activitymode = $roommetadata['activity_mode'] ?? 'conference';
+        $enableaiagent = (bool)(get_config('mod_plugnmeet', 'enable_ai_agent') ?? 1);
+        $isaitutor = $enableaiagent && ($activitymode === 'ai_tutor');
 
         $isguest = false;
         if (!isloggedin() || isguestuser()) {
@@ -146,16 +152,15 @@ class get_join_token extends external_api {
 
         if (!$isactiveres->getIsActive()) {
             // Room is not active.
-            if ($isguest) {
+            // AI tutor rooms can be started by anyone allowed in, guests included.
+            if ($isguest && !$isaitutor) {
                 return [
                     'status' => false,
                     'msg' => get_string('moderator_not_joined', 'mod_plugnmeet'),
                 ];
             }
 
-            if (!$isadmin) {
-                // Not a moderator, check if moderator must join first.
-                $roommetadata = json_decode($plugnmeet->roommetadata, true) ?: [];
+            if (!$isadmin && !$isaitutor) {
                 $moderatorjoinfirst = $roommetadata['room_features']['moderator_join_first'] ?? 0;
 
                 if ($moderatorjoinfirst) {
@@ -168,13 +173,14 @@ class get_join_token extends external_api {
 
             // Room is not active but user is admin or moderator_join_first is disabled.
             // Create the room first.
-            $createres = create_room::execute($plugnmeet->id);
+            $createres = create_room::execute($plugnmeet->id, $isguest);
             if (!$createres['status']) {
                 return $createres;
             }
         }
 
         // 2. Get join token.
+        $usermetadata = null;
         if ($isguest) {
             $name = $guestname;
             // Generate userId using a hash of the session ID for uniqueness within the browser session.
@@ -182,6 +188,25 @@ class get_join_token extends external_api {
         } else {
             $name = fullname($USER);
             $userid = (string)$USER->id;
+
+            $usermetadata = new UserMetadata();
+            $usermetadata->setExUserId((string)$USER->id);
+
+            // Continue from where the previous AI session stopped.
+            $hasaiagent = !empty($roommetadata['insights_features']['ai_agent_features']['is_allow']);
+            if (!empty($roommetadata['enable_continuity'] ?? 1) && ($isaitutor || $hasaiagent)) {
+                $statsrecord = $DB->get_record('plugnmeet_user_stats', [
+                    'plugnmeetid' => $plugnmeet->id,
+                    'userid' => $USER->id,
+                ], 'statsdata');
+                if ($statsrecord && !empty($statsrecord->statsdata)) {
+                    $statsdata = json_decode($statsrecord->statsdata, true) ?: [];
+                    $prevcontext = trim((string)($statsdata['ai_session_summary']['previous_session_context_prompt'] ?? ''));
+                    if ($prevcontext !== '') {
+                        $usermetadata->setPreviousSessionContext(\core_text::substr($prevcontext, 0, 2000));
+                    }
+                }
+            }
         }
 
         // Prepare initial join token parameters.
@@ -191,7 +216,7 @@ class get_join_token extends external_api {
             'userid' => $userid,
             'isadmin' => $isadmin,
             'ishidden' => false,
-            'usermetadata' => null,
+            'usermetadata' => $usermetadata,
             'locksettings' => null,
         ];
 

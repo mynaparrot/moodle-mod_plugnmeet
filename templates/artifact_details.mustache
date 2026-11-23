@@ -21,27 +21,21 @@
     {
         "can_download": true,
         "download_url": "http://example.com/download",
-        "is_analytics": true,
-        "can_download_analytics": true,
+        "is_analytics": false,
+        "can_download_analytics": false,
         "download_excel_url": "http://example.com/excel",
         "download_json_url": "http://example.com/json",
-        "is_meeting_summary": false,
-        "meeting_summary_content": "",
+        "is_meeting_summary": true,
+        "meeting_summary_content": "<p>Meeting summary</p>",
+        "is_ai_session_summary": false,
         "can_delete": true,
         "delete_url": "http://example.com/delete",
         "back_url": "http://example.com/back",
         "details": [
             {"label": "Artifact ID", "value": "artifact123"},
-            {"label": "Type", "value": "Meeting Analytics"}
+            {"label": "Type", "value": "AI agent session summary"}
         ],
-        "room_details": [
-            {"label": "Room Duration", "value": "01:30:00"}
-        ],
-        "has_users": true,
-        "user_headers": ["Name", "Duration"],
-        "user_rows": [
-            [{"value": "John Doe"}, {"value": "01:20:00"}]
-        ]
+        "ai_summary_notice": ""
     }
 }}
 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -70,6 +64,10 @@
     {{/details}}
 </table>
 
+{{#ai_summary_notice}}
+<div class="mt-4">{{{ai_summary_notice}}}</div>
+{{/ai_summary_notice}}
+
 {{#is_meeting_summary}}
     <h5 class="mt-4">{{#str}}meeting_summary, mod_plugnmeet{{/str}}</h5>
     <div class="meeting-summary-content mt-4">
@@ -78,37 +76,9 @@
 {{/is_meeting_summary}}
 
 {{#is_analytics}}
-    <h5 class="mt-4">{{#str}}room_summary, mod_plugnmeet{{/str}}</h5>
-    <table class="generaltable mt-3">
-        {{#room_details}}
-        <tr>
-            <td><strong>{{label}}</strong></td>
-            <td>{{{value}}}</td>
-        </tr>
-        {{/room_details}}
-    </table>
-
-    {{#has_users}}
-        <h5 class="mt-4">{{#str}}users_summary, mod_plugnmeet{{/str}}</h5>
-        <div class="table-responsive mt-3">
-            <table class="generaltable">
-                <thead>
-                    <tr>
-                        {{#user_headers}}
-                        <th>{{.}}</th>
-                        {{/user_headers}}
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#user_rows}}
-                    <tr>
-                        {{#.}}
-                        <td>{{{value}}}</td>
-                        {{/.}}
-                    </tr>
-                    {{/user_rows}}
-                </tbody>
-            </table>
-        </div>
-    {{/has_users}}
+    {{> mod_plugnmeet/artifact_analytics }}
 {{/is_analytics}}
+
+{{#is_ai_session_summary}}
+    {{> mod_plugnmeet/artifact_ai_session_summary }}
+{{/is_ai_session_summary}}

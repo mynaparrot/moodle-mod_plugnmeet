@@ -22,11 +22,17 @@
         "availability_message": "<div class=\"alert alert-warning\">Session has not started.</div>",
         "can_join": true,
         "can_manage": true,
+        "show_presentation_tools": true,
         "guest_link": true,
         "guest_link_url": "http://example.com/guest",
         "guest_link_help": "Share this link with guests.",
         "can_view_live_info": true,
-        "fpoptions": "{...}"
+        "fpoptions": "{...}",
+        "is_ai_mode": true,
+        "is_ai_tutor": true,
+        "ai_agent_name": "Nova",
+        "ai_topic": "Fractions",
+        "join_button_label": "Start AI Tutoring Session"
     }
 }}
 <div class="mod_plugnmeet_view_container">
@@ -38,12 +44,26 @@
             </div>
             {{/availability_message}}
 
+            {{#is_ai_mode}}
+            <div class="alert {{#is_ai_tutor}}alert-primary{{/is_ai_tutor}}{{^is_ai_tutor}}alert-info{{/is_ai_tutor}} d-flex align-items-center text-left mb-4">
+                <i class="fa fa-graduation-cap fa-2x mr-3" aria-hidden="true"></i>
+                <div>
+                    <div class="font-weight-bold">{{ai_agent_name}}</div>
+                    {{#ai_topic}}
+                    <div class="small">{{#str}}ai_topic, mod_plugnmeet{{/str}}: {{ai_topic}}</div>
+                    {{/ai_topic}}
+                </div>
+            </div>
+            {{/is_ai_mode}}
+
             {{#can_join}}
             <div class="action_buttons">
-                <button id="join_button" class="btn btn-primary btn-lg">{{#str}}join_session, plugnmeet{{/str}}</button>
+                <button id="join_button" class="btn btn-primary btn-lg">{{#join_button_label}}{{join_button_label}}{{/join_button_label}}{{^join_button_label}}{{#str}}join, mod_plugnmeet{{/str}}{{/join_button_label}}</button>
                 {{#can_manage}}
+                {{#show_presentation_tools}}
                 <button id="upload_whiteboard_button" class="btn btn-secondary btn-lg ml-2" data-fp-options="{{{fpoptions}}}" style="display:none;">{{#str}}upload_to_whiteboard, mod_plugnmeet{{/str}}</button>
                 <button id="create_poll_button" class="btn btn-secondary btn-lg ml-2" style="display:none;">{{#str}}create_poll_from_quiz, mod_plugnmeet{{/str}}</button>
+                {{/show_presentation_tools}}
                 <button id="end_room_button" class="btn btn-danger btn-lg ml-2" style="display:none;">{{#str}}end_session, plugnmeet{{/str}}</button>
                 {{/can_manage}}
             </div>

@@ -91,6 +91,15 @@ class settings_controller {
             }
             $this->admin->add($this->parantename, $mainsettings);
 
+            $aisettings = new \admin_settingpage(
+                'mod_plugnmeet_ai_settings',
+                get_string('ai_agent_settings_heading', 'mod_plugnmeet')
+            );
+            if ($this->admin->fulltree) {
+                $this->load_ai_agent_settings($aisettings);
+            }
+            $this->admin->add($this->parantename, $aisettings);
+
             $extensions = core_plugin_manager::instance()->get_plugins_of_type(ExtensionManager::PNM_EXTENSION_PLUGIN_NAME);
             if (!empty($extensions)) {
                 // add custom category for subplugins with name: pnmextplugins
@@ -313,5 +322,269 @@ class settings_controller {
             3,
             PARAM_INT
         ));
+    }
+
+    /**
+     * AI Agent & Tutor settings, including BYOK provider and external MCP servers.
+     *
+     * @param admin_settingpage $aisettings
+     * @return void
+     * @throws \coding_exception
+     */
+    private function load_ai_agent_settings(admin_settingpage $aisettings): void {
+        $aisettings->add(new \admin_setting_heading(
+            'mod_plugnmeet/ai_basic_settings_heading',
+            get_string('ai_basic_settings_heading', 'mod_plugnmeet'),
+            get_string('ai_agent_settings_heading_desc', 'mod_plugnmeet')
+        ));
+
+        $yesno = [1 => get_string('yes'), 0 => get_string('no')];
+
+        $aisettings->add(new \admin_setting_configselect(
+            'mod_plugnmeet/enable_ai_agent',
+            get_string('enable_ai_agent', 'mod_plugnmeet'),
+            get_string('enable_ai_agent_desc', 'mod_plugnmeet'),
+            1,
+            $yesno
+        ));
+
+        $aisettings->add(new \admin_setting_configtext(
+            'mod_plugnmeet/ai_max_concurrent_sessions_limit',
+            get_string('ai_max_concurrent_sessions_limit', 'mod_plugnmeet'),
+            get_string('ai_max_concurrent_sessions_limit_desc', 'mod_plugnmeet'),
+            16,
+            PARAM_INT
+        ));
+
+        $aisettings->add(new \admin_setting_configtext(
+            'mod_plugnmeet/ai_default_max_session_seconds',
+            get_string('ai_default_max_session_seconds', 'mod_plugnmeet'),
+            get_string('ai_default_max_session_seconds_desc', 'mod_plugnmeet'),
+            1800,
+            PARAM_INT
+        ));
+
+        $aisettings->add(new \admin_setting_configtext(
+            'mod_plugnmeet/ai_max_session_seconds_limit',
+            get_string('ai_max_session_seconds_limit', 'mod_plugnmeet'),
+            get_string('ai_max_session_seconds_limit_desc', 'mod_plugnmeet'),
+            3600,
+            PARAM_INT
+        ));
+
+        $aisettings->add(new \admin_setting_configtext(
+            'mod_plugnmeet/ai_default_max_audio_minutes',
+            get_string('ai_default_max_audio_minutes', 'mod_plugnmeet'),
+            get_string('ai_default_max_audio_minutes_desc', 'mod_plugnmeet'),
+            30,
+            PARAM_INT
+        ));
+
+        $aisettings->add(new \admin_setting_configtext(
+            'mod_plugnmeet/ai_max_audio_minutes_limit',
+            get_string('ai_max_audio_minutes_limit', 'mod_plugnmeet'),
+            get_string('ai_max_audio_minutes_limit_desc', 'mod_plugnmeet'),
+            120,
+            PARAM_INT
+        ));
+
+        $aisettings->add(new \admin_setting_configselect(
+            'mod_plugnmeet/ai_allow_web_fetch_global',
+            get_string('ai_allow_web_fetch_global', 'mod_plugnmeet'),
+            get_string('ai_allow_web_fetch_global_desc', 'mod_plugnmeet'),
+            1,
+            $yesno
+        ));
+
+        // Bring your own key (BYOK) provider.
+        $aisettings->add(new \admin_setting_heading(
+            'mod_plugnmeet/ai_byok_settings_heading',
+            get_string('ai_byok_settings_heading', 'mod_plugnmeet'),
+            get_string('ai_byok_settings_heading_desc', 'mod_plugnmeet')
+        ));
+
+        $aisettings->add(new \admin_setting_configselect(
+            'mod_plugnmeet/ai_custom_provider_enabled',
+            get_string('ai_custom_provider_enabled', 'mod_plugnmeet'),
+            get_string('ai_custom_provider_enabled_desc', 'mod_plugnmeet'),
+            0,
+            $yesno
+        ));
+
+        $aisettings->add(new \admin_setting_configselect(
+            'mod_plugnmeet/ai_custom_provider',
+            get_string('ai_custom_provider', 'mod_plugnmeet'),
+            get_string('ai_custom_provider_desc', 'mod_plugnmeet'),
+            'google',
+            [
+                'google' => get_string('ai_custom_provider_google', 'mod_plugnmeet'),
+                'openai' => get_string('ai_custom_provider_openai', 'mod_plugnmeet'),
+            ]
+        ));
+
+        $aisettings->add(new \admin_setting_configpasswordunmask(
+            'mod_plugnmeet/ai_custom_api_key',
+            get_string('ai_custom_api_key', 'mod_plugnmeet'),
+            get_string('ai_custom_api_key_desc', 'mod_plugnmeet'),
+            ''
+        ));
+
+        $aisettings->add(new \admin_setting_configtext(
+            'mod_plugnmeet/ai_custom_endpoint',
+            get_string('ai_custom_endpoint', 'mod_plugnmeet'),
+            get_string('ai_custom_endpoint_desc', 'mod_plugnmeet'),
+            '',
+            PARAM_URL
+        ));
+
+        $aisettings->add(new \admin_setting_configtext(
+            'mod_plugnmeet/ai_custom_auth_header',
+            get_string('ai_custom_auth_header', 'mod_plugnmeet'),
+            get_string('ai_custom_auth_header_desc', 'mod_plugnmeet'),
+            '',
+            PARAM_TEXT
+        ));
+
+        foreach (['realtime', 'delegation', 'summarize'] as $modeltype) {
+            $aisettings->add(new \admin_setting_configtext(
+                "mod_plugnmeet/ai_custom_{$modeltype}_model",
+                get_string("ai_custom_{$modeltype}_model", 'mod_plugnmeet'),
+                get_string("ai_custom_{$modeltype}_model_desc", 'mod_plugnmeet'),
+                '',
+                PARAM_TEXT
+            ));
+        }
+
+        // External MCP servers.
+        $aisettings->add(new \admin_setting_heading(
+            'mod_plugnmeet/ai_mcp_settings_heading',
+            get_string('ai_mcp_settings_heading', 'mod_plugnmeet'),
+            get_string('ai_mcp_settings_heading_desc', 'mod_plugnmeet')
+        ));
+
+        $mcpscopes = [
+            'ai_agent' => get_string('ai_mcp_scope_ai_agent', 'mod_plugnmeet'),
+            'text_chat' => get_string('ai_mcp_scope_text_chat', 'mod_plugnmeet'),
+            'shared' => get_string('ai_mcp_scope_shared', 'mod_plugnmeet'),
+        ];
+
+        for ($i = 1; $i <= 2; $i++) {
+            $aisettings->add(new \admin_setting_configselect(
+                "mod_plugnmeet/ai_mcp_{$i}_enabled",
+                get_string('ai_mcp_enabled', 'mod_plugnmeet', $i),
+                get_string('ai_mcp_enabled_desc', 'mod_plugnmeet', $i),
+                0,
+                $yesno
+            ));
+
+            $aisettings->add(new \admin_setting_configtext(
+                "mod_plugnmeet/ai_mcp_{$i}_name",
+                get_string('ai_mcp_name', 'mod_plugnmeet', $i),
+                get_string('ai_mcp_name_desc', 'mod_plugnmeet', $i),
+                '',
+                PARAM_ALPHANUMEXT
+            ));
+
+            $aisettings->add(new \admin_setting_configtext(
+                "mod_plugnmeet/ai_mcp_{$i}_url",
+                get_string('ai_mcp_url', 'mod_plugnmeet', $i),
+                get_string('ai_mcp_url_desc', 'mod_plugnmeet', $i),
+                '',
+                PARAM_URL
+            ));
+
+            $aisettings->add(new \admin_setting_configtextarea(
+                "mod_plugnmeet/ai_mcp_{$i}_headers",
+                get_string('ai_mcp_headers', 'mod_plugnmeet', $i),
+                get_string('ai_mcp_headers_desc', 'mod_plugnmeet', $i),
+                '',
+                PARAM_RAW
+            ));
+
+            $aisettings->add(new \admin_setting_configtext(
+                "mod_plugnmeet/ai_mcp_{$i}_allowed_tools",
+                get_string('ai_mcp_allowed_tools', 'mod_plugnmeet', $i),
+                get_string('ai_mcp_allowed_tools_desc', 'mod_plugnmeet', $i),
+                '',
+                PARAM_TEXT
+            ));
+
+            $aisettings->add(new \admin_setting_configselect(
+                "mod_plugnmeet/ai_mcp_{$i}_scope",
+                get_string('ai_mcp_scope', 'mod_plugnmeet', $i),
+                get_string('ai_mcp_scope_desc', 'mod_plugnmeet', $i),
+                'ai_agent',
+                $mcpscopes
+            ));
+        }
+
+        $this->hide_ai_agent_settings($aisettings);
+    }
+
+    /**
+     * Hide the AI Agent settings that are not relevant for the current configuration.
+     *
+     * Uses admin_settingpage::hide_if() (page level API) and must run after the settings
+     * have been added to the page.
+     *
+     * @param admin_settingpage $aisettings
+     * @return void
+     */
+    private function hide_ai_agent_settings(admin_settingpage $aisettings): void {
+        if (!method_exists($aisettings, 'hide_if')) {
+            return;
+        }
+
+        $mcpfields = ['name', 'url', 'headers', 'allowed_tools', 'scope'];
+
+        // Bring your own key (BYOK) details, they depend on the custom provider being enabled.
+        $byok = [
+            'ai_custom_provider',
+            'ai_custom_api_key',
+            'ai_custom_endpoint',
+            'ai_custom_auth_header',
+            'ai_custom_realtime_model',
+            'ai_custom_delegation_model',
+            'ai_custom_summarize_model',
+        ];
+
+        // Everything AI related depends on the AI agent being enabled.
+        $aionly = array_merge([
+            'ai_byok_settings_heading',
+            'ai_mcp_settings_heading',
+            'ai_max_concurrent_sessions_limit',
+            'ai_default_max_session_seconds',
+            'ai_max_session_seconds_limit',
+            'ai_default_max_audio_minutes',
+            'ai_max_audio_minutes_limit',
+            'ai_allow_web_fetch_global',
+            'ai_custom_provider_enabled',
+        ], $byok);
+
+        for ($i = 1; $i <= 2; $i++) {
+            $aionly[] = "ai_mcp_{$i}_enabled";
+            foreach ($mcpfields as $field) {
+                $aionly[] = "ai_mcp_{$i}_{$field}";
+            }
+        }
+        foreach ($aionly as $name) {
+            $aisettings->hide_if("mod_plugnmeet/{$name}", 'mod_plugnmeet/enable_ai_agent', 'eq', '0');
+        }
+
+        foreach ($byok as $name) {
+            $aisettings->hide_if("mod_plugnmeet/{$name}", 'mod_plugnmeet/ai_custom_provider_enabled', 'eq', '0');
+        }
+
+        // MCP server details depend on that server being enabled.
+        for ($i = 1; $i <= 2; $i++) {
+            foreach ($mcpfields as $field) {
+                $aisettings->hide_if(
+                    "mod_plugnmeet/ai_mcp_{$i}_{$field}",
+                    "mod_plugnmeet/ai_mcp_{$i}_enabled",
+                    'eq',
+                    '0'
+                );
+            }
+        }
     }
 }

@@ -22,6 +22,7 @@
         "can_download": true,
         "download_url": "http://example.com/download",
         "paging_bar": "<nav>Paging bar HTML</nav>",
+        "has_ai": true,
         "rows": [
             {
                 "fullname": "John Doe",
@@ -38,6 +39,8 @@
                 "talked_duration": "00:10:00",
                 "voted_poll": true,
                 "whiteboard_annotated": false,
+                "ai_sessions_completed": 3,
+                "ai_best_score": 92,
                 "timemodified": 1678912345
             }
         ]
@@ -66,6 +69,10 @@
             <th>{{#str}}attendance_talked_duration, mod_plugnmeet{{/str}}</th>
             <th>{{#str}}attendance_voted_poll, mod_plugnmeet{{/str}}</th>
             <th>{{#str}}attendance_whiteboard_annotated, mod_plugnmeet{{/str}}</th>
+            {{#has_ai}}
+            <th>{{#str}}attendance_ai_sessions_completed, mod_plugnmeet{{/str}}</th>
+            <th>{{#str}}attendance_ai_best_score, mod_plugnmeet{{/str}}</th>
+            {{/has_ai}}
             <th>{{#str}}last_updated, mod_plugnmeet{{/str}}</th>
         </tr>
     </thead>
@@ -84,6 +91,10 @@
             <td>{{talked_duration}}</td>
             <td>{{#voted_poll}}{{#str}}yes, mod_plugnmeet{{/str}}{{/voted_poll}}{{^voted_poll}}{{#str}}no, mod_plugnmeet{{/str}}{{/voted_poll}}</td>
             <td>{{#whiteboard_annotated}}{{#str}}yes, mod_plugnmeet{{/str}}{{/whiteboard_annotated}}{{^whiteboard_annotated}}{{#str}}no, mod_plugnmeet{{/str}}{{/whiteboard_annotated}}</td>
+            {{#has_ai}}
+            <td>{{ai_sessions_completed}}</td>
+            <td>{{ai_best_score}}</td>
+            {{/has_ai}}
             <td>{{#timemodified}}{{#userdate}}{{timemodified}}, {{#str}}strftimedatetimeshort, core_langconfig{{/str}}{{/userdate}}{{/timemodified}}{{^timemodified}}-{{/timemodified}}</td>
         </tr>
         {{/rows}}

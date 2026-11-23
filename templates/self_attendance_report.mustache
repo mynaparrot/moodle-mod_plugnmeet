@@ -40,7 +40,29 @@
                 "icon": "fa-check-circle text-success",
                 "badge": "<span class=\"badge badge-success ml-auto\">Met</span>"
             }
-        ]
+        ],
+        "has_ai_summary": true,
+        "agent_display_name": "Nova",
+        "topic": "Fractions",
+        "mastery_level": "Proficient",
+        "mastery_badge_class": "bg-info text-dark",
+        "overall_score": 82,
+        "best_score": 90,
+        "sessions_completed": 3,
+        "duration_formatted": "12m 30s",
+        "turns_count": 24,
+        "has_quiz": true,
+        "quiz_accuracy_percent": 75,
+        "narrative_summary": "The student worked confidently through equivalent fractions.",
+        "has_concepts_mastered": true,
+        "concepts_mastered": ["Equivalent fractions", "Simplifying fractions"],
+        "has_concepts_practiced": true,
+        "concepts_practiced": ["Adding fractions"],
+        "has_struggled_with": true,
+        "struggled_with": ["Mixed numbers"],
+        "next_session_focus": "Convert mixed numbers to improper fractions.",
+        "recommended_warm_up": "Quick review of simplifying fractions.",
+        "continuity_enabled": true
     }
 }}
 <div class="container-fluid self-reporting-dashboard">
@@ -87,4 +109,79 @@
         </div>
         {{/progress_items}}
     </div>
+
+    {{#has_ai_summary}}
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start flex-wrap mb-3">
+                <div>
+                    <h5 class="card-title mb-1">{{#str}}ai_last_session_title, mod_plugnmeet{{/str}}</h5>
+                    <div class="small text-muted">{{agent_display_name}}{{#topic}} &middot; {{topic}}{{/topic}}</div>
+                </div>
+                {{#mastery_level}}
+                <span class="badge {{mastery_badge_class}} px-3 py-2">{{mastery_level}}</span>
+                {{/mastery_level}}
+            </div>
+
+            <div class="row text-center mb-3">
+                <div class="col-4">
+                    <div class="h4 mb-0">{{overall_score}}</div>
+                    <div class="small text-muted">{{#str}}ai_score, mod_plugnmeet{{/str}}</div>
+                </div>
+                <div class="col-4">
+                    <div class="h4 mb-0">{{best_score}}</div>
+                    <div class="small text-muted">{{#str}}ai_best_score, mod_plugnmeet{{/str}}</div>
+                </div>
+                <div class="col-4">
+                    <div class="h4 mb-0">{{sessions_completed}}</div>
+                    <div class="small text-muted">{{#str}}ai_sessions_completed, mod_plugnmeet{{/str}}</div>
+                </div>
+            </div>
+
+            <div class="small text-muted mb-3">
+                {{duration_formatted}} &middot; {{turns_count}} {{#str}}ai_turns, mod_plugnmeet{{/str}}
+                {{#has_quiz}} &middot; {{#str}}ai_quiz_accuracy, mod_plugnmeet{{/str}}: {{quiz_accuracy_percent}}%{{/has_quiz}}
+            </div>
+
+            {{#narrative_summary}}
+            <p class="mb-3">{{narrative_summary}}</p>
+            {{/narrative_summary}}
+
+            {{#has_concepts_mastered}}
+            <div class="mb-2">
+                <div class="small font-weight-bold">{{#str}}ai_concepts_mastered, mod_plugnmeet{{/str}}</div>
+                {{#concepts_mastered}}<span class="badge bg-success text-white mr-1 mb-1">{{.}}</span>{{/concepts_mastered}}
+            </div>
+            {{/has_concepts_mastered}}
+
+            {{#has_concepts_practiced}}
+            <div class="mb-2">
+                <div class="small font-weight-bold">{{#str}}ai_concepts_practiced, mod_plugnmeet{{/str}}</div>
+                {{#concepts_practiced}}<span class="badge bg-info text-dark mr-1 mb-1">{{.}}</span>{{/concepts_practiced}}
+            </div>
+            {{/has_concepts_practiced}}
+
+            {{#has_struggled_with}}
+            <div class="mb-2">
+                <div class="small font-weight-bold">{{#str}}ai_struggled_with, mod_plugnmeet{{/str}}</div>
+                {{#struggled_with}}<span class="badge bg-warning text-dark mr-1 mb-1">{{.}}</span>{{/struggled_with}}
+            </div>
+            {{/has_struggled_with}}
+
+            {{#next_session_focus}}
+            <div class="small mt-2"><strong>{{#str}}ai_next_session_focus, mod_plugnmeet{{/str}}:</strong> {{next_session_focus}}</div>
+            {{/next_session_focus}}
+
+            {{#recommended_warm_up}}
+            <div class="small mt-1"><strong>{{#str}}ai_recommended_warm_up, mod_plugnmeet{{/str}}:</strong> {{recommended_warm_up}}</div>
+            {{/recommended_warm_up}}
+
+            {{#continuity_enabled}}
+            <div class="small text-muted mt-3">
+                <i class="fa fa-refresh mr-1" aria-hidden="true"></i>{{#str}}ai_continuity_active, mod_plugnmeet{{/str}}
+            </div>
+            {{/continuity_enabled}}
+        </div>
+    </div>
+    {{/has_ai_summary}}
 </div>

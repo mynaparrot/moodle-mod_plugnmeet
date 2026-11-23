@@ -40,6 +40,24 @@
                 "mics": 1,
                 "screenshares": 0
             }
+        ],
+        "has_breakout_rooms": true,
+        "breakout_rooms": [
+            {
+                "room_id": "room123-breakout-1",
+                "room_title": "Group 1",
+                "joined_participants": 2,
+                "creation_time": 1678912345,
+                "has_participants": true,
+                "participants_info": [
+                    {
+                        "name": "Jane Doe",
+                        "user_id": "user2",
+                        "mics": 1,
+                        "webcams": 0
+                    }
+                ]
+            }
         ]
     }
 }}
@@ -110,3 +128,38 @@
         </tbody>
     </table>
 {{/has_participants}}
+
+{{#has_breakout_rooms}}
+    <h5 class="mt-4">{{#str}}active_breakout_sessions, mod_plugnmeet{{/str}}</h5>
+    <table class="generaltable">
+        <thead>
+            <tr>
+                <th>{{#str}}room_title, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}participants, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}creation_time, mod_plugnmeet{{/str}}</th>
+                <th>{{#str}}participants_info, mod_plugnmeet{{/str}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#breakout_rooms}}
+                <tr>
+                    <td>{{room_title}}</td>
+                    <td class="text-center">{{joined_participants}}</td>
+                    <td class="text-center">{{#userdate}}{{creation_time}}, {{#str}}strftimedaydatetime, core_langconfig{{/str}}{{/userdate}}</td>
+                    <td>
+                        {{#has_participants}}
+                            {{#participants_info}}
+                            <div class="small">
+                                {{name}} <span class="text-muted">({{user_id}})</span>
+                                <i class="fa fa-microphone {{#mics}}text-success{{/mics}}{{^mics}}text-muted{{/mics}}" title="{{#str}}mics, mod_plugnmeet{{/str}}"></i>
+                                <i class="fa fa-video-camera {{#webcams}}text-success{{/webcams}}{{^webcams}}text-muted{{/webcams}}" title="{{#str}}webcams, mod_plugnmeet{{/str}}"></i>
+                            </div>
+                            {{/participants_info}}
+                        {{/has_participants}}
+                        {{^has_participants}}<span class="text-muted">-</span>{{/has_participants}}
+                    </td>
+                </tr>
+            {{/breakout_rooms}}
+        </tbody>
+    </table>
+{{/has_breakout_rooms}}

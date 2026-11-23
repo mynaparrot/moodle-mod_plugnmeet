@@ -120,7 +120,21 @@ class RoomCreateFeaturesBuilder
                 if ($type === GPBType::MESSAGE) {
                     if (is_array($value) && !empty($value)) {
                         $subMessageClass = $field->getMessageType()->getClass();
-                        if ($field->isRepeated()) {
+                        if (method_exists($field, 'isMap') && $field->isMap()) {
+                            // Map field: key => scalar, or key => message when the value type is a MESSAGE.
+                            $valueField = $field->getMessageType()->getFieldByNumber(2);
+                            $mapValues = $value;
+                            if ($valueField && $valueField->getType() === GPBType::MESSAGE) {
+                                $valueClass = $valueField->getMessageType()->getClass();
+                                $mapValues = [];
+                                foreach ($value as $mapKey => $mapVal) {
+                                    $mapValues[$mapKey] = $mapVal instanceof Message
+                                        ? $mapVal
+                                        : $this->buildProtoMessageFromArray((array)$mapVal, $valueClass);
+                                }
+                            }
+                            $messageInstance->$setter($mapValues);
+                        } elseif ($field->isRepeated()) {
                             // Repeated MESSAGE field: build one sub-message per element.
                             $subMessages = [];
                             foreach ($value as $subArray) {

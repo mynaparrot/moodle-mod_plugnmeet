@@ -1,0 +1,349 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_plugnmeet/artifact_ai_session_summary
+
+    Example context (json):
+    {
+        "student_name": "Jane Doe",
+        "student_user_id": "42",
+        "agent_name": "Nova",
+        "topic": "Fractions",
+        "started_at": "27 October 2023, 10:00 AM",
+        "ended_at": "27 October 2023, 10:15 AM",
+        "duration_formatted": "12m 30s",
+        "turns_count": 24,
+        "end_reason": "completed",
+        "off_topic_redirects": 1,
+        "participation_level": "Active",
+        "whiteboard_used": "Yes",
+        "notepad_used": "No",
+        "has_tools_used": true,
+        "tools_used": [
+            {"name": "whiteboard", "count": 3}
+        ],
+        "mastery_level": "Proficient",
+        "mastery_badge_class": "bg-info text-dark",
+        "overall_score": 82,
+        "best_score": 90,
+        "sessions_completed": 3,
+        "narrative_summary": "The student worked confidently through equivalent fractions.",
+        "rubric_notes": "Consistent reasoning with minor slips on mixed numbers.",
+        "has_concepts_mastered": true,
+        "concepts_mastered": ["Equivalent fractions", "Simplifying fractions"],
+        "has_concepts_practiced": true,
+        "concepts_practiced": ["Adding fractions"],
+        "has_struggled_with": true,
+        "struggled_with": ["Mixed numbers"],
+        "has_vocabulary_or_key_terms": true,
+        "vocabulary_or_key_terms": ["numerator", "denominator"],
+        "has_continuation": true,
+        "next_session_focus": "Convert mixed numbers to improper fractions.",
+        "recommended_warm_up": "Quick review of simplifying fractions.",
+        "has_unfinished_subtopics": true,
+        "unfinished_subtopics": ["Mixed number addition"],
+        "previous_session_context_prompt": "Previously covered equivalent fractions.",
+        "continuity_enabled": true,
+        "has_quiz": true,
+        "total_quizzes": 2,
+        "total_responses": 8,
+        "correct_responses": 6,
+        "accuracy_percent": 75,
+        "has_questions": true,
+        "questions": [
+            {
+                "question": "Which fraction equals 1/2?",
+                "correct_option": "2/4",
+                "total_votes": 4,
+                "correct_votes": 3,
+                "passed": true
+            }
+        ],
+        "has_progress_log": true,
+        "progress_log": [
+            {
+                "concept": "Equivalent fractions",
+                "status": "Mastered",
+                "status_badge_class": "bg-success text-white",
+                "notes": "Explained with diagrams."
+            }
+        ],
+        "has_ai_usage": true,
+        "ai_usage": [
+            {
+                "role": "assistant",
+                "prompt_tokens": 1200,
+                "completion_tokens": 800,
+                "total_tokens": 2000,
+                "estimated_cost": "0.0032"
+            }
+        ],
+        "usage_total_prompt_tokens": 1200,
+        "usage_total_completion_tokens": 800,
+        "usage_total_tokens": 2000,
+        "usage_total_estimated_cost": "0.0032"
+    }
+}}
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start flex-wrap mb-3">
+            <div>
+                <h5 class="card-title mb-2">{{#str}}ai_mastery_report, mod_plugnmeet{{/str}}</h5>
+                <div class="font-weight-bold">{{student_name}}</div>
+                <div class="small text-muted">{{#str}}user_id, mod_plugnmeet{{/str}}: {{student_user_id}}</div>
+                <div class="small text-muted">{{agent_name}}{{#topic}} &middot; {{topic}}{{/topic}}</div>
+            </div>
+            <div class="text-right">
+                {{#mastery_level}}
+                <span class="badge badge-lg px-3 py-2 {{mastery_badge_class}}">{{mastery_level}}</span>
+                {{/mastery_level}}
+                {{#participation_level}}
+                <span class="badge badge-lg bg-secondary text-white px-3 py-2">{{#str}}ai_participation_level, mod_plugnmeet{{/str}}: {{participation_level}}</span>
+                {{/participation_level}}
+            </div>
+        </div>
+
+        <div class="bg-light border rounded p-3 mb-3">
+            <div class="row text-center">
+                <div class="col-6 col-md-3 mb-3 mb-md-0">
+                    <div class="h3 mb-0">{{overall_score}}</div>
+                    <div class="small text-muted">{{#str}}ai_score, mod_plugnmeet{{/str}}</div>
+                </div>
+                <div class="col-6 col-md-3 mb-3 mb-md-0">
+                    <div class="h3 mb-0">{{best_score}}</div>
+                    <div class="small text-muted">{{#str}}ai_best_score, mod_plugnmeet{{/str}}</div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="h3 mb-0">{{sessions_completed}}</div>
+                    <div class="small text-muted">{{#str}}ai_sessions_completed, mod_plugnmeet{{/str}}</div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="h3 mb-0">{{duration_formatted}}</div>
+                    <div class="small text-muted">
+                        {{#str}}ai_duration, mod_plugnmeet{{/str}} &middot; {{turns_count}} {{#str}}ai_turns, mod_plugnmeet{{/str}}
+                        {{#has_quiz}} &middot; {{#str}}ai_quiz_accuracy, mod_plugnmeet{{/str}}: {{accuracy_percent}}%{{/has_quiz}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{#narrative_summary}}
+        <div class="mb-3">
+            <h6>{{#str}}ai_narrative_summary, mod_plugnmeet{{/str}}</h6>
+            <p class="mb-0">{{narrative_summary}}</p>
+        </div>
+        {{/narrative_summary}}
+
+        {{#rubric_notes}}
+        <div class="mb-3">
+            <h6>{{#str}}ai_rubric_notes, mod_plugnmeet{{/str}}</h6>
+            <p class="small text-muted mb-0">{{rubric_notes}}</p>
+        </div>
+        {{/rubric_notes}}
+
+        {{#has_concepts_mastered}}
+        <div class="mb-2">
+            <div class="small font-weight-bold">{{#str}}ai_concepts_mastered, mod_plugnmeet{{/str}}</div>
+            {{#concepts_mastered}}<span class="badge bg-success text-white mr-1 mb-1">{{.}}</span>{{/concepts_mastered}}
+        </div>
+        {{/has_concepts_mastered}}
+
+        {{#has_concepts_practiced}}
+        <div class="mb-2">
+            <div class="small font-weight-bold">{{#str}}ai_concepts_practiced, mod_plugnmeet{{/str}}</div>
+            {{#concepts_practiced}}<span class="badge bg-info text-dark mr-1 mb-1">{{.}}</span>{{/concepts_practiced}}
+        </div>
+        {{/has_concepts_practiced}}
+
+        {{#has_struggled_with}}
+        <div class="mb-2">
+            <div class="small font-weight-bold">{{#str}}ai_struggled_with, mod_plugnmeet{{/str}}</div>
+            {{#struggled_with}}<span class="badge bg-warning text-dark mr-1 mb-1">{{.}}</span>{{/struggled_with}}
+        </div>
+        {{/has_struggled_with}}
+
+        {{#has_vocabulary_or_key_terms}}
+        <div class="mb-2">
+            <div class="small font-weight-bold">{{#str}}ai_vocabulary, mod_plugnmeet{{/str}}</div>
+            {{#vocabulary_or_key_terms}}<span class="badge bg-secondary text-white mr-1 mb-1">{{.}}</span>{{/vocabulary_or_key_terms}}
+        </div>
+        {{/has_vocabulary_or_key_terms}}
+
+        {{#has_continuation}}
+        <div class="border-top pt-3 mt-3">
+            <h6>{{#str}}ai_next_session_title, mod_plugnmeet{{/str}}</h6>
+            {{#next_session_focus}}
+            <div class="small"><strong>{{#str}}ai_next_session_focus, mod_plugnmeet{{/str}}:</strong> {{next_session_focus}}</div>
+            {{/next_session_focus}}
+            {{#recommended_warm_up}}
+            <div class="small mt-1"><strong>{{#str}}ai_recommended_warm_up, mod_plugnmeet{{/str}}:</strong> {{recommended_warm_up}}</div>
+            {{/recommended_warm_up}}
+            {{#has_unfinished_subtopics}}
+            <div class="mt-2">
+                <div class="small font-weight-bold">{{#str}}ai_unfinished_subtopics, mod_plugnmeet{{/str}}</div>
+                {{#unfinished_subtopics}}<span class="badge bg-warning text-dark mr-1 mb-1">{{.}}</span>{{/unfinished_subtopics}}
+            </div>
+            {{/has_unfinished_subtopics}}
+            {{#previous_session_context_prompt}}
+            <details class="mt-2">
+                <summary class="small">{{#str}}ai_previous_session_context, mod_plugnmeet{{/str}}</summary>
+                <p class="small mt-2 mb-0">{{previous_session_context_prompt}}</p>
+            </details>
+            {{/previous_session_context_prompt}}
+        </div>
+        {{/has_continuation}}
+
+        {{#continuity_enabled}}
+        <div class="small text-muted mt-3">
+            <i class="fa fa-refresh mr-1" aria-hidden="true"></i>{{#str}}ai_continuity_active, mod_plugnmeet{{/str}}
+        </div>
+        {{/continuity_enabled}}
+    </div>
+</div>
+
+<h5 class="mt-4">{{#str}}ai_session_overview, mod_plugnmeet{{/str}}</h5>
+<table class="generaltable mt-3">
+    <tr><td><strong>{{#str}}ai_agent, mod_plugnmeet{{/str}}</strong></td><td>{{agent_name}}</td></tr>
+    <tr><td><strong>{{#str}}ai_topic, mod_plugnmeet{{/str}}</strong></td><td>{{topic}}</td></tr>
+    <tr><td><strong>{{#str}}ai_started_at, mod_plugnmeet{{/str}}</strong></td><td>{{started_at}}</td></tr>
+    <tr><td><strong>{{#str}}ai_ended_at, mod_plugnmeet{{/str}}</strong></td><td>{{ended_at}}</td></tr>
+    <tr><td><strong>{{#str}}ai_duration, mod_plugnmeet{{/str}}</strong></td><td>{{duration_formatted}}</td></tr>
+    <tr><td><strong>{{#str}}ai_turns, mod_plugnmeet{{/str}}</strong></td><td>{{turns_count}}</td></tr>
+    <tr><td><strong>{{#str}}ai_end_reason, mod_plugnmeet{{/str}}</strong></td><td>{{end_reason}}</td></tr>
+    <tr><td><strong>{{#str}}ai_off_topic_redirects, mod_plugnmeet{{/str}}</strong></td><td>{{off_topic_redirects}}</td></tr>
+    <tr><td><strong>{{#str}}ai_participation_level, mod_plugnmeet{{/str}}</strong></td><td>{{participation_level}}</td></tr>
+    <tr><td><strong>{{#str}}ai_whiteboard_used, mod_plugnmeet{{/str}}</strong></td><td>{{whiteboard_used}}</td></tr>
+    <tr><td><strong>{{#str}}ai_notepad_used, mod_plugnmeet{{/str}}</strong></td><td>{{notepad_used}}</td></tr>
+    {{#has_tools_used}}
+    <tr>
+        <td><strong>{{#str}}ai_tools_used, mod_plugnmeet{{/str}}</strong></td>
+        <td>{{#tools_used}}<span class="badge bg-secondary text-white mr-1 mb-1">{{name}} ({{count}})</span>{{/tools_used}}</td>
+    </tr>
+    {{/has_tools_used}}
+</table>
+
+{{#has_quiz}}
+<h5 class="mt-4">{{#str}}ai_quiz_evaluation, mod_plugnmeet{{/str}}</h5>
+<div class="bg-light border rounded p-3 mt-2">
+    <div class="row text-center">
+        <div class="col-6 col-md-3 mb-3 mb-md-0">
+            <div class="h4 mb-0">{{total_quizzes}}</div>
+            <div class="small text-muted">{{#str}}ai_quizzes, mod_plugnmeet{{/str}}</div>
+        </div>
+        <div class="col-6 col-md-3 mb-3 mb-md-0">
+            <div class="h4 mb-0">{{total_responses}}</div>
+            <div class="small text-muted">{{#str}}ai_responses, mod_plugnmeet{{/str}}</div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="h4 mb-0">{{correct_responses}}</div>
+            <div class="small text-muted">{{#str}}ai_correct_responses, mod_plugnmeet{{/str}}</div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="h4 mb-0">{{accuracy_percent}}%</div>
+            <div class="small text-muted">{{#str}}ai_accuracy, mod_plugnmeet{{/str}}</div>
+        </div>
+    </div>
+</div>
+
+{{#has_questions}}
+<div class="table-responsive mt-3">
+    <table class="generaltable">
+        <thead>
+            <tr>
+                <th>{{#str}}ai_question, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}ai_correct_option, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}ai_votes, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}ai_correct_votes, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}ai_passed, mod_plugnmeet{{/str}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#questions}}
+            <tr>
+                <td>{{question}}</td>
+                <td class="text-center">{{correct_option}}</td>
+                <td class="text-center">{{total_votes}}</td>
+                <td class="text-center">{{correct_votes}}</td>
+                <td class="text-center">{{#passed}}<span class="badge bg-success text-white">{{#str}}yes, mod_plugnmeet{{/str}}</span>{{/passed}}{{^passed}}<span class="badge bg-danger text-white">{{#str}}no, mod_plugnmeet{{/str}}</span>{{/passed}}</td>
+            </tr>
+            {{/questions}}
+        </tbody>
+    </table>
+</div>
+{{/has_questions}}
+{{/has_quiz}}
+
+{{#has_progress_log}}
+<h5 class="mt-4">{{#str}}ai_progress_log, mod_plugnmeet{{/str}}</h5>
+<div class="table-responsive mt-3">
+    <table class="generaltable">
+        <thead>
+            <tr>
+                <th>{{#str}}ai_concept, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}ai_status, mod_plugnmeet{{/str}}</th>
+                <th>{{#str}}ai_notes, mod_plugnmeet{{/str}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#progress_log}}
+            <tr>
+                <td>{{concept}}</td>
+                <td class="text-center">{{#status}}<span class="badge {{status_badge_class}}">{{status}}</span>{{/status}}</td>
+                <td>{{notes}}</td>
+            </tr>
+            {{/progress_log}}
+        </tbody>
+    </table>
+</div>
+{{/has_progress_log}}
+
+{{#has_ai_usage}}
+<h5 class="mt-4">{{#str}}ai_token_usage, mod_plugnmeet{{/str}}</h5>
+<div class="table-responsive mt-3">
+    <table class="generaltable">
+        <thead>
+            <tr>
+                <th>{{#str}}ai_role, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}ai_prompt_tokens, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}ai_completion_tokens, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}ai_total_tokens, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}ai_estimated_cost, mod_plugnmeet{{/str}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#ai_usage}}
+            <tr>
+                <td>{{role}}</td>
+                <td class="text-center">{{prompt_tokens}}</td>
+                <td class="text-center">{{completion_tokens}}</td>
+                <td class="text-center">{{total_tokens}}</td>
+                <td class="text-center">{{estimated_cost}}</td>
+            </tr>
+            {{/ai_usage}}
+        </tbody>
+        <tfoot class="bg-light font-weight-bold">
+            <tr>
+                <td>{{#str}}total{{/str}}</td>
+                <td class="text-center">{{usage_total_prompt_tokens}}</td>
+                <td class="text-center">{{usage_total_completion_tokens}}</td>
+                <td class="text-center">{{usage_total_tokens}}</td>
+                <td class="text-center">{{usage_total_estimated_cost}}</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{{/has_ai_usage}}

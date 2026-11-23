@@ -110,8 +110,12 @@ class CompletionHelper {
                 // 5. Save aggregated stats and attendance.
                 self::save_user_stats((int)$userid, $plugnmeet, $aggregatedstats, $results['all_met'], $statsrecord);
 
-                // 6. Update Grade (Partial Progress).
-                self::update_grade((int)$userid, $plugnmeet, $results['progress']);
+                // 6. Update Grade (Partial Progress). AI Tutor keeps the best summary score.
+                $gradeprogress = $results['progress'];
+                if (self::is_ai_graded($plugnmeet) && !empty($aggregatedstats['ai_sessions_completed'])) {
+                    $gradeprogress = (float)$aggregatedstats['ai_best_score'];
+                }
+                self::update_grade((int)$userid, $plugnmeet, $gradeprogress);
 
                 // 7. If ALL criteria met, mark as complete.
                 if ($results['all_met']) {
@@ -128,6 +132,129 @@ class CompletionHelper {
         }
 
         return true;
+    }
+
+    /**
+     * Aggregate an AI agent session summary into the user's stats, completion and grade.
+     *
+     * @param \stdClass $plugnmeet
+     * @param string $artifactid
+     * @param \Mynaparrot\PlugnmeetProto\RoomArtifactMetadata|null $metadata
+     * @return bool
+     */
+    public static function update_ai_session_summary(\stdClass $plugnmeet, string $artifactid, $metadata = null): bool {
+        global $DB;
+
+        $summary = RoomHelper::get_ai_agent_session_summary($artifactid);
+        if (!$summary) {
+            return false;
+        }
+
+        $cm = get_coursemodule_from_instance('plugnmeet', $plugnmeet->id);
+        if (!$cm) {
+            return false;
+        }
+
+        $summaryuserinfo = $summary['user_info'] ?? [];
+        $metadatauserinfo = $metadata?->getUserInfo();
+        $userid = ($summaryuserinfo['ex_user_id'] ?? null)
+            ?: ($summaryuserinfo['user_id'] ?? null)
+            ?: ($metadatauserinfo?->getExUserId() ?: $metadatauserinfo?->getUserId());
+
+        if (!$userid || !is_numeric($userid) || !$DB->record_exists('user', ['id' => (int)$userid])) {
+            return false;
+        }
+        $userid = (int)$userid;
+
+        $statsrecord = $DB->get_record('plugnmeet_user_stats', ['plugnmeetid' => $plugnmeet->id, 'userid' => $userid]);
+        $aggregatedstats = ($statsrecord && !empty($statsrecord->statsdata)) ? (json_decode($statsrecord->statsdata, true) ?: []) : [];
+
+        // Count each artifact only once.
+        if ((string)($aggregatedstats['ai_session_summary']['artifact_id'] ?? '') !== $artifactid) {
+            $aggregatedstats['ai_sessions_completed'] = (int)($aggregatedstats['ai_sessions_completed'] ?? 0) + 1;
+
+            // Fold the AI session activity into the attendance counters.
+            $aggregatedstats['duration'] = (int)($aggregatedstats['duration'] ?? 0)
+                + (int)($summary['session']['duration_seconds'] ?? 0);
+            if ((int)($summary['quiz_evaluation']['total_responses'] ?? 0) > 0) {
+                $aggregatedstats['voted_poll'] = 1;
+            }
+            if (!empty($summary['workspace_activity']['whiteboard_used'])) {
+                $aggregatedstats['whiteboard_annotated'] = 1;
+            }
+            if ((int)($summary['session']['turns_count'] ?? 0) > 0) {
+                $aggregatedstats['mic_status'] = 1;
+            }
+        }
+
+        $overallscore = max(0, min(100, (int)($summary['evaluation']['overall_score'] ?? 0)));
+        $aggregatedstats['ai_latest_score'] = $overallscore;
+        $aggregatedstats['ai_best_score'] = max((int)($aggregatedstats['ai_best_score'] ?? 0), $overallscore);
+        $aggregatedstats['ai_session_summary'] = [
+            'artifact_id' => $artifactid,
+            'topic' => (string)($summary['session']['topic'] ?? ''),
+            'agent_display_name' => (string)($summary['session']['agent_display_name'] ?? ''),
+            'duration_seconds' => (int)($summary['session']['duration_seconds'] ?? 0),
+            'turns_count' => (int)($summary['session']['turns_count'] ?? 0),
+            'overall_score' => $overallscore,
+            'mastery_level' => (string)($summary['evaluation']['mastery_level'] ?? ''),
+            'participation_level' => (string)($summary['evaluation']['participation_level'] ?? ''),
+            'narrative_summary' => (string)($summary['narrative_summary'] ?? ''),
+            'concepts_mastered' => array_values((array)($summary['evaluation']['concepts_mastered'] ?? [])),
+            'concepts_practiced' => array_values((array)($summary['evaluation']['concepts_practiced'] ?? [])),
+            'struggled_with' => array_values((array)($summary['evaluation']['struggled_with'] ?? [])),
+            'quiz_total' => (int)($summary['quiz_evaluation']['total_quizzes'] ?? 0),
+            'quiz_accuracy_percent' => (int)($summary['quiz_evaluation']['accuracy_percent'] ?? 0),
+            'next_session_focus' => (string)($summary['continuation']['next_session_focus'] ?? ''),
+            'recommended_warm_up' => (string)($summary['continuation']['recommended_warm_up'] ?? ''),
+            'unfinished_subtopics' => array_values((array)($summary['continuation']['unfinished_subtopics'] ?? [])),
+            'previous_session_context_prompt' => (string)($summary['continuation']['previous_session_context_prompt'] ?? ''),
+            'generated_at' => (string)($summary['generated_at'] ?? ''),
+        ];
+
+        $results = self::evaluate_criteria($aggregatedstats, $plugnmeet);
+
+        // Hook to allow modification of completion results.
+        try {
+            foreach (ExtensionManager::get_completion_addons() as $addon) {
+                $results = $addon->after_evaluate_completion($results, $aggregatedstats, $plugnmeet, $userid);
+            }
+        } catch (Exception $e) {
+            debugging('Error in PlugNmeet subplugin after_evaluate_completion: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            RoomHelper::write_log_event($plugnmeet->id, 'after_evaluate_completion', $e->getMessage());
+        }
+
+        self::save_user_stats($userid, $plugnmeet, $aggregatedstats, $results['all_met'], $statsrecord);
+
+        $gradeprogress = self::is_ai_graded($plugnmeet)
+            ? (float)$aggregatedstats['ai_best_score']
+            : (float)$results['progress'];
+        self::update_grade($userid, $plugnmeet, $gradeprogress);
+
+        if ($results['all_met']) {
+            self::mark_as_complete($userid, $cm);
+        }
+
+        if ($results['metcount'] > 0 || $results['all_met']) {
+            self::invalidate_completion_cache($userid, (int)$plugnmeet->course, (int)$cm->id);
+        }
+
+        return true;
+    }
+
+    /**
+     * Whether the grade comes from AI session summaries instead of attendance progress.
+     *
+     * @param \stdClass $plugnmeet
+     * @return bool
+     */
+    private static function is_ai_graded(\stdClass $plugnmeet): bool {
+        if (!(bool)(get_config('mod_plugnmeet', 'enable_ai_agent') ?? 1)) {
+            return false;
+        }
+        $roommetadata = json_decode($plugnmeet->roommetadata ?? '', true) ?: [];
+
+        return (bool)($roommetadata['ai_grade_from_summary'] ?? (($roommetadata['activity_mode'] ?? 'conference') === 'ai_tutor'));
     }
 
     /**
@@ -327,6 +454,22 @@ class CompletionHelper {
         if (!empty($plugnmeet->completionwhiteboardannotated)) {
             $enabledcount++;
             if (($aggregatedstats['whiteboard_annotated'] ?? 0) > 0) {
+                $metcount++;
+            }
+        }
+
+        // 11. Check AI session completed.
+        if (!empty($plugnmeet->completionaisessioncompleted)) {
+            $enabledcount++;
+            if (($aggregatedstats['ai_sessions_completed'] ?? 0) > 0) {
+                $metcount++;
+            }
+        }
+
+        // 12. Check AI best score.
+        if (!empty($plugnmeet->completionaiminscore)) {
+            $enabledcount++;
+            if (($aggregatedstats['ai_best_score'] ?? 0) >= (int)$plugnmeet->completionaiminscore) {
                 $metcount++;
             }
         }

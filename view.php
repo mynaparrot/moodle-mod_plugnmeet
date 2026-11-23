@@ -39,7 +39,17 @@ $context = \context_module::instance($cm->id);
 require_capability('mod/plugnmeet:view', $context);
 
 $canmanage = has_capability('mod/plugnmeet:manage', $context);
-$canviewlivesessioninfo = has_capability('mod/plugnmeet:viewlivesessioninfo', $context);
+
+$roommetadata = json_decode($plugnmeet->roommetadata ?? '', true) ?: [];
+$activitymode = $roommetadata['activity_mode'] ?? 'conference';
+$enableaiagent = (bool)(get_config('mod_plugnmeet', 'enable_ai_agent') ?? 1);
+$isaitutor = $enableaiagent && ($activitymode === 'ai_tutor');
+$aifeatures = $roommetadata['insights_features']['ai_agent_features'] ?? [];
+// Whiteboard upload and quiz polls belong to conferences only.
+$showpresentationtools = $canmanage && !$isaitutor;
+
+// Students in AI tutor mode never see the live room info.
+$canviewliveinfo = $isaitutor ? $canmanage : has_capability('mod/plugnmeet:viewlivesessioninfo', $context);
 
 $PAGE->set_url('/mod/plugnmeet/view.php', ['id' => $cm->id]);
 $PAGE->set_title(format_string($plugnmeet->name));
@@ -48,6 +58,7 @@ $PAGE->requires->js_call_amd('mod_plugnmeet/join_button', 'init', [['cmid' => $c
 
 $contextdata = [
     'can_manage' => $canmanage,
+    'show_presentation_tools' => $showpresentationtools,
 ];
 
 $timenow = time();
@@ -71,42 +82,44 @@ if ($plugnmeet->deadline && $timenow > $plugnmeet->deadline) {
 // We'll load this for everyone, further restriction was set in JS code.
 $PAGE->requires->js_call_amd('mod_plugnmeet/view_page', 'init', [[
     'cmid' => $cm->id,
-    'can_view' => $canviewlivesessioninfo,
+    'can_view' => $canviewliveinfo,
     'available' => $available,
 ]]);
 
 if ($canmanage && $available) {
     $PAGE->requires->js_call_amd('mod_plugnmeet/end_room_button', 'init', [['cmid' => $cm->id]]);
 
-    // Use the file_picker class to generate the options object.
-    $fpargs = new stdClass();
-    $fpargs->context = $context;
-    $fpargs->client_id = 'plugnmeet-view-fp-' . $cm->id;
-    $fpargs->maxfiles = 1;
-    $fpargs->maxbytes = 0;
-    $fpargs->itemid = 0; // This will be the user's draft file area.
-    $fpargs->accepted_types = 'document';
-    $fpargs->env = 'filemanager';
-    $fpargs->disable_types = ['upload'];
+    if ($showpresentationtools) {
+        // Use the file_picker class to generate the options object.
+        $fpargs = new stdClass();
+        $fpargs->context = $context;
+        $fpargs->client_id = 'plugnmeet-view-fp-' . $cm->id;
+        $fpargs->maxfiles = 1;
+        $fpargs->maxbytes = 0;
+        $fpargs->itemid = 0; // This will be the user's draft file area.
+        $fpargs->accepted_types = 'document';
+        $fpargs->env = 'filemanager';
+        $fpargs->disable_types = ['upload'];
 
-    $filepicker = new file_picker($fpargs);
-    $fpoptions = $filepicker->options;
-    $fpoptions->cmid = $cm->id;
+        $filepicker = new file_picker($fpargs);
+        $fpoptions = $filepicker->options;
+        $fpoptions->cmid = $cm->id;
 
-    // Pass the options to the template, so it can be added as a data attribute.
-    $contextdata['fpoptions'] = htmlspecialchars(json_encode($fpoptions), ENT_QUOTES, 'UTF-8');
+        // Pass the options to the template, so it can be added as a data attribute.
+        $contextdata['fpoptions'] = htmlspecialchars(json_encode($fpoptions), ENT_QUOTES, 'UTF-8');
 
-    // Load the AMD module and tell it which button to initialize.
-    $PAGE->requires->js_call_amd('mod_plugnmeet/file_picker_button', 'init', ['#upload_whiteboard_button']);
+        // Load the AMD module and tell it which button to initialize.
+        $PAGE->requires->js_call_amd('mod_plugnmeet/file_picker_button', 'init', ['#upload_whiteboard_button']);
 
-    // Create poll from quiz question button.
-    $PAGE->requires->js_call_amd('mod_plugnmeet/create_poll_button', 'init', [['cmid' => $cm->id]]);
+        // Create poll from quiz question button.
+        $PAGE->requires->js_call_amd('mod_plugnmeet/create_poll_button', 'init', [['cmid' => $cm->id]]);
+    }
 }
 
 $contextdata['availability_message'] = $availabilitymsg;
 $contextdata['can_join'] = $available;
 $contextdata['guest_link'] = false;
-$contextdata['can_view_live_info'] = $canviewlivesessioninfo;
+$contextdata['can_view_live_info'] = $canviewliveinfo;
 
 // Managers can join even if session has not started, but not if it has ended.
 if ($canmanage && ($plugnmeet->deadline == 0 || $timenow <= $plugnmeet->deadline)) {
@@ -131,6 +144,30 @@ if ($canmanage && $allowglobal && !empty($plugnmeet->allow_guest) && !empty($plu
     $contextdata['guest_link'] = true;
     $contextdata['guest_link_url'] = $guestjoinurl->out(false);
     $contextdata['guest_link_help'] = get_string('guest_join_link_help', 'mod_plugnmeet', $durationhours);
+}
+
+// Whether the user already has a previous AI tutoring session.
+$statsdata = (array)json_decode((string)$DB->get_field('plugnmeet_user_stats', 'statsdata', [
+    'plugnmeetid' => $plugnmeet->id,
+    'userid' => $USER->id,
+]), true);
+$hasprevioustutoringsession = !empty($statsdata['ai_session_summary']);
+
+// AI banner and join button label.
+$isaimode = $enableaiagent && ($isaitutor || (!empty($roommetadata['insights_features']['is_allow']) && !empty($aifeatures['is_allow'])));
+if ($isaimode) {
+    $contextdata['is_ai_mode'] = true;
+    $contextdata['is_ai_tutor'] = $isaitutor;
+    $contextdata['ai_agent_name'] = $aifeatures['agent_display_name'] ?? 'AI Tutor';
+    $contextdata['ai_topic'] = $aifeatures['topic'] ?? '';
+
+    if ($isaitutor) {
+        $contextdata['join_button_label'] = $hasprevioustutoringsession
+            ? get_string('ai_continue_tutoring_session', 'mod_plugnmeet')
+            : get_string('ai_start_tutoring_session', 'mod_plugnmeet');
+    } else {
+        $contextdata['join_button_label'] = get_string('join', 'mod_plugnmeet');
+    }
 }
 
 echo $OUTPUT->header();

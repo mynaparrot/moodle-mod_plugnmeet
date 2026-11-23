@@ -55,7 +55,7 @@ class backup_plugnmeet_activity_structure_step extends backup_activity_structure
             'completionminutes', 'completionraisedhand', 'completionchatmessages',
             'completionwebcam', 'completionwebcamduration', 'completionmic',
             'completionmicduration', 'completiontalkduration', 'completionpollvoted',
-            'completionwhiteboardannotated',
+            'completionwhiteboardannotated', 'completionaisessioncompleted', 'completionaiminscore',
         ]);
 
         $sessions = new backup_nested_element('sessions');

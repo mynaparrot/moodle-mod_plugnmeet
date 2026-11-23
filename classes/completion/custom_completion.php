@@ -52,6 +52,8 @@ class custom_completion extends activity_custom_completion {
             'talked_duration' => 'completiontalkduration',
             'voted_poll' => 'completionpollvoted',
             'whiteboard_annotated' => 'completionwhiteboardannotated',
+            'ai_sessions_completed' => 'completionaisessioncompleted',
+            'ai_best_score' => 'completionaiminscore',
         ];
     }
 
@@ -76,6 +78,12 @@ class custom_completion extends activity_custom_completion {
             $mapping['talked_duration'] => get_string('completion_talk_duration_desc', 'mod_plugnmeet', $rules[$mapping['talked_duration']] ?? 0),
             $mapping['voted_poll'] => get_string('completion_poll_voted', 'mod_plugnmeet'),
             $mapping['whiteboard_annotated'] => get_string('completion_whiteboard_annotated', 'mod_plugnmeet'),
+            $mapping['ai_sessions_completed'] => get_string('completion_ai_session_completed', 'mod_plugnmeet'),
+            $mapping['ai_best_score'] => get_string(
+                'completion_ai_min_score_desc',
+                'mod_plugnmeet',
+                $rules[$mapping['ai_best_score']] ?? 0
+            ),
         ];
     }
 
@@ -118,6 +126,11 @@ class custom_completion extends activity_custom_completion {
         if (in_array($rule, $durationrules)) {
             $requiredseconds = (int)($rules[$rule] ?? 0) * 60;
             return ($actual >= $requiredseconds) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
+        }
+
+        // Handle score-based rules (value is the required minimum score).
+        if ($rule === 'completionaiminscore') {
+            return ($actual >= (int)($rules[$rule] ?? 0)) ? COMPLETION_COMPLETE : COMPLETION_INCOMPLETE;
         }
 
         // Handle count-based or boolean rules (at least 1 is required).

@@ -21,6 +21,7 @@ use moodle_url;
 use MoodleExcelWorkbook;
 use MoodleExcelFormat;
 use mod_plugnmeet\helper\CompletionHelper;
+use mod_plugnmeet\helper\RoomHelper;
 use mod_plugnmeet\completion\custom_completion;
 
 defined('MOODLE_INTERNAL') || die();
@@ -114,6 +115,22 @@ class attendance_controller {
     }
 
     /**
+     * Whether AI features apply to this activity.
+     *
+     * @return bool
+     */
+    private function is_ai_enabled(): bool {
+        if (!(bool)(get_config('mod_plugnmeet', 'enable_ai_agent') ?? 1)) {
+            return false;
+        }
+        $roommetadata = json_decode($this->plugnmeet->roommetadata ?? '', true) ?: [];
+        $aifeatures = $roommetadata['insights_features']['ai_agent_features'] ?? [];
+
+        return ($roommetadata['activity_mode'] ?? 'conference') === 'ai_tutor'
+            || (!empty($roommetadata['insights_features']['is_allow']) && !empty($aifeatures['is_allow']));
+    }
+
+    /**
      * Centralized helper to build attendance data rows for both table and Excel.
      *
      * @param int $page The current page (0-indexed).
@@ -195,6 +212,8 @@ class attendance_controller {
                 'talked_duration' => $data['talked_duration'] ?? 0,
                 'voted_poll' => (bool)($data['voted_poll'] ?? false),
                 'whiteboard_annotated' => (bool)($data['whiteboard_annotated'] ?? false),
+                'ai_sessions_completed' => (int)($data['ai_sessions_completed'] ?? 0),
+                'ai_best_score' => (int)($data['ai_best_score'] ?? 0),
                 'timemodified' => $userstats ? $userstats->timemodified : null,
                 'raw_stats' => $data,
             ];
@@ -216,6 +235,8 @@ class attendance_controller {
         $totalcount = count_enrolled_users($this->context, 'mod/plugnmeet:view');
         $baseurl = new moodle_url('/mod/plugnmeet/attendance.php', ['id' => $this->cm->id]);
 
+        $hasai = $this->is_ai_enabled();
+
         $context = [
             'can_download' => has_capability('mod/plugnmeet:downloadattendance', $this->context),
             'download_url' => (new moodle_url('/mod/plugnmeet/attendance.php', [
@@ -223,6 +244,7 @@ class attendance_controller {
                 'action' => 'download_excel',
             ]))->out(false),
             'paging_bar' => $totalcount > $perpage ? $OUTPUT->paging_bar($totalcount, $page, $perpage, $baseurl) : '',
+            'has_ai' => $hasai,
             'rows' => [],
         ];
 
@@ -252,6 +274,8 @@ class attendance_controller {
                 'talked_duration' => $this->format_seconds_to_time($row['talked_duration']),
                 'voted_poll' => $row['voted_poll'],
                 'whiteboard_annotated' => $row['whiteboard_annotated'],
+                'ai_sessions_completed' => $row['ai_sessions_completed'],
+                'ai_best_score' => $row['ai_best_score'],
                 'timemodified' => $row['timemodified'],
             ];
         }
@@ -293,7 +317,22 @@ class attendance_controller {
         $mapping = custom_completion::get_field_mapping();
         $plugnmeet = $DB->get_record('plugnmeet', ['id' => $this->cm->instance], '*', MUST_EXIST);
 
+        $roommetadata = json_decode($plugnmeet->roommetadata ?? '', true) ?: [];
+        $enableaiagent = (bool)(get_config('mod_plugnmeet', 'enable_ai_agent') ?? 1);
+        $isaitutor = $enableaiagent && (($roommetadata['activity_mode'] ?? 'conference') === 'ai_tutor');
+        $aifeatures = $roommetadata['insights_features']['ai_agent_features'] ?? [];
+        $hasai = $enableaiagent && ($isaitutor
+            || (!empty($roommetadata['insights_features']['is_allow']) && !empty($aifeatures['is_allow'])));
+
         foreach ($mapping as $statskey => $rule) {
+            // Skip progress items that don't apply to the activity mode.
+            if ($isaitutor && in_array($statskey, ['raise_hand', 'webcam_status', 'webcam_duration'], true)) {
+                continue;
+            }
+            if (!$hasai && in_array($statskey, ['ai_sessions_completed', 'ai_best_score'], true)) {
+                continue;
+            }
+
             $value = $row['raw_stats'][$statskey] ?? 0;
             $required = $plugnmeet->$rule ?? 0;
 
@@ -309,6 +348,12 @@ class attendance_controller {
                 } else {
                     $ismet = (int)$value > 0;
                 }
+            } else if ($statskey === 'ai_sessions_completed') {
+                $ismet = (int)$value > 0;
+                $displayvalue = (string)(int)$value;
+            } else if ($statskey === 'ai_best_score') {
+                $ismet = $required > 0 ? ((int)$value >= (int)$required) : ((int)$value > 0);
+                $displayvalue = (int)$value . '%' . ($required > 0 ? ' / ' . (int)$required . '%' : '');
             } else {
                 $ismet = (int)$value > 0;
                 $displayvalue = $ismet ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet');
@@ -339,6 +384,37 @@ class attendance_controller {
             ];
         }
 
+        $summary = $row['raw_stats']['ai_session_summary'] ?? [];
+        if (!empty($summary)) {
+            $text = fn(string $key): string => (string)($summary[$key] ?? '');
+            $masterylevel = $text('mastery_level');
+
+            $context = array_merge($context, [
+                'has_ai_summary' => true,
+                'agent_display_name' => $text('agent_display_name') ?: ($aifeatures['agent_display_name'] ?? 'AI Tutor'),
+                'topic' => $text('topic') ?: ($aifeatures['topic'] ?? ''),
+                'overall_score' => (int)($summary['overall_score'] ?? 0),
+                'best_score' => (int)($row['raw_stats']['ai_best_score'] ?? $summary['overall_score'] ?? 0),
+                'sessions_completed' => (int)($row['raw_stats']['ai_sessions_completed'] ?? 1),
+                'mastery_level' => ucfirst($masterylevel),
+                'mastery_badge_class' => RoomHelper::mastery_badge_class($masterylevel),
+                'duration_formatted' => RoomHelper::format_duration((int)($summary['duration_seconds'] ?? 0)),
+                'turns_count' => (int)($summary['turns_count'] ?? 0),
+                'narrative_summary' => $text('narrative_summary'),
+                'concepts_mastered' => (array)($summary['concepts_mastered'] ?? []),
+                'concepts_practiced' => (array)($summary['concepts_practiced'] ?? []),
+                'struggled_with' => (array)($summary['struggled_with'] ?? []),
+                'has_concepts_mastered' => !empty($summary['concepts_mastered']),
+                'has_concepts_practiced' => !empty($summary['concepts_practiced']),
+                'has_struggled_with' => !empty($summary['struggled_with']),
+                'has_quiz' => ((int)($summary['quiz_total'] ?? 0) > 0),
+                'quiz_accuracy_percent' => (int)($summary['quiz_accuracy_percent'] ?? 0),
+                'next_session_focus' => $text('next_session_focus'),
+                'recommended_warm_up' => $text('recommended_warm_up'),
+                'continuity_enabled' => !empty($roommetadata['enable_continuity'] ?? 1),
+            ]);
+        }
+
         return $OUTPUT->render_from_template('mod_plugnmeet/self_attendance_report', $context);
     }
 
@@ -354,6 +430,7 @@ class attendance_controller {
         $worksheet = $workbook->add_worksheet(get_string('attendance', 'mod_plugnmeet'));
 
         $headerformat = new MoodleExcelFormat(['bold' => 1]);
+        $hasai = $this->is_ai_enabled();
 
         $headers = [
             get_string('name'),
@@ -368,8 +445,12 @@ class attendance_controller {
             get_string('attendance_talked_duration', 'mod_plugnmeet'),
             get_string('attendance_voted_poll', 'mod_plugnmeet'),
             get_string('attendance_whiteboard_annotated', 'mod_plugnmeet'),
-            get_string('last_updated', 'mod_plugnmeet'),
         ];
+        if ($hasai) {
+            $headers[] = get_string('attendance_ai_sessions_completed', 'mod_plugnmeet');
+            $headers[] = get_string('attendance_ai_best_score', 'mod_plugnmeet');
+        }
+        $headers[] = get_string('last_updated', 'mod_plugnmeet');
 
         $col = 0;
         foreach ($headers as $header) {
@@ -392,6 +473,10 @@ class attendance_controller {
             $worksheet->write_string($rowidx, $col++, $this->format_seconds_to_time($row['talked_duration']));
             $worksheet->write_string($rowidx, $col++, $row['voted_poll'] ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'));
             $worksheet->write_string($rowidx, $col++, $row['whiteboard_annotated'] ? get_string('yes', 'mod_plugnmeet') : get_string('no', 'mod_plugnmeet'));
+            if ($hasai) {
+                $worksheet->write_string($rowidx, $col++, (string)$row['ai_sessions_completed']);
+                $worksheet->write_string($rowidx, $col++, (string)$row['ai_best_score']);
+            }
             $worksheet->write_string($rowidx, $col++, $row['timemodified'] ? userdate($row['timemodified']) : '-');
 
             $rowidx++;

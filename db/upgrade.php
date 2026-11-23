@@ -109,5 +109,40 @@ function xmldb_plugnmeet_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2026042100, 'plugnmeet');
     }
 
+    if ($oldversion < 2026110301) {
+        // Add AI agent completion fields to the plugnmeet table.
+        $table = new xmldb_table('plugnmeet');
+        $fields = [
+            'completionaisessioncompleted' => new xmldb_field(
+                'completionaisessioncompleted',
+                XMLDB_TYPE_INTEGER,
+                '1',
+                null,
+                XMLDB_NOTNULL,
+                null,
+                0,
+                'completionwhiteboardannotated'
+            ),
+            'completionaiminscore' => new xmldb_field(
+                'completionaiminscore',
+                XMLDB_TYPE_INTEGER,
+                '10',
+                null,
+                XMLDB_NOTNULL,
+                null,
+                0,
+                'completionaisessioncompleted'
+            ),
+        ];
+
+        foreach ($fields as $field) {
+            if (!$dbman->field_exists($table, $field)) {
+                $dbman->add_field($table, $field);
+            }
+        }
+
+        upgrade_mod_savepoint(true, 2026110301, 'plugnmeet');
+    }
+
     return true;
 }

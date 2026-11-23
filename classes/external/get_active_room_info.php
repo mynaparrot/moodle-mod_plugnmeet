@@ -76,6 +76,7 @@ class get_active_room_info extends external_api {
             'status' => false,
             'msg' => '',
             'participants_info' => [],
+            'breakout_rooms' => [],
         ];
 
         try {
@@ -100,6 +101,7 @@ class get_active_room_info extends external_api {
                         'total_screen_shares' => $data['screenshares'],
                     ];
                     $response['participants_info'] = $data['participants_info'];
+                    $response['breakout_rooms'] = $data['breakout_rooms'] ?? [];
                 }
             }
         } catch (\Exception $e) {
@@ -138,6 +140,30 @@ class get_active_room_info extends external_api {
                     'screenshares' => new external_value(PARAM_INT, 'Number of screen shares'),
                 ]),
                 'Participants info',
+                VALUE_OPTIONAL
+            ),
+            'breakout_rooms' => new external_multiple_structure(
+                new external_single_structure([
+                    'room_id' => new external_value(PARAM_TEXT, 'Room ID'),
+                    'room_title' => new external_value(PARAM_TEXT, 'Room title'),
+                    'joined_participants' => new external_value(PARAM_INT, 'Joined participants'),
+                    'creation_time' => new external_value(PARAM_INT, 'Creation time'),
+                    'has_participants' => new external_value(PARAM_BOOL, 'Has participants'),
+                    'participants_info' => new external_multiple_structure(
+                        new external_single_structure([
+                            'name' => new external_value(PARAM_TEXT, 'Participant name'),
+                            'user_id' => new external_value(PARAM_TEXT, 'Participant user ID'),
+                            'is_admin' => new external_value(PARAM_BOOL, 'Is admin'),
+                            'is_presenter' => new external_value(PARAM_BOOL, 'Is presenter'),
+                            'joined_at' => new external_value(PARAM_INT, 'Joined at'),
+                            'webcams' => new external_value(PARAM_INT, 'Number of webcams'),
+                            'mics' => new external_value(PARAM_INT, 'Number of mics'),
+                            'screenshares' => new external_value(PARAM_INT, 'Number of screen shares'),
+                        ]),
+                        'Participants info'
+                    ),
+                ]),
+                'Active breakout / AI session rooms',
                 VALUE_OPTIONAL
             ),
         ]);

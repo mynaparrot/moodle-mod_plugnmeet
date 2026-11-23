@@ -20,6 +20,10 @@ define(['jquery', 'core/ajax', 'core/notification', 'core/templates'], function(
             participants_info: data.participants_info,
             // eslint-disable-next-line camelcase
             has_participants: data.participants_info && data.participants_info.length > 0,
+            // eslint-disable-next-line camelcase
+            breakout_rooms: data.breakout_rooms || [],
+            // eslint-disable-next-line camelcase
+            has_breakout_rooms: !!(data.breakout_rooms && data.breakout_rooms.length > 0),
         };
         templates.render('mod_plugnmeet/room_info_tables', context).done(function(html) {
             $('#live_session_info').html(html);

@@ -107,6 +107,11 @@ try {
     $webhook = new CommonNotifyEvent();
     $webhook->mergeFromJsonString($entitybody, true);
 
+    if ($webhook->getRoom()?->getIsBreakoutRoom()) {
+        // simply drop any breakout room's events
+        return;
+    }
+
     if ($plugnmeet->roomid !== $webhook->getRoom()?->getRoomId()) {
         http_response_code(400);
         return;
@@ -222,15 +227,19 @@ try {
 
         case 'artifact_created':
             $artifact = $webhook->getRoomArtifact();
+
+            // Purge caches first so freshly fetched content is cached again below.
+            cache::make('mod_plugnmeet', 'artifacts_list')->purge();
+            cache::make('mod_plugnmeet', 'artifact_info')->purge();
+
             if ($artifact->getType() === RoomArtifactType::MEETING_ANALYTICS) {
                 $success = CompletionHelper::update_completion_for_room($plugnmeet, $artifact->getArtifactId());
                 if ($success && $sid) {
                     $DB->set_field('plugnmeet_sessions', 'analytics_processed', 1, ['sid' => $sid]);
                 }
+            } else if ($artifact->getType() === RoomArtifactType::AI_AGENT_SESSION_SUMMARY) {
+                CompletionHelper::update_ai_session_summary($plugnmeet, $artifact->getArtifactId(), $artifact->getMetadata());
             }
-
-            // Purge artifacts list cache only.
-            cache::make('mod_plugnmeet', 'artifacts_list')->purge();
 
             // Trigger Moodle Event.
             $event = artifact_created::create([
