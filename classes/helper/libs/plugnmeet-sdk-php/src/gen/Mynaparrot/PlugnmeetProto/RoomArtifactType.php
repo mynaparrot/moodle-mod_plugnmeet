@@ -63,6 +63,10 @@ class RoomArtifactType
      * Generated from protobuf enum <code>AI_AGENT_TRANSCRIPT = 12;</code>
      */
     const AI_AGENT_TRANSCRIPT = 12;
+    /**
+     * Generated from protobuf enum <code>AI_AGENT_AVATAR_USAGE = 13;</code>
+     */
+    const AI_AGENT_AVATAR_USAGE = 13;
 
     private static $valueToName = [
         self::UNKNOWN_ARTIFACT => 'UNKNOWN_ARTIFACT',
@@ -78,6 +82,7 @@ class RoomArtifactType
         self::AI_AGENT_USAGE => 'AI_AGENT_USAGE',
         self::AI_AGENT_SESSION_SUMMARY => 'AI_AGENT_SESSION_SUMMARY',
         self::AI_AGENT_TRANSCRIPT => 'AI_AGENT_TRANSCRIPT',
+        self::AI_AGENT_AVATAR_USAGE => 'AI_AGENT_AVATAR_USAGE',
     ];
 
     public static function name($value)

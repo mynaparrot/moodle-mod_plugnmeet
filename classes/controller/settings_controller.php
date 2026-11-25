@@ -357,34 +357,18 @@ class settings_controller {
         ));
 
         $aisettings->add(new \admin_setting_configtext(
-            'mod_plugnmeet/ai_default_max_session_seconds',
-            get_string('ai_default_max_session_seconds', 'mod_plugnmeet'),
-            get_string('ai_default_max_session_seconds_desc', 'mod_plugnmeet'),
-            1800,
-            PARAM_INT
-        ));
-
-        $aisettings->add(new \admin_setting_configtext(
-            'mod_plugnmeet/ai_max_session_seconds_limit',
-            get_string('ai_max_session_seconds_limit', 'mod_plugnmeet'),
-            get_string('ai_max_session_seconds_limit_desc', 'mod_plugnmeet'),
-            3600,
-            PARAM_INT
-        ));
-
-        $aisettings->add(new \admin_setting_configtext(
-            'mod_plugnmeet/ai_default_max_audio_minutes',
-            get_string('ai_default_max_audio_minutes', 'mod_plugnmeet'),
-            get_string('ai_default_max_audio_minutes_desc', 'mod_plugnmeet'),
+            'mod_plugnmeet/ai_default_max_session_minutes',
+            get_string('ai_default_max_session_minutes', 'mod_plugnmeet'),
+            get_string('ai_default_max_session_minutes_desc', 'mod_plugnmeet'),
             30,
             PARAM_INT
         ));
 
         $aisettings->add(new \admin_setting_configtext(
-            'mod_plugnmeet/ai_max_audio_minutes_limit',
-            get_string('ai_max_audio_minutes_limit', 'mod_plugnmeet'),
-            get_string('ai_max_audio_minutes_limit_desc', 'mod_plugnmeet'),
-            120,
+            'mod_plugnmeet/ai_max_session_minutes_limit',
+            get_string('ai_max_session_minutes_limit', 'mod_plugnmeet'),
+            get_string('ai_max_session_minutes_limit_desc', 'mod_plugnmeet'),
+            60,
             PARAM_INT
         ));
 
@@ -454,6 +438,72 @@ class settings_controller {
                 PARAM_TEXT
             ));
         }
+
+        // AI avatar: a separately billed feature, so it gets its own section.
+        $aisettings->add(new \admin_setting_heading(
+            'mod_plugnmeet/ai_avatar_settings_heading',
+            get_string('ai_avatar_settings_heading', 'mod_plugnmeet'),
+            get_string('ai_avatar_settings_heading_desc', 'mod_plugnmeet')
+        ));
+
+        $aisettings->add(new \admin_setting_configselect(
+            'mod_plugnmeet/ai_avatar_enabled_global',
+            get_string('ai_avatar_enabled_global', 'mod_plugnmeet'),
+            get_string('ai_avatar_enabled_global_desc', 'mod_plugnmeet'),
+            0,
+            $yesno
+        ));
+
+        $aisettings->add(new \admin_setting_configselect(
+            'mod_plugnmeet/ai_avatar_custom_enabled',
+            get_string('ai_avatar_custom_enabled', 'mod_plugnmeet'),
+            get_string('ai_avatar_custom_enabled_desc', 'mod_plugnmeet'),
+            0,
+            $yesno
+        ));
+
+        $aisettings->add(new \admin_setting_configselect(
+            'mod_plugnmeet/ai_avatar_provider',
+            get_string('ai_avatar_provider', 'mod_plugnmeet'),
+            get_string('ai_avatar_provider_desc', 'mod_plugnmeet'),
+            'beyond_presence',
+            [
+                'beyond_presence' => get_string('ai_avatar_provider_beyond_presence', 'mod_plugnmeet'),
+                'anam' => get_string('ai_avatar_provider_anam', 'mod_plugnmeet'),
+                'simli' => get_string('ai_avatar_provider_simli', 'mod_plugnmeet'),
+            ]
+        ));
+
+        $aisettings->add(new \admin_setting_configtext(
+            'mod_plugnmeet/ai_avatar_id',
+            get_string('ai_avatar_id', 'mod_plugnmeet'),
+            get_string('ai_avatar_id_desc', 'mod_plugnmeet'),
+            '',
+            PARAM_TEXT
+        ));
+
+        $aisettings->add(new \admin_setting_configpasswordunmask(
+            'mod_plugnmeet/ai_avatar_api_key',
+            get_string('ai_avatar_api_key', 'mod_plugnmeet'),
+            get_string('ai_avatar_api_key_desc', 'mod_plugnmeet'),
+            ''
+        ));
+
+        $aisettings->add(new \admin_setting_configtext(
+            'mod_plugnmeet/ai_avatar_endpoint',
+            get_string('ai_avatar_endpoint', 'mod_plugnmeet'),
+            get_string('ai_avatar_endpoint_desc', 'mod_plugnmeet'),
+            '',
+            PARAM_URL
+        ));
+
+        $aisettings->add(new \admin_setting_configtext(
+            'mod_plugnmeet/ai_avatar_auth_header',
+            get_string('ai_avatar_auth_header', 'mod_plugnmeet'),
+            get_string('ai_avatar_auth_header_desc', 'mod_plugnmeet'),
+            '',
+            PARAM_TEXT
+        ));
 
         // External MCP servers.
         $aisettings->add(new \admin_setting_heading(
@@ -548,18 +598,30 @@ class settings_controller {
             'ai_custom_summarize_model',
         ];
 
+        // The custom avatar provider switch only applies when the avatar is allowed at all.
+        $avatarenabled = ['ai_avatar_custom_enabled'];
+
+        // Avatar provider details, they depend on the custom avatar provider being enabled.
+        $avatarbyok = [
+            'ai_avatar_provider',
+            'ai_avatar_id',
+            'ai_avatar_api_key',
+            'ai_avatar_endpoint',
+            'ai_avatar_auth_header',
+        ];
+
         // Everything AI related depends on the AI agent being enabled.
         $aionly = array_merge([
             'ai_byok_settings_heading',
             'ai_mcp_settings_heading',
             'ai_max_concurrent_sessions_limit',
-            'ai_default_max_session_seconds',
-            'ai_max_session_seconds_limit',
-            'ai_default_max_audio_minutes',
-            'ai_max_audio_minutes_limit',
+            'ai_default_max_session_minutes',
+            'ai_max_session_minutes_limit',
             'ai_allow_web_fetch_global',
             'ai_custom_provider_enabled',
-        ], $byok);
+            'ai_avatar_settings_heading',
+            'ai_avatar_enabled_global',
+        ], $byok, $avatarenabled, $avatarbyok);
 
         for ($i = 1; $i <= 2; $i++) {
             $aionly[] = "ai_mcp_{$i}_enabled";
@@ -573,6 +635,15 @@ class settings_controller {
 
         foreach ($byok as $name) {
             $aisettings->hide_if("mod_plugnmeet/{$name}", 'mod_plugnmeet/ai_custom_provider_enabled', 'eq', '0');
+        }
+
+        foreach ($avatarenabled as $name) {
+            $aisettings->hide_if("mod_plugnmeet/{$name}", 'mod_plugnmeet/ai_avatar_enabled_global', 'eq', '0');
+        }
+
+        foreach ($avatarbyok as $name) {
+            $aisettings->hide_if("mod_plugnmeet/{$name}", 'mod_plugnmeet/ai_avatar_custom_enabled', 'eq', '0');
+            $aisettings->hide_if("mod_plugnmeet/{$name}", 'mod_plugnmeet/ai_avatar_enabled_global', 'eq', '0');
         }
 
         // MCP server details depend on that server being enabled.

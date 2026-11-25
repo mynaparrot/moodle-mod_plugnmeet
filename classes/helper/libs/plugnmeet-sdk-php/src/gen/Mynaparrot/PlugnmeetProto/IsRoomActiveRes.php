@@ -29,6 +29,10 @@ class IsRoomActiveRes extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>bool is_active = 4;</code>
      */
     protected $is_active = false;
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 5;</code>
+     */
+    protected $msg_key = null;
 
     /**
      * Constructor.
@@ -40,6 +44,7 @@ class IsRoomActiveRes extends \Google\Protobuf\Internal\Message
      *     @type string $msg
      *     @type int $status_code
      *     @type bool $is_active
+     *     @type string $msg_key
      * }
      */
     public function __construct($data = NULL) {
@@ -131,6 +136,38 @@ class IsRoomActiveRes extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkBool($var);
         $this->is_active = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 5;</code>
+     * @return string
+     */
+    public function getMsgKey()
+    {
+        return isset($this->msg_key) ? $this->msg_key : '';
+    }
+
+    public function hasMsgKey()
+    {
+        return isset($this->msg_key);
+    }
+
+    public function clearMsgKey()
+    {
+        unset($this->msg_key);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 5;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setMsgKey($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->msg_key = $var;
 
         return $this;
     }

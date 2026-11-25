@@ -47,6 +47,10 @@ class GetClientFilesRes extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional string static_assets_path = 8;</code>
      */
     protected $static_assets_path = null;
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 9;</code>
+     */
+    protected $msg_key = null;
 
     /**
      * Constructor.
@@ -62,6 +66,7 @@ class GetClientFilesRes extends \Google\Protobuf\Internal\Message
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $css_files
      *     @type array<string>|\Google\Protobuf\Internal\RepeatedField $js_files
      *     @type string $static_assets_path
+     *     @type string $msg_key
      * }
      */
     public function __construct($data = NULL) {
@@ -259,6 +264,38 @@ class GetClientFilesRes extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->static_assets_path = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 9;</code>
+     * @return string
+     */
+    public function getMsgKey()
+    {
+        return isset($this->msg_key) ? $this->msg_key : '';
+    }
+
+    public function hasMsgKey()
+    {
+        return isset($this->msg_key);
+    }
+
+    public function clearMsgKey()
+    {
+        unset($this->msg_key);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 9;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setMsgKey($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->msg_key = $var;
 
         return $this;
     }

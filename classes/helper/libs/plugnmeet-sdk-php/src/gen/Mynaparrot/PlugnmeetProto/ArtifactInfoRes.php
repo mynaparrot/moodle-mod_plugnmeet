@@ -33,6 +33,10 @@ class ArtifactInfoRes extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional .plugnmeet.PastRoomInfo room_info = 5;</code>
      */
     protected $room_info = null;
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 6;</code>
+     */
+    protected $msg_key = null;
 
     /**
      * Constructor.
@@ -45,6 +49,7 @@ class ArtifactInfoRes extends \Google\Protobuf\Internal\Message
      *     @type int $status_code
      *     @type \Mynaparrot\PlugnmeetProto\ArtifactInfo $artifact_info
      *     @type \Mynaparrot\PlugnmeetProto\PastRoomInfo $room_info
+     *     @type string $msg_key
      * }
      */
     public function __construct($data = NULL) {
@@ -178,6 +183,38 @@ class ArtifactInfoRes extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\PastRoomInfo::class);
         $this->room_info = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 6;</code>
+     * @return string
+     */
+    public function getMsgKey()
+    {
+        return isset($this->msg_key) ? $this->msg_key : '';
+    }
+
+    public function hasMsgKey()
+    {
+        return isset($this->msg_key);
+    }
+
+    public function clearMsgKey()
+    {
+        unset($this->msg_key);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 6;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setMsgKey($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->msg_key = $var;
 
         return $this;
     }

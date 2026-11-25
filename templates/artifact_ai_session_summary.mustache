@@ -95,7 +95,11 @@
         "usage_total_prompt_tokens": 1200,
         "usage_total_completion_tokens": 800,
         "usage_total_tokens": 2000,
-        "usage_total_estimated_cost": "0.0032"
+        "usage_total_estimated_cost": "0.0032",
+        "has_avatar_usage": true,
+        "avatar_duration_formatted": "12m 30s",
+        "has_avatar_cost": true,
+        "avatar_estimated_cost": "0.0450"
     }
 }}
 <div class="card mt-4">
@@ -347,3 +351,23 @@
     </table>
 </div>
 {{/has_ai_usage}}
+
+{{#has_avatar_usage}}
+<h5 class="mt-4">{{#str}}ai_avatar_usage, mod_plugnmeet{{/str}}</h5>
+<div class="table-responsive mt-3">
+    <table class="generaltable">
+        <thead>
+            <tr>
+                <th>{{#str}}ai_avatar_duration, mod_plugnmeet{{/str}}</th>
+                <th class="text-center">{{#str}}ai_avatar_estimated_cost, mod_plugnmeet{{/str}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{avatar_duration_formatted}}</td>
+                <td class="text-center">{{#has_avatar_cost}}{{avatar_estimated_cost}}{{/has_avatar_cost}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{{/has_avatar_usage}}

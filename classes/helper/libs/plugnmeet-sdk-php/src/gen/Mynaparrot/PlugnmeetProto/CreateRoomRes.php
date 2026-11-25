@@ -29,6 +29,10 @@ class CreateRoomRes extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.plugnmeet.ActiveRoomInfo room_info = 4;</code>
      */
     protected $room_info = null;
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 5;</code>
+     */
+    protected $msg_key = null;
 
     /**
      * Constructor.
@@ -40,6 +44,7 @@ class CreateRoomRes extends \Google\Protobuf\Internal\Message
      *     @type string $msg
      *     @type int $status_code
      *     @type \Mynaparrot\PlugnmeetProto\ActiveRoomInfo $room_info
+     *     @type string $msg_key
      * }
      */
     public function __construct($data = NULL) {
@@ -141,6 +146,38 @@ class CreateRoomRes extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\ActiveRoomInfo::class);
         $this->room_info = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 5;</code>
+     * @return string
+     */
+    public function getMsgKey()
+    {
+        return isset($this->msg_key) ? $this->msg_key : '';
+    }
+
+    public function hasMsgKey()
+    {
+        return isset($this->msg_key);
+    }
+
+    public function clearMsgKey()
+    {
+        unset($this->msg_key);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 5;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setMsgKey($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->msg_key = $var;
 
         return $this;
     }

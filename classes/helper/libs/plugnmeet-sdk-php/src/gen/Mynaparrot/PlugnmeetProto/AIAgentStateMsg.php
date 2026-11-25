@@ -55,6 +55,10 @@ class AIAgentStateMsg extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string trace_id = 9;</code>
      */
     protected $trace_id = '';
+    /**
+     * Generated from protobuf field <code>optional string avatar_provider = 10;</code>
+     */
+    protected $avatar_provider = null;
 
     /**
      * Constructor.
@@ -73,6 +77,7 @@ class AIAgentStateMsg extends \Google\Protobuf\Internal\Message
      *     @type string $reason
      *           e.g. "budget" | "moderation" | "goaway" | "paused"
      *     @type string $trace_id
+     *     @type string $avatar_provider
      * }
      */
     public function __construct($data = NULL) {
@@ -282,6 +287,38 @@ class AIAgentStateMsg extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->trace_id = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string avatar_provider = 10;</code>
+     * @return string
+     */
+    public function getAvatarProvider()
+    {
+        return isset($this->avatar_provider) ? $this->avatar_provider : '';
+    }
+
+    public function hasAvatarProvider()
+    {
+        return isset($this->avatar_provider);
+    }
+
+    public function clearAvatarProvider()
+    {
+        unset($this->avatar_provider);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string avatar_provider = 10;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setAvatarProvider($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->avatar_provider = $var;
 
         return $this;
     }

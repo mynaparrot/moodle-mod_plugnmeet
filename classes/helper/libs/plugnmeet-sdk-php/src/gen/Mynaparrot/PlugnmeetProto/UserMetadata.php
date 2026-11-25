@@ -64,11 +64,15 @@ class UserMetadata extends \Google\Protobuf\Internal\Message
      */
     protected $ex_user_id = null;
     /**
-     * Next ID: 13
-     *
      * Generated from protobuf field <code>optional string previous_session_context = 12 [(.buf.validate.field) = {</code>
      */
     protected $previous_session_context = null;
+    /**
+     * This field is managed by the server and cannot be set by clients.
+     *
+     * Generated from protobuf field <code>optional .plugnmeet.WaitingQueueInfo waiting_queue_info = 13;</code>
+     */
+    protected $waiting_queue_info = null;
 
     /**
      * Constructor.
@@ -91,7 +95,8 @@ class UserMetadata extends \Google\Protobuf\Internal\Message
      *     @type string $ex_user_id
      *           if remain empty then will use value from user_id
      *     @type string $previous_session_context
-     *           Next ID: 13
+     *     @type \Mynaparrot\PlugnmeetProto\WaitingQueueInfo $waiting_queue_info
+     *           This field is managed by the server and cannot be set by clients.
      * }
      */
     public function __construct($data = NULL) {
@@ -424,8 +429,6 @@ class UserMetadata extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Next ID: 13
-     *
      * Generated from protobuf field <code>optional string previous_session_context = 12 [(.buf.validate.field) = {</code>
      * @return string
      */
@@ -445,8 +448,6 @@ class UserMetadata extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Next ID: 13
-     *
      * Generated from protobuf field <code>optional string previous_session_context = 12 [(.buf.validate.field) = {</code>
      * @param string $var
      * @return $this
@@ -455,6 +456,42 @@ class UserMetadata extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->previous_session_context = $var;
+
+        return $this;
+    }
+
+    /**
+     * This field is managed by the server and cannot be set by clients.
+     *
+     * Generated from protobuf field <code>optional .plugnmeet.WaitingQueueInfo waiting_queue_info = 13;</code>
+     * @return \Mynaparrot\PlugnmeetProto\WaitingQueueInfo|null
+     */
+    public function getWaitingQueueInfo()
+    {
+        return $this->waiting_queue_info;
+    }
+
+    public function hasWaitingQueueInfo()
+    {
+        return isset($this->waiting_queue_info);
+    }
+
+    public function clearWaitingQueueInfo()
+    {
+        unset($this->waiting_queue_info);
+    }
+
+    /**
+     * This field is managed by the server and cannot be set by clients.
+     *
+     * Generated from protobuf field <code>optional .plugnmeet.WaitingQueueInfo waiting_queue_info = 13;</code>
+     * @param \Mynaparrot\PlugnmeetProto\WaitingQueueInfo $var
+     * @return $this
+     */
+    public function setWaitingQueueInfo($var)
+    {
+        GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\WaitingQueueInfo::class);
+        $this->waiting_queue_info = $var;
 
         return $this;
     }

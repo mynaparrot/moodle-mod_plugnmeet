@@ -23,6 +23,7 @@
         "download_url": "http://example.com/download",
         "is_analytics": false,
         "can_download_analytics": false,
+        "can_download_ai_summary_excel": false,
         "download_excel_url": "http://example.com/excel",
         "download_json_url": "http://example.com/json",
         "is_meeting_summary": true,
@@ -48,6 +49,9 @@
             <a href="{{download_excel_url}}" class="btn btn-success">{{#str}}download_excel_report, mod_plugnmeet{{/str}}</a>
             <a href="{{download_json_url}}" class="btn btn-info">{{#str}}download_raw_json, mod_plugnmeet{{/str}}</a>
         {{/can_download_analytics}}
+        {{#can_download_ai_summary_excel}}
+            <a href="{{download_excel_url}}" class="btn btn-success">{{#str}}download_excel_report, mod_plugnmeet{{/str}}</a>
+        {{/can_download_ai_summary_excel}}
         {{#can_delete}}
             <a href="{{delete_url}}" class="btn btn-danger" onclick="return confirm('{{#str}}delete_confirm, mod_plugnmeet{{/str}}');">{{#str}}delete, mod_plugnmeet{{/str}}</a>
         {{/can_delete}}

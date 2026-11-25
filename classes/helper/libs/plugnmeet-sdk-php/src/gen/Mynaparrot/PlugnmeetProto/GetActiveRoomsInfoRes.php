@@ -29,6 +29,10 @@ class GetActiveRoomsInfoRes extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .plugnmeet.ActiveRoomWithParticipant rooms = 4;</code>
      */
     private $rooms;
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 5;</code>
+     */
+    protected $msg_key = null;
 
     /**
      * Constructor.
@@ -40,6 +44,7 @@ class GetActiveRoomsInfoRes extends \Google\Protobuf\Internal\Message
      *     @type string $msg
      *     @type int $status_code
      *     @type array<\Mynaparrot\PlugnmeetProto\ActiveRoomWithParticipant>|\Google\Protobuf\Internal\RepeatedField $rooms
+     *     @type string $msg_key
      * }
      */
     public function __construct($data = NULL) {
@@ -131,6 +136,38 @@ class GetActiveRoomsInfoRes extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Mynaparrot\PlugnmeetProto\ActiveRoomWithParticipant::class);
         $this->rooms = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 5;</code>
+     * @return string
+     */
+    public function getMsgKey()
+    {
+        return isset($this->msg_key) ? $this->msg_key : '';
+    }
+
+    public function hasMsgKey()
+    {
+        return isset($this->msg_key);
+    }
+
+    public function clearMsgKey()
+    {
+        unset($this->msg_key);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 5;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setMsgKey($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->msg_key = $var;
 
         return $this;
     }

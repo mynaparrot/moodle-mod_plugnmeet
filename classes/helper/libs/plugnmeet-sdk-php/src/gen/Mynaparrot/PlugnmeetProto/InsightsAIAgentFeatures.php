@@ -30,155 +30,153 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
      */
     protected $auto_session_config = null;
     /**
+     * Generated from protobuf field <code>optional .plugnmeet.InsightsAIAgentAvatarConfig avatar = 4;</code>
+     */
+    protected $avatar = null;
+    /**
      * persona, curriculum & topic boundary (host-owned)
      *
-     * Generated from protobuf field <code>optional string agent_display_name = 4;</code>
+     * Generated from protobuf field <code>optional string agent_display_name = 5;</code>
      */
     protected $agent_display_name = null;
     /**
      * required when is_allow
      *
-     * Generated from protobuf field <code>string system_prompt = 5;</code>
+     * Generated from protobuf field <code>string system_prompt = 6;</code>
      */
     protected $system_prompt = '';
     /**
      * required when is_allow
      *
-     * Generated from protobuf field <code>string topic = 6;</code>
+     * Generated from protobuf field <code>string topic = 7;</code>
      */
     protected $topic = '';
     /**
-     * Generated from protobuf field <code>repeated string allowed_subtopics = 7 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>repeated string allowed_subtopics = 8 [(.buf.validate.field) = {</code>
      */
     private $allowed_subtopics;
     /**
-     * Generated from protobuf field <code>repeated string forbidden_topics = 8 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>repeated string forbidden_topics = 9 [(.buf.validate.field) = {</code>
      */
     private $forbidden_topics;
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool strict_topic_enforcement = 9;</code>
+     * Generated from protobuf field <code>bool strict_topic_enforcement = 10;</code>
      */
     protected $strict_topic_enforcement = false;
     /**
      * default 6, range 3..12
      *
-     * Generated from protobuf field <code>uint32 topic_anchor_interval_turns = 10;</code>
+     * Generated from protobuf field <code>uint32 topic_anchor_interval_turns = 11;</code>
      */
     protected $topic_anchor_interval_turns = 0;
     /**
+     * Generated from protobuf field <code>optional .plugnmeet.InsightsAIAgentActivityRules activity_rules = 12;</code>
+     */
+    protected $activity_rules = null;
+    /**
      * language & voice delivery
      *
-     * Generated from protobuf field <code>optional string spoken_lang = 11;</code>
+     * Generated from protobuf field <code>optional string spoken_lang = 13;</code>
      */
     protected $spoken_lang = null;
     /**
      * BCP-47: language being learned (empty = no language-learning profile)
      *
-     * Generated from protobuf field <code>optional string target_lang = 12;</code>
+     * Generated from protobuf field <code>optional string target_lang = 14;</code>
      */
     protected $target_lang = null;
     /**
      * language the agent explains in; empty -> spoken_lang
      *
-     * Generated from protobuf field <code>optional string instruction_lang = 13;</code>
+     * Generated from protobuf field <code>optional string instruction_lang = 15;</code>
      */
     protected $instruction_lang = null;
     /**
      * provider voice id; must be in server allow-list
      *
-     * Generated from protobuf field <code>optional string voice = 14;</code>
+     * Generated from protobuf field <code>optional string voice = 16;</code>
      */
     protected $voice = null;
     /**
-     * Generated from protobuf field <code>optional float speaking_rate = 15 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>optional float speaking_rate = 17 [(.buf.validate.field) = {</code>
      */
     protected $speaking_rate = null;
     /**
      * workspace & tool capabilities
      *
-     * Generated from protobuf field <code>bool allow_whiteboard_write = 16;</code>
+     * Generated from protobuf field <code>bool allow_whiteboard_write = 18;</code>
      */
     protected $allow_whiteboard_write = false;
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_vision_capture = 17;</code>
+     * Generated from protobuf field <code>bool allow_vision_capture = 19;</code>
      */
     protected $allow_vision_capture = false;
     /**
      * default 1200, max 5000
      *
-     * Generated from protobuf field <code>uint32 vision_debounce_ms = 18;</code>
+     * Generated from protobuf field <code>uint32 vision_debounce_ms = 20;</code>
      */
     protected $vision_debounce_ms = 0;
     /**
      * default 1024, range 512..1600
      *
-     * Generated from protobuf field <code>uint32 vision_max_edge_px = 19;</code>
+     * Generated from protobuf field <code>uint32 vision_max_edge_px = 21;</code>
      */
     protected $vision_max_edge_px = 0;
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_polls = 20;</code>
+     * Generated from protobuf field <code>bool allow_polls = 22;</code>
      */
     protected $allow_polls = false;
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_chat_message = 21;</code>
+     * Generated from protobuf field <code>bool allow_chat_message = 23;</code>
      */
     protected $allow_chat_message = false;
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_notepad_write = 22;</code>
+     * Generated from protobuf field <code>bool allow_notepad_write = 24;</code>
      */
     protected $allow_notepad_write = false;
     /**
      * external knowledge & external MCP servers
      *
-     * Generated from protobuf field <code>bool allow_web_fetch = 23;</code>
+     * Generated from protobuf field <code>bool allow_web_fetch = 25;</code>
      */
     protected $allow_web_fetch = false;
     /**
-     * Generated from protobuf field <code>repeated string allowed_knowledge_urls = 24 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>repeated string allowed_knowledge_urls = 26 [(.buf.validate.field) = {</code>
      */
     private $allowed_knowledge_urls;
     /**
      * default 3600, range 60..86400
      *
-     * Generated from protobuf field <code>uint32 knowledge_cache_ttl_seconds = 25;</code>
+     * Generated from protobuf field <code>uint32 knowledge_cache_ttl_seconds = 27;</code>
      */
     protected $knowledge_cache_ttl_seconds = 0;
     /**
-     * Generated from protobuf field <code>map<string, .plugnmeet.ExternalMCPServerConfig> mcp_servers = 26 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>map<string, .plugnmeet.ExternalMCPServerConfig> mcp_servers = 28 [(.buf.validate.field) = {</code>
      */
     private $mcp_servers;
     /**
      * cost & duration caps
      *
-     * Generated from protobuf field <code>uint32 max_session_seconds = 27 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>uint32 max_session_seconds = 29 [(.buf.validate.field) = {</code>
      */
     protected $max_session_seconds = 0;
     /**
      * 0 = server default
      *
-     * Generated from protobuf field <code>uint32 max_audio_minutes = 28 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>uint32 max_audio_minutes = 30 [(.buf.validate.field) = {</code>
      */
     protected $max_audio_minutes = 0;
-    /**
-     * all internal usage fields (host may not set)
-     *
-     * Generated from protobuf field <code>bool is_enabled = 29 [(.buf.validate.field) = {</code>
-     */
-    protected $is_enabled = false;
-    /**
-     * Generated from protobuf field <code>optional string active_session_id = 30 [(.buf.validate.field) = {</code>
-     */
-    protected $active_session_id = null;
     /**
      * Optional host-supplied provider credentials and endpoint overrides.
      * Accepted on room creation and stripped before metadata is published.
@@ -186,6 +184,16 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>optional .plugnmeet.InsightsAIAgentCustomProvider custom_provider = 31;</code>
      */
     protected $custom_provider = null;
+    /**
+     * all internal usage fields (host may not set)
+     *
+     * Generated from protobuf field <code>bool is_enabled = 32 [(.buf.validate.field) = {</code>
+     */
+    protected $is_enabled = false;
+    /**
+     * Generated from protobuf field <code>optional string active_session_id = 33 [(.buf.validate.field) = {</code>
+     */
+    protected $active_session_id = null;
 
     /**
      * Constructor.
@@ -198,6 +206,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
      *     @type int $session_mode
      *           session mode & automatic 1-on-1 session routing
      *     @type \Mynaparrot\PlugnmeetProto\AIAgentAutoSessionConfig $auto_session_config
+     *     @type \Mynaparrot\PlugnmeetProto\InsightsAIAgentAvatarConfig $avatar
      *     @type string $agent_display_name
      *           persona, curriculum & topic boundary (host-owned)
      *     @type string $system_prompt
@@ -210,6 +219,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
      *           default true
      *     @type int $topic_anchor_interval_turns
      *           default 6, range 3..12
+     *     @type \Mynaparrot\PlugnmeetProto\InsightsAIAgentActivityRules $activity_rules
      *     @type string $spoken_lang
      *           language & voice delivery
      *     @type string $target_lang
@@ -243,12 +253,12 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
      *           cost & duration caps
      *     @type int $max_audio_minutes
      *           0 = server default
-     *     @type bool $is_enabled
-     *           all internal usage fields (host may not set)
-     *     @type string $active_session_id
      *     @type \Mynaparrot\PlugnmeetProto\InsightsAIAgentCustomProvider $custom_provider
      *           Optional host-supplied provider credentials and endpoint overrides.
      *           Accepted on room creation and stripped before metadata is published.
+     *     @type bool $is_enabled
+     *           all internal usage fields (host may not set)
+     *     @type string $active_session_id
      * }
      */
     public function __construct($data = NULL) {
@@ -341,9 +351,41 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Generated from protobuf field <code>optional .plugnmeet.InsightsAIAgentAvatarConfig avatar = 4;</code>
+     * @return \Mynaparrot\PlugnmeetProto\InsightsAIAgentAvatarConfig|null
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function hasAvatar()
+    {
+        return isset($this->avatar);
+    }
+
+    public function clearAvatar()
+    {
+        unset($this->avatar);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional .plugnmeet.InsightsAIAgentAvatarConfig avatar = 4;</code>
+     * @param \Mynaparrot\PlugnmeetProto\InsightsAIAgentAvatarConfig $var
+     * @return $this
+     */
+    public function setAvatar($var)
+    {
+        GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\InsightsAIAgentAvatarConfig::class);
+        $this->avatar = $var;
+
+        return $this;
+    }
+
+    /**
      * persona, curriculum & topic boundary (host-owned)
      *
-     * Generated from protobuf field <code>optional string agent_display_name = 4;</code>
+     * Generated from protobuf field <code>optional string agent_display_name = 5;</code>
      * @return string
      */
     public function getAgentDisplayName()
@@ -364,7 +406,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * persona, curriculum & topic boundary (host-owned)
      *
-     * Generated from protobuf field <code>optional string agent_display_name = 4;</code>
+     * Generated from protobuf field <code>optional string agent_display_name = 5;</code>
      * @param string $var
      * @return $this
      */
@@ -379,7 +421,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * required when is_allow
      *
-     * Generated from protobuf field <code>string system_prompt = 5;</code>
+     * Generated from protobuf field <code>string system_prompt = 6;</code>
      * @return string
      */
     public function getSystemPrompt()
@@ -390,7 +432,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * required when is_allow
      *
-     * Generated from protobuf field <code>string system_prompt = 5;</code>
+     * Generated from protobuf field <code>string system_prompt = 6;</code>
      * @param string $var
      * @return $this
      */
@@ -405,7 +447,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * required when is_allow
      *
-     * Generated from protobuf field <code>string topic = 6;</code>
+     * Generated from protobuf field <code>string topic = 7;</code>
      * @return string
      */
     public function getTopic()
@@ -416,7 +458,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * required when is_allow
      *
-     * Generated from protobuf field <code>string topic = 6;</code>
+     * Generated from protobuf field <code>string topic = 7;</code>
      * @param string $var
      * @return $this
      */
@@ -429,7 +471,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated string allowed_subtopics = 7 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>repeated string allowed_subtopics = 8 [(.buf.validate.field) = {</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
     public function getAllowedSubtopics()
@@ -438,7 +480,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated string allowed_subtopics = 7 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>repeated string allowed_subtopics = 8 [(.buf.validate.field) = {</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */
@@ -451,7 +493,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated string forbidden_topics = 8 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>repeated string forbidden_topics = 9 [(.buf.validate.field) = {</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
     public function getForbiddenTopics()
@@ -460,7 +502,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated string forbidden_topics = 8 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>repeated string forbidden_topics = 9 [(.buf.validate.field) = {</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */
@@ -475,7 +517,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool strict_topic_enforcement = 9;</code>
+     * Generated from protobuf field <code>bool strict_topic_enforcement = 10;</code>
      * @return bool
      */
     public function getStrictTopicEnforcement()
@@ -486,7 +528,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool strict_topic_enforcement = 9;</code>
+     * Generated from protobuf field <code>bool strict_topic_enforcement = 10;</code>
      * @param bool $var
      * @return $this
      */
@@ -501,7 +543,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default 6, range 3..12
      *
-     * Generated from protobuf field <code>uint32 topic_anchor_interval_turns = 10;</code>
+     * Generated from protobuf field <code>uint32 topic_anchor_interval_turns = 11;</code>
      * @return int
      */
     public function getTopicAnchorIntervalTurns()
@@ -512,7 +554,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default 6, range 3..12
      *
-     * Generated from protobuf field <code>uint32 topic_anchor_interval_turns = 10;</code>
+     * Generated from protobuf field <code>uint32 topic_anchor_interval_turns = 11;</code>
      * @param int $var
      * @return $this
      */
@@ -525,9 +567,41 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
+     * Generated from protobuf field <code>optional .plugnmeet.InsightsAIAgentActivityRules activity_rules = 12;</code>
+     * @return \Mynaparrot\PlugnmeetProto\InsightsAIAgentActivityRules|null
+     */
+    public function getActivityRules()
+    {
+        return $this->activity_rules;
+    }
+
+    public function hasActivityRules()
+    {
+        return isset($this->activity_rules);
+    }
+
+    public function clearActivityRules()
+    {
+        unset($this->activity_rules);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional .plugnmeet.InsightsAIAgentActivityRules activity_rules = 12;</code>
+     * @param \Mynaparrot\PlugnmeetProto\InsightsAIAgentActivityRules $var
+     * @return $this
+     */
+    public function setActivityRules($var)
+    {
+        GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\InsightsAIAgentActivityRules::class);
+        $this->activity_rules = $var;
+
+        return $this;
+    }
+
+    /**
      * language & voice delivery
      *
-     * Generated from protobuf field <code>optional string spoken_lang = 11;</code>
+     * Generated from protobuf field <code>optional string spoken_lang = 13;</code>
      * @return string
      */
     public function getSpokenLang()
@@ -548,7 +622,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * language & voice delivery
      *
-     * Generated from protobuf field <code>optional string spoken_lang = 11;</code>
+     * Generated from protobuf field <code>optional string spoken_lang = 13;</code>
      * @param string $var
      * @return $this
      */
@@ -563,7 +637,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * BCP-47: language being learned (empty = no language-learning profile)
      *
-     * Generated from protobuf field <code>optional string target_lang = 12;</code>
+     * Generated from protobuf field <code>optional string target_lang = 14;</code>
      * @return string
      */
     public function getTargetLang()
@@ -584,7 +658,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * BCP-47: language being learned (empty = no language-learning profile)
      *
-     * Generated from protobuf field <code>optional string target_lang = 12;</code>
+     * Generated from protobuf field <code>optional string target_lang = 14;</code>
      * @param string $var
      * @return $this
      */
@@ -599,7 +673,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * language the agent explains in; empty -> spoken_lang
      *
-     * Generated from protobuf field <code>optional string instruction_lang = 13;</code>
+     * Generated from protobuf field <code>optional string instruction_lang = 15;</code>
      * @return string
      */
     public function getInstructionLang()
@@ -620,7 +694,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * language the agent explains in; empty -> spoken_lang
      *
-     * Generated from protobuf field <code>optional string instruction_lang = 13;</code>
+     * Generated from protobuf field <code>optional string instruction_lang = 15;</code>
      * @param string $var
      * @return $this
      */
@@ -635,7 +709,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * provider voice id; must be in server allow-list
      *
-     * Generated from protobuf field <code>optional string voice = 14;</code>
+     * Generated from protobuf field <code>optional string voice = 16;</code>
      * @return string
      */
     public function getVoice()
@@ -656,7 +730,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * provider voice id; must be in server allow-list
      *
-     * Generated from protobuf field <code>optional string voice = 14;</code>
+     * Generated from protobuf field <code>optional string voice = 16;</code>
      * @param string $var
      * @return $this
      */
@@ -669,7 +743,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional float speaking_rate = 15 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>optional float speaking_rate = 17 [(.buf.validate.field) = {</code>
      * @return float
      */
     public function getSpeakingRate()
@@ -688,7 +762,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional float speaking_rate = 15 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>optional float speaking_rate = 17 [(.buf.validate.field) = {</code>
      * @param float $var
      * @return $this
      */
@@ -703,7 +777,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * workspace & tool capabilities
      *
-     * Generated from protobuf field <code>bool allow_whiteboard_write = 16;</code>
+     * Generated from protobuf field <code>bool allow_whiteboard_write = 18;</code>
      * @return bool
      */
     public function getAllowWhiteboardWrite()
@@ -714,7 +788,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * workspace & tool capabilities
      *
-     * Generated from protobuf field <code>bool allow_whiteboard_write = 16;</code>
+     * Generated from protobuf field <code>bool allow_whiteboard_write = 18;</code>
      * @param bool $var
      * @return $this
      */
@@ -729,7 +803,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_vision_capture = 17;</code>
+     * Generated from protobuf field <code>bool allow_vision_capture = 19;</code>
      * @return bool
      */
     public function getAllowVisionCapture()
@@ -740,7 +814,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_vision_capture = 17;</code>
+     * Generated from protobuf field <code>bool allow_vision_capture = 19;</code>
      * @param bool $var
      * @return $this
      */
@@ -755,7 +829,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default 1200, max 5000
      *
-     * Generated from protobuf field <code>uint32 vision_debounce_ms = 18;</code>
+     * Generated from protobuf field <code>uint32 vision_debounce_ms = 20;</code>
      * @return int
      */
     public function getVisionDebounceMs()
@@ -766,7 +840,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default 1200, max 5000
      *
-     * Generated from protobuf field <code>uint32 vision_debounce_ms = 18;</code>
+     * Generated from protobuf field <code>uint32 vision_debounce_ms = 20;</code>
      * @param int $var
      * @return $this
      */
@@ -781,7 +855,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default 1024, range 512..1600
      *
-     * Generated from protobuf field <code>uint32 vision_max_edge_px = 19;</code>
+     * Generated from protobuf field <code>uint32 vision_max_edge_px = 21;</code>
      * @return int
      */
     public function getVisionMaxEdgePx()
@@ -792,7 +866,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default 1024, range 512..1600
      *
-     * Generated from protobuf field <code>uint32 vision_max_edge_px = 19;</code>
+     * Generated from protobuf field <code>uint32 vision_max_edge_px = 21;</code>
      * @param int $var
      * @return $this
      */
@@ -807,7 +881,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_polls = 20;</code>
+     * Generated from protobuf field <code>bool allow_polls = 22;</code>
      * @return bool
      */
     public function getAllowPolls()
@@ -818,7 +892,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_polls = 20;</code>
+     * Generated from protobuf field <code>bool allow_polls = 22;</code>
      * @param bool $var
      * @return $this
      */
@@ -833,7 +907,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_chat_message = 21;</code>
+     * Generated from protobuf field <code>bool allow_chat_message = 23;</code>
      * @return bool
      */
     public function getAllowChatMessage()
@@ -844,7 +918,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_chat_message = 21;</code>
+     * Generated from protobuf field <code>bool allow_chat_message = 23;</code>
      * @param bool $var
      * @return $this
      */
@@ -859,7 +933,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_notepad_write = 22;</code>
+     * Generated from protobuf field <code>bool allow_notepad_write = 24;</code>
      * @return bool
      */
     public function getAllowNotepadWrite()
@@ -870,7 +944,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default true
      *
-     * Generated from protobuf field <code>bool allow_notepad_write = 22;</code>
+     * Generated from protobuf field <code>bool allow_notepad_write = 24;</code>
      * @param bool $var
      * @return $this
      */
@@ -885,7 +959,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * external knowledge & external MCP servers
      *
-     * Generated from protobuf field <code>bool allow_web_fetch = 23;</code>
+     * Generated from protobuf field <code>bool allow_web_fetch = 25;</code>
      * @return bool
      */
     public function getAllowWebFetch()
@@ -896,7 +970,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * external knowledge & external MCP servers
      *
-     * Generated from protobuf field <code>bool allow_web_fetch = 23;</code>
+     * Generated from protobuf field <code>bool allow_web_fetch = 25;</code>
      * @param bool $var
      * @return $this
      */
@@ -909,7 +983,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated string allowed_knowledge_urls = 24 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>repeated string allowed_knowledge_urls = 26 [(.buf.validate.field) = {</code>
      * @return \Google\Protobuf\Internal\RepeatedField
      */
     public function getAllowedKnowledgeUrls()
@@ -918,7 +992,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>repeated string allowed_knowledge_urls = 24 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>repeated string allowed_knowledge_urls = 26 [(.buf.validate.field) = {</code>
      * @param array<string>|\Google\Protobuf\Internal\RepeatedField $var
      * @return $this
      */
@@ -933,7 +1007,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default 3600, range 60..86400
      *
-     * Generated from protobuf field <code>uint32 knowledge_cache_ttl_seconds = 25;</code>
+     * Generated from protobuf field <code>uint32 knowledge_cache_ttl_seconds = 27;</code>
      * @return int
      */
     public function getKnowledgeCacheTtlSeconds()
@@ -944,7 +1018,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * default 3600, range 60..86400
      *
-     * Generated from protobuf field <code>uint32 knowledge_cache_ttl_seconds = 25;</code>
+     * Generated from protobuf field <code>uint32 knowledge_cache_ttl_seconds = 27;</code>
      * @param int $var
      * @return $this
      */
@@ -957,7 +1031,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>map<string, .plugnmeet.ExternalMCPServerConfig> mcp_servers = 26 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>map<string, .plugnmeet.ExternalMCPServerConfig> mcp_servers = 28 [(.buf.validate.field) = {</code>
      * @return \Google\Protobuf\Internal\MapField
      */
     public function getMcpServers()
@@ -966,7 +1040,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>map<string, .plugnmeet.ExternalMCPServerConfig> mcp_servers = 26 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>map<string, .plugnmeet.ExternalMCPServerConfig> mcp_servers = 28 [(.buf.validate.field) = {</code>
      * @param array|\Google\Protobuf\Internal\MapField $var
      * @return $this
      */
@@ -981,7 +1055,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * cost & duration caps
      *
-     * Generated from protobuf field <code>uint32 max_session_seconds = 27 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>uint32 max_session_seconds = 29 [(.buf.validate.field) = {</code>
      * @return int
      */
     public function getMaxSessionSeconds()
@@ -992,7 +1066,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * cost & duration caps
      *
-     * Generated from protobuf field <code>uint32 max_session_seconds = 27 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>uint32 max_session_seconds = 29 [(.buf.validate.field) = {</code>
      * @param int $var
      * @return $this
      */
@@ -1007,7 +1081,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * 0 = server default
      *
-     * Generated from protobuf field <code>uint32 max_audio_minutes = 28 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>uint32 max_audio_minutes = 30 [(.buf.validate.field) = {</code>
      * @return int
      */
     public function getMaxAudioMinutes()
@@ -1018,7 +1092,7 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     /**
      * 0 = server default
      *
-     * Generated from protobuf field <code>uint32 max_audio_minutes = 28 [(.buf.validate.field) = {</code>
+     * Generated from protobuf field <code>uint32 max_audio_minutes = 30 [(.buf.validate.field) = {</code>
      * @param int $var
      * @return $this
      */
@@ -1026,64 +1100,6 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkUint32($var);
         $this->max_audio_minutes = $var;
-
-        return $this;
-    }
-
-    /**
-     * all internal usage fields (host may not set)
-     *
-     * Generated from protobuf field <code>bool is_enabled = 29 [(.buf.validate.field) = {</code>
-     * @return bool
-     */
-    public function getIsEnabled()
-    {
-        return $this->is_enabled;
-    }
-
-    /**
-     * all internal usage fields (host may not set)
-     *
-     * Generated from protobuf field <code>bool is_enabled = 29 [(.buf.validate.field) = {</code>
-     * @param bool $var
-     * @return $this
-     */
-    public function setIsEnabled($var)
-    {
-        GPBUtil::checkBool($var);
-        $this->is_enabled = $var;
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>optional string active_session_id = 30 [(.buf.validate.field) = {</code>
-     * @return string
-     */
-    public function getActiveSessionId()
-    {
-        return isset($this->active_session_id) ? $this->active_session_id : '';
-    }
-
-    public function hasActiveSessionId()
-    {
-        return isset($this->active_session_id);
-    }
-
-    public function clearActiveSessionId()
-    {
-        unset($this->active_session_id);
-    }
-
-    /**
-     * Generated from protobuf field <code>optional string active_session_id = 30 [(.buf.validate.field) = {</code>
-     * @param string $var
-     * @return $this
-     */
-    public function setActiveSessionId($var)
-    {
-        GPBUtil::checkString($var, True);
-        $this->active_session_id = $var;
 
         return $this;
     }
@@ -1122,6 +1138,64 @@ class InsightsAIAgentFeatures extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\InsightsAIAgentCustomProvider::class);
         $this->custom_provider = $var;
+
+        return $this;
+    }
+
+    /**
+     * all internal usage fields (host may not set)
+     *
+     * Generated from protobuf field <code>bool is_enabled = 32 [(.buf.validate.field) = {</code>
+     * @return bool
+     */
+    public function getIsEnabled()
+    {
+        return $this->is_enabled;
+    }
+
+    /**
+     * all internal usage fields (host may not set)
+     *
+     * Generated from protobuf field <code>bool is_enabled = 32 [(.buf.validate.field) = {</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setIsEnabled($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->is_enabled = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string active_session_id = 33 [(.buf.validate.field) = {</code>
+     * @return string
+     */
+    public function getActiveSessionId()
+    {
+        return isset($this->active_session_id) ? $this->active_session_id : '';
+    }
+
+    public function hasActiveSessionId()
+    {
+        return isset($this->active_session_id);
+    }
+
+    public function clearActiveSessionId()
+    {
+        unset($this->active_session_id);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string active_session_id = 33 [(.buf.validate.field) = {</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setActiveSessionId($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->active_session_id = $var;
 
         return $this;
     }

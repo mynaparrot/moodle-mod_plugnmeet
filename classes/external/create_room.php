@@ -339,6 +339,7 @@ class create_room extends external_api {
         // AI driven rooms always run with insights and breakout rooms enabled.
         $roommetadata['room_features'] = (array)($roommetadata['room_features'] ?? []);
         $roommetadata['room_features']['auto_gen_user_id'] = false;
+        $roommetadata['room_features']['end_to_end_encryption_features']['is_enabled'] = false;
         $roommetadata['room_features']['end_to_end_encryption_features']['enabled_self_insert_encryption_key'] = false;
         $roommetadata['room_features']['breakout_room_features']['is_allow'] = true;
         $roommetadata['insights_features'] = (array)($roommetadata['insights_features'] ?? []);
@@ -409,13 +410,76 @@ class create_room extends external_api {
         $rate = (float)($ai['speaking_rate'] ?? 1.0);
         $ai['speaking_rate'] = max(0.5, min(2.0, $rate ?: 1.0));
 
-        $secondslimit = max(60, min(7200, (int)($config->ai_max_session_seconds_limit ?? 3600)));
-        $defaultseconds = max(60, min($secondslimit, (int)($config->ai_default_max_session_seconds ?? 1800)));
-        $ai['max_session_seconds'] = max(60, min($secondslimit, (int)($ai['max_session_seconds'] ?? $defaultseconds)));
+        // One duration cap in minutes drives the session, the AI audio and the talking avatar.
+        $minuteslimit = min(120, max(1, (int)($config->ai_max_session_minutes_limit ?? 60)));
+        $defaultminutes = max(1, min($minuteslimit, (int)($config->ai_default_max_session_minutes ?? 30)));
+        if (isset($ai['max_session_minutes'])) {
+            $sessionminutes = (int)$ai['max_session_minutes'];
+        } else if (isset($ai['max_session_seconds'])) {
+            // Older activities only stored the cap in seconds.
+            $sessionminutes = (int)round(((int)$ai['max_session_seconds']) / 60);
+        } else {
+            $sessionminutes = $defaultminutes;
+        }
+        $sessionminutes = max(1, min($minuteslimit, $sessionminutes));
+        unset($ai['max_session_minutes']);
+        $ai['max_session_seconds'] = $sessionminutes * 60;
+        $ai['max_audio_minutes'] = $sessionminutes;
 
-        $audiolimit = max(0, min(240, (int)($config->ai_max_audio_minutes_limit ?? 120)));
-        $defaultaudio = max(0, min($audiolimit, (int)($config->ai_default_max_audio_minutes ?? 30)));
-        $ai['max_audio_minutes'] = max(0, min($audiolimit, (int)($ai['max_audio_minutes'] ?? $defaultaudio)));
+        // Talking avatar. The provider secrets are injected here and never stored in the room metadata.
+        if (!empty($config->ai_avatar_enabled_global) && !empty($ai['avatar']['is_enabled'])) {
+            $avatar = ['is_enabled' => true, 'max_avatar_minutes' => $sessionminutes];
+            $providers = ['beyond_presence', 'anam', 'simli'];
+
+            // Activities cannot choose a provider, otherwise the plugNmeet server default is used.
+            $avatarprovider = !empty($config->ai_avatar_custom_enabled)
+                ? (string)($config->ai_avatar_provider ?? '') : '';
+            if (in_array($avatarprovider, $providers, true)) {
+                $avatar['provider'] = $avatarprovider;
+            }
+
+            // The avatar/face ID always comes from the site BYOK settings.
+            if (!empty($config->ai_avatar_custom_enabled)) {
+                $avatarid = \core_text::substr(trim((string)($config->ai_avatar_id ?? '')), 0, 256);
+                if ($avatarid !== '') {
+                    $avatar['avatar_id'] = $avatarid;
+                }
+            }
+
+            if (!empty($config->ai_avatar_custom_enabled) && trim((string)($config->ai_avatar_api_key ?? '')) !== '') {
+                $avatar['api_key'] = trim((string)$config->ai_avatar_api_key);
+                foreach (['endpoint' => 'ai_avatar_endpoint', 'auth_header' => 'ai_avatar_auth_header'] as $key => $setting) {
+                    $value = trim((string)($config->$setting ?? ''));
+                    if ($value !== '') {
+                        $avatar[$key] = $value;
+                    }
+                }
+            }
+
+            $ai['avatar'] = $avatar;
+        } else {
+            unset($ai['avatar']);
+        }
+
+        // Activity the student has to complete, values are only kept for tools the agent may use.
+        $rules = (array)($ai['activity_rules'] ?? []);
+        $minwb = $ai['allow_whiteboard_write'] ? max(0, min(20, (int)($rules['min_whiteboard_drawings'] ?? 0))) : 0;
+        $minquizzes = $ai['allow_polls'] ? max(0, min(20, (int)($rules['min_quizzes'] ?? 0))) : 0;
+        $minnotepad = $ai['allow_notepad_write'] ? max(0, min(20, (int)($rules['min_notepad_entries'] ?? 0))) : 0;
+        $minexercises = max(0, min(20, (int)($rules['min_participant_exercises'] ?? 0)));
+        $milestones = self::normalize_list($rules['required_milestones'] ?? '', 16, 240);
+
+        if ($minwb > 0 || $minquizzes > 0 || $minnotepad > 0 || $minexercises > 0 || !empty($milestones)) {
+            $ai['activity_rules'] = [
+                'min_whiteboard_drawings' => $minwb,
+                'min_quizzes' => $minquizzes,
+                'min_notepad_entries' => $minnotepad,
+                'min_participant_exercises' => $minexercises,
+                'required_milestones' => $milestones,
+            ];
+        } else {
+            unset($ai['activity_rules']);
+        }
 
         // Bring your own key provider from the site settings.
         if (!empty($config->ai_custom_provider_enabled) && trim((string)($config->ai_custom_api_key ?? '')) !== '') {

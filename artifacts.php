@@ -52,7 +52,13 @@ if ($action === 'delete') {
     require_capability('mod/plugnmeet:downloadartifacts', $context);
     $controller->download_artifact($artifactid);
 } else if ($action === 'download_excel') {
-    require_capability('mod/plugnmeet:downloadanalyticsreport', $context);
+    // AI session summaries are part of the artifacts, analytics reports are not.
+    if (
+        !has_capability('mod/plugnmeet:downloadanalyticsreport', $context)
+        && !has_capability('mod/plugnmeet:downloadartifacts', $context)
+    ) {
+        throw new required_capability_exception($context, 'mod/plugnmeet:downloadartifacts', 'nopermissions', '');
+    }
     $controller->download_excel_report($artifactid);
 } else if ($action === 'download_json') {
     require_capability('mod/plugnmeet:downloadanalyticsreport', $context);

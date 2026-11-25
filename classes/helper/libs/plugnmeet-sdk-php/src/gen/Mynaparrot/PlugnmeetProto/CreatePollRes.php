@@ -25,6 +25,10 @@ class CreatePollRes extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string poll_id = 3;</code>
      */
     protected $poll_id = '';
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 4;</code>
+     */
+    protected $msg_key = null;
 
     /**
      * Constructor.
@@ -35,6 +39,7 @@ class CreatePollRes extends \Google\Protobuf\Internal\Message
      *     @type bool $status
      *     @type string $msg
      *     @type string $poll_id
+     *     @type string $msg_key
      * }
      */
     public function __construct($data = NULL) {
@@ -104,6 +109,38 @@ class CreatePollRes extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->poll_id = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 4;</code>
+     * @return string
+     */
+    public function getMsgKey()
+    {
+        return isset($this->msg_key) ? $this->msg_key : '';
+    }
+
+    public function hasMsgKey()
+    {
+        return isset($this->msg_key);
+    }
+
+    public function clearMsgKey()
+    {
+        unset($this->msg_key);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string msg_key = 4;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setMsgKey($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->msg_key = $var;
 
         return $this;
     }

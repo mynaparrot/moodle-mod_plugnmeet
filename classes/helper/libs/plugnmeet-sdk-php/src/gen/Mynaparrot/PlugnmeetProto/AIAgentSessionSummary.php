@@ -66,6 +66,12 @@ class AIAgentSessionSummary extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>map<string, .plugnmeet.RoomArtifactTokenUsage> usage = 11;</code>
      */
     private $usage;
+    /**
+     * avatar_usage records the realtime video avatar duration and cost when an avatar was used.
+     *
+     * Generated from protobuf field <code>optional .plugnmeet.RoomArtifactDurationUsage avatar_usage = 12;</code>
+     */
+    protected $avatar_usage = null;
 
     /**
      * Constructor.
@@ -88,6 +94,8 @@ class AIAgentSessionSummary extends \Google\Protobuf\Internal\Message
      *     @type string $narrative_summary
      *     @type array|\Google\Protobuf\Internal\MapField $usage
      *           usage is keyed by role: "session", "delegation" or "summary".
+     *     @type \Mynaparrot\PlugnmeetProto\RoomArtifactDurationUsage $avatar_usage
+     *           avatar_usage records the realtime video avatar duration and cost when an avatar was used.
      * }
      */
     public function __construct($data = NULL) {
@@ -407,6 +415,42 @@ class AIAgentSessionSummary extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkMapField($var, \Google\Protobuf\Internal\GPBType::STRING, \Google\Protobuf\Internal\GPBType::MESSAGE, \Mynaparrot\PlugnmeetProto\RoomArtifactTokenUsage::class);
         $this->usage = $arr;
+
+        return $this;
+    }
+
+    /**
+     * avatar_usage records the realtime video avatar duration and cost when an avatar was used.
+     *
+     * Generated from protobuf field <code>optional .plugnmeet.RoomArtifactDurationUsage avatar_usage = 12;</code>
+     * @return \Mynaparrot\PlugnmeetProto\RoomArtifactDurationUsage|null
+     */
+    public function getAvatarUsage()
+    {
+        return $this->avatar_usage;
+    }
+
+    public function hasAvatarUsage()
+    {
+        return isset($this->avatar_usage);
+    }
+
+    public function clearAvatarUsage()
+    {
+        unset($this->avatar_usage);
+    }
+
+    /**
+     * avatar_usage records the realtime video avatar duration and cost when an avatar was used.
+     *
+     * Generated from protobuf field <code>optional .plugnmeet.RoomArtifactDurationUsage avatar_usage = 12;</code>
+     * @param \Mynaparrot\PlugnmeetProto\RoomArtifactDurationUsage $var
+     * @return $this
+     */
+    public function setAvatarUsage($var)
+    {
+        GPBUtil::checkMessage($var, \Mynaparrot\PlugnmeetProto\RoomArtifactDurationUsage::class);
+        $this->avatar_usage = $var;
 
         return $this;
     }

@@ -18,6 +18,7 @@ namespace mod_plugnmeet\controller;
 
 use core\output\notification;
 use mod_plugnmeet\helper\plugNmeetConnect;
+use mod_plugnmeet\helper\AiSummaryHelper;
 use mod_plugnmeet\helper\AnalyticsHelper;
 use mod_plugnmeet\helper\RoomHelper;
 use Mynaparrot\PlugnmeetProto\RoomArtifactType;
@@ -355,6 +356,8 @@ class artifacts_controller {
         $masterylevel = (string)($evaluation['mastery_level'] ?? '');
 
         $context['is_ai_session_summary'] = true;
+        $context['can_download_ai_summary_excel'] = has_capability('mod/plugnmeet:downloadanalyticsreport', $this->context)
+            || has_capability('mod/plugnmeet:downloadartifacts', $this->context);
         $context['student_name'] = $username;
         $context['student_user_id'] = $userid;
         $context['agent_name'] = (string)($session['agent_display_name'] ?? '')
@@ -465,6 +468,17 @@ class artifacts_controller {
         $context['usage_total_completion_tokens'] = $usagecompletion;
         $context['usage_total_tokens'] = $usagetotal;
         $context['usage_total_estimated_cost'] = number_format($usagecost, 4);
+
+        $avatarusage = (array)($summary['avatar_usage'] ?? []);
+        $avatardurationsec = (int)($avatarusage['duration_sec'] ?? 0);
+        $avatarcost = isset($avatarusage['duration_sec_estimated_cost'])
+            ? (float)$avatarusage['duration_sec_estimated_cost'] : null;
+
+        $context['has_avatar_usage'] = $avatardurationsec > 0;
+        $context['avatar_duration_formatted'] = RoomHelper::format_duration($avatardurationsec);
+        $context['avatar_duration_sec'] = $avatardurationsec;
+        $context['has_avatar_cost'] = $avatarcost !== null;
+        $context['avatar_estimated_cost'] = number_format((float)$avatarcost, 4);
     }
 
     /**
@@ -674,9 +688,22 @@ class artifacts_controller {
      */
     public function download_excel_report($artifactid) {
         try {
-            $analyticshelper = new AnalyticsHelper($artifactid);
-            $filename = 'plugnmeet_analytics_' . $artifactid . '.xlsx';
-            $analyticshelper->generate_xlsx_file($filename);
+            $pnc = new plugNmeetConnect(get_config('mod_plugnmeet'));
+            $info = $this->get_artifact_info($pnc, $artifactid);
+
+            if ($info && $info->getType() === RoomArtifactType::AI_AGENT_SESSION_SUMMARY) {
+                $context = [];
+                $this->populate_ai_session_summary_context($context, $artifactid, $info);
+                $aisummaryhelper = new AiSummaryHelper($artifactid, null, $context);
+                if (!$aisummaryhelper->has_data()) {
+                    throw new \moodle_exception('ai_summary_unavailable', 'mod_plugnmeet');
+                }
+                $aisummaryhelper->generate_xlsx_file('plugnmeet_ai_summary_' . $artifactid . '.xlsx');
+            } else {
+                require_capability('mod/plugnmeet:downloadanalyticsreport', $this->context);
+                $analyticshelper = new AnalyticsHelper($artifactid);
+                $analyticshelper->generate_xlsx_file('plugnmeet_analytics_' . $artifactid . '.xlsx');
+            }
         } catch (\Exception $e) {
             redirect(
                 new moodle_url('/mod/plugnmeet/artifacts.php', [
@@ -721,6 +748,31 @@ class artifacts_controller {
     }
 
     /**
+     * Returns the info of the given artifact, using the cache when possible.
+     *
+     * @param plugNmeetConnect $pnc
+     * @param string $artifactid
+     * @return \Mynaparrot\PlugnmeetProto\ArtifactInfo|null
+     */
+    private function get_artifact_info(plugNmeetConnect $pnc, string $artifactid) {
+        $cache = cache::make('mod_plugnmeet', 'artifact_info');
+        $artifactinfores = $cache->get($artifactid);
+
+        if ($artifactinfores === false) {
+            $artifactinfores = $pnc->getArtifactInfo($artifactid);
+            if ($artifactinfores->getStatus()) {
+                $cache->set($artifactid, $artifactinfores);
+            }
+        }
+
+        if (!$artifactinfores || !$artifactinfores->getStatus()) {
+            return null;
+        }
+
+        return $artifactinfores->getArtifactInfo();
+    }
+
+    /**
      * Formats type name.
      *
      * @param int $type
@@ -734,6 +786,8 @@ class artifacts_controller {
                 return get_string('artifact_type_ai_agent_usage', 'mod_plugnmeet');
             case RoomArtifactType::AI_AGENT_TRANSCRIPT:
                 return get_string('artifact_type_ai_agent_transcript', 'mod_plugnmeet');
+            case RoomArtifactType::AI_AGENT_AVATAR_USAGE:
+                return get_string('artifact_type_ai_agent_avatar_usage', 'mod_plugnmeet');
         }
 
         $name = RoomArtifactType::name($type);

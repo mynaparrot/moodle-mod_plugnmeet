@@ -700,6 +700,13 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             'language_coach' => 'You are a patient language coach. Speak mostly in the target language, correct mistakes by repeating the sentence correctly and end every turn with a question that keeps the student talking.',
             'exam_prep' => 'You are an exam preparation coach. Run short question and answer drills on the lesson topic, explain every wrong answer and keep a running score the student can see.',
         ];
+        if (!empty($config->ai_avatar_enabled_global)) {
+            $avatarenabled = "{$prefix}[avatar][is_enabled]";
+            $mform->addElement('advcheckbox', $avatarenabled, get_string('ai_avatar_enabled', 'mod_plugnmeet'));
+            $mform->setDefault($avatarenabled, 0);
+            $mform->addHelpButton($avatarenabled, 'ai_avatar_enabled', 'mod_plugnmeet');
+        }
+
         $mform->addElement('select', 'meta[preset_template]', get_string('ai_preset_template', 'mod_plugnmeet'), [
             'custom' => get_string('ai_preset_custom', 'mod_plugnmeet'),
             'stem_whiteboard' => get_string('ai_preset_stem_whiteboard', 'mod_plugnmeet'),
@@ -744,6 +751,13 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             $mform->setDefault('meta[enable_mcp_servers]', 1);
             $mform->addHelpButton('meta[enable_mcp_servers]', 'ai_enable_mcp_servers', 'mod_plugnmeet');
         }
+
+        // One duration cap shared by the session, the AI audio and the talking avatar.
+        $maxminutes = "{$prefix}[max_session_minutes]";
+        $mform->addElement('text', $maxminutes, get_string('ai_max_session_minutes', 'mod_plugnmeet'));
+        $mform->setType($maxminutes, PARAM_INT);
+        $mform->setDefault($maxminutes, $this->get_default_session_minutes($config));
+        $mform->addHelpButton($maxminutes, 'ai_max_session_minutes', 'mod_plugnmeet');
 
         // Advanced settings.
         $mform->addElement('textarea', "{$prefix}[allowed_subtopics]", get_string('ai_allowed_subtopics', 'mod_plugnmeet'), ['rows' => 3, 'cols' => 60]);
@@ -792,17 +806,54 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
             $mform->disabledIf("{$prefix}[allowed_knowledge_urls]", "{$prefix}[allow_web_fetch]", 'eq', 0);
         }
 
-        $mform->addElement('text', "{$prefix}[max_session_seconds]", get_string('ai_max_session_seconds', 'mod_plugnmeet'));
-        $mform->setType("{$prefix}[max_session_seconds]", PARAM_INT);
-        $mform->setDefault("{$prefix}[max_session_seconds]", (int)($config->ai_default_max_session_seconds ?? 1800));
-        $mform->setAdvanced("{$prefix}[max_session_seconds]");
+        // Advanced settings: the activity the student has to complete.
+        $mform->addElement(
+            'static',
+            'ai_activity_rules_heading',
+            get_string('ai_activity_rules_heading', 'mod_plugnmeet'),
+            html_writer::div(get_string('ai_activity_rules_heading_desc', 'mod_plugnmeet'), 'text-muted')
+        );
+        $mform->setAdvanced('ai_activity_rules_heading');
 
-        $mform->addElement('text', "{$prefix}[max_audio_minutes]", get_string('ai_max_audio_minutes', 'mod_plugnmeet'));
-        $mform->setType("{$prefix}[max_audio_minutes]", PARAM_INT);
-        $mform->setDefault("{$prefix}[max_audio_minutes]", (int)($config->ai_default_max_audio_minutes ?? 30));
-        $mform->setAdvanced("{$prefix}[max_audio_minutes]");
+        $rules = "{$prefix}[activity_rules]";
+        $quota = [
+            'min_whiteboard_drawings' => 'allow_whiteboard_write',
+            'min_quizzes' => 'allow_polls',
+            'min_notepad_entries' => 'allow_notepad_write',
+        ];
+        foreach ($quota as $rulefield => $toolfield) {
+            $elementname = "{$rules}[{$rulefield}]";
+            $mform->addElement('text', $elementname, get_string("ai_{$rulefield}", 'mod_plugnmeet'));
+            $mform->setType($elementname, PARAM_INT);
+            $mform->setDefault($elementname, 0);
+            $mform->setAdvanced($elementname);
+            $mform->addHelpButton($elementname, "ai_{$rulefield}", 'mod_plugnmeet');
+            $mform->disabledIf($elementname, "{$prefix}[{$toolfield}]", 'eq', 0);
+        }
+
+        $mform->addElement('text', "{$rules}[min_participant_exercises]", get_string('ai_min_participant_exercises', 'mod_plugnmeet'));
+        $mform->setType("{$rules}[min_participant_exercises]", PARAM_INT);
+        $mform->setDefault("{$rules}[min_participant_exercises]", 0);
+        $mform->setAdvanced("{$rules}[min_participant_exercises]");
+        $mform->addHelpButton("{$rules}[min_participant_exercises]", 'ai_min_participant_exercises', 'mod_plugnmeet');
+
+        $mform->addElement('textarea', "{$rules}[required_milestones]", get_string('ai_required_milestones', 'mod_plugnmeet'), ['rows' => 3, 'cols' => 60]);
+        $mform->setType("{$rules}[required_milestones]", PARAM_TEXT);
+        $mform->setAdvanced("{$rules}[required_milestones]");
+        $mform->addHelpButton("{$rules}[required_milestones]", 'ai_required_milestones', 'mod_plugnmeet');
 
         $mform->addElement('html', RoomHelper::get_ai_sections_script_html());
+    }
+
+    /**
+     * Default AI session duration in minutes, clamped to the site wide limit.
+     *
+     * @param \stdClass $config
+     * @return int
+     */
+    private function get_default_session_minutes($config): int {
+        $limit = min(120, max(1, (int)($config->ai_max_session_minutes_limit ?? 60)));
+        return max(1, min($limit, (int)($config->ai_default_max_session_minutes ?? 30)));
     }
 
     /**
@@ -988,16 +1039,28 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
                 $errors["{$aipath}[topic_anchor_interval_turns]"] = get_string('error_ai_topic_anchor_interval', 'mod_plugnmeet');
             }
 
-            $maxsecondslimit = (int)($config->ai_max_session_seconds_limit ?? 3600);
-            $maxseconds = (int)($ai['max_session_seconds'] ?? 0);
-            if ($maxseconds < 60 || $maxseconds > $maxsecondslimit) {
-                $errors["{$aipath}[max_session_seconds]"] = get_string('error_ai_max_session_seconds', 'mod_plugnmeet', $maxsecondslimit);
+            $maxminuteslimit = min(120, max(1, (int)($config->ai_max_session_minutes_limit ?? 60)));
+            $maxminutes = (int)($ai['max_session_minutes'] ?? 0);
+            if ($maxminutes < 1 || $maxminutes > $maxminuteslimit) {
+                $errors["{$aipath}[max_session_minutes]"] = get_string('error_ai_max_session_minutes', 'mod_plugnmeet', $maxminuteslimit);
             }
 
-            $maxaudiolimit = (int)($config->ai_max_audio_minutes_limit ?? 120);
-            $maxaudio = (int)($ai['max_audio_minutes'] ?? 0);
-            if ($maxaudio < 0 || $maxaudio > $maxaudiolimit) {
-                $errors["{$aipath}[max_audio_minutes]"] = get_string('error_ai_max_audio_minutes', 'mod_plugnmeet', $maxaudiolimit);
+            $rules = (array)($ai['activity_rules'] ?? []);
+            foreach (['min_whiteboard_drawings', 'min_quizzes', 'min_notepad_entries', 'min_participant_exercises'] as $rulefield) {
+                $quotavalue = (int)($rules[$rulefield] ?? 0);
+                if ($quotavalue < 0 || $quotavalue > 20) {
+                    $errors["{$aipath}[activity_rules][{$rulefield}]"] = get_string('error_ai_activity_quota_range', 'mod_plugnmeet');
+                }
+            }
+
+            $milestones = preg_split('/[\r\n,]+/', (string)($rules['required_milestones'] ?? ''));
+            $milestones = array_filter(array_map('trim', $milestones), static fn($item) => $item !== '');
+            $milestoneerror = count($milestones) > 16;
+            foreach ($milestones as $milestone) {
+                $milestoneerror = $milestoneerror || core_text::strlen($milestone) > 240;
+            }
+            if ($milestoneerror) {
+                $errors["{$aipath}[activity_rules][required_milestones]"] = get_string('error_ai_required_milestones', 'mod_plugnmeet');
             }
 
             if ($isaitutor) {
@@ -1040,7 +1103,7 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
      */
     private function flatten_metadata($metadata, $prefix = 'meta') {
         $flat = [];
-        $textlists = ['allowed_subtopics', 'forbidden_topics', 'allowed_knowledge_urls'];
+        $textlists = ['allowed_subtopics', 'forbidden_topics', 'allowed_knowledge_urls', 'required_milestones'];
         foreach ($metadata as $key => $value) {
             $newkey = $prefix . '[' . $key . ']';
             if (is_array($value) && $value && array_is_list($value) && !array_filter($value, 'is_array')) {
@@ -1074,6 +1137,23 @@ class mod_plugnmeet_mod_form extends moodleform_mod {
                 if (($defaultvalues['meta[activity_mode]'] ?? '') === 'hybrid') {
                     $defaultvalues['meta[activity_mode]'] = 'conference';
                     $defaultvalues['meta[insights_features][ai_agent_features][is_allow]'] = 1;
+                }
+
+                // Older activities capped the AI session in seconds and the audio/avatar separately.
+                $aiprefix = 'meta[insights_features][ai_agent_features]';
+                if (!isset($defaultvalues["{$aiprefix}[max_session_minutes]"])) {
+                    $legacyseconds = (int)($defaultvalues["{$aiprefix}[max_session_seconds]"] ?? 0);
+                    if ($legacyseconds > 0) {
+                        $defaultvalues["{$aiprefix}[max_session_minutes]"] = max(1, (int)round($legacyseconds / 60));
+                    }
+                }
+                $legacykeys = [
+                    "{$aiprefix}[max_session_seconds]",
+                    "{$aiprefix}[max_audio_minutes]",
+                    "{$aiprefix}[avatar][max_avatar_minutes]",
+                ];
+                foreach ($legacykeys as $legacykey) {
+                    unset($defaultvalues[$legacykey]);
                 }
             }
         }

@@ -50,9 +50,13 @@ class NotifyEventRoom extends \Google\Protobuf\Internal\Message
      */
     protected $is_breakout_room = null;
     /**
-     * Generated from protobuf field <code>optional string breakout_room_id = 10;</code>
+     * Generated from protobuf field <code>optional string parent_room_id = 10;</code>
      */
-    protected $breakout_room_id = null;
+    protected $parent_room_id = null;
+    /**
+     * Generated from protobuf field <code>optional string parent_room_sid = 11;</code>
+     */
+    protected $parent_room_sid = null;
 
     /**
      * Constructor.
@@ -69,7 +73,8 @@ class NotifyEventRoom extends \Google\Protobuf\Internal\Message
      *     @type string $metadata
      *     @type int $num_participants
      *     @type bool $is_breakout_room
-     *     @type string $breakout_room_id
+     *     @type string $parent_room_id
+     *     @type string $parent_room_sid
      * }
      */
     public function __construct($data = NULL) {
@@ -356,33 +361,65 @@ class NotifyEventRoom extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional string breakout_room_id = 10;</code>
+     * Generated from protobuf field <code>optional string parent_room_id = 10;</code>
      * @return string
      */
-    public function getBreakoutRoomId()
+    public function getParentRoomId()
     {
-        return isset($this->breakout_room_id) ? $this->breakout_room_id : '';
+        return isset($this->parent_room_id) ? $this->parent_room_id : '';
     }
 
-    public function hasBreakoutRoomId()
+    public function hasParentRoomId()
     {
-        return isset($this->breakout_room_id);
+        return isset($this->parent_room_id);
     }
 
-    public function clearBreakoutRoomId()
+    public function clearParentRoomId()
     {
-        unset($this->breakout_room_id);
+        unset($this->parent_room_id);
     }
 
     /**
-     * Generated from protobuf field <code>optional string breakout_room_id = 10;</code>
+     * Generated from protobuf field <code>optional string parent_room_id = 10;</code>
      * @param string $var
      * @return $this
      */
-    public function setBreakoutRoomId($var)
+    public function setParentRoomId($var)
     {
         GPBUtil::checkString($var, True);
-        $this->breakout_room_id = $var;
+        $this->parent_room_id = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string parent_room_sid = 11;</code>
+     * @return string
+     */
+    public function getParentRoomSid()
+    {
+        return isset($this->parent_room_sid) ? $this->parent_room_sid : '';
+    }
+
+    public function hasParentRoomSid()
+    {
+        return isset($this->parent_room_sid);
+    }
+
+    public function clearParentRoomSid()
+    {
+        unset($this->parent_room_sid);
+    }
+
+    /**
+     * Generated from protobuf field <code>optional string parent_room_sid = 11;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setParentRoomSid($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->parent_room_sid = $var;
 
         return $this;
     }
